@@ -1,5 +1,5 @@
 //
-//  MPIRGeom.swift
+//  MPIRGeomtry.swift
 //  MapirServices-iOS
 //
 //  Created by Alireza Asadi on 11/3/1398 AP.
@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+class MPIRGeometry: NSObject, Codable {
+    
+    
+}

@@ -9,8 +9,6 @@
 // Include Foundation
 @_exported import Foundation
 
-let baseURL = URL(string: "https://map.ir")
-
 class MPIRServices {
     
     var shared = MPIRServices()
@@ -25,6 +23,10 @@ class MPIRServices {
     }
 }
 
+
+
 protocol MPIRRequest {
-//    func send(
+    var method: HTTPMethod { get set }
+    var parameters: Parameters? { get set }
+    func request(onCompletion: ((Error, Decodable) -> Void))
 }

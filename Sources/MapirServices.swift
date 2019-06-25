@@ -9,23 +9,23 @@
 // Include Foundation
 @_exported import Foundation
 
-class MPIRServices {
+public class MPSMapirServices {
     
-    var shared = MPIRServices()
+    static let shared = MPSMapirServices()
     
     let baseURL = URL(string: "https://map.ir/api/")
     
-    var token: String
+    private let token: String
     
     private init() {
-        let token = Bundle.main.object(forInfoDictionaryKey: "MAPIRServicesToken") as? String
+        let token = Bundle.main.object(forInfoDictionaryKey: "MAPIRServicesAccessToken") as? String
         self.token = token!
     }
 }
 
 
 
-protocol MPIRRequest {
+protocol MPSRequest {
     var method: HTTPMethod { get set }
     var parameters: Parameters? { get set }
     func request(onCompletion: ((Error, Decodable) -> Void))

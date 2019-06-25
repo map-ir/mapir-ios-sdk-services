@@ -33,6 +33,29 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+
+        let session = URLSession.shared
+
+        let lat = 35.7006311416626
+        let lng = 51.3361930847168
+
+        let url = URL(string: "https://map.ir/reverse?lat=\(lat)&lon=\(lng)")
+
+        let decoder = JSONDecoder()
+
+        var request = URLRequest(url: url!)
+        request.httpMethod = "get"
+        request.timeoutInterval = 20
+
+        session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                let obj = try! decoder.decode(MPSReverseGeocode.self, from: data)
+                print(obj.address!)
+                print(obj.coordinates)
+                print(obj.postalAddress!)
+            }
+        }.resume()
+
     }
     
     /// LoadView

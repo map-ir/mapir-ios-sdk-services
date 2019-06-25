@@ -20,11 +20,3 @@ protocol ParameterEncoding {
     /// - Throws: If encoding fails, throws a error.
     func encode(_ urlRequest: URLRequest, with parameters: Parameters) throws -> URLRequest
 }
-
-struct URLEncoding: ParameterEncoding {
-    func encode(_ urlRequest: URLRequest, with parameters: Parameters) throws -> URLRequest {
-        <#code#>
-    }
-    
-    
-}

@@ -16,9 +16,11 @@
 		3D9C432E2274629C000A6585 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9C432C2274629C000A6585 /* LaunchScreen.storyboard */; };
 		3D9C433422746323000A6585 /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; };
 		3D9C433522746323000A6585 /* MapirServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C04CF65F22A25E5D009761C4 /* MPIRReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPIRReverseGeocode.swift */; };
-		C04CF66122A2603D009761C4 /* MPIRGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66022A2603D009761C4 /* MPIRGeometry.swift */; };
-		C04CF66422A26A63009761C4 /* MPIRMultiPointGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66322A26A63009761C4 /* MPIRMultiPointGeometry.swift */; };
+		C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
+		C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E422B120EF0058BCA7 /* MPSPoint.swift */; };
+		C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
+		C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66022A2603D009761C4 /* MPSGeometry.swift */; };
+		C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66322A26A63009761C4 /* MPSPolygon.swift */; };
 		C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF68922A2A091009761C4 /* ParameterEncoding.swift */; };
 /* End PBXBuildFile section */
@@ -82,9 +84,11 @@
 		3D9C432A2274629C000A6585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D9C432D2274629C000A6585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D9C432F2274629C000A6585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C04CF65E22A25E5D009761C4 /* MPIRReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPIRReverseGeocode.swift; sourceTree = "<group>"; };
-		C04CF66022A2603D009761C4 /* MPIRGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPIRGeometry.swift; sourceTree = "<group>"; };
-		C04CF66322A26A63009761C4 /* MPIRMultiPointGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPIRMultiPointGeometry.swift; sourceTree = "<group>"; };
+		C02E70E022B11B6D0058BCA7 /* MPSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSError.swift; sourceTree = "<group>"; };
+		C02E70E422B120EF0058BCA7 /* MPSPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPoint.swift; sourceTree = "<group>"; };
+		C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSReverseGeocode.swift; sourceTree = "<group>"; };
+		C04CF66022A2603D009761C4 /* MPSGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSGeometry.swift; sourceTree = "<group>"; };
+		C04CF66322A26A63009761C4 /* MPSPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPolygon.swift; sourceTree = "<group>"; };
 		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C04CF68922A2A091009761C4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
@@ -165,9 +169,9 @@
 		3D9C42A0227458FA000A6585 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3D9C42A122745900000A6585 /* MapirServices.swift */,
 				C04CF66722A27D57009761C4 /* Core */,
 				C04CF65D22A25E1E009761C4 /* Models */,
-				3D9C42A122745900000A6585 /* MapirServices.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -204,9 +208,10 @@
 		C04CF65D22A25E1E009761C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C04CF65E22A25E5D009761C4 /* MPIRReverseGeocode.swift */,
-				C04CF66022A2603D009761C4 /* MPIRGeometry.swift */,
-				C04CF66322A26A63009761C4 /* MPIRMultiPointGeometry.swift */,
+				C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */,
+				C04CF66022A2603D009761C4 /* MPSGeometry.swift */,
+				C04CF66322A26A63009761C4 /* MPSPolygon.swift */,
+				C02E70E422B120EF0058BCA7 /* MPSPoint.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 			children = (
 				C04CF66822A27D6E009761C4 /* HTTPMethod.swift */,
 				C04CF68922A2A091009761C4 /* ParameterEncoding.swift */,
+				C02E70E022B11B6D0058BCA7 /* MPSError.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -241,7 +247,6 @@
 				3D9C428C22745894000A6585 /* Sources */,
 				3D9C428D22745894000A6585 /* Frameworks */,
 				3D9C428E22745894000A6585 /* Resources */,
-				3D9C42CE22745AEA000A6585 /* Run SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -357,38 +362,19 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		3D9C42CE22745AEA000A6585 /* Run SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run SwiftLint";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3D9C428C22745894000A6585 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */,
-				C04CF66422A26A63009761C4 /* MPIRMultiPointGeometry.swift in Sources */,
-				C04CF66122A2603D009761C4 /* MPIRGeometry.swift in Sources */,
+				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
+				C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
+				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
-				C04CF65F22A25E5D009761C4 /* MPIRReverseGeocode.swift in Sources */,
+				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
+				C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

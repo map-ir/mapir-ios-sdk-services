@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-public struct MPSCoordinate {
+public struct MPSLocationCoordinate {
     public var latitude: Double
     public var longitude: Double
 
@@ -24,7 +24,7 @@ public struct MPSCoordinate {
 
 }
 
-extension MPSCoordinate: Codable {
+extension MPSLocationCoordinate: Codable {
     enum GeometryKeys: String, CodingKey {
         case coordinates
     }

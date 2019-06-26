@@ -23,6 +23,7 @@
 		C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66322A26A63009761C4 /* MPSPolygon.swift */; };
 		C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF68922A2A091009761C4 /* ParameterEncoding.swift */; };
+		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C04CF68922A2A091009761C4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocationCoordinate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				3D9C42A122745900000A6585 /* MapirServices.swift */,
 				C04CF66722A27D57009761C4 /* Core */,
 				C04CF65D22A25E1E009761C4 /* Models */,
+				C086ACF522C34A45004256EA /* Extensions */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				C04CF66022A2603D009761C4 /* MPSGeometry.swift */,
 				C04CF66322A26A63009761C4 /* MPSPolygon.swift */,
 				C02E70E422B120EF0058BCA7 /* MPSPoint.swift */,
+				C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -224,6 +228,13 @@
 				C02E70E022B11B6D0058BCA7 /* MPSError.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		C086ACF522C34A45004256EA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +385,7 @@
 				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
+				C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */,
 				C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

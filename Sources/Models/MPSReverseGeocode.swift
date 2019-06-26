@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 public struct MPSReverseGeocode {
     
@@ -27,8 +28,8 @@ public struct MPSReverseGeocode {
     public var primary: String?
     public var plaque: String?
     public var postalCode: String?
-    public var geometry: MPSPointGeometry?
-    public var coordinates: [String]?
+    private var geometry: MPSPointGeometry?
+    public var coordinates: MPSLocationCoordinate?
     
     enum CodingKeys: String, CodingKey {
         case address

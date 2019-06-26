@@ -1,5 +1,5 @@
 //
-//  MPSFastReverse.swift
+//  MPSFastReverseGeocode.swift
 //  MapirServices-iOS
 //
 //  Created by Alireza Asadi on 5/4/1398 AP.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public struct MPSFastReverse {
+public struct MPSFastReverseGeocode {
     
 }

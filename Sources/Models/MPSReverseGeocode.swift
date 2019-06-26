@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 public struct MPSReverseGeocode {
     
@@ -27,8 +28,8 @@ public struct MPSReverseGeocode {
     public var primary: String?
     public var plaque: String?
     public var postalCode: String?
-    public var geometry: MPSPointGeometry?
-    public var coordinates: [String]?
+    private var geometry: MPSPointGeometry?
+    public var coordinates: MPSLocationCoordinate?
     
     enum CodingKeys: String, CodingKey {
         case address
@@ -78,6 +79,6 @@ extension MPSReverseGeocode: Codable {
         postalCode = try value.decode(String.self, forKey: .postalCode)
 
         let geom = try value.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
-        coordinates = try geom.decode([String].self, forKey: .coordinates)
+        coordinates = try geom.decode(MPSLocationCoordinate.self, forKey: .coordinates)
     }
 }

@@ -49,10 +49,7 @@ class ViewController: UIViewController {
 
         session.dataTask(with: request) { (data, response, error) in
             if let data = data {
-                let obj = try! decoder.decode(MPSReverseGeocode.self, from: data)
-                print(obj.address!)
-                print(obj.coordinates)
-                print(obj.postalAddress!)
+                let _ = try! decoder.decode(MPSReverseGeocode.self, from: data)
             }
         }.resume()
 

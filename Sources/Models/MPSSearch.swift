@@ -9,5 +9,15 @@
 import Foundation
 
 public struct MPSSearch {
+    var allResultsCount: Int
+    var results: [MPSSearchResult]
 
+    // TODO: add filtering commands.
+}
+
+extension MPSSearch: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case allResultsCount = "odata.count"
+        case results = "values"
+    }
 }

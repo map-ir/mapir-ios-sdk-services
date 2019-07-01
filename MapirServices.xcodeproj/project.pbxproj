@@ -16,6 +16,9 @@
 		3D9C432E2274629C000A6585 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9C432C2274629C000A6585 /* LaunchScreen.storyboard */; };
 		3D9C433422746323000A6585 /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; };
 		3D9C433522746323000A6585 /* MapirServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */; };
+		C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6622CA1CE700BA403F /* MPSStep.swift */; };
+		C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* MPSLeg.swift */; };
 		C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
 		C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E422B120EF0058BCA7 /* MPSPoint.swift */; };
 		C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
@@ -94,6 +97,9 @@
 		3D9C432A2274629C000A6585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D9C432D2274629C000A6585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D9C432F2274629C000A6585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSWaypoint.swift; sourceTree = "<group>"; };
+		C02DCF6622CA1CE700BA403F /* MPSStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStep.swift; sourceTree = "<group>"; };
+		C02DCF6822CA1DC300BA403F /* MPSLeg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLeg.swift; sourceTree = "<group>"; };
 		C02E70E022B11B6D0058BCA7 /* MPSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSError.swift; sourceTree = "<group>"; };
 		C02E70E422B120EF0058BCA7 /* MPSPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPoint.swift; sourceTree = "<group>"; };
 		C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSReverseGeocode.swift; sourceTree = "<group>"; };
@@ -243,6 +249,9 @@
 				C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */,
 				C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */,
 				C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */,
+				C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */,
+				C02DCF6822CA1DC300BA403F /* MPSLeg.swift */,
+				C02DCF6622CA1CE700BA403F /* MPSStep.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -415,11 +424,14 @@
 				C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */,
 				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
 				C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */,
+				C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */,
 				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
+				C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */,
 				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
 				C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */,
 				C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */,
+				C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */,
 				C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */,
 				C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */,
 				C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */,

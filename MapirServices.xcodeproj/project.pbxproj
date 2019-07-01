@@ -19,6 +19,8 @@
 		C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */; };
 		C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6622CA1CE700BA403F /* MPSStep.swift */; };
 		C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* MPSLeg.swift */; };
+		C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* MPSManeuver.swift */; };
+		C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */; };
 		C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
 		C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E422B120EF0058BCA7 /* MPSPoint.swift */; };
 		C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
@@ -100,6 +102,8 @@
 		C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSWaypoint.swift; sourceTree = "<group>"; };
 		C02DCF6622CA1CE700BA403F /* MPSStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStep.swift; sourceTree = "<group>"; };
 		C02DCF6822CA1DC300BA403F /* MPSLeg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLeg.swift; sourceTree = "<group>"; };
+		C02DCF6A22CA213000BA403F /* MPSManeuver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSManeuver.swift; sourceTree = "<group>"; };
+		C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSIntersection.swift; sourceTree = "<group>"; };
 		C02E70E022B11B6D0058BCA7 /* MPSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSError.swift; sourceTree = "<group>"; };
 		C02E70E422B120EF0058BCA7 /* MPSPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPoint.swift; sourceTree = "<group>"; };
 		C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSReverseGeocode.swift; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 				C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */,
 				C02DCF6822CA1DC300BA403F /* MPSLeg.swift */,
 				C02DCF6622CA1CE700BA403F /* MPSStep.swift */,
+				C02DCF6A22CA213000BA403F /* MPSManeuver.swift */,
+				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -415,10 +421,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */,
+				C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */,
 				C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */,
 				C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */,
 				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
 				C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */,
+				C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */,
 				C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
 				C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */,

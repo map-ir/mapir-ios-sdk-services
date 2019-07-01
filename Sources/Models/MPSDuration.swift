@@ -9,7 +9,7 @@
 import Foundation
 
 public struct MPSDuration {
-    var origin: MPSLocation
-    var destination: MPSLocation
-    var duration: Double
+    public var origin: MPSLocation
+    public var destination: MPSLocation
+    public var duration: Double
 }

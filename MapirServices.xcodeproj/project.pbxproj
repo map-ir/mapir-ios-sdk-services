@@ -25,6 +25,10 @@
 		C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF68922A2A091009761C4 /* ParameterEncoding.swift */; };
 		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
 		C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
+		C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
+		C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
+		C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
+		C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +100,10 @@
 		C04CF68922A2A091009761C4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocationCoordinate.swift; sourceTree = "<group>"; };
 		C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSFastReverseGeocode.swift; sourceTree = "<group>"; };
+		C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistance.swift; sourceTree = "<group>"; };
+		C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDuration.swift; sourceTree = "<group>"; };
+		C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistanceMatrix.swift; sourceTree = "<group>"; };
+		C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +227,10 @@
 				C04CF66322A26A63009761C4 /* MPSPolygon.swift */,
 				C02E70E422B120EF0058BCA7 /* MPSPoint.swift */,
 				C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */,
+				C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */,
+				C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */,
+				C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */,
+				C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -382,14 +394,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */,
+				C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */,
 				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
 				C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
 				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
+				C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */,
 				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
 				C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */,
+				C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */,
+				C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */,
 				C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

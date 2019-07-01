@@ -13,6 +13,11 @@ public struct MPSLocationCoordinate {
     public var latitude: Double
     public var longitude: Double
 
+    public init(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+
     public init(from clLocationCoordainte2D: CLLocationCoordinate2D) {
         self.latitude = clLocationCoordainte2D.latitude
         self.longitude = clLocationCoordainte2D.longitude

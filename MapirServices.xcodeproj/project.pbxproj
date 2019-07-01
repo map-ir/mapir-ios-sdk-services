@@ -29,6 +29,8 @@
 		C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
 		C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
 		C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
+		C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */; };
+		C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,8 @@
 		C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDuration.swift; sourceTree = "<group>"; };
 		C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistanceMatrix.swift; sourceTree = "<group>"; };
 		C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocation.swift; sourceTree = "<group>"; };
+		C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearch.swift; sourceTree = "<group>"; };
+		C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearchResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +235,8 @@
 				C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */,
 				C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */,
 				C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */,
+				C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */,
+				C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -398,12 +404,14 @@
 				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
 				C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
+				C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */,
 				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
 				C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */,
 				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
 				C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */,
+				C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */,
 				C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */,
 				C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */,
 				C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */,

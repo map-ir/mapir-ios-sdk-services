@@ -31,6 +31,8 @@
 		C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
 		C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */; };
 		C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
+		C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */; };
+		C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,8 @@
 		C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocation.swift; sourceTree = "<group>"; };
 		C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearch.swift; sourceTree = "<group>"; };
 		C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearchResult.swift; sourceTree = "<group>"; };
+		C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearchResult.swift; sourceTree = "<group>"; };
+		C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +241,8 @@
 				C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */,
 				C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */,
 				C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */,
+				C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */,
+				C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -401,7 +407,9 @@
 			files = (
 				C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */,
 				C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */,
+				C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */,
 				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
+				C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */,
 				C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
 				C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */,

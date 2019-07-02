@@ -18,3 +18,21 @@ public struct MPSWaypoint {
     /// `MPSLocationCoordinate` of the snapped coordinate.
     public var coordinates: MPSLocationCoordinate
 }
+
+extension MPSWaypoint: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case hint
+        case name
+        case coordinates
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        hint = try container.decode(String.self, forKey: .hint)
+        name = try container.decode(String.self, forKey: .name)
+
+        let coords = try container.decode([Double].self, forKey: .coordinates)
+        coordinates = MPSLocationCoordinate(latitude: coords[1], longitude: coords[0])
+    }
+}

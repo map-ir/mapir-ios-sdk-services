@@ -24,3 +24,23 @@ public struct MPSLeg {
     /// /// weight of the travel leg.
     public var weight: Double
 }
+
+extension MPSLeg: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case steps
+        case distance
+        case duration
+        case summary
+        case weight
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        distance = try container.decode(Double.self, forKey: .distance)
+        duration = try container.decode(Double.self, forKey: .duration)
+        summary = try container.decode(String.self, forKey: .summary)
+        weight = try container.decode(Double.self, forKey: .weight)
+        steps = try container.decode([MPSStep].self, forKey: .steps)
+    }
+}

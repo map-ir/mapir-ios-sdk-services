@@ -43,6 +43,9 @@ public struct MPSStep {
     /// A string signifying the mode of transportation.
     public var mode: String
 
+    /// The exit numbers or names of the way. Will be undefined if there are no exit numbers or names.
+    public var exits: [String]?
+
     /// A `MPSManeuver` object representing the maneuver.
     public var maneuver: MPSManeuver
 
@@ -52,6 +55,52 @@ public struct MPSStep {
     /// The legal driving side at the location for this step. Either `left` or `right`.
     public var drivingSide: MPSDrivingSide
 
+}
+
+extension MPSStep: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case distance
+        case duration
+        case intersections
+        case geometry
+        case name
+        case ref
+        case pronounciation
+        case destination
+        case exits
+        case rotaryName = "rotary_name"
+        case rotaryPronounciation = "rotary_pronounciation"
+        case mode
+        case maneuver
+        case weight
+        case drivingSide = "driving_side"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        distance = try container.decode(Double.self, forKey: .distance)
+        duration = try container.decode(Double.self, forKey: .duration)
+        intersections = try container.decode([MPSIntersection].self, forKey: .intersections)
+
+        // TODO: different geometries.
+        // geometry =
+
+        name = try container.decode(String.self, forKey: .name)
+        ref = try container.decode(String.self, forKey: .ref)
+        pronunciation = try container.decode(String.self, forKey: .pronounciation)
+
+        // WTF is the type?
+        destinations = try container.decode(String.self, forKey: .destination)
+        exits = try container.decode([String].self, forKey: .exits)
+        rotaryName = try container.decode(String.self, forKey: .rotaryName)
+        rotaryPronunciation = try container.decode(String.self, forKey: .rotaryPronounciation)
+        mode = try container.decode(String.self, forKey: .mode)
+        maneuver = try container.decode(MPSManeuver.self, forKey: .maneuver)
+        wieght = try container.decode(Double.self, forKey: .weight)
+        drivingSide = MPSDrivingSide.init(rawValue: try container.decode(String.self, forKey: .drivingSide)) ?? .right
+
+    }
 }
 
 public enum MPSDrivingSide: String {

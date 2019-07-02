@@ -35,3 +35,29 @@ public struct MPSIntersection {
     /// - If no lane information is available for an intersection, the lanes property will not be present.
     public var lanes: [MPSLane]?
 }
+
+extension MPSIntersection {
+    enum CodingKeys: String, CodingKey {
+        case location
+        case bearings
+        case classes
+        case entry
+        case out
+        case `in`
+        case lanes
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        let coords = try container.decode([Double].self, forKey: .location)
+        location = MPSLocationCoordinate(from: coords)
+
+        bearings = try container.decode([Int].self, forKey: .bearings)
+        classes = try container.decode([String].self, forKey: .classes)
+        entry = try container.decode([Bool].self, forKey: .entry)
+        self.in = try container.decode(Int.self, forKey: .in)
+        out = try container.decode(Int.self, forKey: .out)
+        lanes = try container.decode([MPSLane].self, forKey: .lanes)
+    }
+}

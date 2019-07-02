@@ -28,3 +28,26 @@ public struct MPSRoute {
     /// The legs between the given waypoints, an array of RouteLeg objects.
     public var legs: [MPSLeg]
 }
+
+extension MPSRoute: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case distance
+        case duration
+        case geometry
+        case weight
+        case weightName = "weight_name"
+        case legs
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        distance = try container.decode(Double.self, forKey: .distance)
+        duration = try container.decode(Double.self, forKey: .duration)
+        // same geometry problem
+        // geometry = try container.decoder(XXXX.self, forKey: .geometry)
+        weight = try container.decode(Double.self, forKey: .weight)
+        weightName = try container.decode(String.self, forKey: .weightName)
+        legs = try container.decode([MPSLeg].self, forKey: .legs)
+    }
+}

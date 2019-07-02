@@ -36,7 +36,7 @@ public struct MPSIntersection {
     public var lanes: [MPSLane]?
 }
 
-extension MPSIntersection {
+extension MPSIntersection: Decodable {
     enum CodingKeys: String, CodingKey {
         case location
         case bearings

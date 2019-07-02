@@ -33,6 +33,6 @@ extension MPSWaypoint: Decodable {
         name = try container.decode(String.self, forKey: .name)
 
         let coords = try container.decode([Double].self, forKey: .coordinates)
-        coordinates = MPSLocationCoordinate(latitude: coords[1], longitude: coords[0])
+        coordinates = MPSLocationCoordinate(from: coords)
     }
 }

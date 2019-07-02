@@ -98,12 +98,12 @@ extension MPSStep: Decodable {
         mode = try container.decode(String.self, forKey: .mode)
         maneuver = try container.decode(MPSManeuver.self, forKey: .maneuver)
         wieght = try container.decode(Double.self, forKey: .weight)
-        drivingSide = MPSDrivingSide.init(rawValue: try container.decode(String.self, forKey: .drivingSide)) ?? .right
+        drivingSide = try container.decode(MPSDrivingSide.self, forKey: .drivingSide)
 
     }
 }
 
-public enum MPSDrivingSide: String {
+public enum MPSDrivingSide: String, Codable {
 
     /// specifies that the legal driving side at the location `right`.
     case right

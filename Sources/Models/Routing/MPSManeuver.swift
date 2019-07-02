@@ -28,6 +28,31 @@ public struct MPSManeuver {
     public var exit: Int
 }
 
+extension MPSManeuver: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case location
+        case bearingBefore = "bearing_before"
+        case bearingAfter = "bearing_after"
+        case type
+        case modifier
+        case exit
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        let coords = try container.decode([Double].self, forKey: .location)
+        location = MPSLocationCoordinate(from: coords)
+
+        bearingAfter = try container.decode(Int.self, forKey: .bearingAfter)
+        bearingBefore = try container.decode(Int.self, forKey: .bearingBefore)
+        type = MPSManeuverType(rawValue: try container.decode(String.self, forKey: .type)) ?? .continue
+        modifier = MPSManeuverModifier(rawValue: try container.decode(String.self, forKey: .modifier))
+        exit = try container.decode(Int.self, forKey: .exit)
+
+    }
+}
+
 public enum MPSManeuverType: String {
     /// a basic turn into direction of the `modifier`
     case turn

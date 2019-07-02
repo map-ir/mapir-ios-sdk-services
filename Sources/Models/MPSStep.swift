@@ -28,6 +28,18 @@ public struct MPSStep {
     /// A reference number or code for the way. Optionally included, if ref data is available for the given way.
     public var ref: String?
 
+    /// A string containing an IPA phonetic transcription indicating how to pronounce the name in the name property.
+    public var pronunciation: String?
+
+    /// The destinations of the way. Will be undefined if there are no destinations.
+    public var destinations: String?
+
+    /// The name for the rotary. Optionally included, if the step is a rotary and a rotary name is available.
+    public var rotaryName: String?
+
+    /// The pronunciation hint of the rotary name. Optionally included, if the step is a rotary and a rotary pronunciation is available.
+    public var rotaryPronunciation: String?
+
     /// A string signifying the mode of transportation.
     public var mode: String
 

@@ -16,6 +16,9 @@ public struct MPSIntersection {
     /// A list of `bearing` values (e.g. [0,90,180,270]) that are available at the intersection. The `bearings` describe all available roads at the intersection.
     public var bearings: [Int]
 
+    /// An array of strings signifying the classes of the road exiting the intersection.
+    public var classes: [String]
+
     /// A list of entry flags, corresponding in a 1:1 relationship to the bearings.
     /// - A value of true indicates that the respective road could be entered on a valid route. false indicates that the turn onto the respective road would violate a restriction.
     public var entry: [Bool]

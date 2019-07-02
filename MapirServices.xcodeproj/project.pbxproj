@@ -257,13 +257,7 @@
 				C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */,
 				C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */,
 				C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */,
-				C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */,
-				C02DCF6822CA1DC300BA403F /* MPSLeg.swift */,
-				C02DCF6622CA1CE700BA403F /* MPSStep.swift */,
-				C02DCF6A22CA213000BA403F /* MPSManeuver.swift */,
-				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
-				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
-				C08DB44C22CB302600FAE64A /* MPSLane.swift */,
+				C08DB45022CB59FD00FAE64A /* Routing */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,6 +277,20 @@
 			children = (
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C08DB45022CB59FD00FAE64A /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */,
+				C02DCF6822CA1DC300BA403F /* MPSLeg.swift */,
+				C02DCF6622CA1CE700BA403F /* MPSStep.swift */,
+				C02DCF6A22CA213000BA403F /* MPSManeuver.swift */,
+				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
+				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
+				C08DB44C22CB302600FAE64A /* MPSLane.swift */,
+			);
+			path = Routing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

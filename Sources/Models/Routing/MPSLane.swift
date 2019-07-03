@@ -19,7 +19,22 @@ public struct MPSLane {
     public var valid: Bool
 }
 
-public enum MPSLaneIndication: String {
+extension MPSLane: Decodable {
+
+    enum CodingKeys: String, CodingKey {
+        case indications
+        case valid
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        valid = try container.decode(Bool.self, forKey: .valid)
+        indications = try container.decode([MPSLaneIndication].self, forKey: .indications)
+    }
+}
+
+public enum MPSLaneIndication: String, Codable {
 
     /// No dedicated indication is shown.
     case none

@@ -23,6 +23,11 @@ public struct MPSLocationCoordinate {
         self.longitude = clLocationCoordainte2D.longitude
     }
 
+    public init(from longLatArray: [Double]) {
+        self.latitude = longLatArray[1]
+        self.longitude = longLatArray[0]
+    }
+
     public var asCLLocatoinCoordinate2D: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }

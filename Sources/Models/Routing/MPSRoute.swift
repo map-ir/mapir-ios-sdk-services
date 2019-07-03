@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Polyline
 
 public struct MPSRoute {
 
@@ -17,7 +18,7 @@ public struct MPSRoute {
     public var duration: Double
 
     /// The whole `geometry` of the route value depending on overview parameter, format depending on the geometries parameter.
-    public var geometry: MPSMultipointGeometry
+    public var geometry: [MPSLocationCoordinate]!
 
     /// The calculated weight of the route.
     public var weight: Double
@@ -44,8 +45,16 @@ extension MPSRoute: Decodable {
 
         distance = try container.decode(Double.self, forKey: .distance)
         duration = try container.decode(Double.self, forKey: .duration)
-        // same geometry problem
-        // geometry = try container.decoder(XXXX.self, forKey: .geometry)
+
+        let polylineHash = try container.decode(String.self, forKey: .geometry)
+        let polyline = Polyline(encodedPolyline: polylineHash)
+        let decodedPolyline = polyline.coordinates
+        if let dp = decodedPolyline {
+            geometry = dp.asMPSLocationCoordintes
+        } else {
+            assertionFailure("Can't decode geometry from polyline hash.")
+            geometry = nil
+        }
         weight = try container.decode(Double.self, forKey: .weight)
         weightName = try container.decode(String.self, forKey: .weightName)
         legs = try container.decode([MPSLeg].self, forKey: .legs)

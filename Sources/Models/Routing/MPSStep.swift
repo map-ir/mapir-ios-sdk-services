@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Polyline
 
 public struct MPSStep {
 
@@ -20,7 +21,7 @@ public struct MPSStep {
     public var intersections: [MPSIntersection]
 
     /// The unsimplified geometry of the route segment, depending on the geometries parameter.
-    public var geometry: String
+    public var geometry: [MPSLocationCoordinate]!
 
     /// The name of the way along which travel proceeds.
     public var name: String
@@ -83,9 +84,15 @@ extension MPSStep: Decodable {
         duration = try container.decode(Double.self, forKey: .duration)
         intersections = try container.decode([MPSIntersection].self, forKey: .intersections)
 
-        // TODO: different geometries.
-        // geometry =
-
+        let polylineHash = try container.decode(String.self, forKey: .geometry)
+        let polyline = Polyline(encodedPolyline: polylineHash)
+        let decodedPolyline = polyline.coordinates
+        if let dp = decodedPolyline {
+            geometry = dp.asMPSLocationCoordintes
+        } else {
+            assertionFailure("Can't decode geometry from polyline hash.")
+            geometry = nil
+        }
         name = try container.decode(String.self, forKey: .name)
         ref = try container.decode(String.self, forKey: .ref)
         pronunciation = try container.decode(String.self, forKey: .pronounciation)
@@ -99,7 +106,6 @@ extension MPSStep: Decodable {
         maneuver = try container.decode(MPSManeuver.self, forKey: .maneuver)
         wieght = try container.decode(Double.self, forKey: .weight)
         drivingSide = try container.decode(MPSDrivingSide.self, forKey: .drivingSide)
-
     }
 }
 

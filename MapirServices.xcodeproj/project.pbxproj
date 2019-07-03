@@ -31,7 +31,7 @@
 		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
 		C08DB44D22CB302600FAE64A /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
 		C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
-		C08DB45622CB8B2400FAE64A /* Polyline in Frameworks */ = {isa = PBXBuildFile; productRef = C08DB45522CB8B2400FAE64A /* Polyline */; };
+		C08DB45622CB8B2400FAE64A /* Polyline in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = C08DB45522CB8B2400FAE64A /* Polyline */; };
 		C08DB45822CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */; };
 		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */; };
 		C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
@@ -378,6 +378,7 @@
 		3D9C428722745894000A6585 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Map;

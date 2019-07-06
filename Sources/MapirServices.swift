@@ -14,6 +14,7 @@ public class MPSMapirServices {
     private struct Endpoint {
         static let reverseGeocode = "/reverse"
         static let fastReverseGeocode = "/fast-reverse"
+        static let distanceMatrix = "/distancematrix"
 
     }
 
@@ -51,7 +52,7 @@ public class MPSMapirServices {
         if let request = request {
             let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error {
-                    completionHandler(.failure(error))
+                    DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return
                 }
                 if let urlResponse = urlResponse as? HTTPURLResponse {
@@ -61,20 +62,56 @@ public class MPSMapirServices {
                         if let data = data {
                             do {
                                 let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
-                                DispatchQueue.main.async {
-                                    <#code#>
-                                }
-                                completionHandler(.success(decodedData))
+                                DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                                 return
                             } catch let parseError {
-                                completionHandler(.failure(parseError))
+                                DispatchQueue.main.async { completionHandler(.failure(parseError)) }
                                 return
                             }
                         }
                     } else if statusCode == 400 {
-                        completionHandler(.failure(MPSError.RequestError.badRequest(code: 400)))
+                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
                     } else if statusCode == 404 {
-                        completionHandler(.failure(MPSError.RequestError.notFound))
+                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                    }
+                }
+            }
+
+            dataTask.resume()
+        }
+
+    }
+
+    public func getFastReverseGeocode(for point: MPSLocationCoordinate,
+                                      completionHandler: @escaping (Result<MPSFastReverseGeocode, Error>) -> Void) {
+
+        let query: String = "?lat=\(point.latitude)&lng=\(point.longitude)"
+        let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get)
+
+        if let request = request {
+            let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error {
+                    DispatchQueue.main.async { completionHandler(.failure(error)) }
+                    return
+                }
+                if let urlResponse = urlResponse as? HTTPURLResponse {
+                    let statusCode = urlResponse.statusCode
+
+                    if statusCode == 200 {
+                        if let data = data {
+                            do {
+                                let decodedData = try self.decoder.decode(MPSFastReverseGeocode.self, from: data)
+                                DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                                return
+                            } catch let parseError {
+                                DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                                return
+                            }
+                        }
+                    } else if statusCode == 400 {
+                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                    } else if statusCode == 404 {
+                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
                     }
                 }
             }

@@ -121,6 +121,81 @@ public class MPSMapirServices {
 
     }
 
+    public func getDistanceMatrix(from origins: [MPSLocationCoordinate],
+                                  to destinations: [MPSLocationCoordinate],
+                                  options: MPSDistanceMatrixOptions = [],
+                                  completionHandler: @escaping (Result<MPSDistanceMatrix, Error>) -> Void) {
+
+        var query: String = "?"
+        query += "origins="
+        for origin in origins {
+            let uuid = UUID()
+            query += "\(uuid),\(origin.latitude),\(origin.longitude)|"
+        }
+        query.removeLast()
+        query += "&destinations="
+        for destination in destinations {
+            let uuid = UUID()
+            query += "\(uuid),\(destination.latitude),\(destination.longitude)|"
+        }
+        query.removeLast()
+        if options.contains(.sorted) {
+            query += "&sorted=true"
+        }
+        if !(options.contains(.distance) && options.contains(.duration)) {
+            if options.contains(.distance) {
+                query += "&$filter=type eq distance"
+            }
+            if options.contains(.duration) {
+                query += "&$filter=type eq duration"
+            }
+        }
+
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        guard let request = essentialRequest(withEndpoint: Endpoint.distanceMatrix, query: urlEncodedQuery, httpMethod: HTTPMethod.get) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+                return
+            }
+
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                completionHandler(.failure(MPSError.InvalidResponse))
+                return
+            }
+
+            let statusCode = urlResponse.statusCode
+
+            switch statusCode {
+            case 200:
+                if let data = data {
+                    do {
+                        let decodedData = try self.decoder.decode(MPSDistanceMatrix.self, from: data)
+                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        return
+                    } catch let parseError {
+                        completionHandler(.failure(parseError))
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                return
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                return
+            default:
+                return
+            }
+        }
+    }
 }
 
 

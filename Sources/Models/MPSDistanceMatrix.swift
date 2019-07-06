@@ -91,3 +91,15 @@ extension MPSDistanceMatrix: Decodable {
     }
 }
 
+public struct MPSDistanceMatrixOptions: OptionSet {
+
+    public let rawValue: Int
+
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+
+    public static let distance = MPSDistanceMatrixOptions(rawValue: 1 << 0)
+    public static let duration = MPSDistanceMatrixOptions(rawValue: 1 << 1)
+    public static let sorted = MPSDistanceMatrixOptions(rawValue: 1 << 2)
+}

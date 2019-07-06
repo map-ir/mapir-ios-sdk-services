@@ -10,11 +10,11 @@ import Foundation
 
 public enum MPSError: Error {
     
-    enum ServiceError {
+    enum ServiceError: Error {
         case serviceUnavailabele
     }
     
-    enum RequestError {
+    enum RequestError: Error {
         case badRequest(code: Int)
         case notFound
     }

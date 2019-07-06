@@ -10,10 +10,10 @@ import Foundation
 
 
 /// HTTP Methods definitions.
-public enum HTTPMethod: String {
-    case delete  = "DELETE"
-    case get     = "GET"
-    case patch   = "PATCH"
-    case post    = "POST"
-    case put     = "PUT"
+public struct HTTPMethod {
+    public static let delete  = "DELETE"
+    public static let get     = "GET"
+    public static let patch   = "PATCH"
+    public static let post    = "POST"
+    public static let put     = "PUT"
 }

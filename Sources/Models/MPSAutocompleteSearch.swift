@@ -8,4 +8,4 @@
 
 import Foundation
 
-typealias MPSAutocompleteSearch = MPSSearchResult
+public typealias MPSAutocompleteSearch = MPSSearchResult

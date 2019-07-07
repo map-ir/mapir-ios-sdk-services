@@ -9,13 +9,18 @@
 import Foundation
 
 public enum MPSError: Error {
+
+    case InvalidResponse
     
-    enum ServiceError {
+    enum ServiceError: Error {
         case serviceUnavailabele
     }
     
-    enum RequestError {
+    enum RequestError: Error {
         case badRequest(code: Int)
         case notFound
+        case InvalidArgument
     }
+
+    case imageDecodingError
 }

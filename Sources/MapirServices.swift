@@ -252,6 +252,58 @@ public class MPSMapirServices {
             }
         }
     }
+
+    public func getAutocompleteSearchResult(for text: String,
+                                            around location: MPSLocationCoordinate,
+                                            selectionOptions: MPSSearchOptions = [],
+                                            filter: MPSSearchFilter? = nil,
+                                            completionHandler: @escaping (Result<MPSAutocompleteSearch, Error>) -> Void) {
+
+        guard var request = essentialRequest(withEndpoint: Endpoint.autocomleteSearch, query: nil, httpMethod: HTTPMethod.post) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        let autocompleteSearchBody = SearchInput(text: text, selectionOptions: selectionOptions, filter: filter, coordinates: location)
+        do {
+            let httpBody = try encoder.encode(autocompleteSearchBody)
+            request.httpBody = httpBody
+        } catch let encoderError {
+            completionHandler(.failure(encoderError))
+            return
+        }
+
+        session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
+
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.InvalidResponse)) }
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    do {
+                        let decodedData = try self.decoder.decode(MPSAutocompleteSearch.self, from: data)
+                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        return
+                    } catch let parseError {
+                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                        return
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                return
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                return
+            default:
+                return
+            }
+        }
+    }
 }
 
 

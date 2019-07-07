@@ -60,3 +60,20 @@ extension MPSRoute: Decodable {
         legs = try container.decode([MPSLeg].self, forKey: .legs)
     }
 }
+
+public enum MPSRouteType: String {
+    case drivingExcludeAirPollutionZone = "zojofard"
+    case drivingExcludeTrafficControlZone = "tarh"
+    case drivingNoExclusion = "route"
+    case onFoot = "foot"
+    case bicycle = "bicycle"
+}
+
+public struct MPSRouteOptions: OptionSet {
+    public let rawValue: Int
+
+    public init(rawValue: Int) { self.rawValue = rawValue }
+
+    public static let calculateAlternatives = MPSRouteOptions(rawValue: 1 << 0)
+    public static let overview = MPSRouteOptions(rawValue: 1 << 1)
+}

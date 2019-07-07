@@ -17,6 +17,9 @@ public class MPSMapirServices {
         static let distanceMatrix = "/distancematrix"
         static let search = "/search"
         static let autocomleteSearch = "/search/autocomplete"
+        static func route(forType type: MPSRouteType) -> String {
+            return "/\(type.rawValue)/v1/driving"
+        }
 
     }
 
@@ -290,6 +293,76 @@ public class MPSMapirServices {
                         return
                     } catch let parseError {
                         DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                        return
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                return
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                return
+            default:
+                return
+            }
+        }
+    }
+
+    public func getRoute(from origin: MPSLocationCoordinate,
+                         to destinations: [MPSLocationCoordinate],
+                         routeType: MPSRouteType,
+                         routeOptions: MPSRouteOptions = [],
+                         completionHandler: @escaping (Result<MPSRoute, Error>) -> Void) {
+
+        guard !destinations.isEmpty else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        var query = "/"
+        query += "\(origin.longitude),\(origin.latitude);"
+
+        for dest in destinations {
+            query += "\(dest.longitude),\(dest.latitude);"
+        }
+        query.removeLast()
+        query += "?steps=true"
+
+        if routeOptions.contains(.calculateAlternatives) {
+            query += "&alternatives=true"
+        }
+        if routeOptions.contains(.overview) {
+            query += "&overview=true"
+        }
+
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        guard var request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType), query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+            }
+
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.InvalidResponse)) }
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    do {
+                        let decodedData = try self.decoder.decode(MPSRoute.self, from: data)
+                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                    } catch let decoderError {
+                        DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
                         return
                     }
                 }

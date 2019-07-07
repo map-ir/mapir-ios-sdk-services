@@ -8,6 +8,7 @@
 
 // Include Foundation
 @_exported import Foundation
+import UIKit
 
 public class MPSMapirServices {
 
@@ -20,6 +21,7 @@ public class MPSMapirServices {
         static func route(forType type: MPSRouteType) -> String {
             return "/\(type.rawValue)/v1/driving"
         }
+        static let staticMap = "/static"
 
     }
 
@@ -340,7 +342,7 @@ public class MPSMapirServices {
             return
         }
 
-        guard var request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType), query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
+        guard let request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType), query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }
@@ -376,6 +378,67 @@ public class MPSMapirServices {
                 return
             }
         }
+    }
+
+    public func getStaticMap(center: MPSLocationCoordinate,
+                                    size: CGSize,
+                                    zoomLevel: Double,
+                                    markers: [MPSStaticMapMarker] = [],
+                                    completionHandler: @escaping (Result<UIImage, Error>) -> Void) {
+
+        guard !markers.isEmpty else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        var query = "width=\(size.width)&height=\(size.height)&zoom_level=\(zoomLevel)"
+
+        for marker in markers {
+            query += "&markers=color:\(marker.style.rawValue)|label:\(marker.label)|\(marker.coordinate.longitude),\(marker.coordinate.latitude)"
+        }
+
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        guard let request = essentialRequest(withEndpoint: Endpoint.staticMap, query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
+
+        session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+                return
+            }
+
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.InvalidResponse)) }
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    if let decodedImage = UIImage(data: data) {
+                        DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
+                        return
+                    } else {
+                        DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                return
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                return
+            default:
+                return
+            }
+        }
+
     }
 }
 

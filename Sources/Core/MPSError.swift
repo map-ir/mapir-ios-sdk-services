@@ -21,4 +21,6 @@ public enum MPSError: Error {
         case notFound
         case InvalidArgument
     }
+
+    case imageDecodingError
 }

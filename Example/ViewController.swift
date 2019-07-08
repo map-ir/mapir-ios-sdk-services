@@ -19,53 +19,66 @@ class ViewController: UIViewController {
     /// The Label
     lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "🚀\nMapirServices\nExample"
+        label.text = "🚀\nMapirServices\nExample\nYou may watch your debbugin console :)"
         label.font = .systemFont(ofSize: 25, weight: .semibold)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .center
         return label
     }()
+
+    // MARK: Instance of MapirServices
+    let mps = MPSMapirServices.shared
     
     // MARK: View-Lifecycle
     
     /// View did load
-    let session = URLSession.shared
-    let decoder = JSONDecoder()
-
-    var dismat: MPSDistanceMatrix? = nil
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url: URL! = URL(string: "https://map.ir/distancematrix?origins=a%2C35.743534%2C51.456549%7Cb%2C35.757213%2C51.450101%7Cc%2C35.761801%2C51.458255&destinations=d%2C35.772561%2C51.443138%7Cf%2C35.785861%2C51.448116%7Cg%2C35.799228%2C51.451163&sorted=false")
-        var request = URLRequest(url: url)
-        request.addValue("WsLdHK46I5Wfr5xgI0ynjjyiw9Fyhydu", forHTTPHeaderField: "x-api-key")
-        request.httpMethod = "get"
-        request.timeoutInterval = 10
+        self.view.backgroundColor = .white
 
-        session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print(error)
+        let coordinates = MPSLocationCoordinate(latitude: 35.732527, longitude: 51.422710)
+        let size = CGSize(width: 300, height: 250)
+        let marker = MPSStaticMapMarker(coordinate: coordinates, style: MPSStaticMapMarker.Style.red, label: "mapir")
+
+        mps.getStaticMap(center: coordinates,
+                         size: size,
+                         zoomLevel: 15,
+                         markers: [marker]) { (result) in
+
+                            switch result{
+                            case .failure(let error):
+                                debugPrint(error.localizedDescription)
+                            case .success(let image):
+                                let backgroundImage = image
+                                let uiImageView = UIImageView(image: backgroundImage)
+                                uiImageView.frame.origin = CGPoint(x: self.view.frame.midX - uiImageView.frame.width / 2,
+                                                                   y: self.view.frame.maxY - uiImageView.frame.height - 50)
+                                uiImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                                self.view.insertSubview(uiImageView, belowSubview: self.view)
+                            }
+        }
+
+        mps.getReverseGeocode(for: coordinates) { (result) in
+            switch result {
+            case .success(let reverse):
+                print("getReverseGeocode method for (\(coordinates.latitude), \(coordinates.longitude)) was successful.")
+                print("---> address is: \(reverse.address ?? "nil")")
+            case .failure(let error):
+                print("getReverseGeocode failed with error: \(error.localizedDescription)")
             }
-            if let data = data {
-                let dismat = try? self.decoder.decode(MPSDistanceMatrix.self, from: data)
-                if let dismat = dismat {
-                    for origin in dismat.origins {
-                        print("Origin: \(origin.name!)")
-                    }
-                    for dest in dismat.destinations {
-                        print("Dest: \(dest.name!)")
-                    }
-                    for distance in dismat.distances {
-                        print("Distance of \(distance.origin.name!) to \(distance.destination.name!) is: \(distance.distance)")
-                    }
-                    for duration in dismat.durations {
-                        print("Duration of \(duration.origin.name!) to \(duration.destination.name!) is: \(duration.duration)")
-                    }
-                }
-                self.dismat = dismat
+        }
+
+        mps.getFastReverseGeocode(for: coordinates) { (result) in
+            switch result {
+            case .success(let reverse):
+                print("getFastReverseGeocode method for (\(coordinates.latitude), \(coordinates.longitude)) was successful.")
+                print("---> address is: \(reverse.address ?? "nil")")
+            case .failure(let error):
+                print("getFastReverseGeocode failed with error: \(error.localizedDescription)")
             }
-        }.resume()
+        }
+
     }
 
     /// LoadView

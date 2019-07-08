@@ -25,11 +25,11 @@ public class MPSMapirServices {
 
     }
 
-    static let shared = MPSMapirServices()
+    public static let shared = MPSMapirServices()
     
     let baseURL: URL! = URL(string: "https://map.ir")
     
-    private let token: String
+    private var token: String?
 
     private let session: URLSession = .shared
 
@@ -38,7 +38,11 @@ public class MPSMapirServices {
     
     private init() {
         let token = Bundle.main.object(forInfoDictionaryKey: "MAPIRServicesAccessToken") as? String
-        self.token = token!
+        if let token = token {
+            self.token = token
+        } else {
+            debugPrint("API key not found in the info.plist file. consider adding it.")
+        }
     }
 
     private func essentialRequest(withEndpoint endpoint: String, query: String?, httpMethod: String) -> URLRequest? {
@@ -203,7 +207,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getSearchResult(for text: String,
@@ -255,7 +259,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getAutocompleteSearchResult(for text: String,
@@ -307,7 +311,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getRoute(from origin: MPSLocationCoordinate,
@@ -377,7 +381,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getStaticMap(center: MPSLocationCoordinate,
@@ -437,8 +441,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
-
+        }.resume()
     }
 }
 

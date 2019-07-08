@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,11 @@
 		3D9C432E2274629C000A6585 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9C432C2274629C000A6585 /* LaunchScreen.storyboard */; };
 		3D9C433422746323000A6585 /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; };
 		3D9C433522746323000A6585 /* MapirServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */; };
+		C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6622CA1CE700BA403F /* MPSStep.swift */; };
+		C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* MPSLeg.swift */; };
+		C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* MPSManeuver.swift */; };
+		C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */; };
 		C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
 		C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E422B120EF0058BCA7 /* MPSPoint.swift */; };
 		C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
@@ -23,6 +28,22 @@
 		C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66322A26A63009761C4 /* MPSPolygon.swift */; };
 		C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF68922A2A091009761C4 /* ParameterEncoding.swift */; };
+		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
+		C08DB44D22CB302600FAE64A /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
+		C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
+		C08DB45622CB8B2400FAE64A /* Polyline in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = C08DB45522CB8B2400FAE64A /* Polyline */; };
+		C08DB45822CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */; };
+		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */; };
+		C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
+		C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
+		C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
+		C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
+		C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
+		C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */; };
+		C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
+		C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */; };
+		C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */; };
+		C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +105,11 @@
 		3D9C432A2274629C000A6585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D9C432D2274629C000A6585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D9C432F2274629C000A6585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSWaypoint.swift; sourceTree = "<group>"; };
+		C02DCF6622CA1CE700BA403F /* MPSStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStep.swift; sourceTree = "<group>"; };
+		C02DCF6822CA1DC300BA403F /* MPSLeg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLeg.swift; sourceTree = "<group>"; };
+		C02DCF6A22CA213000BA403F /* MPSManeuver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSManeuver.swift; sourceTree = "<group>"; };
+		C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSIntersection.swift; sourceTree = "<group>"; };
 		C02E70E022B11B6D0058BCA7 /* MPSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSError.swift; sourceTree = "<group>"; };
 		C02E70E422B120EF0058BCA7 /* MPSPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPoint.swift; sourceTree = "<group>"; };
 		C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSReverseGeocode.swift; sourceTree = "<group>"; };
@@ -92,6 +118,21 @@
 		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C04CF68922A2A091009761C4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocationCoordinate.swift; sourceTree = "<group>"; };
+		C08DB44C22CB302600FAE64A /* MPSLane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLane.swift; sourceTree = "<group>"; };
+		C08DB44E22CB570800FAE64A /* MPSRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRoute.swift; sourceTree = "<group>"; };
+		C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2DArray+MPSLocationCoordinate.swift"; sourceTree = "<group>"; };
+		C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+MPSLocationCoordinate.swift"; sourceTree = "<group>"; };
+		C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSFastReverseGeocode.swift; sourceTree = "<group>"; };
+		C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistance.swift; sourceTree = "<group>"; };
+		C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDuration.swift; sourceTree = "<group>"; };
+		C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistanceMatrix.swift; sourceTree = "<group>"; };
+		C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocation.swift; sourceTree = "<group>"; };
+		C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearch.swift; sourceTree = "<group>"; };
+		C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearchResult.swift; sourceTree = "<group>"; };
+		C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearchResult.swift; sourceTree = "<group>"; };
+		C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearch.swift; sourceTree = "<group>"; };
+		C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStaticMapMarker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C08DB45622CB8B2400FAE64A /* Polyline in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +214,7 @@
 				3D9C42A122745900000A6585 /* MapirServices.swift */,
 				C04CF66722A27D57009761C4 /* Core */,
 				C04CF65D22A25E1E009761C4 /* Models */,
+				C086ACF522C34A45004256EA /* Extensions */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -209,9 +252,21 @@
 			isa = PBXGroup;
 			children = (
 				C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */,
+				C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */,
 				C04CF66022A2603D009761C4 /* MPSGeometry.swift */,
 				C04CF66322A26A63009761C4 /* MPSPolygon.swift */,
 				C02E70E422B120EF0058BCA7 /* MPSPoint.swift */,
+				C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */,
+				C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */,
+				C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */,
+				C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */,
+				C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */,
+				C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */,
+				C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */,
+				C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */,
+				C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */,
+				C08DB45022CB59FD00FAE64A /* Routing */,
+				C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -224,6 +279,29 @@
 				C02E70E022B11B6D0058BCA7 /* MPSError.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		C086ACF522C34A45004256EA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */,
+				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C08DB45022CB59FD00FAE64A /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */,
+				C02DCF6822CA1DC300BA403F /* MPSLeg.swift */,
+				C02DCF6622CA1CE700BA403F /* MPSStep.swift */,
+				C02DCF6A22CA213000BA403F /* MPSManeuver.swift */,
+				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
+				C08DB44C22CB302600FAE64A /* MPSLane.swift */,
+				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
+			);
+			path = Routing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +331,9 @@
 			dependencies = (
 			);
 			name = "MapirServices-iOS";
+			packageProductDependencies = (
+				C08DB45522CB8B2400FAE64A /* Polyline */,
+			);
 			productName = MapirServices;
 			productReference = 3D9C429022745894000A6585 /* MapirServices.framework */;
 			productType = "com.apple.product-type.framework";
@@ -300,6 +381,7 @@
 		3D9C428722745894000A6585 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Map;
@@ -325,6 +407,9 @@
 				Base,
 			);
 			mainGroup = 3D9C428622745894000A6585;
+			packageReferences = (
+				C08DB45422CB8B2400FAE64A /* XCRemoteSwiftPackageReference "Polyline" */,
+			);
 			productRefGroup = 3D9C429122745894000A6585 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -367,13 +452,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C08DB44D22CB302600FAE64A /* MPSLane.swift in Sources */,
 				C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */,
+				C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */,
+				C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */,
+				C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */,
 				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
+				C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */,
+				C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */,
+				C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */,
 				C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
+				C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */,
+				C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */,
 				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
+				C08DB45822CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift in Sources */,
+				C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */,
+				C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */,
+				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
+				C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */,
 				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
+				C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */,
+				C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */,
+				C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */,
+				C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */,
+				C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift in Sources */,
+				C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */,
 				C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -723,6 +828,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C08DB45422CB8B2400FAE64A /* XCRemoteSwiftPackageReference "Polyline" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:raphaelmor/Polyline.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C08DB45522CB8B2400FAE64A /* Polyline */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C08DB45422CB8B2400FAE64A /* XCRemoteSwiftPackageReference "Polyline" */;
+			productName = Polyline;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D9C428722745894000A6585 /* Project object */;
 }

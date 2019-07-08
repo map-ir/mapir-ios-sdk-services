@@ -68,7 +68,7 @@ extension MPSStep: Decodable {
         case ref
         case pronounciation
         case destination
-        case exits
+        case exits = "exit"
         case rotaryName = "rotary_name"
         case rotaryPronounciation = "rotary_pronounciation"
         case mode
@@ -94,14 +94,14 @@ extension MPSStep: Decodable {
             geometry = nil
         }
         name = try container.decode(String.self, forKey: .name)
-        ref = try container.decode(String.self, forKey: .ref)
-        pronunciation = try container.decode(String.self, forKey: .pronounciation)
+        ref = try? container.decode(String.self, forKey: .ref)
+        pronunciation = try? container.decode(String.self, forKey: .pronounciation)
 
         // WTF is the type?
-        destinations = try container.decode(String.self, forKey: .destination)
-        exits = try container.decode([String].self, forKey: .exits)
-        rotaryName = try container.decode(String.self, forKey: .rotaryName)
-        rotaryPronunciation = try container.decode(String.self, forKey: .rotaryPronounciation)
+        destinations = try? container.decode(String.self, forKey: .destination)
+        exits = try? container.decode([String].self, forKey: .exits)
+        rotaryName = try? container.decode(String.self, forKey: .rotaryName)
+        rotaryPronunciation = try? container.decode(String.self, forKey: .rotaryPronounciation)
         mode = try container.decode(String.self, forKey: .mode)
         maneuver = try container.decode(MPSManeuver.self, forKey: .maneuver)
         wieght = try container.decode(Double.self, forKey: .weight)

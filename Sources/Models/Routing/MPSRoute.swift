@@ -56,7 +56,7 @@ extension MPSRoute: Decodable {
             geometry = nil
         }
         weight = try container.decode(Double.self, forKey: .weight)
-        weightName = try container.decode(String.self, forKey: .weightName)
+        weightName = try? container.decode(String.self, forKey: .weightName)
         legs = try container.decode([MPSLeg].self, forKey: .legs)
     }
 }

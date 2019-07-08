@@ -19,7 +19,7 @@ public class MPSMapirServices {
         static let search = "/search"
         static let autocomleteSearch = "/search/autocomplete"
         static func route(forType type: MPSRouteType) -> String {
-            return "/\(type.rawValue)/v1/driving"
+            return "/routes/\(type.rawValue)/v1/driving"
         }
         static let staticMap = "/static"
 
@@ -333,7 +333,7 @@ public class MPSMapirServices {
                          to destinations: [MPSLocationCoordinate],
                          routeType: MPSRouteType,
                          routeOptions: MPSRouteOptions = [],
-                         completionHandler: @escaping (Result<MPSRoute, Error>) -> Void) {
+                         completionHandler: @escaping (Result<MPSRouteObject, Error>) -> Void) {
 
         guard !destinations.isEmpty else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
@@ -366,6 +366,8 @@ public class MPSMapirServices {
             return
         }
 
+        print("shit happens url: \(request.url?.absoluteString ?? "nil")")
+
         session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
@@ -380,17 +382,21 @@ public class MPSMapirServices {
             case 200:
                 if let data = data {
                     do {
-                        let decodedData = try self.decoder.decode(MPSRoute.self, from: data)
+//                        print("shit happens at data:\n---------\n\(data.base64EncodedString())")
+                        let decodedData = try self.decoder.decode(MPSRouteObject.self, from: data)
                         DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                     } catch let decoderError {
+                        print("shit happens at decoding")
                         DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
                         return
                     }
                 }
             case 400:
+                print("shit happens at 400")
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
                 return
             case 404:
+                print("shit happens at 404")
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
                 return
             default:

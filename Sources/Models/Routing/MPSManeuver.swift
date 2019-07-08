@@ -25,7 +25,7 @@ public struct MPSManeuver {
     public var modifier: MPSManeuverModifier?
 
     /// An optional `Integer` indicating number of the exit to take. The field exists for the following `type` field: `roundabout / rotary` and `else`
-    public var exit: Int
+    public var exit: Int?
 }
 
 extension MPSManeuver: Decodable {
@@ -46,14 +46,13 @@ extension MPSManeuver: Decodable {
 
         bearingAfter = try container.decode(Int.self, forKey: .bearingAfter)
         bearingBefore = try container.decode(Int.self, forKey: .bearingBefore)
-        type = MPSManeuverType(rawValue: try container.decode(String.self, forKey: .type)) ?? .continue
-        modifier = MPSManeuverModifier(rawValue: try container.decode(String.self, forKey: .modifier))
-        exit = try container.decode(Int.self, forKey: .exit)
-
+        type = try container.decode(MPSManeuverType.self, forKey: .type)
+        modifier = try? container.decode(MPSManeuverModifier.self, forKey: .modifier)
+        exit = try? container.decode(Int.self, forKey: .exit)
     }
 }
 
-public enum MPSManeuverType: String {
+public enum MPSManeuverType: String, Decodable {
     /// a basic turn into direction of the `modifier`
     case turn
 
@@ -109,7 +108,7 @@ public enum MPSManeuverType: String {
     case exitRotary = "exit rotary"
 }
 
-public enum MPSManeuverModifier: String {
+public enum MPSManeuverModifier: String, Decodable {
 
     /// a normal turn to the right
     case right

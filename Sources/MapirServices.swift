@@ -349,7 +349,7 @@ public class MPSMapirServices {
             return
         }
 
-        guard let request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType), query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
+        guard let request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType), query: urlEncodedQuery, httpMethod: HTTPMethod.get) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }
@@ -389,7 +389,7 @@ public class MPSMapirServices {
 
     public func getStaticMap(center: MPSLocationCoordinate,
                                     size: CGSize,
-                                    zoomLevel: Double,
+                                    zoomLevel: Int,
                                     markers: [MPSStaticMapMarker] = [],
                                     completionHandler: @escaping (Result<UIImage, Error>) -> Void) {
 
@@ -398,18 +398,18 @@ public class MPSMapirServices {
             return
         }
 
-        var query = "width=\(size.width)&height=\(size.height)&zoom_level=\(zoomLevel)"
+        var query = "?width=\(Int(size.width))&height=\(Int(size.height))&zoom_level=\(zoomLevel)"
 
         for marker in markers {
             query += "&markers=color:\(marker.style.rawValue)|label:\(marker.label)|\(marker.coordinate.longitude),\(marker.coordinate.latitude)"
         }
 
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
-            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            completionHandler(.failure(MPSError.urlEncodingError))
             return
         }
 
-        guard let request = essentialRequest(withEndpoint: Endpoint.staticMap, query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
+        guard let request = essentialRequest(withEndpoint: Endpoint.staticMap, query: urlEncodedQuery, httpMethod: HTTPMethod.get) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }

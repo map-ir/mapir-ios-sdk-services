@@ -50,6 +50,9 @@ public class MPSMapirServices {
         var request = URLRequest(url: url!)
         request.timeoutInterval = 10
         request.httpMethod = httpMethod
+        if let token = token {
+            request.addValue(token, forHTTPHeaderField: "x-api-key")
+        }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         return request

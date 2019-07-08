@@ -30,4 +30,10 @@ public struct MPSStaticMapMarker {
         case yellow
 
     }
+
+    public init(coordinate: MPSLocationCoordinate, style: MPSStaticMapMarker.Style, label: String) {
+        self.coordinate = coordinate
+        self.style = style
+        self.label = label
+    }
 }

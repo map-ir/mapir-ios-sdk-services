@@ -356,7 +356,7 @@ public class MPSMapirServices {
             query += "&overview=true"
         }
 
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }

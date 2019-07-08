@@ -22,12 +22,24 @@ public struct MPSLocation {
 extension MPSLocation: Decodable {
     enum CodingKeys: String, CodingKey {
         case name
-        case province
-        case county
-        case district
-        case ruralDistrict = "rural_district"
-        case suburb
-        case neighbourhood
+        case province = "province_name"
+        case county = "county_name"
+        case district = "district_title"
+        case ruralDistrict = "ruraldistrict_title"
+        case suburb = "suburb_title"
+        case neighbourhood = "neighbourhood_title"
         case coordinate
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        name = try container.decode(String.self, forKey: .name)
+        province = try container.decode(String.self, forKey: .province)
+        county = try container.decode(String.self, forKey: .county)
+        district = try container.decode(String.self, forKey: .district)
+        ruralDistrict = try container.decode(String.self, forKey: .ruralDistrict)
+        suburb = try container.decode(String.self, forKey: .suburb)
+        neighbourhood = try container.decode(String.self, forKey: .neighbourhood)
     }
 }

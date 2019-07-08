@@ -155,14 +155,16 @@ public class MPSMapirServices {
         query += "origins="
         for origin in origins {
             let uuid = UUID()
-            query += "\(uuid),\(origin.latitude),\(origin.longitude)|"
+            let uuidString = uuid.uuidString.replacingOccurrences(of: "-", with: "")
+            query += "\(uuidString),\(origin.latitude),\(origin.longitude)|"
         }
         query.removeLast()
         
         query += "&destinations="
         for destination in destinations {
             let uuid = UUID()
-            query += "\(uuid),\(destination.latitude),\(destination.longitude)|"
+            let uuidString = uuid.uuidString.replacingOccurrences(of: "-", with: "")
+            query += "\(uuidString),\(destination.latitude),\(destination.longitude)|"
         }
         query.removeLast()
         if options.contains(.sorted) {
@@ -177,7 +179,7 @@ public class MPSMapirServices {
             }
         }
 
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }

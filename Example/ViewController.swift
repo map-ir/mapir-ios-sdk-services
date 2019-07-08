@@ -79,6 +79,24 @@ class ViewController: UIViewController {
             }
         }
 
+        let pointA = MPSLocationCoordinate(latitude: 35.732482, longitude: 51.422601)
+        let pointB = MPSLocationCoordinate(latitude: 35.762794, longitude: 51.458094)
+        let pointC = MPSLocationCoordinate(latitude: 35.771551, longitude: 51.439705)
+        let pointD = MPSLocationCoordinate(latitude: 35.769149, longitude: 51.411467)
+
+        let origins = [pointA, pointB]
+        let destinations = [pointC, pointD]
+
+        mps.getDistanceMatrix(from: origins, to: destinations, options: .sorted) { (result) in
+            switch result {
+            case .failure(let error):
+                print("getDistanceMatrix failed with error: \(error.localizedDescription)")
+            case .success(let distanceMartix):
+                print("getDistanceMatrix method was successful.")
+                print("---> address is: \(distanceMartix)")
+            }
+        }
+
     }
 
     /// LoadView

@@ -13,6 +13,7 @@ public struct MPSReverseGeocode {
     
     public var address: String?
     public var postalAddress: String?
+    public var compactAddress: String?
     public var last: String?
     public var name: String?
     public var poi: String?
@@ -28,12 +29,12 @@ public struct MPSReverseGeocode {
     public var primary: String?
     public var plaque: String?
     public var postalCode: String?
-    private var geometry: MPSPointGeometry?
     public var coordinates: MPSLocationCoordinate?
     
     enum CodingKeys: String, CodingKey {
         case address
         case postalAddress = "postal_address"
+        case compactAddress = "address_compact"
         case last
         case name
         case poi
@@ -57,7 +58,7 @@ public struct MPSReverseGeocode {
     }
 }
 
-extension MPSReverseGeocode: Codable {
+extension MPSReverseGeocode: Decodable {
     public init(from decoder: Decoder) throws {
         let value = try decoder.container(keyedBy: CodingKeys.self)
         address = try value.decode(String.self, forKey: .address)
@@ -78,7 +79,8 @@ extension MPSReverseGeocode: Codable {
         plaque = try value.decode(String.self, forKey: .plaque)
         postalCode = try value.decode(String.self, forKey: .postalCode)
 
-        let geom = try value.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
-        coordinates = try geom.decode(MPSLocationCoordinate.self, forKey: .coordinates)
+        let geomContainer = try value.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
+        let arr = try geomContainer.decode([String].self, forKey: .coordinates)
+        coordinates = MPSLocationCoordinate(latitude: Double(arr[1])!, longitude: Double(arr[0])!)
     }
 }

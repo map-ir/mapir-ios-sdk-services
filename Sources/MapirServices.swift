@@ -61,40 +61,44 @@ public class MPSMapirServices {
     public func getReverseGeocode(for point: MPSLocationCoordinate,
                                   completionHandler: @escaping (Result<MPSReverseGeocode, Error>) -> Void) {
 
-        let query: String = "?lat=\(point.latitude)&lng=\(point.longitude)"
-        let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get)
-
-        if let request = request {
-            let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-                if let error = error {
-                    DispatchQueue.main.async { completionHandler(.failure(error)) }
-                    return
-                }
-                if let urlResponse = urlResponse as? HTTPURLResponse {
-                    let statusCode = urlResponse.statusCode
-
-                    if statusCode == 200 {
-                        if let data = data {
-                            do {
-                                let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
-                                DispatchQueue.main.async { completionHandler(.success(decodedData)) }
-                                return
-                            } catch let parseError {
-                                DispatchQueue.main.async { completionHandler(.failure(parseError)) }
-                                return
-                            }
-                        }
-                    } else if statusCode == 400 {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
-                    } else if statusCode == 404 {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
-                    }
-                }
-            }
-
-            dataTask.resume()
+        let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
+        guard let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
         }
 
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+                return
+            }
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                completionHandler(.failure(MPSError.InvalidResponse))
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    do {
+                        let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
+                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        return
+                    } catch let parseError {
+                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                        return
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+            default:
+                return
+            }
+        }
+
+        dataTask.resume()
     }
 
     public func getFastReverseGeocode(for point: MPSLocationCoordinate,

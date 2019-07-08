@@ -32,7 +32,7 @@ public struct MPSFastReverseGeocode {
     enum CodingKeys: String, CodingKey {
         case address
         case postalAddress = "postal_address"
-        case compactAddress = "compact_address"
+        case compactAddress = "address_compact"
         case last
         case name
         case poi
@@ -79,7 +79,8 @@ extension MPSFastReverseGeocode: Decodable {
         plaque = try container.decode(String.self, forKey: .plaque)
         postalCode = try container.decode(String.self, forKey: .postalCode)
 
-        let geom = try container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
-        coordinates = try geom.decode(MPSLocationCoordinate.self, forKey: .coordinates)
+        let geomContainer = try container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
+        let arr = try geomContainer.decode([String].self, forKey: .coordinates)
+        coordinates = MPSLocationCoordinate(latitude: Double(arr[1])!, longitude: Double(arr[0])!)
     }
 }

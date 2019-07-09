@@ -17,8 +17,9 @@ public struct MPSRoute {
     /// The estimated travel time, in `Double` number of seconds.
     public var duration: Double
 
-    /// The whole `geometry` of the route value depending on overview parameter, format depending on the geometries parameter.
-    public var geometry: [MPSLocationCoordinate]!
+    /// The whole `geometry` of the route value depending on overview parameter,
+    /// format depending on the geometries parameter.
+    public var geometry: [MPSLocationCoordinate]?
 
     /// The calculated weight of the route.
     public var weight: Double
@@ -49,8 +50,8 @@ extension MPSRoute: Decodable {
         let polylineHash = try container.decode(String.self, forKey: .geometry)
         let polyline = Polyline(encodedPolyline: polylineHash)
         let decodedPolyline = polyline.coordinates
-        if let dp = decodedPolyline {
-            geometry = dp.asMPSLocationCoordintes
+        if let decodedPolyline = decodedPolyline {
+            geometry = decodedPolyline.asMPSLocationCoordintes
         } else {
             assertionFailure("Can't decode geometry from polyline hash.")
             geometry = nil

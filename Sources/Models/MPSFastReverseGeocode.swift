@@ -81,6 +81,8 @@ extension MPSFastReverseGeocode: Decodable {
 
         let geomContainer = try container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
         let arr = try geomContainer.decode([String].self, forKey: .coordinates)
-        coordinates = MPSLocationCoordinate(latitude: Double(arr[1])!, longitude: Double(arr[0])!)
+        if let lat = Double(arr[1]), let long = Double(arr[0]) {
+            coordinates = MPSLocationCoordinate(latitude: lat, longitude: long)
+        }
     }
 }

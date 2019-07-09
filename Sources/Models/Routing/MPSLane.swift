@@ -12,7 +12,8 @@ import Foundation
 public struct MPSLane {
 
     /// a indication (e.g. marking on the road) specifying the turn lane.
-    /// - A road can have multiple indications (e.g. an arrow pointing straight and left). The indications are given in an array, each containing one of the following types.
+    /// - A road can have multiple indications (e.g. an arrow pointing straight and left).
+    ///     The indications are given in an array, each containing one of the following types.
     public var indications: [MPSLaneIndication]
 
     /// a boolean flag indicating whether the lane is a valid choice in the current maneuver.

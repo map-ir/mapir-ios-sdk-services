@@ -22,10 +22,8 @@
 		C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* MPSManeuver.swift */; };
 		C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */; };
 		C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
-		C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E422B120EF0058BCA7 /* MPSPoint.swift */; };
 		C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
 		C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66022A2603D009761C4 /* MPSGeometry.swift */; };
-		C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66322A26A63009761C4 /* MPSPolygon.swift */; };
 		C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF68922A2A091009761C4 /* ParameterEncoding.swift */; };
 		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
@@ -112,10 +110,8 @@
 		C02DCF6A22CA213000BA403F /* MPSManeuver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSManeuver.swift; sourceTree = "<group>"; };
 		C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSIntersection.swift; sourceTree = "<group>"; };
 		C02E70E022B11B6D0058BCA7 /* MPSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSError.swift; sourceTree = "<group>"; };
-		C02E70E422B120EF0058BCA7 /* MPSPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPoint.swift; sourceTree = "<group>"; };
 		C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSReverseGeocode.swift; sourceTree = "<group>"; };
 		C04CF66022A2603D009761C4 /* MPSGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSGeometry.swift; sourceTree = "<group>"; };
-		C04CF66322A26A63009761C4 /* MPSPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPolygon.swift; sourceTree = "<group>"; };
 		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C04CF68922A2A091009761C4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
@@ -256,8 +252,6 @@
 				C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */,
 				C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */,
 				C04CF66022A2603D009761C4 /* MPSGeometry.swift */,
-				C04CF66322A26A63009761C4 /* MPSPolygon.swift */,
-				C02E70E422B120EF0058BCA7 /* MPSPoint.swift */,
 				C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */,
 				C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */,
 				C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */,
@@ -328,6 +322,7 @@
 				3D9C428C22745894000A6585 /* Sources */,
 				3D9C428D22745894000A6585 /* Frameworks */,
 				3D9C428E22745894000A6585 /* Resources */,
+				C0868DFF22D456EE0050D163 /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -450,6 +445,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C0868DFF22D456EE0050D163 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3D9C428C22745894000A6585 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -460,7 +476,6 @@
 				C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */,
 				C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */,
 				C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */,
-				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
 				C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */,
 				C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */,
 				C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */,
@@ -476,7 +491,6 @@
 				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */,
-				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
 				C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */,
 				C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */,
 				C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */,

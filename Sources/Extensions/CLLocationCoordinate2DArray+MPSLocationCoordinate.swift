@@ -6,8 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 extension Array where Element == CLLocationCoordinate2D {
     var asMPSLocationCoordintes: [MPSLocationCoordinate] {

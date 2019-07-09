@@ -10,16 +10,16 @@ import Foundation
 
 public enum MPSError: Error {
 
-    case InvalidResponse
-    
+    case invalidResponse
+
     enum ServiceError: Error {
         case serviceUnavailabele
     }
-    
+
     enum RequestError: Error {
         case badRequest(code: Int)
         case notFound
-        case InvalidArgument
+        case invalidArgument
     }
 
     case urlEncodingError

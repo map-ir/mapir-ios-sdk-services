@@ -6,8 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 public struct MPSLocationCoordinate {
     public var latitude: Double

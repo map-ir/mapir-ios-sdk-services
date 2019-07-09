@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias Parameters = [String : String]
+typealias Parameters = [String: String]
 
 protocol ParameterEncodable {
     /// Creates a `URLRequest` by applying parameters onto an existing `URLRequest`

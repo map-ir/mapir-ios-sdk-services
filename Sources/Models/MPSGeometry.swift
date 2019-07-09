@@ -6,8 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 public class MPSMultipointGeometry: Codable {
     public var type: String?
@@ -35,7 +35,9 @@ public class MPSPointGeometry: Codable {
         self.type = try values.decode(String.self, forKey: .type)
         self.arrayOfCoordinates = try values.decode([String].self, forKey: .arrayOfCoordinates)
         if let arrayOfCoords = self.arrayOfCoordinates {
-            self.coordinates = CLLocationCoordinate2D(latitude: Double(arrayOfCoords[1])!, longitude: Double(arrayOfCoords[0])!)
+            if let lat = Double(arrayOfCoords[1]), let long = Double(arrayOfCoords[0]) {
+                self.coordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            }
         }
 
     }

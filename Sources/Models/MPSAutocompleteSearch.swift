@@ -11,8 +11,6 @@ import Foundation
 public struct MPSAutocompleteSearch {
     var allResultsCount: Int
     var results: [MPSAutocompleteSearchResult]
-
-    // TODO: add filtering commands.
 }
 
 extension MPSAutocompleteSearch: Decodable {

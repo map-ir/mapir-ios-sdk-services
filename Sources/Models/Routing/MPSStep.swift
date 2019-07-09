@@ -21,7 +21,7 @@ public struct MPSStep {
     public var intersections: [MPSIntersection]
 
     /// The unsimplified geometry of the route segment, depending on the geometries parameter.
-    public var geometry: [MPSLocationCoordinate]!
+    public var geometry: [MPSLocationCoordinate]?
 
     /// The name of the way along which travel proceeds.
     public var name: String
@@ -38,7 +38,8 @@ public struct MPSStep {
     /// The name for the rotary. Optionally included, if the step is a rotary and a rotary name is available.
     public var rotaryName: String?
 
-    /// The pronunciation hint of the rotary name. Optionally included, if the step is a rotary and a rotary pronunciation is available.
+    /// The pronunciation hint of the rotary name.
+    /// Optionally included, if the step is a rotary and a rotary pronunciation is available.
     public var rotaryPronunciation: String?
 
     /// A string signifying the mode of transportation.
@@ -87,8 +88,8 @@ extension MPSStep: Decodable {
         let polylineHash = try container.decode(String.self, forKey: .geometry)
         let polyline = Polyline(encodedPolyline: polylineHash)
         let decodedPolyline = polyline.coordinates
-        if let dp = decodedPolyline {
-            geometry = dp.asMPSLocationCoordintes
+        if let decodedPolyline = decodedPolyline {
+            geometry = decodedPolyline.asMPSLocationCoordintes
         } else {
             assertionFailure("Can't decode geometry from polyline hash.")
             geometry = nil

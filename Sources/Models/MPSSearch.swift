@@ -11,8 +11,6 @@ import Foundation
 public struct MPSSearch {
     var allResultsCount: Int
     var results: [MPSSearchResult]
-
-    // TODO: add filtering commands.
 }
 
 extension MPSSearch: Decodable {
@@ -106,8 +104,6 @@ struct SearchInput: Encodable {
         let array = [coordinates.longitude, coordinates.latitude]
         try geometryContainer.encode(array, forKey: .coordinates)
     }
-
-
 
 }
 

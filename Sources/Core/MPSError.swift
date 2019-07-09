@@ -22,5 +22,7 @@ public enum MPSError: Error {
         case InvalidArgument
     }
 
+    case urlEncodingError
+
     case imageDecodingError
 }

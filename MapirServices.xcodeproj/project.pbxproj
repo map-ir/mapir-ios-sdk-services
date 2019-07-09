@@ -35,6 +35,7 @@
 		C08DB45822CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */; };
 		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */; };
 		C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
+		C0B79B2222D361BC005E9C24 /* MPSRouteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */; };
 		C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
 		C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
 		C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
@@ -124,6 +125,7 @@
 		C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2DArray+MPSLocationCoordinate.swift"; sourceTree = "<group>"; };
 		C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+MPSLocationCoordinate.swift"; sourceTree = "<group>"; };
 		C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSFastReverseGeocode.swift; sourceTree = "<group>"; };
+		C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRouteObject.swift; sourceTree = "<group>"; };
 		C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistance.swift; sourceTree = "<group>"; };
 		C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDuration.swift; sourceTree = "<group>"; };
 		C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistanceMatrix.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
 				C08DB44C22CB302600FAE64A /* MPSLane.swift */,
 				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
+				C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				C08DB45822CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift in Sources */,
 				C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */,
 				C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */,
+				C0B79B2222D361BC005E9C24 /* MPSRouteObject.swift in Sources */,
 				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */,

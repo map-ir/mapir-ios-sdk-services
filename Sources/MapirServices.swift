@@ -19,17 +19,17 @@ public class MPSMapirServices {
         static let search = "/search"
         static let autocomleteSearch = "/search/autocomplete"
         static func route(forType type: MPSRouteType) -> String {
-            return "/\(type.rawValue)/v1/driving"
+            return "/routes/\(type.rawValue)/v1/driving"
         }
         static let staticMap = "/static"
 
     }
 
-    static let shared = MPSMapirServices()
+    public static let shared = MPSMapirServices()
     
     let baseURL: URL! = URL(string: "https://map.ir")
     
-    private let token: String
+    private var token: String?
 
     private let session: URLSession = .shared
 
@@ -38,7 +38,11 @@ public class MPSMapirServices {
     
     private init() {
         let token = Bundle.main.object(forInfoDictionaryKey: "MAPIRServicesAccessToken") as? String
-        self.token = token!
+        if let token = token {
+            self.token = token
+        } else {
+            debugPrint("API key not found in the info.plist file. consider adding it.")
+        }
     }
 
     private func essentialRequest(withEndpoint endpoint: String, query: String?, httpMethod: String) -> URLRequest? {
@@ -46,6 +50,9 @@ public class MPSMapirServices {
         var request = URLRequest(url: url!)
         request.timeoutInterval = 10
         request.httpMethod = httpMethod
+        if let token = token {
+            request.addValue(token, forHTTPHeaderField: "x-api-key")
+        }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         return request
@@ -54,78 +61,88 @@ public class MPSMapirServices {
     public func getReverseGeocode(for point: MPSLocationCoordinate,
                                   completionHandler: @escaping (Result<MPSReverseGeocode, Error>) -> Void) {
 
-        let query: String = "?lat=\(point.latitude)&lng=\(point.longitude)"
-        let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get)
-
-        if let request = request {
-            let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-                if let error = error {
-                    DispatchQueue.main.async { completionHandler(.failure(error)) }
-                    return
-                }
-                if let urlResponse = urlResponse as? HTTPURLResponse {
-                    let statusCode = urlResponse.statusCode
-
-                    if statusCode == 200 {
-                        if let data = data {
-                            do {
-                                let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
-                                DispatchQueue.main.async { completionHandler(.success(decodedData)) }
-                                return
-                            } catch let parseError {
-                                DispatchQueue.main.async { completionHandler(.failure(parseError)) }
-                                return
-                            }
-                        }
-                    } else if statusCode == 400 {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
-                    } else if statusCode == 404 {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
-                    }
-                }
-            }
-
-            dataTask.resume()
+        let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
+        guard let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
         }
 
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+                return
+            }
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                completionHandler(.failure(MPSError.InvalidResponse))
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    do {
+                        let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
+                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        return
+                    } catch let parseError {
+                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                        return
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+            default:
+                return
+            }
+        }
+
+        dataTask.resume()
     }
 
     public func getFastReverseGeocode(for point: MPSLocationCoordinate,
                                       completionHandler: @escaping (Result<MPSFastReverseGeocode, Error>) -> Void) {
 
-        let query: String = "?lat=\(point.latitude)&lng=\(point.longitude)"
-        let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get)
+        let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
+        guard let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get) else {
+            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+            return
+        }
 
-        if let request = request {
-            let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-                if let error = error {
-                    DispatchQueue.main.async { completionHandler(.failure(error)) }
-                    return
-                }
-                if let urlResponse = urlResponse as? HTTPURLResponse {
-                    let statusCode = urlResponse.statusCode
-
-                    if statusCode == 200 {
-                        if let data = data {
-                            do {
-                                let decodedData = try self.decoder.decode(MPSFastReverseGeocode.self, from: data)
-                                DispatchQueue.main.async { completionHandler(.success(decodedData)) }
-                                return
-                            } catch let parseError {
-                                DispatchQueue.main.async { completionHandler(.failure(parseError)) }
-                                return
-                            }
-                        }
-                    } else if statusCode == 400 {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
-                    } else if statusCode == 404 {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
-                    }
-                }
+        session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+                return
             }
 
-            dataTask.resume()
-        }
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                completionHandler(.failure(MPSError.InvalidResponse))
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    do {
+                        let decodedData = try self.decoder.decode(MPSFastReverseGeocode.self, from: data)
+                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        return
+                    } catch let parseError {
+                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                        return
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                return
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                return
+            default:
+                return
+            }
+        }.resume()
 
     }
 
@@ -138,14 +155,16 @@ public class MPSMapirServices {
         query += "origins="
         for origin in origins {
             let uuid = UUID()
-            query += "\(uuid),\(origin.latitude),\(origin.longitude)|"
+            let uuidString = uuid.uuidString.replacingOccurrences(of: "-", with: "")
+            query += "\(uuidString),\(origin.latitude),\(origin.longitude)|"
         }
         query.removeLast()
         
         query += "&destinations="
         for destination in destinations {
             let uuid = UUID()
-            query += "\(uuid),\(destination.latitude),\(destination.longitude)|"
+            let uuidString = uuid.uuidString.replacingOccurrences(of: "-", with: "")
+            query += "\(uuidString),\(destination.latitude),\(destination.longitude)|"
         }
         query.removeLast()
         if options.contains(.sorted) {
@@ -160,7 +179,7 @@ public class MPSMapirServices {
             }
         }
 
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }
@@ -203,7 +222,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getSearchResult(for text: String,
@@ -255,7 +274,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getAutocompleteSearchResult(for text: String,
@@ -307,14 +326,14 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getRoute(from origin: MPSLocationCoordinate,
                          to destinations: [MPSLocationCoordinate],
                          routeType: MPSRouteType,
                          routeOptions: MPSRouteOptions = [],
-                         completionHandler: @escaping (Result<MPSRoute, Error>) -> Void) {
+                         completionHandler: @escaping (Result<MPSRouteObject, Error>) -> Void) {
 
         guard !destinations.isEmpty else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
@@ -337,15 +356,17 @@ public class MPSMapirServices {
             query += "&overview=true"
         }
 
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }
 
-        guard let request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType), query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
+        guard let request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType), query: urlEncodedQuery, httpMethod: HTTPMethod.get) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }
+
+        print("shit happens url: \(request.url?.absoluteString ?? "nil")")
 
         session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
@@ -361,28 +382,32 @@ public class MPSMapirServices {
             case 200:
                 if let data = data {
                     do {
-                        let decodedData = try self.decoder.decode(MPSRoute.self, from: data)
+//                        print("shit happens at data:\n---------\n\(data.base64EncodedString())")
+                        let decodedData = try self.decoder.decode(MPSRouteObject.self, from: data)
                         DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                     } catch let decoderError {
+                        print("shit happens at decoding")
                         DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
                         return
                     }
                 }
             case 400:
+                print("shit happens at 400")
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
                 return
             case 404:
+                print("shit happens at 404")
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
                 return
             default:
                 return
             }
-        }
+        }.resume()
     }
 
     public func getStaticMap(center: MPSLocationCoordinate,
                                     size: CGSize,
-                                    zoomLevel: Double,
+                                    zoomLevel: Int,
                                     markers: [MPSStaticMapMarker] = [],
                                     completionHandler: @escaping (Result<UIImage, Error>) -> Void) {
 
@@ -391,18 +416,18 @@ public class MPSMapirServices {
             return
         }
 
-        var query = "width=\(size.width)&height=\(size.height)&zoom_level=\(zoomLevel)"
+        var query = "?width=\(Int(size.width))&height=\(Int(size.height))&zoom_level=\(zoomLevel)"
 
         for marker in markers {
             query += "&markers=color:\(marker.style.rawValue)|label:\(marker.label)|\(marker.coordinate.longitude),\(marker.coordinate.latitude)"
         }
 
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
-            completionHandler(.failure(MPSError.RequestError.InvalidArgument))
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            completionHandler(.failure(MPSError.urlEncodingError))
             return
         }
 
-        guard let request = essentialRequest(withEndpoint: Endpoint.staticMap, query: urlEncodedQuery, httpMethod: HTTPMethod.post) else {
+        guard let request = essentialRequest(withEndpoint: Endpoint.staticMap, query: urlEncodedQuery, httpMethod: HTTPMethod.get) else {
             completionHandler(.failure(MPSError.RequestError.InvalidArgument))
             return
         }
@@ -437,8 +462,7 @@ public class MPSMapirServices {
             default:
                 return
             }
-        }
-
+        }.resume()
     }
 }
 

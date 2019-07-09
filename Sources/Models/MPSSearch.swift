@@ -18,7 +18,7 @@ public struct MPSSearch {
 extension MPSSearch: Decodable {
     enum CodingKeys: String, CodingKey {
         case allResultsCount = "odata.count"
-        case results = "values"
+        case results = "value"
     }
 }
 
@@ -103,7 +103,8 @@ struct SearchInput: Encodable {
 
         var geometryContainer = container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .coordinates)
         try geometryContainer.encode("Point", forKey: .type)
-        try geometryContainer.encode(self.coordinates, forKey: .coordinates)
+        let array = [coordinates.longitude, coordinates.latitude]
+        try geometryContainer.encode(array, forKey: .coordinates)
     }
 
 

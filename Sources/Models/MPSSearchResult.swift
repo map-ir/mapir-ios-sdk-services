@@ -22,19 +22,19 @@ public struct MPSSearchResult {
 extension MPSSearchResult: Decodable {
 
     enum CodingKeys: String, CodingKey {
-        case text
-        case title
-        case address
-        case province
-        case city
-        case type
+        case text = "Text"
+        case title = "Title"
+        case address = "Address"
+        case province = "Province"
+        case city = "City"
+        case type = "Type"
         case fClass = "FClass"
-        case coordinates = "coordinate"
+        case coordinates = "Coordinate"
     }
 
     enum CoordinateKeys: String, CodingKey {
         case lat
-        case lng
+        case lon
     }
 
     public init(from decoder: Decoder) throws {
@@ -49,7 +49,7 @@ extension MPSSearchResult: Decodable {
 
         let coordinateContainer = try container.nestedContainer(keyedBy: CoordinateKeys.self, forKey: .coordinates)
         let latitude = try coordinateContainer.decode(Double.self, forKey: .lat)
-        let longitude = try coordinateContainer.decode(Double.self, forKey: .lng)
+        let longitude = try coordinateContainer.decode(Double.self, forKey: .lon)
 
         coordinates = MPSLocationCoordinate(latitude: latitude, longitude: longitude)
     }

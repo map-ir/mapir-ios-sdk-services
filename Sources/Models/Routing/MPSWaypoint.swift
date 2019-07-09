@@ -23,7 +23,7 @@ extension MPSWaypoint: Decodable {
     enum CodingKeys: String, CodingKey {
         case hint
         case name
-        case coordinates
+        case coordinates = "location"
     }
 
     public init(from decoder: Decoder) throws {

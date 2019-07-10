@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSSearch {
@@ -24,7 +25,7 @@ struct SearchInput: Encodable {
     var text: String
     var selectionOptions: MPSSearchOptions?
     var filter: MPSSearchFilter?
-    var coordinates: MPSLocationCoordinate
+    var coordinates: CLLocationCoordinate2D
 
     enum CodingKeys: String, CodingKey {
         case text
@@ -131,13 +132,7 @@ public enum MPSSearchFilter {
         case meter = "m"
     }
 
-    //    public enum TimeUnit: String {
-    //        case minute = "m"
-    //        case second = "s"
-    //    }
-
     case distance(Double, unit: DistanceUnit)
-    //    case duration(Double, unit: TimeUnit)
 
     case city(String)
     case county(String)

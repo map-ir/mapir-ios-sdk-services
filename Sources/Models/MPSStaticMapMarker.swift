@@ -6,10 +6,11 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSStaticMapMarker {
-    public var coordinate: MPSLocationCoordinate
+    public var coordinate: CLLocationCoordinate2D
     public var style: MPSStaticMapMarker.Style
     public var label: String
 
@@ -31,7 +32,7 @@ public struct MPSStaticMapMarker {
 
     }
 
-    public init(coordinate: MPSLocationCoordinate, style: MPSStaticMapMarker.Style, label: String) {
+    public init(coordinate: CLLocationCoordinate2D, style: MPSStaticMapMarker.Style, label: String) {
         self.coordinate = coordinate
         self.style = style
         self.label = label

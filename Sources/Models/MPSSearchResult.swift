@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSSearchResult {
@@ -16,7 +17,7 @@ public struct MPSSearchResult {
     public var city: String
     public var type: String
     public var fClass: String
-    public var coordinates: MPSLocationCoordinate
+    public var coordinates: CLLocationCoordinate2D
 }
 
 extension MPSSearchResult: Decodable {
@@ -51,6 +52,6 @@ extension MPSSearchResult: Decodable {
         let latitude = try coordinateContainer.decode(Double.self, forKey: .lat)
         let longitude = try coordinateContainer.decode(Double.self, forKey: .lon)
 
-        coordinates = MPSLocationCoordinate(latitude: latitude, longitude: longitude)
+        coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 }

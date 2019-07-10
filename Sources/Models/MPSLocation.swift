@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSLocation {
@@ -16,7 +17,7 @@ public struct MPSLocation {
     public var ruralDistrict: String?
     public var suburb: String?
     public var neighbourhood: String?
-    public var coordinate: MPSLocationCoordinate?
+    public var coordinates: CLLocationCoordinate2D?
 }
 
 extension MPSLocation: Decodable {
@@ -28,7 +29,7 @@ extension MPSLocation: Decodable {
         case ruralDistrict = "ruraldistrict_title"
         case suburb = "suburb_title"
         case neighbourhood = "neighbourhood_title"
-        case coordinate
+        case coordinates
     }
 
     public init(from decoder: Decoder) throws {
@@ -41,5 +42,9 @@ extension MPSLocation: Decodable {
         ruralDistrict = try container.decode(String.self, forKey: .ruralDistrict)
         suburb = try container.decode(String.self, forKey: .suburb)
         neighbourhood = try container.decode(String.self, forKey: .neighbourhood)
+        let array = try? container.decode([Double].self, forKey: .coordinates)
+        if let array = array {
+            coordinates = CLLocationCoordinate2D(latitude: array[1], longitude: array[0])
+        }
     }
 }

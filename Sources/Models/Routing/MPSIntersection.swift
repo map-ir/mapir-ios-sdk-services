@@ -6,12 +6,13 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSIntersection {
 
-    /// A `MPSLocationCoordinate` describing the location of the turn.
-    public var location: MPSLocationCoordinate
+    /// A `CLLocationCoordinate2D` describing the location of the turn.
+    public var location: CLLocationCoordinate2D?
 
     /// A list of `bearing` values (e.g. [0,90,180,270]) that are available at the intersection.
     /// The `bearings` describe all available roads at the intersection.
@@ -59,9 +60,10 @@ extension MPSIntersection: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        let coords = try container.decode([Double].self, forKey: .location)
-        location = MPSLocationCoordinate(from: coords)
-
+        let coords = try? container.decode([Double].self, forKey: .location)
+        if let coords = coords {
+            location = CLLocationCoordinate2D(from: coords)
+        }
         bearings = try container.decode([Int].self, forKey: .bearings)
         classes = try? container.decode([String].self, forKey: .classes)
         entry = try container.decode([Bool].self, forKey: .entry)

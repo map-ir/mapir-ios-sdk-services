@@ -6,11 +6,12 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSManeuver {
-    /// A `MPSLocationCoordinate`  describing the location of the turn.
-    public var location: MPSLocationCoordinate
+    /// A `CLLocationCoordinate2D`  describing the location of the turn.
+    public var location: CLLocationCoordinate2D?
 
     /// The clockwise angle from true north to the direction of travel immediately after the maneuver. Range 0-359.
     public var bearingAfter: Int
@@ -42,9 +43,10 @@ extension MPSManeuver: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        let coords = try container.decode([Double].self, forKey: .location)
-        location = MPSLocationCoordinate(from: coords)
-
+        let coords = try? container.decode([Double].self, forKey: .location)
+        if let coords = coords {
+            location = CLLocationCoordinate2D(from: coords)
+        }
         bearingAfter = try container.decode(Int.self, forKey: .bearingAfter)
         bearingBefore = try container.decode(Int.self, forKey: .bearingBefore)
         type = try container.decode(MPSManeuverType.self, forKey: .type)

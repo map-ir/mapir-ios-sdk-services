@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 import Polyline
 
@@ -19,7 +20,7 @@ public struct MPSRoute {
 
     /// The whole `geometry` of the route value depending on overview parameter,
     /// format depending on the geometries parameter.
-    public var geometry: [MPSLocationCoordinate]?
+    public var geometry: [CLLocationCoordinate2D]?
 
     /// The calculated weight of the route.
     public var weight: Double
@@ -51,7 +52,7 @@ extension MPSRoute: Decodable {
         let polyline = Polyline(encodedPolyline: polylineHash)
         let decodedPolyline = polyline.coordinates
         if let decodedPolyline = decodedPolyline {
-            geometry = decodedPolyline.asMPSLocationCoordintes
+            geometry = decodedPolyline
         } else {
             assertionFailure("Can't decode geometry from polyline hash.")
             geometry = nil

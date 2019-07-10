@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSWaypoint {
@@ -15,8 +16,8 @@ public struct MPSWaypoint {
     /// Name of the street the coordinate snapped to.
     public var name: String
 
-    /// `MPSLocationCoordinate` of the snapped coordinate.
-    public var coordinates: MPSLocationCoordinate
+    /// `CLLocationCoordinate2D` of the snapped coordinate.
+    public var coordinates: CLLocationCoordinate2D?
 }
 
 extension MPSWaypoint: Decodable {
@@ -32,7 +33,9 @@ extension MPSWaypoint: Decodable {
         hint = try container.decode(String.self, forKey: .hint)
         name = try container.decode(String.self, forKey: .name)
 
-        let coords = try container.decode([Double].self, forKey: .coordinates)
-        coordinates = MPSLocationCoordinate(from: coords)
+        let coords = try? container.decode([Double].self, forKey: .coordinates)
+        if let coords = coords {
+            coordinates = CLLocationCoordinate2D(latitude: coords[1], longitude: coords[0])
+        }
     }
 }

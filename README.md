@@ -1,5 +1,5 @@
 <p align="center">
-   <img width="200" src="https://raw.githubusercontent.com/SvenTiigi/SwiftKit/gh-pages/readMeAssets/SwiftKitLogo.png" alt="MapirServices Logo">
+   <img width="200" src="http://corp.map.ir/wp-content/uploads/2019/06/map-site-logo-1.png" alt="MapirServices Logo">
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 # MapirServices
 
 <p align="center">
-ℹ️ Short description of MapirServices
+ℹ️ MapirServices framework, helps you with networking part of using services of map.ir
 </p>
 
 ## Features

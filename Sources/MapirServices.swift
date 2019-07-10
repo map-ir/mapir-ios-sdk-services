@@ -8,6 +8,7 @@
 
 // Include Foundation
 @_exported import Foundation
+import CoreLocation
 import UIKit
 
 public class MPSMapirServices {
@@ -37,17 +38,19 @@ public class MPSMapirServices {
     private let encoder = JSONEncoder()
     
     private init() {
-        let token = Bundle.main.object(forInfoDictionaryKey: "MAPIRServicesAccessToken") as? String
+        let token = Bundle.main.object(forInfoDictionaryKey: "MAPIRAccessToken") as? String
         if let token = token {
             self.token = token
         } else {
-            debugPrint("API key not found in the info.plist file. consider adding it.")
+            assertionFailure("API key not found in the info.plist file. consider adding it.")
         }
     }
 
     private func essentialRequest(withEndpoint endpoint: String, query: String?, httpMethod: String) -> URLRequest? {
-        let url = URL(string: baseURL.absoluteString + endpoint + (query ?? ""))
-        var request = URLRequest(url: url!)
+        guard let url = URL(string: baseURL.absoluteString + endpoint + (query ?? "")) else {
+            return nil
+        }
+        var request = URLRequest(url: url)
         request.timeoutInterval = 10
         request.httpMethod = httpMethod
         if let token = token {
@@ -58,7 +61,7 @@ public class MPSMapirServices {
         return request
     }
 
-    public func getReverseGeocode(for point: MPSLocationCoordinate,
+    public func getReverseGeocode(for point: CLLocationCoordinate2D,
                                   completionHandler: @escaping (Result<MPSReverseGeocode, Error>) -> Void) {
 
         let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
@@ -101,7 +104,7 @@ public class MPSMapirServices {
         dataTask.resume()
     }
 
-    public func getFastReverseGeocode(for point: MPSLocationCoordinate,
+    public func getFastReverseGeocode(for point: CLLocationCoordinate2D,
                                       completionHandler: @escaping (Result<MPSFastReverseGeocode, Error>) -> Void) {
 
         let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
@@ -148,8 +151,8 @@ public class MPSMapirServices {
 
     }
 
-    public func getDistanceMatrix(from origins: [MPSLocationCoordinate],
-                                  to destinations: [MPSLocationCoordinate],
+    public func getDistanceMatrix(from origins: [CLLocationCoordinate2D],
+                                  to destinations: [CLLocationCoordinate2D],
                                   options: MPSDistanceMatrixOptions = [],
                                   completionHandler: @escaping (Result<MPSDistanceMatrix, Error>) -> Void) {
 
@@ -230,7 +233,7 @@ public class MPSMapirServices {
     }
 
     public func getSearchResult(for text: String,
-                                around location: MPSLocationCoordinate,
+                                around location: CLLocationCoordinate2D,
                                 selectionOptions: MPSSearchOptions = [],
                                 filter: MPSSearchFilter? = nil,
                                 completionHandler: @escaping (Result<MPSSearch, Error>) -> Void) {
@@ -288,7 +291,7 @@ public class MPSMapirServices {
     }
 
     public func getAutocompleteSearchResult(for text: String,
-                                            around location: MPSLocationCoordinate,
+                                            around location: CLLocationCoordinate2D,
                                             selectionOptions: MPSSearchOptions = [],
                                             filter: MPSSearchFilter? = nil,
                                             completionHandler: @escaping (Result<MPSAutocompleteSearch, Error>) -> Void) {
@@ -346,8 +349,8 @@ public class MPSMapirServices {
         }.resume()
     }
 
-    public func getRoute(from origin: MPSLocationCoordinate,
-                         to destinations: [MPSLocationCoordinate],
+    public func getRoute(from origin: CLLocationCoordinate2D,
+                         to destinations: [CLLocationCoordinate2D],
                          routeType: MPSRouteType,
                          routeOptions: MPSRouteOptions = [],
                          completionHandler: @escaping (Result<MPSRouteObject, Error>) -> Void) {
@@ -386,8 +389,6 @@ public class MPSMapirServices {
             return
         }
 
-        print("shit happens url: \(request.url?.absoluteString ?? "nil")")
-
         session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
@@ -402,21 +403,17 @@ public class MPSMapirServices {
             case 200:
                 if let data = data {
                     do {
-//                        print("shit happens at data:\n---------\n\(data.base64EncodedString())")
                         let decodedData = try self.decoder.decode(MPSRouteObject.self, from: data)
                         DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                     } catch let decoderError {
-                        print("shit happens at decoding")
                         DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
                         return
                     }
                 }
             case 400:
-                print("shit happens at 400")
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
                 return
             case 404:
-                print("shit happens at 404")
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
                 return
             default:
@@ -425,7 +422,7 @@ public class MPSMapirServices {
         }.resume()
     }
 
-    public func getStaticMap(center: MPSLocationCoordinate,
+    public func getStaticMap(center: CLLocationCoordinate2D,
                              size: CGSize,
                              zoomLevel: Int,
                              markers: [MPSStaticMapMarker] = [],

@@ -29,7 +29,7 @@ public struct MPSReverseGeocode {
     public var primary: String?
     public var plaque: String?
     public var postalCode: String?
-    public var coordinates: MPSLocationCoordinate?
+    public var coordinates: CLLocationCoordinate2D?
 
     enum CodingKeys: String, CodingKey {
         case address
@@ -82,7 +82,7 @@ extension MPSReverseGeocode: Decodable {
         let geomContainer = try value.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
         let arr = try geomContainer.decode([String].self, forKey: .coordinates)
         if let long = Double(arr[0]), let lat = Double(arr[1]) {
-            coordinates = MPSLocationCoordinate(latitude: lat, longitude: long)
+            coordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CLLocationCoordinate2D+MPSLocationCoordinate.swift
+//  CLLocationCoordinate2D+initFromArray.swift
 //  MapirServices-iOS
 //
 //  Created by Alireza Asadi on 12/4/1398 AP.
@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 
 extension CLLocationCoordinate2D {
-    var asMPSLocationCoordinate: MPSLocationCoordinate {
-        return MPSLocationCoordinate(from: self)
+    init(from array: [Double]) {
+        self.init(latitude: array[1], longitude: array[0])
     }
 }

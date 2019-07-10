@@ -6,6 +6,7 @@
 //  Copyright © 1398 Map. All rights reserved.
 //
 
+import CoreLocation
 import UIKit
 import MapirServices
 
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
-        let coordinates = MPSLocationCoordinate(latitude: 35.732527, longitude: 51.422710)
+        let coordinates = CLLocationCoordinate2D(latitude: 35.732527, longitude: 51.422710)
         let size = CGSize(width: 300, height: 250)
         let marker = MPSStaticMapMarker(coordinate: coordinates, style: MPSStaticMapMarker.Style.red, label: "mapir")
 
@@ -79,10 +80,10 @@ class ViewController: UIViewController {
             }
         }
 
-        let pointA = MPSLocationCoordinate(latitude: 35.732482, longitude: 51.422601)
-        let pointB = MPSLocationCoordinate(latitude: 35.762794, longitude: 51.458094)
-        let pointC = MPSLocationCoordinate(latitude: 35.771551, longitude: 51.439705)
-        let pointD = MPSLocationCoordinate(latitude: 35.769149, longitude: 51.411467)
+        let pointA = CLLocationCoordinate2D(latitude: 35.732482, longitude: 51.422601)
+        let pointB = CLLocationCoordinate2D(latitude: 35.762794, longitude: 51.458094)
+        let pointC = CLLocationCoordinate2D(latitude: 35.771551, longitude: 51.439705)
+        let pointD = CLLocationCoordinate2D(latitude: 35.769149, longitude: 51.411467)
 
         let origins = [pointA, pointB]
         let destinations = [pointC, pointD]

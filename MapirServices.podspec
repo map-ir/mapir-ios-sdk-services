@@ -1,15 +1,21 @@
 Pod::Spec.new do |s|
+
   s.name                      = "MapirServices"
   s.version                   = "1.0.0"
-  s.summary                   = "MapirServices"
-  s.homepage                  = "https://github.com/AlirezaAsadi/MapirServices"
-  s.license                   = { :type => "MIT", :file => "LICENSE" }
-  s.author                    = { "Alireza Asadi" => "alireza.asadi.36@gmail.com" }
-  s.source                    = { :git => "https://github.com/AlirezaAsadi/MapirServices.git", :tag => s.version.to_s }
-  s.ios.deployment_target     = "8.0"
-  s.tvos.deployment_target    = "9.0"
-  s.watchos.deployment_target = "2.0"
-  s.osx.deployment_target     = "10.10"
-  s.source_files              = "Sources/**/*"
+  s.summary                   = "a SDK to access services of map.ir using pure swift."
+
+  s.homepage                  = "https://support.map.ir/"
+  s.license                   = { :type => "MIT", :file => "LICENSE.md" }
+
+  s.author                    = { "Map.ir" => "a.asadi@map.ir" }
+  s.source                    = { :http => "https://srv-file2.gofile.io/download/As7PDN/mapir-ios-sdk-services-100.zip", :flatten => true }
+
+  s.platform                  = :ios
+  s.ios.deployment_target     = "10.0"
+  s.module_name               = "MapirServiecs"
+
+  s.vendored_frameworks       = 'Frameworks/MapirServices.framework'
+
   s.frameworks                = "Foundation"
+
 end

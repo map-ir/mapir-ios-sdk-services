@@ -10,8 +10,8 @@ import CoreLocation
 import Foundation
 
 public struct MPSSearch {
-    var allResultsCount: Int
-    var results: [MPSSearchResult]
+    public var allResultsCount: Int
+    public var results: [MPSSearchResult]
 }
 
 extension MPSSearch: Decodable {
@@ -73,7 +73,6 @@ struct SearchInput: Encodable {
             if selectionOptions.contains(.woodwater) {
                 select += "woodwater,"
             }
-
             if !select.isEmpty {
                 select.removeLast()
                 try container.encode(select, forKey: .selectionOptions)
@@ -114,22 +113,22 @@ public struct MPSSearchOptions: OptionSet {
 
     public init(rawValue: Int) { self.rawValue = rawValue }
 
-    public static let poi = MPSSearchOptions(rawValue: 1 << 0)
-    public static let city = MPSSearchOptions(rawValue: 1 << 1)
-    public static let roads = MPSSearchOptions(rawValue: 1 << 2)
-    public static let neighborhood = MPSSearchOptions(rawValue: 1 << 3)
-    public static let county = MPSSearchOptions(rawValue: 1 << 4)
-    public static let district = MPSSearchOptions(rawValue: 1 << 5)
-    public static let landuse = MPSSearchOptions(rawValue: 1 << 6)
-    public static let province = MPSSearchOptions(rawValue: 1 << 7)
-    public static let woodwater = MPSSearchOptions(rawValue: 1 << 8)
+    public static let poi           = MPSSearchOptions(rawValue: 1 << 0)
+    public static let city          = MPSSearchOptions(rawValue: 1 << 1)
+    public static let roads         = MPSSearchOptions(rawValue: 1 << 2)
+    public static let neighborhood  = MPSSearchOptions(rawValue: 1 << 3)
+    public static let county        = MPSSearchOptions(rawValue: 1 << 4)
+    public static let district      = MPSSearchOptions(rawValue: 1 << 5)
+    public static let landuse       = MPSSearchOptions(rawValue: 1 << 6)
+    public static let province      = MPSSearchOptions(rawValue: 1 << 7)
+    public static let woodwater     = MPSSearchOptions(rawValue: 1 << 8)
 }
 
 public enum MPSSearchFilter {
 
     public enum DistanceUnit: String {
-        case kilometer = "km"
-        case meter = "m"
+        case kilometer  = "km"
+        case meter      = "m"
     }
 
     case distance(Double, unit: DistanceUnit)

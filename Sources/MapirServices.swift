@@ -373,7 +373,7 @@ public class MPSMapirServices {
             query += "&alternatives=true"
         }
         if routeOptions.contains(.overview) {
-            query += "&overview=true"
+            query += "&overview=full"
         }
 
         guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {

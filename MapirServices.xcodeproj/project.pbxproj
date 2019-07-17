@@ -55,7 +55,6 @@
 		C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */; };
 		C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */; };
 		C0EED5CF22DC627D0004BB31 /* Polyline in Frameworks */ = {isa = PBXBuildFile; productRef = C08DB45522CB8B2400FAE64A /* Polyline */; };
-		C0EED5D122DC652B0004BB31 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = C0EED5D022DC652B0004BB31 /* Cartfile */; };
 		C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +128,7 @@
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C04CF68922A2A091009761C4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		C051A23322DC53AB00E71703 /* Polyline.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = Polyline.o; path = "../../../Library/Developer/Xcode/DerivedData/MapirServices-efxaoylofksjkvffeetggywahzqs/Build/Products/Debug-iphoneos/Polyline.o"; sourceTree = "<group>"; };
+		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocationCoordinate.swift; sourceTree = "<group>"; };
 		C08DB44C22CB302600FAE64A /* MPSLane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLane.swift; sourceTree = "<group>"; };
 		C08DB44E22CB570800FAE64A /* MPSRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRoute.swift; sourceTree = "<group>"; };
@@ -143,7 +143,6 @@
 		C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearchResult.swift; sourceTree = "<group>"; };
 		C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearchResult.swift; sourceTree = "<group>"; };
 		C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearch.swift; sourceTree = "<group>"; };
-		C0EED5D022DC652B0004BB31 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStaticMapMarker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,7 +216,7 @@
 				3D9C42D822745DAF000A6585 /* .jazzy.yaml */,
 				3D9C42DA22745DB0000A6585 /* .swift-version */,
 				3D9C42D922745DAF000A6585 /* .swiftlint.yml */,
-				C0EED5D022DC652B0004BB31 /* Cartfile */,
+				C0706DBB22DEEBCE0038630E /* Cartfile */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -449,7 +448,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0EED5D122DC652B0004BB31 /* Cartfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,10 +10,11 @@
 <a href="http://cocoapods.org/pods/MapirServices">
 <img src="https://img.shields.io/cocoapods/v/MapirServices.svg?style=flat" alt="Version">
 </a>
--->
 <a href="http://cocoapods.org/pods/MapirServices">
 <img src="https://img.shields.io/cocoapods/p/MapirServices.svg?style=flat" alt="Platform">
 </a>
+-->
+
 <a href="https://github.com/Carthage/Carthage">
 <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage Compatible">
 </a>
@@ -24,13 +25,11 @@
 
 # MapirServices
 
-<p align="center">
 ℹ️ MapirServices framework, helps you with networking part of using services of map.ir
-</p>
 
 ## Features
 
-- ℹ️ Support for All version 1 API of Map.ir
+ℹ️ Support for All version 1 API of Map.ir
 
 ## Example
 
@@ -70,7 +69,7 @@ To integrate using Apple's [Swift Package Manager](https://swift.org/package-man
 
 ```swift
 dependencies: [
-.package(url: "https://github.com/map-ir/ios-sdk-v1-services-beta", from: "0.1.0")
+    .package(url: "https://github.com/map-ir/ios-sdk-v1-services-beta", from: "0.1.0")
 ]
 ```
 
@@ -84,7 +83,7 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
 
 ## Usage
 1. Get an access token from [App Registration](https://corp.map.ir/registration/) site.
-2. Add a key-value pair of your access token to your project's info.plist. Key must be "`MAPIRAccessToken`"
+2. Add a key-value pair of your access token to your project's `info.plist`. Key must be "`MAPIRAccessToken`" and set the access token as value.
 3. First import SDK using 
     ```swift
     import MapirServices

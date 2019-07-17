@@ -8,4 +8,14 @@
 
 import Foundation
 
-public typealias MPSAutocompleteSearch = MPSSearchResult
+public struct MPSAutocompleteSearch {
+    var allResultsCount: Int
+    var results: [MPSAutocompleteSearchResult]
+}
+
+extension MPSAutocompleteSearch: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case allResultsCount = "odata.count"
+        case results = "value"
+    }
+}

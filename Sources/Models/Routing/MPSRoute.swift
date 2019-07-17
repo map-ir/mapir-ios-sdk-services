@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 import Polyline
 
@@ -17,8 +18,9 @@ public struct MPSRoute {
     /// The estimated travel time, in `Double` number of seconds.
     public var duration: Double
 
-    /// The whole `geometry` of the route value depending on overview parameter, format depending on the geometries parameter.
-    public var geometry: [MPSLocationCoordinate]!
+    /// The whole `geometry` of the route value depending on overview parameter,
+    /// format depending on the geometries parameter.
+    public var geometry: [CLLocationCoordinate2D]?
 
     /// The calculated weight of the route.
     public var weight: Double
@@ -49,14 +51,14 @@ extension MPSRoute: Decodable {
         let polylineHash = try container.decode(String.self, forKey: .geometry)
         let polyline = Polyline(encodedPolyline: polylineHash)
         let decodedPolyline = polyline.coordinates
-        if let dp = decodedPolyline {
-            geometry = dp.asMPSLocationCoordintes
+        if let decodedPolyline = decodedPolyline {
+            geometry = decodedPolyline
         } else {
             assertionFailure("Can't decode geometry from polyline hash.")
             geometry = nil
         }
         weight = try container.decode(Double.self, forKey: .weight)
-        weightName = try container.decode(String.self, forKey: .weightName)
+        weightName = try? container.decode(String.self, forKey: .weightName)
         legs = try container.decode([MPSLeg].self, forKey: .legs)
     }
 }

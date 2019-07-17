@@ -10,7 +10,9 @@ let package = Package(
             targets: ["MapirServices"]
         ),
     ],
-    dependencies: [],
+    dependencies: [
+        .Package(url: "https://github.com/raphaelmor/Polyline.git", .upToNextMinor(from: "4.2.1"))
+    ],
     targets: [
         .target(
             name: "MapirServices",

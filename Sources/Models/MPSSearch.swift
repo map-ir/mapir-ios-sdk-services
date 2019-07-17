@@ -6,19 +6,18 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSSearch {
-    var allResultsCount: Int
-    var results: [MPSSearchResult]
-
-    // TODO: add filtering commands.
+    public var allResultsCount: Int
+    public var results: [MPSSearchResult]
 }
 
 extension MPSSearch: Decodable {
     enum CodingKeys: String, CodingKey {
         case allResultsCount = "odata.count"
-        case results = "values"
+        case results = "value"
     }
 }
 
@@ -26,7 +25,7 @@ struct SearchInput: Encodable {
     var text: String
     var selectionOptions: MPSSearchOptions?
     var filter: MPSSearchFilter?
-    var coordinates: MPSLocationCoordinate
+    var coordinates: CLLocationCoordinate2D
 
     enum CodingKeys: String, CodingKey {
         case text
@@ -74,7 +73,6 @@ struct SearchInput: Encodable {
             if selectionOptions.contains(.woodwater) {
                 select += "woodwater,"
             }
-
             if !select.isEmpty {
                 select.removeLast()
                 try container.encode(select, forKey: .selectionOptions)
@@ -103,10 +101,9 @@ struct SearchInput: Encodable {
 
         var geometryContainer = container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .coordinates)
         try geometryContainer.encode("Point", forKey: .type)
-        try geometryContainer.encode(self.coordinates, forKey: .coordinates)
+        let array = [coordinates.longitude, coordinates.latitude]
+        try geometryContainer.encode(array, forKey: .coordinates)
     }
-
-
 
 }
 
@@ -116,31 +113,25 @@ public struct MPSSearchOptions: OptionSet {
 
     public init(rawValue: Int) { self.rawValue = rawValue }
 
-    public static let poi = MPSSearchOptions(rawValue: 1 << 0)
-    public static let city = MPSSearchOptions(rawValue: 1 << 1)
-    public static let roads = MPSSearchOptions(rawValue: 1 << 2)
-    public static let neighborhood = MPSSearchOptions(rawValue: 1 << 3)
-    public static let county = MPSSearchOptions(rawValue: 1 << 4)
-    public static let district = MPSSearchOptions(rawValue: 1 << 5)
-    public static let landuse = MPSSearchOptions(rawValue: 1 << 6)
-    public static let province = MPSSearchOptions(rawValue: 1 << 7)
-    public static let woodwater = MPSSearchOptions(rawValue: 1 << 8)
+    public static let poi           = MPSSearchOptions(rawValue: 1 << 0)
+    public static let city          = MPSSearchOptions(rawValue: 1 << 1)
+    public static let roads         = MPSSearchOptions(rawValue: 1 << 2)
+    public static let neighborhood  = MPSSearchOptions(rawValue: 1 << 3)
+    public static let county        = MPSSearchOptions(rawValue: 1 << 4)
+    public static let district      = MPSSearchOptions(rawValue: 1 << 5)
+    public static let landuse       = MPSSearchOptions(rawValue: 1 << 6)
+    public static let province      = MPSSearchOptions(rawValue: 1 << 7)
+    public static let woodwater     = MPSSearchOptions(rawValue: 1 << 8)
 }
 
 public enum MPSSearchFilter {
 
     public enum DistanceUnit: String {
-        case kilometer = "km"
-        case meter = "m"
+        case kilometer  = "km"
+        case meter      = "m"
     }
 
-    //    public enum TimeUnit: String {
-    //        case minute = "m"
-    //        case second = "s"
-    //    }
-
     case distance(Double, unit: DistanceUnit)
-    //    case duration(Double, unit: TimeUnit)
 
     case city(String)
     case county(String)

@@ -6,6 +6,21 @@
 	objectVersion = 52;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C035B3EE22DB4F340083BBD4 /* UniversalBinary */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C035B3F122DB4F350083BBD4 /* Build configuration list for PBXAggregateTarget "UniversalBinary" */;
+			buildPhases = (
+				C035B3F322DB93820083BBD4 /* SwiftLint */,
+				C035B3F222DB4F530083BBD4 /* Build Process */,
+			);
+			dependencies = (
+			);
+			name = UniversalBinary;
+			productName = UniversalBinary;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		3D9C42A222745900000A6585 /* MapirServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42A122745900000A6585 /* MapirServices.swift */; };
 		3D9C42F62274604A000A6585 /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; };
@@ -22,19 +37,15 @@
 		C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* MPSManeuver.swift */; };
 		C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */; };
 		C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
-		C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E422B120EF0058BCA7 /* MPSPoint.swift */; };
 		C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
-		C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66022A2603D009761C4 /* MPSGeometry.swift */; };
-		C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66322A26A63009761C4 /* MPSPolygon.swift */; };
 		C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C04CF68A22A2A091009761C4 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF68922A2A091009761C4 /* ParameterEncoding.swift */; };
 		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
 		C08DB44D22CB302600FAE64A /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
 		C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
-		C08DB45622CB8B2400FAE64A /* Polyline in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = C08DB45522CB8B2400FAE64A /* Polyline */; };
-		C08DB45822CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */; };
-		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */; };
+		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
 		C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
+		C0B79B2222D361BC005E9C24 /* MPSRouteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */; };
 		C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
 		C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
 		C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
@@ -43,6 +54,8 @@
 		C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
 		C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */; };
 		C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */; };
+		C0EED5CF22DC627D0004BB31 /* Polyline in Frameworks */ = {isa = PBXBuildFile; productRef = C08DB45522CB8B2400FAE64A /* Polyline */; };
+		C0EED5D122DC652B0004BB31 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = C0EED5D022DC652B0004BB31 /* Cartfile */; };
 		C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +100,7 @@
 		3D9C42C522745A07000A6585 /* MapirServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9C42D222745B48000A6585 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		3D9C42D322745B48000A6585 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
-		3D9C42D422745B48000A6585 /* MapirServices.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapirServices.podspec; sourceTree = SOURCE_ROOT; };
+		3D9C42D422745B48000A6585 /* MapirServices.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapirServices.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3D9C42D522745B48000A6585 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		3D9C42D622745C9D000A6585 /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Fastfile; path = fastlane/Fastfile; sourceTree = SOURCE_ROOT; };
 		3D9C42D722745CDE000A6585 /* MapirServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapirServicesTests.swift; sourceTree = "<group>"; };
@@ -111,19 +124,17 @@
 		C02DCF6A22CA213000BA403F /* MPSManeuver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSManeuver.swift; sourceTree = "<group>"; };
 		C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSIntersection.swift; sourceTree = "<group>"; };
 		C02E70E022B11B6D0058BCA7 /* MPSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSError.swift; sourceTree = "<group>"; };
-		C02E70E422B120EF0058BCA7 /* MPSPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPoint.swift; sourceTree = "<group>"; };
 		C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSReverseGeocode.swift; sourceTree = "<group>"; };
-		C04CF66022A2603D009761C4 /* MPSGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSGeometry.swift; sourceTree = "<group>"; };
-		C04CF66322A26A63009761C4 /* MPSPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSPolygon.swift; sourceTree = "<group>"; };
 		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C04CF68922A2A091009761C4 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		C051A23322DC53AB00E71703 /* Polyline.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = Polyline.o; path = "../../../Library/Developer/Xcode/DerivedData/MapirServices-efxaoylofksjkvffeetggywahzqs/Build/Products/Debug-iphoneos/Polyline.o"; sourceTree = "<group>"; };
 		C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocationCoordinate.swift; sourceTree = "<group>"; };
 		C08DB44C22CB302600FAE64A /* MPSLane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLane.swift; sourceTree = "<group>"; };
 		C08DB44E22CB570800FAE64A /* MPSRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRoute.swift; sourceTree = "<group>"; };
-		C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2DArray+MPSLocationCoordinate.swift"; sourceTree = "<group>"; };
-		C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+MPSLocationCoordinate.swift"; sourceTree = "<group>"; };
+		C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+initFromArray.swift"; sourceTree = "<group>"; };
 		C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSFastReverseGeocode.swift; sourceTree = "<group>"; };
+		C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRouteObject.swift; sourceTree = "<group>"; };
 		C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistance.swift; sourceTree = "<group>"; };
 		C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDuration.swift; sourceTree = "<group>"; };
 		C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistanceMatrix.swift; sourceTree = "<group>"; };
@@ -132,6 +143,7 @@
 		C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearchResult.swift; sourceTree = "<group>"; };
 		C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearchResult.swift; sourceTree = "<group>"; };
 		C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearch.swift; sourceTree = "<group>"; };
+		C0EED5D022DC652B0004BB31 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStaticMapMarker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C08DB45622CB8B2400FAE64A /* Polyline in Frameworks */,
+				C0EED5CF22DC627D0004BB31 /* Polyline in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +184,7 @@
 				3D9C43222274629B000A6585 /* Example */,
 				3D9C429B227458E8000A6585 /* Configs */,
 				3D9C429122745894000A6585 /* Products */,
+				C051A23222DC53AA00E71703 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -204,6 +217,7 @@
 				3D9C42D822745DAF000A6585 /* .jazzy.yaml */,
 				3D9C42DA22745DB0000A6585 /* .swift-version */,
 				3D9C42D922745DAF000A6585 /* .swiftlint.yml */,
+				C0EED5D022DC652B0004BB31 /* Cartfile */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -253,9 +267,6 @@
 			children = (
 				C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */,
 				C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */,
-				C04CF66022A2603D009761C4 /* MPSGeometry.swift */,
-				C04CF66322A26A63009761C4 /* MPSPolygon.swift */,
-				C02E70E422B120EF0058BCA7 /* MPSPoint.swift */,
 				C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */,
 				C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */,
 				C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */,
@@ -265,8 +276,8 @@
 				C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */,
 				C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */,
 				C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */,
-				C08DB45022CB59FD00FAE64A /* Routing */,
 				C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */,
+				C08DB45022CB59FD00FAE64A /* Routing */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,11 +292,18 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		C051A23222DC53AA00E71703 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C051A23322DC53AB00E71703 /* Polyline.o */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C086ACF522C34A45004256EA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C08DB45722CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift */,
-				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift */,
+				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -300,6 +318,7 @@
 				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
 				C08DB44C22CB302600FAE64A /* MPSLane.swift */,
 				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
+				C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -396,10 +415,13 @@
 					3D9C43202274629B000A6585 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
+					C035B3EE22DB4F340083BBD4 = {
+						CreatedOnToolsVersion = 11.0;
+					};
 				};
 			};
 			buildConfigurationList = 3D9C428A22745894000A6585 /* Build configuration list for PBXProject "MapirServices" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -417,6 +439,7 @@
 				3D9C428F22745894000A6585 /* MapirServices-iOS */,
 				3D9C42F02274604A000A6585 /* MapirServices-iOSTests */,
 				3D9C43202274629B000A6585 /* Example */,
+				C035B3EE22DB4F340083BBD4 /* UniversalBinary */,
 			);
 		};
 /* End PBXProject section */
@@ -426,6 +449,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0EED5D122DC652B0004BB31 /* Cartfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +471,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C035B3F222DB4F530083BBD4 /* Build Process */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Process";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Set bash script to exit immediately if any commands fail.\nset -e\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 0. If your SDK's target name is different from project name, edit the target name below.\nTARGET_TO_BUILD=${PROJECT_NAME}-iOS\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${TARGET_TO_BUILD}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${TARGET_TO_BUILD}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Specify the exact output as you wish. check for existance of the folder\nFINAL_OUTPUTFOLDER=${PROJECT_DIR}/build\nmkdir -p \"${FINAL_OUTPUTFOLDER}\"\n\n# Step 6. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${FINAL_OUTPUTFOLDER}\"\n\n# Step 7. Convenience step to open the project's directory in Finder\n# open \"${FINAL_OUTPUTFOLDER}\"\n";
+		};
+		C035B3F322DB93820083BBD4 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3D9C428C22745894000A6585 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -457,27 +520,24 @@
 				C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */,
 				C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */,
 				C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */,
-				C04CF66422A26A63009761C4 /* MPSPolygon.swift in Sources */,
 				C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */,
 				C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */,
 				C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */,
-				C04CF66122A2603D009761C4 /* MPSGeometry.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
 				C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */,
 				C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */,
 				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
-				C08DB45822CC86AD00FAE64A /* CLLocationCoordinate2DArray+MPSLocationCoordinate.swift in Sources */,
 				C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */,
 				C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */,
+				C0B79B2222D361BC005E9C24 /* MPSRouteObject.swift in Sources */,
 				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */,
-				C02E70E522B120EF0058BCA7 /* MPSPoint.swift in Sources */,
 				C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */,
 				C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */,
 				C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */,
 				C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */,
-				C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+MPSLocationCoordinate.swift in Sources */,
+				C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
 				C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */,
 				C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */,
 			);
@@ -715,7 +775,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Configs/MapirServicesTests.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -733,7 +793,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Configs/MapirServicesTests.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -788,6 +848,24 @@
 			};
 			name = Release;
 		};
+		C035B3EF22DB4F350083BBD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C035B3F022DB4F350083BBD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -827,6 +905,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		C035B3F122DB4F350083BBD4 /* Build configuration list for PBXAggregateTarget "UniversalBinary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C035B3EF22DB4F350083BBD4 /* Debug */,
+				C035B3F022DB4F350083BBD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -834,7 +921,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:raphaelmor/Polyline.git";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = upToNextMinorVersion;
 				minimumVersion = 4.2.1;
 			};
 		};

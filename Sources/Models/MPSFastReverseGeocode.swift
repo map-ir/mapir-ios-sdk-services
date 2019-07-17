@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSFastReverseGeocode {
@@ -27,12 +28,12 @@ public struct MPSFastReverseGeocode {
     public var primary: String?
     public var plaque: String?
     public var postalCode: String?
-    public var coordinates: MPSLocationCoordinate?
+    public var coordinates: CLLocationCoordinate2D?
 
     enum CodingKeys: String, CodingKey {
         case address
         case postalAddress = "postal_address"
-        case compactAddress = "compact_address"
+        case compactAddress = "address_compact"
         case last
         case name
         case poi
@@ -79,7 +80,10 @@ extension MPSFastReverseGeocode: Decodable {
         plaque = try container.decode(String.self, forKey: .plaque)
         postalCode = try container.decode(String.self, forKey: .postalCode)
 
-        let geom = try container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
-        coordinates = try geom.decode(MPSLocationCoordinate.self, forKey: .coordinates)
+        let geomContainer = try container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
+        let arr = try geomContainer.decode([String].self, forKey: .coordinates)
+        if let lat = Double(arr[1]), let long = Double(arr[0]) {
+            coordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        }
     }
 }

@@ -13,24 +13,24 @@ public struct MPSDistanceMatrix {
     public var durations: [MPSDuration]
     public var origins: [MPSLocation]
     public var destinations: [MPSLocation]
-    
+
     private struct DistanceHelper: Decodable {
         var origin: String
         var destination: String
         var distance: Double
-        
+
         enum CodingKeys: String, CodingKey {
             case origin = "origin_index"
             case destination = "destination_index"
             case distance
         }
     }
-    
+
     private struct DurationHelper: Decodable {
         var origin: String
         var destination: String
         var duration: Double
-        
+
         enum CodingKeys: String, CodingKey {
             case origin = "origin_index"
             case destination = "destination_index"
@@ -46,14 +46,14 @@ extension MPSDistanceMatrix: Decodable {
         case origins
         case destinations
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let originsHelper = try container.decode([String : MPSLocation].self, forKey: .origins)
-        let destinationHelper = try container.decode([String : MPSLocation].self, forKey: .destinations)
+        let originsHelper = try container.decode([String: MPSLocation].self, forKey: .origins)
+        let destinationHelper = try container.decode([String: MPSLocation].self, forKey: .destinations)
         let durationHelper = try? container.decode([DurationHelper].self, forKey: .durations)
         let distanceHelper = try? container.decode([DistanceHelper].self, forKey: .distances)
-        
+
         durations = [MPSDuration]()
         distances = [MPSDistance]()
         origins = [MPSLocation]()

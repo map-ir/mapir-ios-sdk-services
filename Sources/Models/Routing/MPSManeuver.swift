@@ -6,11 +6,12 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 
 public struct MPSManeuver {
-    /// A `MPSLocationCoordinate`  describing the location of the turn.
-    public var location: MPSLocationCoordinate
+    /// A `CLLocationCoordinate2D`  describing the location of the turn.
+    public var location: CLLocationCoordinate2D?
 
     /// The clockwise angle from true north to the direction of travel immediately after the maneuver. Range 0-359.
     public var bearingAfter: Int
@@ -24,8 +25,9 @@ public struct MPSManeuver {
     /// An optional `String` indicating the direction change of the maneuver.
     public var modifier: MPSManeuverModifier?
 
-    /// An optional `Integer` indicating number of the exit to take. The field exists for the following `type` field: `roundabout / rotary` and `else`
-    public var exit: Int
+    /// An optional `Integer` indicating number of the exit to take.
+    /// The field exists for the following `type` field: `roundabout / rotary` and `else`
+    public var exit: Int?
 }
 
 extension MPSManeuver: Decodable {
@@ -41,19 +43,19 @@ extension MPSManeuver: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        let coords = try container.decode([Double].self, forKey: .location)
-        location = MPSLocationCoordinate(from: coords)
-
+        let coords = try? container.decode([Double].self, forKey: .location)
+        if let coords = coords {
+            location = CLLocationCoordinate2D(from: coords)
+        }
         bearingAfter = try container.decode(Int.self, forKey: .bearingAfter)
         bearingBefore = try container.decode(Int.self, forKey: .bearingBefore)
-        type = MPSManeuverType(rawValue: try container.decode(String.self, forKey: .type)) ?? .continue
-        modifier = MPSManeuverModifier(rawValue: try container.decode(String.self, forKey: .modifier))
-        exit = try container.decode(Int.self, forKey: .exit)
-
+        type = try container.decode(MPSManeuverType.self, forKey: .type)
+        modifier = try? container.decode(MPSManeuverModifier.self, forKey: .modifier)
+        exit = try? container.decode(Int.self, forKey: .exit)
     }
 }
 
-public enum MPSManeuverType: String {
+public enum MPSManeuverType: String, Decodable {
     /// a basic turn into direction of the `modifier`
     case turn
 
@@ -66,7 +68,8 @@ public enum MPSManeuverType: String {
     /// indicates the destination of the leg
     case arrive
 
-    /// merge onto a street (e.g. getting on the highway from a ramp, the `modifier` specifies the direction of the merge )
+    /// merge onto a street (e.g. getting on the highway from a ramp,
+    /// the `modifier` specifies the direction of the merge )
     case merge
 
     /// __Deprecated__. Replaced by `on_ramp` and `off_ramp `.
@@ -90,16 +93,21 @@ public enum MPSManeuverType: String {
     /// Turn in direction of `modifier` to stay on the same road
     case `continue`
 
-    /// traverse `roundabout`, has additional field `exit` with NR if the `roundabout` is left. the `modifier` specifies the direction of entering the roundabout
+    /// traverse `roundabout`, has additional field `exit` with NR if the `roundabout` is left.
+    /// the `modifier` specifies the direction of entering the roundabout
     case roundabout
 
-    /// a traffic circle. While very similar to a larger version of a roundabout, it does not necessarily follow roundabout rules for right of way. It can offer `rotary_name/rotary_pronunciation` in addition to the `exit` parameter.
+    /// a traffic circle. While very similar to a larger version of a roundabout,
+    /// it does not necessarily follow roundabout rules for right of way.
+    /// It can offer `rotary_name/rotary_pronunciation` in addition to the `exit` parameter.
     case rotary
 
-    /// Describes a turn at a small roundabout that should be treated as normal turn. The modifier indicates the turn direciton.
+    /// Describes a turn at a small roundabout that should be treated as normal turn.
+    /// The modifier indicates the turn direciton.
     case roundaboutTurn = "roundabout trun"
 
-    /// not an actual turn but a change in the driving conditions. For example the travel mode. If the road takes a turn itself, the  modifier describes the direction
+    /// not an actual turn but a change in the driving conditions. For example the travel mode.
+    /// If the road takes a turn itself, the  modifier describes the direction
     case notification
 
     /// Describes a maneuver exiting a roundabout (usually preceeded by a `roundabout` instruction)
@@ -109,7 +117,7 @@ public enum MPSManeuverType: String {
     case exitRotary = "exit rotary"
 }
 
-public enum MPSManeuverModifier: String {
+public enum MPSManeuverModifier: String, Decodable {
 
     /// a normal turn to the right
     case right

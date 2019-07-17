@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 import Polyline
 
@@ -21,7 +22,7 @@ public struct MPSStep {
     public var intersections: [MPSIntersection]
 
     /// The unsimplified geometry of the route segment, depending on the geometries parameter.
-    public var geometry: [MPSLocationCoordinate]!
+    public var geometry: [CLLocationCoordinate2D]?
 
     /// The name of the way along which travel proceeds.
     public var name: String
@@ -38,7 +39,8 @@ public struct MPSStep {
     /// The name for the rotary. Optionally included, if the step is a rotary and a rotary name is available.
     public var rotaryName: String?
 
-    /// The pronunciation hint of the rotary name. Optionally included, if the step is a rotary and a rotary pronunciation is available.
+    /// The pronunciation hint of the rotary name.
+    /// Optionally included, if the step is a rotary and a rotary pronunciation is available.
     public var rotaryPronunciation: String?
 
     /// A string signifying the mode of transportation.
@@ -68,7 +70,7 @@ extension MPSStep: Decodable {
         case ref
         case pronounciation
         case destination
-        case exits
+        case exits = "exit"
         case rotaryName = "rotary_name"
         case rotaryPronounciation = "rotary_pronounciation"
         case mode
@@ -87,21 +89,21 @@ extension MPSStep: Decodable {
         let polylineHash = try container.decode(String.self, forKey: .geometry)
         let polyline = Polyline(encodedPolyline: polylineHash)
         let decodedPolyline = polyline.coordinates
-        if let dp = decodedPolyline {
-            geometry = dp.asMPSLocationCoordintes
+        if let decodedPolyline = decodedPolyline {
+            geometry = decodedPolyline
         } else {
             assertionFailure("Can't decode geometry from polyline hash.")
             geometry = nil
         }
         name = try container.decode(String.self, forKey: .name)
-        ref = try container.decode(String.self, forKey: .ref)
-        pronunciation = try container.decode(String.self, forKey: .pronounciation)
+        ref = try? container.decode(String.self, forKey: .ref)
+        pronunciation = try? container.decode(String.self, forKey: .pronounciation)
 
         // WTF is the type?
-        destinations = try container.decode(String.self, forKey: .destination)
-        exits = try container.decode([String].self, forKey: .exits)
-        rotaryName = try container.decode(String.self, forKey: .rotaryName)
-        rotaryPronunciation = try container.decode(String.self, forKey: .rotaryPronounciation)
+        destinations = try? container.decode(String.self, forKey: .destination)
+        exits = try? container.decode([String].self, forKey: .exits)
+        rotaryName = try? container.decode(String.self, forKey: .rotaryName)
+        rotaryPronunciation = try? container.decode(String.self, forKey: .rotaryPronounciation)
         mode = try container.decode(String.self, forKey: .mode)
         maneuver = try container.decode(MPSManeuver.self, forKey: .maneuver)
         wieght = try container.decode(Double.self, forKey: .weight)

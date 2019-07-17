@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// HTTP Methods definitions.
 public struct HTTPMethod {
     public static let delete  = "DELETE"

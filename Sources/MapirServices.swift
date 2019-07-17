@@ -42,19 +42,21 @@ public class MPSMapirServices {
         if let token = token {
             self.token = token
         } else {
-            assertionFailure("API key not found in the info.plist file. consider adding it.")
+            debugPrint("API key not found in the info.plist file.")
         }
     }
 
-    private func essentialRequest(withEndpoint endpoint: String, query: String?, httpMethod: String) -> URLRequest? {
+    private func essentialRequest(withEndpoint endpoint: String, query: String?, httpMethod: String) throws -> URLRequest {
         guard let url = URL(string: baseURL.absoluteString + endpoint + (query ?? "")) else {
-            return nil
+            throw MPSError.urlEncodingError
         }
         var request = URLRequest(url: url)
         request.timeoutInterval = 10
         request.httpMethod = httpMethod
         if let token = token {
             request.addValue(token, forHTTPHeaderField: "x-api-key")
+        } else {
+            throw MPSError.noAPIAccessToken
         }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
@@ -65,8 +67,12 @@ public class MPSMapirServices {
                                   completionHandler: @escaping (Result<MPSReverseGeocode, Error>) -> Void) {
 
         let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
-        guard let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get) else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+
+        let request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
             return
         }
 
@@ -93,7 +99,7 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
             case 404:
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
             default:
@@ -108,10 +114,14 @@ public class MPSMapirServices {
                                       completionHandler: @escaping (Result<MPSFastReverseGeocode, Error>) -> Void) {
 
         let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
-        guard let request = essentialRequest(withEndpoint: Endpoint.reverseGeocode,
-                                             query: query,
-                                             httpMethod: HTTPMethod.get) else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+
+        let request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.reverseGeocode,
+                                           query: query,
+                                           httpMethod: HTTPMethod.get)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
             return
         }
 
@@ -139,7 +149,7 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
                 return
             case 404:
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
@@ -189,10 +199,13 @@ public class MPSMapirServices {
             return
         }
 
-        guard let request = essentialRequest(withEndpoint: Endpoint.distanceMatrix,
-                                             query: urlEncodedQuery,
-                                             httpMethod: HTTPMethod.get) else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+        let request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.distanceMatrix,
+                                           query: urlEncodedQuery,
+                                           httpMethod: HTTPMethod.get)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
             return
         }
 
@@ -221,7 +234,7 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
                 return
             case 404:
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
@@ -238,10 +251,13 @@ public class MPSMapirServices {
                                 filter: MPSSearchFilter? = nil,
                                 completionHandler: @escaping (Result<MPSSearch, Error>) -> Void) {
 
-        guard var request = essentialRequest(withEndpoint: Endpoint.search,
-                                             query: nil,
-                                             httpMethod: HTTPMethod.post) else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+        var request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.search,
+                                           query: nil,
+                                           httpMethod: HTTPMethod.post)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
             return
         }
 
@@ -279,7 +295,7 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
                 return
             case 404:
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
@@ -296,11 +312,14 @@ public class MPSMapirServices {
                                             filter: MPSSearchFilter? = nil,
                                             completionHandler: @escaping (Result<MPSAutocompleteSearch, Error>) -> Void) {
 
-        guard var request = essentialRequest(withEndpoint: Endpoint.autocomleteSearch,
-                                             query: nil,
-                                             httpMethod: HTTPMethod.post) else {
 
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+        var request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.autocomleteSearch,
+                                           query: nil,
+                                           httpMethod: HTTPMethod.post)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
             return
         }
 
@@ -338,7 +357,7 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
                 return
             case 404:
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
@@ -381,13 +400,17 @@ public class MPSMapirServices {
             return
         }
 
-        guard let request = essentialRequest(withEndpoint: Endpoint.route(forType: routeType),
-                                             query: urlEncodedQuery,
-                                             httpMethod: HTTPMethod.get) else {
-                                                
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+        let request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.route(forType: routeType),
+                                           query: urlEncodedQuery,
+                                           httpMethod: HTTPMethod.get)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
             return
         }
+
+        
 
         session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
@@ -411,7 +434,7 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
                 return
             case 404:
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
@@ -444,10 +467,13 @@ public class MPSMapirServices {
             return
         }
 
-        guard let request = essentialRequest(withEndpoint: Endpoint.staticMap,
-                                             query: urlEncodedQuery,
-                                             httpMethod: HTTPMethod.get) else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+        let request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.staticMap,
+                                           query: urlEncodedQuery,
+                                           httpMethod: HTTPMethod.get)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
             return
         }
 
@@ -473,7 +499,7 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest(code: 400))) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
                 return
             case 404:
                 DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }

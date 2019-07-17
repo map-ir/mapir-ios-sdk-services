@@ -10,6 +10,8 @@ import Foundation
 
 public enum MPSError: Error {
 
+    case noAPIAccessToken
+
     case invalidResponse
 
     enum ServiceError: Error {
@@ -17,7 +19,7 @@ public enum MPSError: Error {
     }
 
     enum RequestError: Error {
-        case badRequest(code: Int)
+        case badRequest
         case notFound
         case invalidArgument
     }

@@ -9,10 +9,16 @@
 // Include Foundation
 @_exported import Foundation
 import CoreLocation
+
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 public class MPSMapirServices {
 
+    /// Map.ir API endpoints.
     private struct Endpoint {
         static let reverseGeocode = "/reverse"
         static let fastReverseGeocode = "/fast-reverse"
@@ -26,6 +32,7 @@ public class MPSMapirServices {
 
     }
 
+    /// Singleton object of MPSMapirServices
     public static let shared = MPSMapirServices()
     
     let baseURL: URL! = URL(string: "https://map.ir")
@@ -56,15 +63,24 @@ public class MPSMapirServices {
         if let token = token {
             request.addValue(token, forHTTPHeaderField: "x-api-key")
         } else {
-            throw MPSError.noAPIAccessToken
+            throw MPSError.ServiceError.invalidAccessToken
         }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         return request
     }
 
-    public func getReverseGeocode(for point: CLLocationCoordinate2D,
-                                  completionHandler: @escaping (Result<MPSReverseGeocode, Error>) -> Void) {
+    /// Generates address of a location coordinate.
+    ///
+    /// - Parameter point: The input coordinates to find address for it.
+    /// - Parameter completionHandler: closure which gets called when result is recieved or and error occures.
+    /// - Parameter result: a `Result` of types `MPSReverseGeocode` if execution succeeds and `Error` if it fails.
+    ///
+    ///
+    /// This methods calls APIs to find address of a location based on its coordinates.
+    /// `completionHandler` gets called whenever execution finishes with success or error.
+    public func reverseGeocode(for point: CLLocationCoordinate2D,
+                               completionHandler: @escaping (_ result: Result<MPSReverseGeocode, Error>) -> Void) {
 
         let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
 
@@ -82,7 +98,7 @@ public class MPSMapirServices {
                 return
             }
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.invalidResponse))
+                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
                 return
             }
 
@@ -99,9 +115,9 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
             default:
                 return
             }
@@ -110,8 +126,15 @@ public class MPSMapirServices {
         dataTask.resume()
     }
 
-    public func getFastReverseGeocode(for point: CLLocationCoordinate2D,
-                                      completionHandler: @escaping (Result<MPSFastReverseGeocode, Error>) -> Void) {
+    /// generates address of a location. It's faster than normal `reverseGeocode` method.
+    ///
+    /// - Parameter point: the coordinate of the location.
+    /// - Parameter completionHandler: Closure which is called when execution finishes either successfull or with error.
+    /// - Parameter result: a `Result` of types `MPSFastReverseGeocode` if execution succeeds and `Error` if it fails.
+    ///
+    /// this method is a faster way to access to the address of a location. result will be available about 50ms faster than usual with this method.
+    public func FastReverseGeocode(for point: CLLocationCoordinate2D,
+                                      completionHandler: @escaping (_ result: Result<MPSFastReverseGeocode, Error>) -> Void) {
 
         let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
 
@@ -125,14 +148,14 @@ public class MPSMapirServices {
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
                 return
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.invalidResponse))
+                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
                 return
             }
 
@@ -149,22 +172,33 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
 
     }
 
-    public func getDistanceMatrix(from origins: [CLLocationCoordinate2D],
-                                  to destinations: [CLLocationCoordinate2D],
-                                  options: MPSDistanceMatrixOptions = [],
-                                  completionHandler: @escaping (Result<MPSDistanceMatrix, Error>) -> Void) {
+    /// Generates a matrix of distance and duration between origins and destinations.
+    ///
+    /// - Parameter origins: Coordinates of origin.
+    /// - Parameter destinations: Coordinates of destinations.
+    /// - Parameter options: Options of matrix calculation. By default it's `nil`.
+    /// - Parameter result: a `Result` of types `MPSDistanceMatrix` if execution succeeds and `Error` if it fails.
+    ///
+    /// This method is used to find distance and duration between some origins and destinations. The result durations are in seconds and distances are in meters.
+    /// It's important to know that the result is calculated with consideration of traffic and land routes.
+    public func distanceMatrix(from origins: [CLLocationCoordinate2D],
+                               to destinations: [CLLocationCoordinate2D],
+                               options: MPSDistanceMatrixOptions = [],
+                               completionHandler: @escaping (_ result: Result<MPSDistanceMatrix, Error>) -> Void) {
 
         var query: String = "?"
         query += "origins="
@@ -209,14 +243,14 @@ public class MPSMapirServices {
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
                 return
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.invalidResponse))
+                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
                 return
             }
 
@@ -234,22 +268,34 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getSearchResult(for text: String,
-                                around location: CLLocationCoordinate2D,
-                                selectionOptions: MPSSearchOptions = [],
-                                filter: MPSSearchFilter? = nil,
-                                completionHandler: @escaping (Result<MPSSearch, Error>) -> Void) {
+    /// Searching around a location about a specific place.
+    ///
+    /// - Parameter text: the name or any data about the place.
+    /// - Parameter location: center of search.
+    /// - Parameter selectionOptions: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
+    /// - Parameter filter: filters of search. e.g. places with distance less that specified meters.
+    /// - Parameter result: a `Result` of types array of `MPSSearchResult`s if execution succeeds and `Error` if it fails.
+    ///
+    /// Search will result in different kind of places. Text can even be an address which will result in a geocode result.
+    /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
+    public func search(for text: String,
+                       around location: CLLocationCoordinate2D,
+                       selectionOptions: MPSSearchOptions = [],
+                       filter: MPSSearchFilter? = nil,
+                       completionHandler: @escaping (_ result: Result<[MPSSearchResult], Error>) -> Void) {
 
         var request: URLRequest
         do {
@@ -274,11 +320,11 @@ public class MPSMapirServices {
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
@@ -287,7 +333,8 @@ public class MPSMapirServices {
                 if let data = data {
                     do {
                         let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        let searchResults = decodedData.results
+                        DispatchQueue.main.async { completionHandler(.success(searchResults)) }
                         return
                     } catch let parseError {
                         DispatchQueue.main.async { completionHandler(.failure(parseError)) }
@@ -295,23 +342,32 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getAutocompleteSearchResult(for text: String,
-                                            around location: CLLocationCoordinate2D,
-                                            selectionOptions: MPSSearchOptions = [],
-                                            filter: MPSSearchFilter? = nil,
-                                            completionHandler: @escaping (Result<MPSAutocompleteSearch, Error>) -> Void) {
-
+    /// Autocompletes for text around a location.
+    /// - Parameter text: Input text.
+    /// - Parameter location: Center of autocomplete search
+    /// - Parameter selectionOptions: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
+    /// - Parameter filter: filters of search. e.g. places with distance less that specified meters.
+    /// - Parameter result: a `Result` of types array of `MPSAutocompleteResult`s if execution succeeds and `Error` if it fails.
+    ///
+    /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
+    public func autocomplete(for text: String,
+                             around location: CLLocationCoordinate2D,
+                             selectionOptions: MPSSearchOptions = [],
+                             filter: MPSSearchFilter? = nil,
+                             completionHandler: @escaping (_ result: Result<[MPSAutocompleteResult], Error>) -> Void) {
 
         var request: URLRequest
         do {
@@ -336,11 +392,11 @@ public class MPSMapirServices {
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
@@ -348,8 +404,9 @@ public class MPSMapirServices {
             case 200:
                 if let data = data {
                     do {
-                        let decodedData = try self.decoder.decode(MPSAutocompleteSearch.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        let decodedData = try self.decoder.decode(MPSAutocomplete.self, from: data)
+                        let autocompleteResult = decodedData.results
+                        DispatchQueue.main.async { completionHandler(.success(autocompleteResult)) }
                         return
                     } catch let parseError {
                         DispatchQueue.main.async { completionHandler(.failure(parseError)) }
@@ -357,22 +414,35 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getRoute(from origin: CLLocationCoordinate2D,
-                         to destinations: [CLLocationCoordinate2D],
-                         routeType: MPSRouteType,
-                         routeOptions: MPSRouteOptions = [],
-                         completionHandler: @escaping (Result<MPSRouteObject, Error>) -> Void) {
+    /// Calculates routes from an origin to one or more destinations.
+    ///
+    /// - Parameter origin: origin point.
+    /// - Parameter destinations: coordinates of destinations. may be one or more destination in order.
+    /// - Parameter routeType: type of route. e.g. bicycle.
+    /// - Parameter routeOptions: options of routing.
+    /// - Parameter result: a `Result` of types `MPSRouteResult` if execution succeeds and `Error` if it fails.
+    ///
+    /// Route method is used to find paths between one ore more places. This method considers traffic for finding path for some of route types.
+    /// OSRM is used for route calculation. for more information use
+    /// [OSRM documentation](http://project-osrm.org/docs/v5.22.0/api/?language=Swift#general-options).
+    public func route(from origin: CLLocationCoordinate2D,
+                      to destinations: CLLocationCoordinate2D...,
+                      routeType: MPSRouteType,
+                      routeOptions: MPSRouteOptions = [],
+                      completionHandler: @escaping (_ result: Result<MPSRouteResult, Error>) -> Void) {
 
         guard !destinations.isEmpty else {
             completionHandler(.failure(MPSError.RequestError.invalidArgument))
@@ -412,13 +482,13 @@ public class MPSMapirServices {
 
         
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
@@ -426,7 +496,7 @@ public class MPSMapirServices {
             case 200:
                 if let data = data {
                     do {
-                        let decodedData = try self.decoder.decode(MPSRouteObject.self, from: data)
+                        let decodedData = try self.decoder.decode(MPSRouteResult.self, from: data)
                         DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                     } catch let decoderError {
                         DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
@@ -434,22 +504,107 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getStaticMap(center: CLLocationCoordinate2D,
-                             size: CGSize,
-                             zoomLevel: Int,
-                             markers: [MPSStaticMapMarker] = [],
-                             completionHandler: @escaping (Result<UIImage, Error>) -> Void) {
+    #if os(iOS)
+    /// Generates static map of an area of the map.
+    ///
+    /// - Parameter center: Center point of the map.
+    /// - Parameter size: size of the image. in pixels.
+    /// - Parameter zoomLevel: Zoom level of the map.
+    /// - Parameter markers: List of markers which is needed on the map.
+    /// - Parameter result: a `Result` of types `UIImage` if execution succeeds and `Error` if it fails.
+    public func staticMap(center: CLLocationCoordinate2D,
+                          size: CGSize,
+                          zoomLevel: Int,
+                          markers: [MPSStaticMapMarker] = [],
+                          completionHandler: @escaping (_ result: Result<UIImage, Error>) -> Void) {
+
+        guard !markers.isEmpty else {
+            completionHandler(.failure(MPSError.RequestError.invalidArgument))
+            return
+        }
+
+        var query = "?width=\(Int(size.width))&height=\(Int(size.height))&zoom_level=\(zoomLevel)"
+
+        for marker in markers {
+            query += "&markers=color:\(marker.style.rawValue)|label:\(marker.label)|\(marker.coordinate.longitude),\(marker.coordinate.latitude)"
+        }
+
+        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            completionHandler(.failure(MPSError.urlEncodingError))
+            return
+        }
+
+        let request: URLRequest
+        do {
+            request = try essentialRequest(withEndpoint: Endpoint.staticMap,
+                                           query: urlEncodedQuery,
+                                           httpMethod: HTTPMethod.get)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
+            return
+        }
+
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+                return
+            }
+
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    if let decodedImage = UIImage(data: data) {
+                        DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
+                        return
+                    } else {
+                        DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
+                return
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
+                return
+            default:
+                return
+            }
+        }
+
+            dataTask.resume()
+    }
+
+    #elseif os(macOS)
+    /// Generates static map of an area of the map.
+    ///
+    /// - Parameter center: Center point of the map.
+    /// - Parameter size: size of the image. in pixels.
+    /// - Parameter zoomLevel: Zoom level of the map.
+    /// - Parameter markers: List of markers which is needed on the map.
+    /// - Parameter result: a `Result` of types `NSImage` if execution succeeds and `Error` if it fails.
+    public func staticMap(center: CLLocationCoordinate2D,
+                          size: CGSize,
+                          zoomLevel: Int,
+                          markers: [MPSStaticMapMarker] = [],
+                          completionHandler: @escaping (_ result: Result<NSImage, Error>) -> Void) {
 
         guard !markers.isEmpty else {
             completionHandler(.failure(MPSError.RequestError.invalidArgument))
@@ -484,14 +639,14 @@ public class MPSMapirServices {
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
             switch urlResponse.statusCode {
             case 200:
                 if let data = data {
-                    if let decodedImage = UIImage(data: data) {
+                    if let decodedImage = NSImage(data: data) {
                         DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
                         return
                     } else {
@@ -499,14 +654,15 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
         }.resume()
     }
+    #endif
 }

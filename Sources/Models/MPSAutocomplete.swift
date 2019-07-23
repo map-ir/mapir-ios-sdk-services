@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct MPSAutocompleteSearch {
+public struct MPSAutocomplete {
     var allResultsCount: Int
-    var results: [MPSAutocompleteSearchResult]
+    var results: [MPSAutocompleteResult]
 }
 
-extension MPSAutocompleteSearch: Decodable {
+extension MPSAutocomplete: Decodable {
     enum CodingKeys: String, CodingKey {
         case allResultsCount = "odata.count"
         case results = "value"

@@ -188,7 +188,7 @@ public class MPSMapirServices {
     /// - Parameter result: a `Result` of types `MPSFastReverseGeocode` if execution succeeds and `Error` if it fails.
     ///
     /// this method is a faster way to access to the address of a location. result will be available about 50ms faster than usual with this method.
-    public func FastReverseGeocode(for point: CLLocationCoordinate2D,
+    public func fastReverseGeocode(for point: CLLocationCoordinate2D,
                                       completionHandler: @escaping (_ result: Result<MPSFastReverseGeocode, Error>) -> Void) {
 
         let queryItems = [URLQueryItem(name: "lat", value: "\(point.latitude)"),

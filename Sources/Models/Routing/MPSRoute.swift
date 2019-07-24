@@ -29,6 +29,7 @@ public struct MPSRoute {
         public static let fullOverview          = MPSRoute.Options(rawValue: 1 << 1)
         public static let simplifiedOverview    = MPSRoute.Options(rawValue: 1 << 2)
         public static let noOverview            = MPSRoute.Options(rawValue: 1 << 3)
+        public static let steps                 = MPSRoute.Options(rawValue: 1 << 4)
     }
 
     /// The distance traveled by the route, in `Double` meters.

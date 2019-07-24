@@ -517,7 +517,7 @@ public class MPSMapirServices {
         dataTask.resume()
     }
 
-    #if os(iOS)
+    #if os(iOS) || os(watchOS) || os(tvOS)
     /// Generates static map of an area of the map.
     ///
     /// - Parameter center: Center point of the map.

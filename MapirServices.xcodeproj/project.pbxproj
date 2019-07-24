@@ -70,7 +70,6 @@
 		C056048B22E709C3004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046722E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C056048D22E71B35004A2F9C /* MapirServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42D722745CDE000A6585 /* MapirServicesTests.swift */; };
 		C05604A922E7204F004A2F9C /* MapirServices_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C05604A022E7204F004A2F9C /* MapirServices_tvOS.framework */; };
-		C05604BB22E737B6004A2F9C /* MapirServices_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C05604A222E7204F004A2F9C /* MapirServices_tvOS.h */; };
 		C05604BD22E737B6004A2F9C /* MapirServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42A122745900000A6585 /* MapirServices.swift */; };
 		C05604BE22E737B6004A2F9C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C05604BF22E737B6004A2F9C /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
@@ -95,7 +94,6 @@
 		C05604D222E737B6004A2F9C /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
 		C05604D322E737B6004A2F9C /* MPSRouteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */; };
 		C05604D422E737B6004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
-		C05604DC22E737B7004A2F9C /* MapirServices_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C056049522E72014004A2F9C /* MapirServices_watchOS.h */; };
 		C05604DF22E737B7004A2F9C /* MapirServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42A122745900000A6585 /* MapirServices.swift */; };
 		C05604E022E737B7004A2F9C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C05604E122E737B7004A2F9C /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
@@ -120,8 +118,14 @@
 		C05604F422E737B7004A2F9C /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
 		C05604F522E737B7004A2F9C /* MPSRouteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */; };
 		C05604F622E737B7004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
-		C05604F722E737D2004A2F9C /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; };
+		C05604F722E737D2004A2F9C /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C05604F822E737DA004A2F9C /* MapirServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42D722745CDE000A6585 /* MapirServicesTests.swift */; };
+		C056051D22E739AD004A2F9C /* MapirServices_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C05604A222E7204F004A2F9C /* MapirServices_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C056051E22E739B9004A2F9C /* MapirServices_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C056049522E72014004A2F9C /* MapirServices_watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C056051F22E739D5004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046B22E6ED01004A2F9C /* Polyline.framework */; };
+		C056052022E739D5004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046B22E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C056052222E739D9004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046F22E6ED01004A2F9C /* Polyline.framework */; };
+		C056052322E739D9004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046F22E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
 		C08DB44D22CB302600FAE64A /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
 		C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
@@ -238,6 +242,28 @@
 			dstSubfolderSpec = 10;
 			files = (
 				C056048B22E709C3004A2F9C /* Polyline.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056052122E739D5004A2F9C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C056052022E739D5004A2F9C /* Polyline.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056052422E739D9004A2F9C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C056052322E739D9004A2F9C /* Polyline.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +396,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C056051F22E739D5004A2F9C /* Polyline.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +404,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C056052222E739D9004A2F9C /* Polyline.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,7 +616,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C05604DC22E737B7004A2F9C /* MapirServices_watchOS.h in Headers */,
+				C056051E22E739B9004A2F9C /* MapirServices_watchOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,7 +624,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C05604BB22E737B6004A2F9C /* MapirServices_tvOS.h in Headers */,
+				C056051D22E739AD004A2F9C /* MapirServices_tvOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,6 +734,7 @@
 				C056048F22E72014004A2F9C /* Sources */,
 				C056049022E72014004A2F9C /* Frameworks */,
 				C056049122E72014004A2F9C /* Resources */,
+				C056052122E739D5004A2F9C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -724,6 +753,7 @@
 				C056049C22E7204F004A2F9C /* Sources */,
 				C056049D22E7204F004A2F9C /* Frameworks */,
 				C056049E22E7204F004A2F9C /* Resources */,
+				C056052422E739D9004A2F9C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1587,7 +1617,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MapirServices-watchOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Configs/MapirServices-watchOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1600,7 +1630,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -1614,7 +1644,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MapirServices-watchOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Configs/MapirServices-watchOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1627,7 +1657,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
@@ -1640,7 +1670,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MapirServices-tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Configs/MapirServices-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1653,7 +1683,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 13.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -1666,7 +1696,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MapirServices-tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Configs/MapirServices-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1679,7 +1709,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 13.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};

@@ -492,7 +492,7 @@ public class MPSMapirServices {
     /// OSRM is used for route calculation. for more information use
     /// [OSRM documentation](http://project-osrm.org/docs/v5.22.0/api/?language=Swift#general-options).
     public func route(from origin: CLLocationCoordinate2D,
-                      to destinations: CLLocationCoordinate2D...,
+                      to destinations: [CLLocationCoordinate2D],
                       routeMode: MPSRoute.Mode,
                       routeOptions: MPSRoute.Options = [],
                       completionHandler: @escaping (_ result: Result<([MPSWaypoint], [MPSRoute]), Error>) -> Void) {

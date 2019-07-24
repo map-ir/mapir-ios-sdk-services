@@ -555,7 +555,11 @@ public class MPSMapirServices {
                 if let data = data {
                     do {
                         let decodedData = try self.decoder.decode(MPSRouteResult.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        DispatchQueue.main.async {
+                            completionHandler(.success(
+                                (decodedData.waypoints, decodedData.routes)
+                            ))
+                        }
                     } catch let decoderError {
                         DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
                         return
@@ -642,7 +646,7 @@ public class MPSMapirServices {
             }
         }
 
-            dataTask.resume()
+        dataTask.resume()
     }
 
     #elseif os(macOS)

@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double MapirServices_macOSVersionNumber;
 FOUNDATION_EXPORT const unsigned char MapirServices_macOSVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MapirServices_macOS/PublicHeader.h>
-
-

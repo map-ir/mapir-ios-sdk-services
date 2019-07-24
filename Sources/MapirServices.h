@@ -6,12 +6,13 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
-//! Project version number for MapirServices_macOS.
-FOUNDATION_EXPORT double MapirServices_macOSVersionNumber;
+//! Project version number for MapirServices.
+FOUNDATION_EXPORT double MapirServicesVersionNumber;
 
-//! Project version string for MapirServices_macOS.
-FOUNDATION_EXPORT const unsigned char MapirServices_macOSVersionString[];
+//! Project version string for MapirServices.
+FOUNDATION_EXPORT const unsigned char MapirServicesVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MapirServices_macOS/PublicHeader.h>

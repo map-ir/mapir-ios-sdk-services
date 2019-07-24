@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         let size = CGSize(width: 300, height: 250)
         let marker = MPSStaticMapMarker(coordinate: coordinates, style: MPSStaticMapMarker.Style.red, label: "mapir")
 
-        mps.getStaticMap(center: coordinates,
+        mps.staticMap(center: coordinates,
                          size: size,
                          zoomLevel: 15,
                          markers: [marker]) { (result) in
@@ -60,23 +60,23 @@ class ViewController: UIViewController {
                             }
         }
 
-        mps.getReverseGeocode(for: coordinates) { (result) in
+        mps.reverseGeocode(for: coordinates) { (result) in
             switch result {
             case .success(let reverse):
                 print("getReverseGeocode method for (\(coordinates.latitude), \(coordinates.longitude)) was successful.")
                 print("---> address is: \(reverse.address ?? "nil")")
             case .failure(let error):
-                print("getReverseGeocode failed with error: \(error.localizedDescription)")
+                print("getReverseGeocode failed with error: \(error)")
             }
         }
 
-        mps.getFastReverseGeocode(for: coordinates) { (result) in
+        mps.fastReverseGeocode(for: coordinates) { (result) in
             switch result {
             case .success(let reverse):
                 print("getFastReverseGeocode method for (\(coordinates.latitude), \(coordinates.longitude)) was successful.")
                 print("---> address is: \(reverse.address ?? "nil")")
             case .failure(let error):
-                print("getFastReverseGeocode failed with error: \(error.localizedDescription)")
+                print("getFastReverseGeocode failed with error: \(error)")
             }
         }
 
@@ -88,10 +88,10 @@ class ViewController: UIViewController {
         let origins = [pointA, pointB]
         let destinations = [pointC, pointD]
 
-        mps.getDistanceMatrix(from: origins, to: destinations, options: .sorted) { (result) in
+        mps.distanceMatrix(from: origins, to: destinations, options: .sorted) { (result) in
             switch result {
             case .failure(let error):
-                print("getDistanceMatrix failed with error: \(error.localizedDescription)")
+                print("getDistanceMatrix failed with error: \(error)")
             case .success(let distanceMartix):
                 print("getDistanceMatrix method was successful.")
                 print("---> address is: \(distanceMartix)")
@@ -100,39 +100,40 @@ class ViewController: UIViewController {
 
         let stringToSearch = "ساوجی نیا"
 
-        mps.getSearchResult(for: stringToSearch, around: coordinates, selectionOptions: [.poi, .roads], filter: .city("تهران")) { (result) in
+        mps.search(for: stringToSearch, around: coordinates, selectionOptions: [.poi, .roads], filter: .city("تهران")) { (result) in
             switch result {
             case .success(let searchResult):
                 print("getSearchResult method was successful.")
                 print("---> Search result is: \(searchResult)")
             case .failure(let error):
-                print("getSearchResult failed with error: \(error.localizedDescription)")
+                print("getSearchResult failed with error: \(error)")
             }
         }
 
-        mps.getAutocompleteSearchResult(for: stringToSearch, around: coordinates, selectionOptions: [.poi, .roads]) { (result) in
+        mps.autocomplete(for: stringToSearch, around: coordinates, selectionOptions: [.poi, .roads]) { (result) in
             switch result {
             case .success(let searchResult):
                 print("getAutocompleteSearchResult method was successful.")
                 print("---> Autocomplete search result is: \(searchResult)")
             case .failure(let error):
-                print("getAutocompleteSearchResult failed with error: \(error.localizedDescription)")
+                print("getAutocompleteSearchResult failed with error: \(error)")
             }
         }
 
-        mps.getRoute(from: pointA,
-                     to: [pointB, pointC],
-                     routeType: .drivingNoExclusion,
-                     routeOptions: .calculateAlternatives) { (result) in
-                        switch result {
-                        case .success(let route):
-                            print("getRoute method was successful.")
-                            print("---> Route result is: \(route)")
-                        case .failure(let error):
-                            print("getRoute failed with error: \(error)")
-                        }
-        }
+        mps.route(from: pointA,
+                  to: [pointB, pointC],
+                  routeMode: .drivingNoExclusion,
+                  routeOptions: .calculateAlternatives) { (result) in
 
+            switch result {
+            case .success(let (waypoint, route)):
+                print("getRoute method was successful.")
+                print("---> Waypoint result(s) is: \(waypoint)")
+                print("---> Route result(s) is: \(route)")
+            case .failure(let error):
+                print("getRoute failed with error: \(error)")
+            }
+        }
     }
 
     /// LoadView

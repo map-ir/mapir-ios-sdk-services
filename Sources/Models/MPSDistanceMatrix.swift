@@ -9,6 +9,20 @@
 import Foundation
 
 public struct MPSDistanceMatrix {
+
+    public struct Options: OptionSet {
+
+        public let rawValue: Int
+
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+
+        public static let distance = MPSDistanceMatrix.Options(rawValue: 1 << 0)
+        public static let duration = MPSDistanceMatrix.Options(rawValue: 1 << 1)
+        public static let sorted = MPSDistanceMatrix.Options(rawValue: 1 << 2)
+    }
+
     public var distances: [MPSDistance]
     public var durations: [MPSDuration]
     public var origins: [MPSLocation]
@@ -89,17 +103,4 @@ extension MPSDistanceMatrix: Decodable {
             }
         }
     }
-}
-
-public struct MPSDistanceMatrixOptions: OptionSet {
-
-    public let rawValue: Int
-
-    public init(rawValue: Int) {
-        self.rawValue = rawValue
-    }
-
-    public static let distance = MPSDistanceMatrixOptions(rawValue: 1 << 0)
-    public static let duration = MPSDistanceMatrixOptions(rawValue: 1 << 1)
-    public static let sorted = MPSDistanceMatrixOptions(rawValue: 1 << 2)
 }

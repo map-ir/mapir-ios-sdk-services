@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct MPSRouteObject {
+public struct MPSRouteResult {
     public var routes: [MPSRoute]
     public var waypoints: [MPSWaypoint]
 }
 
-extension MPSRouteObject: Decodable {
+extension MPSRouteResult: Decodable {
     enum CodingKeys: String, CodingKey {
         case routes
         case waypoints

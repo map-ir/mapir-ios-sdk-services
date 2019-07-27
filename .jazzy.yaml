@@ -1,7 +1,7 @@
 # MapirServices document generator jazzy settings
 
 copyright: Copyright 1398 Map
-author: Alireza Asadi
+author: Map
 xcodebuild_arguments: [-target, MapirServices-iOS]
 clean: true
 output: ./Documentation

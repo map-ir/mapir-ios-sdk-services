@@ -12,6 +12,26 @@ import Polyline
 
 public struct MPSRoute {
 
+    public enum Mode: String {
+        case drivingExcludeAirPollutionZone     = "zojofard"
+        case drivingExcludeTrafficControlZone   = "tarh"
+        case drivingNoExclusion                 = "route"
+        case onFoot                             = "foot"
+        case bicycle                            = "bicycle"
+    }
+
+    public struct Options: OptionSet {
+        public let rawValue: Int
+
+        public init(rawValue: Int) { self.rawValue = rawValue }
+
+        public static let calculateAlternatives = MPSRoute.Options(rawValue: 1 << 0)
+        public static let fullOverview          = MPSRoute.Options(rawValue: 1 << 1)
+        public static let simplifiedOverview    = MPSRoute.Options(rawValue: 1 << 2)
+        public static let noOverview            = MPSRoute.Options(rawValue: 1 << 3)
+        public static let steps                 = MPSRoute.Options(rawValue: 1 << 4)
+    }
+
     /// The distance traveled by the route, in `Double` meters.
     public var distance: Double
 
@@ -61,21 +81,4 @@ extension MPSRoute: Decodable {
         weightName = try? container.decode(String.self, forKey: .weightName)
         legs = try container.decode([MPSLeg].self, forKey: .legs)
     }
-}
-
-public enum MPSRouteType: String {
-    case drivingExcludeAirPollutionZone = "zojofard"
-    case drivingExcludeTrafficControlZone = "tarh"
-    case drivingNoExclusion = "route"
-    case onFoot = "foot"
-    case bicycle = "bicycle"
-}
-
-public struct MPSRouteOptions: OptionSet {
-    public let rawValue: Int
-
-    public init(rawValue: Int) { self.rawValue = rawValue }
-
-    public static let calculateAlternatives = MPSRouteOptions(rawValue: 1 << 0)
-    public static let overview = MPSRouteOptions(rawValue: 1 << 1)
 }

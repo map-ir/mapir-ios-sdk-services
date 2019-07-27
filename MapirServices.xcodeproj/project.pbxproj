@@ -3,23 +3,8 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
-
-/* Begin PBXAggregateTarget section */
-		C035B3EE22DB4F340083BBD4 /* UniversalBinary */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = C035B3F122DB4F350083BBD4 /* Build configuration list for PBXAggregateTarget "UniversalBinary" */;
-			buildPhases = (
-				C035B3F322DB93820083BBD4 /* SwiftLint */,
-				C035B3F222DB4F530083BBD4 /* Build Process */,
-			);
-			dependencies = (
-			);
-			name = UniversalBinary;
-			productName = UniversalBinary;
-		};
-/* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
 		3D9C42A222745900000A6585 /* MapirServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42A122745900000A6585 /* MapirServices.swift */; };
@@ -31,6 +16,7 @@
 		3D9C432E2274629C000A6585 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9C432C2274629C000A6585 /* LaunchScreen.storyboard */; };
 		3D9C433422746323000A6585 /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; };
 		3D9C433522746323000A6585 /* MapirServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C004681022E5DDD100CF922E /* MapirServices_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C004680722E5DDD000CF922E /* MapirServices_macOS.framework */; };
 		C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */; };
 		C02DCF6722CA1CE700BA403F /* MPSStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6622CA1CE700BA403F /* MPSStep.swift */; };
 		C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* MPSLeg.swift */; };
@@ -39,22 +25,107 @@
 		C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
 		C04CF65F22A25E5D009761C4 /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
 		C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
+		C056047022E6ED0B004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046322E6ED01004A2F9C /* Polyline.framework */; };
+		C056047122E6ED0B004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046322E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C056047222E7098D004A2F9C /* MapirServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42A122745900000A6585 /* MapirServices.swift */; };
+		C056047322E70993004A2F9C /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
+		C056047422E70993004A2F9C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
+		C056047522E70993004A2F9C /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
+		C056047622E70993004A2F9C /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
+		C056047722E70993004A2F9C /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
+		C056047822E70993004A2F9C /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
+		C056047922E70993004A2F9C /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
+		C056047A22E70993004A2F9C /* MPSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */; };
+		C056047B22E70993004A2F9C /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
+		C056047C22E70993004A2F9C /* MPSAutocompleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */; };
+		C056047D22E70993004A2F9C /* MPSAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */; };
+		C056047E22E70993004A2F9C /* MPSStaticMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */; };
+		C056047F22E7099B004A2F9C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
+		C056048022E7099B004A2F9C /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
+		C056048122E709A2004A2F9C /* MPSWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */; };
+		C056048222E709A2004A2F9C /* MPSLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* MPSLeg.swift */; };
+		C056048322E709A2004A2F9C /* MPSStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6622CA1CE700BA403F /* MPSStep.swift */; };
+		C056048422E709A2004A2F9C /* MPSManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* MPSManeuver.swift */; };
+		C056048522E709A2004A2F9C /* MPSIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */; };
+		C056048622E709A2004A2F9C /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
+		C056048722E709A2004A2F9C /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
+		C056048822E709A2004A2F9C /* MPSRouteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */; };
+		C056048922E709A8004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
+		C056048A22E709C3004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046722E6ED01004A2F9C /* Polyline.framework */; };
+		C056048B22E709C3004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046722E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C056048D22E71B35004A2F9C /* MapirServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42D722745CDE000A6585 /* MapirServicesTests.swift */; };
+		C05604A922E7204F004A2F9C /* MapirServices_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C05604A022E7204F004A2F9C /* MapirServices_tvOS.framework */; };
+		C05604BD22E737B6004A2F9C /* MapirServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42A122745900000A6585 /* MapirServices.swift */; };
+		C05604BE22E737B6004A2F9C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
+		C05604BF22E737B6004A2F9C /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
+		C05604C022E737B6004A2F9C /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
+		C05604C122E737B6004A2F9C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
+		C05604C222E737B6004A2F9C /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
+		C05604C322E737B6004A2F9C /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
+		C05604C422E737B6004A2F9C /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
+		C05604C522E737B6004A2F9C /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
+		C05604C622E737B6004A2F9C /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
+		C05604C722E737B6004A2F9C /* MPSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */; };
+		C05604C822E737B6004A2F9C /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
+		C05604C922E737B6004A2F9C /* MPSAutocompleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */; };
+		C05604CA22E737B6004A2F9C /* MPSAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */; };
+		C05604CB22E737B6004A2F9C /* MPSStaticMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */; };
+		C05604CC22E737B6004A2F9C /* MPSWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */; };
+		C05604CD22E737B6004A2F9C /* MPSLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* MPSLeg.swift */; };
+		C05604CE22E737B6004A2F9C /* MPSStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6622CA1CE700BA403F /* MPSStep.swift */; };
+		C05604CF22E737B6004A2F9C /* MPSManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* MPSManeuver.swift */; };
+		C05604D022E737B6004A2F9C /* MPSIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */; };
+		C05604D122E737B6004A2F9C /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
+		C05604D222E737B6004A2F9C /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
+		C05604D322E737B6004A2F9C /* MPSRouteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */; };
+		C05604D422E737B6004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
+		C05604DF22E737B7004A2F9C /* MapirServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42A122745900000A6585 /* MapirServices.swift */; };
+		C05604E022E737B7004A2F9C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
+		C05604E122E737B7004A2F9C /* MPSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* MPSError.swift */; };
+		C05604E222E737B7004A2F9C /* MPSReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */; };
+		C05604E322E737B7004A2F9C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
+		C05604E422E737B7004A2F9C /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
+		C05604E522E737B7004A2F9C /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
+		C05604E622E737B7004A2F9C /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
+		C05604E722E737B7004A2F9C /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
+		C05604E822E737B7004A2F9C /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
+		C05604E922E737B7004A2F9C /* MPSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */; };
+		C05604EA22E737B7004A2F9C /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
+		C05604EB22E737B7004A2F9C /* MPSAutocompleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */; };
+		C05604EC22E737B7004A2F9C /* MPSAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */; };
+		C05604ED22E737B7004A2F9C /* MPSStaticMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */; };
+		C05604EE22E737B7004A2F9C /* MPSWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */; };
+		C05604EF22E737B7004A2F9C /* MPSLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* MPSLeg.swift */; };
+		C05604F022E737B7004A2F9C /* MPSStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6622CA1CE700BA403F /* MPSStep.swift */; };
+		C05604F122E737B7004A2F9C /* MPSManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* MPSManeuver.swift */; };
+		C05604F222E737B7004A2F9C /* MPSIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */; };
+		C05604F322E737B7004A2F9C /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
+		C05604F422E737B7004A2F9C /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
+		C05604F522E737B7004A2F9C /* MPSRouteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */; };
+		C05604F622E737B7004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
+		C05604F722E737D2004A2F9C /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C05604F822E737DA004A2F9C /* MapirServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C42D722745CDE000A6585 /* MapirServicesTests.swift */; };
+		C056051F22E739D5004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046B22E6ED01004A2F9C /* Polyline.framework */; };
+		C056052022E739D5004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046B22E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C056052222E739D9004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046F22E6ED01004A2F9C /* Polyline.framework */; };
+		C056052322E739D9004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046F22E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C086ACFB22C34F6F004256EA /* MPSLocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */; };
 		C08DB44D22CB302600FAE64A /* MPSLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* MPSLane.swift */; };
 		C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* MPSRoute.swift */; };
 		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
 		C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */; };
-		C0B79B2222D361BC005E9C24 /* MPSRouteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */; };
-		C0D3D3B722DF0687005419F3 /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3D3B622DF0687005419F3 /* Polyline.framework */; platformFilter = ios; };
-		C0D3D3B822DF0687005419F3 /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3D3B622DF0687005419F3 /* Polyline.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0B79B2222D361BC005E9C24 /* MPSRouteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */; };
 		C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */; };
 		C0EA4F9822C89A8300BC04EF /* MPSDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */; };
 		C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */; };
 		C0EA4F9A22C89A8300BC04EF /* MPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */; };
 		C0EA4FDF22C9EBC800BC04EF /* MPSSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */; };
 		C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
-		C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */; };
-		C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */; };
+		C0EA4FE322CA002600BC04EF /* MPSAutocompleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */; };
+		C0EA4FE522CA003400BC04EF /* MPSAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */; };
+		C0FA896822E899A3003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C0FA897022E899A4003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C0FA897122E899A4003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +144,69 @@
 			remoteGlobalIDString = 3D9C428F22745894000A6585;
 			remoteInfo = "MapirServices-iOS";
 		};
+		C004681122E5DDD100CF922E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D9C428722745894000A6585 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C004680622E5DDD000CF922E;
+			remoteInfo = "MapirServices-macOS";
+		};
+		C056046222E6ED01004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 207F63FE19B5DF7E005261FA;
+			remoteInfo = Polyline;
+		};
+		C056046422E6ED01004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 207F640919B5DF7E005261FA;
+			remoteInfo = PolylineTests;
+		};
+		C056046622E6ED01004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 91F7832C1CE4EB7E004E87E3;
+			remoteInfo = PolylineMac;
+		};
+		C056046822E6ED01004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 91F783351CE4EB7E004E87E3;
+			remoteInfo = PolylineMacTests;
+		};
+		C056046A22E6ED01004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA1A10711D003E88009F82FA;
+			remoteInfo = PolylineTV;
+		};
+		C056046C22E6ED01004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA1A107A1D003E88009F82FA;
+			remoteInfo = PolylineTVTests;
+		};
+		C056046E22E6ED01004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA1A10911D00400D009F82FA;
+			remoteInfo = PolylineWatch;
+		};
+		C05604AA22E7204F004A2F9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D9C428722745894000A6585 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C056049F22E7204F004A2F9C;
+			remoteInfo = "MapirServices-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,13 +221,46 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C004682122E5DE6A00CF922E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C056048B22E709C3004A2F9C /* Polyline.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056052122E739D5004A2F9C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C056052022E739D5004A2F9C /* Polyline.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056052422E739D9004A2F9C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C056052322E739D9004A2F9C /* Polyline.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0D3D3B922DF0687005419F3 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C0D3D3B822DF0687005419F3 /* Polyline.framework in Embed Frameworks */,
+				C056047122E6ED0B004A2F9C /* Polyline.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,6 +295,9 @@
 		3D9C432A2274629C000A6585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D9C432D2274629C000A6585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D9C432F2274629C000A6585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C004680722E5DDD000CF922E /* MapirServices_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C004680922E5DDD000CF922E /* MapirServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapirServices.h; sourceTree = "<group>"; };
+		C004680F22E5DDD000CF922E /* MapirServices-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MapirServices-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSWaypoint.swift; sourceTree = "<group>"; };
 		C02DCF6622CA1CE700BA403F /* MPSStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStep.swift; sourceTree = "<group>"; };
 		C02DCF6822CA1DC300BA403F /* MPSLeg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLeg.swift; sourceTree = "<group>"; };
@@ -137,24 +307,26 @@
 		C04CF65E22A25E5D009761C4 /* MPSReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSReverseGeocode.swift; sourceTree = "<group>"; };
 		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		C051A23322DC53AB00E71703 /* Polyline.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = Polyline.o; path = "../../../Library/Developer/Xcode/DerivedData/MapirServices-efxaoylofksjkvffeetggywahzqs/Build/Products/Debug-iphoneos/Polyline.o"; sourceTree = "<group>"; };
+		C056045822E6ED01004A2F9C /* Polyline.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Polyline.xcodeproj; path = Carthage/Checkouts/Polyline/Polyline.xcodeproj; sourceTree = "<group>"; };
+		C056049322E72014004A2F9C /* MapirServices_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C05604A022E7204F004A2F9C /* MapirServices_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C05604A822E7204F004A2F9C /* MapirServices-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MapirServices-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		C086ACFA22C34F6F004256EA /* MPSLocationCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocationCoordinate.swift; sourceTree = "<group>"; };
 		C08DB44C22CB302600FAE64A /* MPSLane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSLane.swift; sourceTree = "<group>"; };
 		C08DB44E22CB570800FAE64A /* MPSRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRoute.swift; sourceTree = "<group>"; };
 		C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+initFromArray.swift"; sourceTree = "<group>"; };
 		C09704E822C363A000E2585C /* MPSFastReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSFastReverseGeocode.swift; sourceTree = "<group>"; };
-		C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRouteObject.swift; sourceTree = "<group>"; };
-		C0D3D3B622DF0687005419F3 /* Polyline.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Polyline.framework; path = Carthage/Build/iOS/Polyline.framework; sourceTree = "<group>"; };
-		C0D3D3BA22DF1007005419F3 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
+		C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSRouteResult.swift; sourceTree = "<group>"; };
+		C0D3D3BA22DF1007005419F3 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
 		C0EA4F9322C89A8200BC04EF /* MPSDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistance.swift; sourceTree = "<group>"; };
 		C0EA4F9422C89A8200BC04EF /* MPSDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDuration.swift; sourceTree = "<group>"; };
 		C0EA4F9522C89A8200BC04EF /* MPSDistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSDistanceMatrix.swift; sourceTree = "<group>"; };
 		C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSLocation.swift; sourceTree = "<group>"; };
 		C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearch.swift; sourceTree = "<group>"; };
 		C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearchResult.swift; sourceTree = "<group>"; };
-		C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearchResult.swift; sourceTree = "<group>"; };
-		C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteSearch.swift; sourceTree = "<group>"; };
+		C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteResult.swift; sourceTree = "<group>"; };
+		C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocomplete.swift; sourceTree = "<group>"; };
 		C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStaticMapMarker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,7 +335,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0D3D3B722DF0687005419F3 /* Polyline.framework in Frameworks */,
+				C056047022E6ED0B004A2F9C /* Polyline.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +352,46 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D9C433422746323000A6585 /* MapirServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C004680422E5DDD000CF922E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C056048A22E709C3004A2F9C /* Polyline.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C004680C22E5DDD000CF922E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C004681022E5DDD100CF922E /* MapirServices_macOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056049022E72014004A2F9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C056051F22E739D5004A2F9C /* Polyline.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056049D22E7204F004A2F9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C056052222E739D9004A2F9C /* Polyline.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C05604A522E7204F004A2F9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05604A922E7204F004A2F9C /* MapirServices_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +422,11 @@
 				3D9C43012274611B000A6585 /* MapirServices-tvOSTests.xctest */,
 				3D9C431122746198000A6585 /* MapirServices-macOSTests.xctest */,
 				3D9C43212274629B000A6585 /* Example.app */,
+				C004680722E5DDD000CF922E /* MapirServices_macOS.framework */,
+				C004680F22E5DDD000CF922E /* MapirServices-macOSTests.xctest */,
+				C056049322E72014004A2F9C /* MapirServices_watchOS.framework */,
+				C05604A022E7204F004A2F9C /* MapirServices_tvOS.framework */,
+				C05604A822E7204F004A2F9C /* MapirServices-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -237,6 +454,7 @@
 		3D9C42A0227458FA000A6585 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C004680922E5DDD000CF922E /* MapirServices.h */,
 				3D9C42A122745900000A6585 /* MapirServices.swift */,
 				C04CF66722A27D57009761C4 /* Core */,
 				C04CF65D22A25E1E009761C4 /* Models */,
@@ -286,8 +504,8 @@
 				C0EA4F9622C89A8200BC04EF /* MPSLocation.swift */,
 				C0EA4FDE22C9EBC800BC04EF /* MPSSearch.swift */,
 				C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */,
-				C0EA4FE222CA002600BC04EF /* MPSAutocompleteSearchResult.swift */,
-				C0EA4FE422CA003400BC04EF /* MPSAutocompleteSearch.swift */,
+				C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */,
+				C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */,
 				C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */,
 				C08DB45022CB59FD00FAE64A /* Routing */,
 			);
@@ -306,10 +524,23 @@
 		C051A23222DC53AA00E71703 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C0D3D3B622DF0687005419F3 /* Polyline.framework */,
-				C051A23322DC53AB00E71703 /* Polyline.o */,
+				C056045822E6ED01004A2F9C /* Polyline.xcodeproj */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C056045922E6ED01004A2F9C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C056046322E6ED01004A2F9C /* Polyline.framework */,
+				C056046522E6ED01004A2F9C /* PolylineTests.xctest */,
+				C056046722E6ED01004A2F9C /* Polyline.framework */,
+				C056046922E6ED01004A2F9C /* PolylineTests.xctest */,
+				C056046B22E6ED01004A2F9C /* Polyline.framework */,
+				C056046D22E6ED01004A2F9C /* PolylineTests.xctest */,
+				C056046F22E6ED01004A2F9C /* Polyline.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C086ACF522C34A45004256EA /* Extensions */ = {
@@ -330,7 +561,7 @@
 				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
 				C08DB44C22CB302600FAE64A /* MPSLane.swift */,
 				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
-				C0B79B2122D361BB005E9C24 /* MPSRouteObject.swift */,
+				C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -342,6 +573,31 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0FA897122E899A4003EB4E3 /* MapirServices.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C004680222E5DDD000CF922E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05604F722E737D2004A2F9C /* MapirServices.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056048E22E72014004A2F9C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0FA897022E899A4003EB4E3 /* MapirServices.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056049B22E7204F004A2F9C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0FA896822E899A3003EB4E3 /* MapirServices.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +662,99 @@
 			productReference = 3D9C43212274629B000A6585 /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C004680622E5DDD000CF922E /* MapirServices-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C004681C22E5DDD100CF922E /* Build configuration list for PBXNativeTarget "MapirServices-macOS" */;
+			buildPhases = (
+				C004680222E5DDD000CF922E /* Headers */,
+				C004680322E5DDD000CF922E /* Sources */,
+				C004680422E5DDD000CF922E /* Frameworks */,
+				C004680522E5DDD000CF922E /* Resources */,
+				C004682122E5DE6A00CF922E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MapirServices-macOS";
+			productName = "MapirServices-macOS";
+			productReference = C004680722E5DDD000CF922E /* MapirServices_macOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C004680E22E5DDD000CF922E /* MapirServices-macOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C004681D22E5DDD100CF922E /* Build configuration list for PBXNativeTarget "MapirServices-macOSTests" */;
+			buildPhases = (
+				C004680B22E5DDD000CF922E /* Sources */,
+				C004680C22E5DDD000CF922E /* Frameworks */,
+				C004680D22E5DDD000CF922E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C004681222E5DDD100CF922E /* PBXTargetDependency */,
+			);
+			name = "MapirServices-macOSTests";
+			productName = "MapirServices-macOSTests";
+			productReference = C004680F22E5DDD000CF922E /* MapirServices-macOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C056049222E72014004A2F9C /* MapirServices-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C056049822E72014004A2F9C /* Build configuration list for PBXNativeTarget "MapirServices-watchOS" */;
+			buildPhases = (
+				C056048E22E72014004A2F9C /* Headers */,
+				C056048F22E72014004A2F9C /* Sources */,
+				C056049022E72014004A2F9C /* Frameworks */,
+				C056049122E72014004A2F9C /* Resources */,
+				C056052122E739D5004A2F9C /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MapirServices-watchOS";
+			productName = "MapirServices-watchOS";
+			productReference = C056049322E72014004A2F9C /* MapirServices_watchOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C056049F22E7204F004A2F9C /* MapirServices-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05604B122E7204F004A2F9C /* Build configuration list for PBXNativeTarget "MapirServices-tvOS" */;
+			buildPhases = (
+				C056049B22E7204F004A2F9C /* Headers */,
+				C056049C22E7204F004A2F9C /* Sources */,
+				C056049D22E7204F004A2F9C /* Frameworks */,
+				C056049E22E7204F004A2F9C /* Resources */,
+				C056052422E739D9004A2F9C /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MapirServices-tvOS";
+			productName = "MapirServices-tvOS";
+			productReference = C05604A022E7204F004A2F9C /* MapirServices_tvOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C05604A722E7204F004A2F9C /* MapirServices-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05604B422E7204F004A2F9C /* Build configuration list for PBXNativeTarget "MapirServices-tvOSTests" */;
+			buildPhases = (
+				C05604A422E7204F004A2F9C /* Sources */,
+				C05604A522E7204F004A2F9C /* Frameworks */,
+				C05604A622E7204F004A2F9C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C05604AB22E7204F004A2F9C /* PBXTargetDependency */,
+			);
+			name = "MapirServices-tvOSTests";
+			productName = "MapirServices-tvOSTests";
+			productReference = C05604A822E7204F004A2F9C /* MapirServices-tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -413,7 +762,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = "";
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Map;
 				TargetAttributes = {
@@ -427,7 +776,19 @@
 					3D9C43202274629B000A6585 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
-					C035B3EE22DB4F340083BBD4 = {
+					C004680622E5DDD000CF922E = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					C004680E22E5DDD000CF922E = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					C056049222E72014004A2F9C = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					C056049F22E7204F004A2F9C = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					C05604A722E7204F004A2F9C = {
 						CreatedOnToolsVersion = 11.0;
 					};
 				};
@@ -445,15 +806,77 @@
 			);
 			productRefGroup = 3D9C429122745894000A6585 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C056045922E6ED01004A2F9C /* Products */;
+					ProjectRef = C056045822E6ED01004A2F9C /* Polyline.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3D9C428F22745894000A6585 /* MapirServices-iOS */,
+				C056049222E72014004A2F9C /* MapirServices-watchOS */,
+				C004680622E5DDD000CF922E /* MapirServices-macOS */,
+				C056049F22E7204F004A2F9C /* MapirServices-tvOS */,
 				3D9C42F02274604A000A6585 /* MapirServices-iOSTests */,
+				C004680E22E5DDD000CF922E /* MapirServices-macOSTests */,
+				C05604A722E7204F004A2F9C /* MapirServices-tvOSTests */,
 				3D9C43202274629B000A6585 /* Example */,
-				C035B3EE22DB4F340083BBD4 /* UniversalBinary */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C056046322E6ED01004A2F9C /* Polyline.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Polyline.framework;
+			remoteRef = C056046222E6ED01004A2F9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C056046522E6ED01004A2F9C /* PolylineTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PolylineTests.xctest;
+			remoteRef = C056046422E6ED01004A2F9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C056046722E6ED01004A2F9C /* Polyline.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Polyline.framework;
+			remoteRef = C056046622E6ED01004A2F9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C056046922E6ED01004A2F9C /* PolylineTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PolylineTests.xctest;
+			remoteRef = C056046822E6ED01004A2F9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C056046B22E6ED01004A2F9C /* Polyline.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Polyline.framework;
+			remoteRef = C056046A22E6ED01004A2F9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C056046D22E6ED01004A2F9C /* PolylineTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PolylineTests.xctest;
+			remoteRef = C056046C22E6ED01004A2F9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C056046F22E6ED01004A2F9C /* Polyline.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Polyline.framework;
+			remoteRef = C056046E22E6ED01004A2F9C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3D9C428E22745894000A6585 /* Resources */ = {
@@ -479,46 +902,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C004680522E5DDD000CF922E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C004680D22E5DDD000CF922E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056049122E72014004A2F9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056049E22E7204F004A2F9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C05604A622E7204F004A2F9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C035B3F222DB4F530083BBD4 /* Build Process */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Process";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Set bash script to exit immediately if any commands fail.\nset -e\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 0. If your SDK's target name is different from project name, edit the target name below.\nTARGET_TO_BUILD=${PROJECT_NAME}-iOS\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${TARGET_TO_BUILD}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${TARGET_TO_BUILD}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Specify the exact output as you wish. check for existance of the folder\nFINAL_OUTPUTFOLDER=${PROJECT_DIR}/build\nmkdir -p \"${FINAL_OUTPUTFOLDER}\"\n\n# Step 6. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${FINAL_OUTPUTFOLDER}\"\n\n# Step 7. Convenience step to open the project's directory in Finder\n# open \"${FINAL_OUTPUTFOLDER}\"\n";
-		};
-		C035B3F322DB93820083BBD4 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3D9C428C22745894000A6585 /* Sources */ = {
@@ -528,9 +947,9 @@
 				C08DB44D22CB302600FAE64A /* MPSLane.swift in Sources */,
 				C02DCF6D22CA213B00BA403F /* MPSIntersection.swift in Sources */,
 				C0EA4F9922C89A8300BC04EF /* MPSDistanceMatrix.swift in Sources */,
-				C0EA4FE522CA003400BC04EF /* MPSAutocompleteSearch.swift in Sources */,
+				C0EA4FE522CA003400BC04EF /* MPSAutocomplete.swift in Sources */,
 				C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */,
-				C0EA4FE322CA002600BC04EF /* MPSAutocompleteSearchResult.swift in Sources */,
+				C0EA4FE322CA002600BC04EF /* MPSAutocompleteResult.swift in Sources */,
 				C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
 				C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */,
@@ -538,7 +957,7 @@
 				C02E70E122B11B6D0058BCA7 /* MPSError.swift in Sources */,
 				C0EA4F9722C89A8300BC04EF /* MPSDistance.swift in Sources */,
 				C02DCF6922CA1DC300BA403F /* MPSLeg.swift in Sources */,
-				C0B79B2222D361BC005E9C24 /* MPSRouteObject.swift in Sources */,
+				C0B79B2222D361BC005E9C24 /* MPSRouteResult.swift in Sources */,
 				C09704E922C363A000E2585C /* MPSFastReverseGeocode.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02DCF6522CA1C9600BA403F /* MPSWaypoint.swift in Sources */,
@@ -569,6 +988,115 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C004680322E5DDD000CF922E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C056047322E70993004A2F9C /* MPSReverseGeocode.swift in Sources */,
+				C056048822E709A2004A2F9C /* MPSRouteResult.swift in Sources */,
+				C056048222E709A2004A2F9C /* MPSLeg.swift in Sources */,
+				C056047222E7098D004A2F9C /* MapirServices.swift in Sources */,
+				C056047F22E7099B004A2F9C /* HTTPMethod.swift in Sources */,
+				C056048922E709A8004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
+				C056048322E709A2004A2F9C /* MPSStep.swift in Sources */,
+				C056048422E709A2004A2F9C /* MPSManeuver.swift in Sources */,
+				C056048722E709A2004A2F9C /* MPSRoute.swift in Sources */,
+				C056047622E70993004A2F9C /* MPSDistance.swift in Sources */,
+				C056047422E70993004A2F9C /* MPSFastReverseGeocode.swift in Sources */,
+				C056047722E70993004A2F9C /* MPSDistanceMatrix.swift in Sources */,
+				C056047922E70993004A2F9C /* MPSLocation.swift in Sources */,
+				C056048122E709A2004A2F9C /* MPSWaypoint.swift in Sources */,
+				C056048522E709A2004A2F9C /* MPSIntersection.swift in Sources */,
+				C056047D22E70993004A2F9C /* MPSAutocomplete.swift in Sources */,
+				C056047822E70993004A2F9C /* MPSDuration.swift in Sources */,
+				C056047B22E70993004A2F9C /* MPSSearchResult.swift in Sources */,
+				C056048022E7099B004A2F9C /* MPSError.swift in Sources */,
+				C056047E22E70993004A2F9C /* MPSStaticMapMarker.swift in Sources */,
+				C056047522E70993004A2F9C /* MPSLocationCoordinate.swift in Sources */,
+				C056048622E709A2004A2F9C /* MPSLane.swift in Sources */,
+				C056047C22E70993004A2F9C /* MPSAutocompleteResult.swift in Sources */,
+				C056047A22E70993004A2F9C /* MPSSearch.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C004680B22E5DDD000CF922E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C056048D22E71B35004A2F9C /* MapirServicesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056048F22E72014004A2F9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05604E322E737B7004A2F9C /* MPSFastReverseGeocode.swift in Sources */,
+				C05604F522E737B7004A2F9C /* MPSRouteResult.swift in Sources */,
+				C05604EF22E737B7004A2F9C /* MPSLeg.swift in Sources */,
+				C05604E922E737B7004A2F9C /* MPSSearch.swift in Sources */,
+				C05604E822E737B7004A2F9C /* MPSLocation.swift in Sources */,
+				C05604F622E737B7004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
+				C05604F022E737B7004A2F9C /* MPSStep.swift in Sources */,
+				C05604F122E737B7004A2F9C /* MPSManeuver.swift in Sources */,
+				C05604F422E737B7004A2F9C /* MPSRoute.swift in Sources */,
+				C05604E722E737B7004A2F9C /* MPSDuration.swift in Sources */,
+				C05604ED22E737B7004A2F9C /* MPSStaticMapMarker.swift in Sources */,
+				C05604EC22E737B7004A2F9C /* MPSAutocomplete.swift in Sources */,
+				C05604E222E737B7004A2F9C /* MPSReverseGeocode.swift in Sources */,
+				C05604EE22E737B7004A2F9C /* MPSWaypoint.swift in Sources */,
+				C05604F222E737B7004A2F9C /* MPSIntersection.swift in Sources */,
+				C05604E622E737B7004A2F9C /* MPSDistanceMatrix.swift in Sources */,
+				C05604E022E737B7004A2F9C /* HTTPMethod.swift in Sources */,
+				C05604E422E737B7004A2F9C /* MPSLocationCoordinate.swift in Sources */,
+				C05604E122E737B7004A2F9C /* MPSError.swift in Sources */,
+				C05604EA22E737B7004A2F9C /* MPSSearchResult.swift in Sources */,
+				C05604E522E737B7004A2F9C /* MPSDistance.swift in Sources */,
+				C05604F322E737B7004A2F9C /* MPSLane.swift in Sources */,
+				C05604EB22E737B7004A2F9C /* MPSAutocompleteResult.swift in Sources */,
+				C05604DF22E737B7004A2F9C /* MapirServices.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C056049C22E7204F004A2F9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05604C122E737B6004A2F9C /* MPSFastReverseGeocode.swift in Sources */,
+				C05604D322E737B6004A2F9C /* MPSRouteResult.swift in Sources */,
+				C05604CD22E737B6004A2F9C /* MPSLeg.swift in Sources */,
+				C05604C722E737B6004A2F9C /* MPSSearch.swift in Sources */,
+				C05604C622E737B6004A2F9C /* MPSLocation.swift in Sources */,
+				C05604D422E737B6004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
+				C05604CE22E737B6004A2F9C /* MPSStep.swift in Sources */,
+				C05604CF22E737B6004A2F9C /* MPSManeuver.swift in Sources */,
+				C05604D222E737B6004A2F9C /* MPSRoute.swift in Sources */,
+				C05604C522E737B6004A2F9C /* MPSDuration.swift in Sources */,
+				C05604CB22E737B6004A2F9C /* MPSStaticMapMarker.swift in Sources */,
+				C05604CA22E737B6004A2F9C /* MPSAutocomplete.swift in Sources */,
+				C05604C022E737B6004A2F9C /* MPSReverseGeocode.swift in Sources */,
+				C05604CC22E737B6004A2F9C /* MPSWaypoint.swift in Sources */,
+				C05604D022E737B6004A2F9C /* MPSIntersection.swift in Sources */,
+				C05604C422E737B6004A2F9C /* MPSDistanceMatrix.swift in Sources */,
+				C05604BE22E737B6004A2F9C /* HTTPMethod.swift in Sources */,
+				C05604C222E737B6004A2F9C /* MPSLocationCoordinate.swift in Sources */,
+				C05604BF22E737B6004A2F9C /* MPSError.swift in Sources */,
+				C05604C822E737B6004A2F9C /* MPSSearchResult.swift in Sources */,
+				C05604C322E737B6004A2F9C /* MPSDistance.swift in Sources */,
+				C05604D122E737B6004A2F9C /* MPSLane.swift in Sources */,
+				C05604C922E737B6004A2F9C /* MPSAutocompleteResult.swift in Sources */,
+				C05604BD22E737B6004A2F9C /* MapirServices.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C05604A422E7204F004A2F9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C05604F822E737DA004A2F9C /* MapirServicesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -581,6 +1109,16 @@
 			isa = PBXTargetDependency;
 			target = 3D9C428F22745894000A6585 /* MapirServices-iOS */;
 			targetProxy = 3D9C433622746323000A6585 /* PBXContainerItemProxy */;
+		};
+		C004681222E5DDD100CF922E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C004680622E5DDD000CF922E /* MapirServices-macOS */;
+			targetProxy = C004681122E5DDD100CF922E /* PBXContainerItemProxy */;
+		};
+		C05604AB22E7204F004A2F9C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C056049F22E7204F004A2F9C /* MapirServices-tvOS */;
+			targetProxy = C05604AA22E7204F004A2F9C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -648,7 +1186,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -707,7 +1245,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -738,14 +1276,14 @@
 				);
 				INFOPLIST_FILE = Configs/MapirServices.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ir.Map.services-iOS";
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.Map.MapirServices-iOS";
 				PRODUCT_NAME = MapirServices;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -773,14 +1311,14 @@
 				);
 				INFOPLIST_FILE = Configs/MapirServices.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ir.Map.services-iOS";
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.Map.MapirServices-iOS";
 				PRODUCT_NAME = MapirServices;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -793,7 +1331,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Configs/MapirServicesTests.plist;
+				INFOPLIST_FILE = "Configs/MapirServicesTests-iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -811,7 +1349,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Configs/MapirServicesTests.plist;
+				INFOPLIST_FILE = "Configs/MapirServicesTests-iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -839,7 +1377,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ir.map.MapirServicesExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -862,7 +1400,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ir.map.MapirServicesExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -871,21 +1409,265 @@
 			};
 			name = Release;
 		};
-		C035B3EF22DB4F350083BBD4 /* Debug */ = {
+		C004681822E5DDD100CF922E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 33DVPZ7L7T;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Configs/MapirServices.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		C035B3F022DB4F350083BBD4 /* Release */ = {
+		C004681922E5DDD100CF922E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Configs/MapirServices.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C004681A22E5DDD100CF922E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				INFOPLIST_FILE = "Configs/MapirServicesTests-macOS.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C004681B22E5DDD100CF922E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				INFOPLIST_FILE = "Configs/MapirServicesTests-macOS.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C056049922E72014004A2F9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Configs/MapirServices.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		C056049A22E72014004A2F9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Configs/MapirServices.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		C05604B222E7204F004A2F9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Configs/MapirServices.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		C05604B322E7204F004A2F9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Configs/MapirServices.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		C05604B522E7204F004A2F9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				INFOPLIST_FILE = "MapirServices-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+			};
+			name = Debug;
+		};
+		C05604B622E7204F004A2F9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				INFOPLIST_FILE = "MapirServices-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 			};
 			name = Release;
 		};
@@ -928,11 +1710,47 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C035B3F122DB4F350083BBD4 /* Build configuration list for PBXAggregateTarget "UniversalBinary" */ = {
+		C004681C22E5DDD100CF922E /* Build configuration list for PBXNativeTarget "MapirServices-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C035B3EF22DB4F350083BBD4 /* Debug */,
-				C035B3F022DB4F350083BBD4 /* Release */,
+				C004681822E5DDD100CF922E /* Debug */,
+				C004681922E5DDD100CF922E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C004681D22E5DDD100CF922E /* Build configuration list for PBXNativeTarget "MapirServices-macOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C004681A22E5DDD100CF922E /* Debug */,
+				C004681B22E5DDD100CF922E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C056049822E72014004A2F9C /* Build configuration list for PBXNativeTarget "MapirServices-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C056049922E72014004A2F9C /* Debug */,
+				C056049A22E72014004A2F9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05604B122E7204F004A2F9C /* Build configuration list for PBXNativeTarget "MapirServices-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05604B222E7204F004A2F9C /* Debug */,
+				C05604B322E7204F004A2F9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05604B422E7204F004A2F9C /* Build configuration list for PBXNativeTarget "MapirServices-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05604B522E7204F004A2F9C /* Debug */,
+				C05604B622E7204F004A2F9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

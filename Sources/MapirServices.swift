@@ -9,26 +9,33 @@
 // Include Foundation
 @_exported import Foundation
 import CoreLocation
+
+#if os(iOS) || os(watchOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 public class MPSMapirServices {
 
+    /// Map.ir API endpoints.
     private struct Endpoint {
         static let reverseGeocode = "/reverse"
         static let fastReverseGeocode = "/fast-reverse"
         static let distanceMatrix = "/distancematrix"
         static let search = "/search"
         static let autocomleteSearch = "/search/autocomplete"
-        static func route(forType type: MPSRouteType) -> String {
-            return "/routes/\(type.rawValue)/v1/driving"
+        static func route(forMode mode: MPSRoute.Mode) -> String {
+            return "/routes/\(mode.rawValue)/v1/driving"
         }
         static let staticMap = "/static"
 
     }
 
+    /// Singleton object of MPSMapirServices
     public static let shared = MPSMapirServices()
     
-    let baseURL: URL! = URL(string: "https://map.ir")
+    let host: String = "map.ir"
     
     private var token: String?
 
@@ -46,31 +53,95 @@ public class MPSMapirServices {
         }
     }
 
-    private func essentialRequest(withEndpoint endpoint: String, query: String?, httpMethod: String) throws -> URLRequest {
-        guard let url = URL(string: baseURL.absoluteString + endpoint + (query ?? "")) else {
+    private let userAgent: String = {
+        var components: [String] = []
+
+        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
+            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            components.append("\(appName)/\(version)")
+        }
+
+        let libraryBundle: Bundle? = Bundle(for: MPSMapirServices.self)
+
+        if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String, let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
+            components.append("\(libraryName)/\(version)")
+        }
+
+        let system: String
+        #if os(OSX)
+            system = "macOS"
+        #elseif os(iOS)
+            system = "iOS"
+        #elseif os(watchOS)
+            system = "watchOS"
+        #elseif os(tvOS)
+            system = "tvOS"
+        #endif
+        let systemVersion = ProcessInfo().operatingSystemVersion
+        components.append("\(system)/\(systemVersion.majorVersion).\(systemVersion.minorVersion).\(systemVersion.patchVersion)")
+
+        let chip: String
+        #if arch(x86_64)
+            chip = "x86_64"
+        #elseif arch(arm)
+            chip = "arm"
+        #elseif arch(arm64)
+            chip = "arm64"
+        #elseif arch(i386)
+            chip = "i386"
+        #endif
+        components.append("(\(chip))")
+
+        return components.joined(separator: " ")
+    }()
+
+    private func urlRequest(withPath path: String,
+                            queryItems: [URLQueryItem]?,
+                            httpMethod: String) throws -> URLRequest {
+
+        var urlComponents = URLComponents()
+        urlComponents.scheme     = "https"
+        urlComponents.host       = self.host
+        urlComponents.path       = path
+        urlComponents.queryItems = queryItems
+
+        guard let url = urlComponents.url else {
             throw MPSError.urlEncodingError
         }
+
         var request = URLRequest(url: url)
         request.timeoutInterval = 10
         request.httpMethod = httpMethod
+
         if let token = token {
             request.addValue(token, forHTTPHeaderField: "x-api-key")
         } else {
-            throw MPSError.noAPIAccessToken
+            throw MPSError.ServiceError.invalidAccessToken
         }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.userAgent, forHTTPHeaderField: "User-Agent")
 
         return request
     }
 
-    public func getReverseGeocode(for point: CLLocationCoordinate2D,
-                                  completionHandler: @escaping (Result<MPSReverseGeocode, Error>) -> Void) {
+    /// Generates address of a location coordinate.
+    ///
+    /// - Parameter point: The input coordinates to find address for it.
+    /// - Parameter completionHandler: closure which gets called when result is recieved or and error occures.
+    /// - Parameter result: a `Result` of types `MPSReverseGeocode` if execution succeeds and `Error` if it fails.
+    ///
+    ///
+    /// This methods calls APIs to find address of a location based on its coordinates.
+    /// `completionHandler` gets called whenever execution finishes with success or error.
+    public func reverseGeocode(for point: CLLocationCoordinate2D,
+                               completionHandler: @escaping (_ result: Result<MPSReverseGeocode, Error>) -> Void) {
 
-        let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
+        let queryItems = [URLQueryItem(name: "lat", value: "\(point.latitude)"),
+                          URLQueryItem(name: "lon", value: "\(point.longitude)")]
 
         let request: URLRequest
         do {
-            request = try essentialRequest(withEndpoint: Endpoint.reverseGeocode, query: query, httpMethod: HTTPMethod.get)
+            request = try urlRequest(withPath: Endpoint.reverseGeocode, queryItems: queryItems, httpMethod: HTTPMethod.get)
         } catch let requestError {
             completionHandler(.failure(requestError))
             return
@@ -82,7 +153,7 @@ public class MPSMapirServices {
                 return
             }
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.invalidResponse))
+                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
                 return
             }
 
@@ -99,9 +170,9 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
             default:
                 return
             }
@@ -110,29 +181,37 @@ public class MPSMapirServices {
         dataTask.resume()
     }
 
-    public func getFastReverseGeocode(for point: CLLocationCoordinate2D,
-                                      completionHandler: @escaping (Result<MPSFastReverseGeocode, Error>) -> Void) {
+    /// generates address of a location. It's faster than normal `reverseGeocode` method.
+    ///
+    /// - Parameter point: the coordinate of the location.
+    /// - Parameter completionHandler: Closure which is called when execution finishes either successfull or with error.
+    /// - Parameter result: a `Result` of types `MPSFastReverseGeocode` if execution succeeds and `Error` if it fails.
+    ///
+    /// this method is a faster way to access to the address of a location. result will be available about 50ms faster than usual with this method.
+    public func fastReverseGeocode(for point: CLLocationCoordinate2D,
+                                      completionHandler: @escaping (_ result: Result<MPSFastReverseGeocode, Error>) -> Void) {
 
-        let query: String = "?lat=\(point.latitude)&lon=\(point.longitude)"
+        let queryItems = [URLQueryItem(name: "lat", value: "\(point.latitude)"),
+                          URLQueryItem(name: "lon", value: "\(point.longitude)")]
 
         let request: URLRequest
         do {
-            request = try essentialRequest(withEndpoint: Endpoint.reverseGeocode,
-                                           query: query,
+            request = try urlRequest(withPath: Endpoint.reverseGeocode,
+                                           queryItems: queryItems,
                                            httpMethod: HTTPMethod.get)
         } catch let requestError {
             completionHandler(.failure(requestError))
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
                 return
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.invalidResponse))
+                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
                 return
             }
 
@@ -149,74 +228,82 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
 
     }
 
-    public func getDistanceMatrix(from origins: [CLLocationCoordinate2D],
-                                  to destinations: [CLLocationCoordinate2D],
-                                  options: MPSDistanceMatrixOptions = [],
-                                  completionHandler: @escaping (Result<MPSDistanceMatrix, Error>) -> Void) {
+    /// Generates a matrix of distance and duration between origins and destinations.
+    ///
+    /// - Parameter origins: Coordinates of origin.
+    /// - Parameter destinations: Coordinates of destinations.
+    /// - Parameter options: Options of matrix calculation. By default it's `nil`.
+    /// - Parameter result: a `Result` of types `MPSDistanceMatrix` if execution succeeds and `Error` if it fails.
+    ///
+    /// This method is used to find distance and duration between some origins and destinations. The result durations are in seconds and distances are in meters.
+    /// It's important to know that the result is calculated with consideration of traffic and land routes.
+    public func distanceMatrix(from origins: [CLLocationCoordinate2D],
+                               to destinations: [CLLocationCoordinate2D],
+                               options: MPSDistanceMatrix.Options = [],
+                               completionHandler: @escaping (_ result: Result<MPSDistanceMatrix, Error>) -> Void) {
 
-        var query: String = "?"
-        query += "origins="
+        var queryItems: [URLQueryItem] = []
+        var vlaue = ""
         for origin in origins {
             let uuid = UUID()
             let uuidString = uuid.uuidString.replacingOccurrences(of: "-", with: "")
-            query += "\(uuidString),\(origin.latitude),\(origin.longitude)|"
+            vlaue += "\(uuidString),\(origin.latitude),\(origin.longitude)|"
         }
-        query.removeLast()
-        
-        query += "&destinations="
+        vlaue.removeLast()
+        queryItems.append(URLQueryItem(name: "origins", value: vlaue))
+
+        vlaue = ""
         for destination in destinations {
             let uuid = UUID()
             let uuidString = uuid.uuidString.replacingOccurrences(of: "-", with: "")
-            query += "\(uuidString),\(destination.latitude),\(destination.longitude)|"
+            vlaue += "\(uuidString),\(destination.latitude),\(destination.longitude)|"
         }
-        query.removeLast()
+        vlaue.removeLast()
+        queryItems.append(URLQueryItem(name: "destinations", value: vlaue))
+
         if options.contains(.sorted) {
-            query += "&sorted=true"
+            queryItems.append(URLQueryItem(name: "sorted", value: "true"))
         }
         if !(options.contains(.distance) && options.contains(.duration)) {
             if options.contains(.distance) {
-                query += "&$filter=type eq distance"
+                queryItems.append(URLQueryItem(name: "$filter", value: "type eq distance"))
+
             }
             if options.contains(.duration) {
-                query += "&$filter=type eq duration"
+                queryItems.append(URLQueryItem(name: "$filter", value: "type eq duration"))
             }
-        }
-
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
-            return
         }
 
         let request: URLRequest
         do {
-            request = try essentialRequest(withEndpoint: Endpoint.distanceMatrix,
-                                           query: urlEncodedQuery,
-                                           httpMethod: HTTPMethod.get)
+            request = try urlRequest(withPath: Endpoint.distanceMatrix, queryItems: queryItems, httpMethod: HTTPMethod.get)
         } catch let requestError {
             completionHandler(.failure(requestError))
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
                 return
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.invalidResponse))
+                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
                 return
             }
 
@@ -234,28 +321,40 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getSearchResult(for text: String,
-                                around location: CLLocationCoordinate2D,
-                                selectionOptions: MPSSearchOptions = [],
-                                filter: MPSSearchFilter? = nil,
-                                completionHandler: @escaping (Result<MPSSearch, Error>) -> Void) {
+    /// Searching around a location about a specific place.
+    ///
+    /// - Parameter text: the name or any data about the place.
+    /// - Parameter location: center of search.
+    /// - Parameter selectionOptions: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
+    /// - Parameter filter: filters of search. e.g. places with distance less that specified meters.
+    /// - Parameter result: a `Result` of types array of `MPSSearchResult`s if execution succeeds and `Error` if it fails.
+    ///
+    /// Search will result in different kind of places. Text can even be an address which will result in a geocode result.
+    /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
+    public func search(for text: String,
+                       around location: CLLocationCoordinate2D,
+                       selectionOptions: MPSSearchOptions = [],
+                       filter: MPSSearchFilter? = nil,
+                       completionHandler: @escaping (_ result: Result<[MPSSearchResult], Error>) -> Void) {
 
         var request: URLRequest
         do {
-            request = try essentialRequest(withEndpoint: Endpoint.search,
-                                           query: nil,
-                                           httpMethod: HTTPMethod.post)
+            request = try urlRequest(withPath: Endpoint.search,
+                                     queryItems: nil,
+                                     httpMethod: HTTPMethod.post)
         } catch let requestError {
             completionHandler(.failure(requestError))
             return
@@ -274,11 +373,11 @@ public class MPSMapirServices {
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
@@ -287,7 +386,8 @@ public class MPSMapirServices {
                 if let data = data {
                     do {
                         let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        let searchResults = decodedData.results
+                        DispatchQueue.main.async { completionHandler(.success(searchResults)) }
                         return
                     } catch let parseError {
                         DispatchQueue.main.async { completionHandler(.failure(parseError)) }
@@ -295,29 +395,38 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getAutocompleteSearchResult(for text: String,
-                                            around location: CLLocationCoordinate2D,
-                                            selectionOptions: MPSSearchOptions = [],
-                                            filter: MPSSearchFilter? = nil,
-                                            completionHandler: @escaping (Result<MPSAutocompleteSearch, Error>) -> Void) {
-
+    /// Autocompletes for text around a location.
+    /// - Parameter text: Input text.
+    /// - Parameter location: Center of autocomplete search
+    /// - Parameter selectionOptions: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
+    /// - Parameter filter: filters of search. e.g. places with distance less that specified meters.
+    /// - Parameter result: a `Result` of types array of `MPSAutocompleteResult`s if execution succeeds and `Error` if it fails.
+    ///
+    /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
+    public func autocomplete(for text: String,
+                             around location: CLLocationCoordinate2D,
+                             selectionOptions: MPSSearchOptions = [],
+                             filter: MPSSearchFilter? = nil,
+                             completionHandler: @escaping (_ result: Result<[MPSAutocompleteResult], Error>) -> Void) {
 
         var request: URLRequest
         do {
-            request = try essentialRequest(withEndpoint: Endpoint.autocomleteSearch,
-                                           query: nil,
-                                           httpMethod: HTTPMethod.post)
+            request = try urlRequest(withPath: Endpoint.autocomleteSearch,
+                                     queryItems: nil,
+                                     httpMethod: HTTPMethod.post)
         } catch let requestError {
             completionHandler(.failure(requestError))
             return
@@ -336,11 +445,11 @@ public class MPSMapirServices {
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
@@ -348,8 +457,9 @@ public class MPSMapirServices {
             case 200:
                 if let data = data {
                     do {
-                        let decodedData = try self.decoder.decode(MPSAutocompleteSearch.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        let decodedData = try self.decoder.decode(MPSAutocomplete.self, from: data)
+                        let autocompleteResult = decodedData.results
+                        DispatchQueue.main.async { completionHandler(.success(autocompleteResult)) }
                         return
                     } catch let parseError {
                         DispatchQueue.main.async { completionHandler(.failure(parseError)) }
@@ -357,54 +467,72 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getRoute(from origin: CLLocationCoordinate2D,
-                         to destinations: [CLLocationCoordinate2D],
-                         routeType: MPSRouteType,
-                         routeOptions: MPSRouteOptions = [],
-                         completionHandler: @escaping (Result<MPSRouteObject, Error>) -> Void) {
+    /// Calculates routes from an origin to one or more destinations.
+    ///
+    /// - Parameter origin: origin point.
+    /// - Parameter destinations: coordinates of destinations. may be one or more destination in order.
+    /// - Parameter routeType: type of route. e.g. bicycle.
+    /// - Parameter routeOptions: options of routing.
+    /// - Parameter result: a `Result` of types `MPSRouteResult` if execution succeeds and `Error` if it fails.
+    ///
+    /// Route method is used to find paths between one ore more places. This method considers traffic for finding path for some of route types.
+    /// OSRM is used for route calculation. for more information use
+    /// [OSRM documentation](http://project-osrm.org/docs/v5.22.0/api/?language=Swift#general-options).
+    public func route(from origin: CLLocationCoordinate2D,
+                      to destinations: [CLLocationCoordinate2D],
+                      routeMode: MPSRoute.Mode,
+                      routeOptions: MPSRoute.Options = [],
+                      completionHandler: @escaping (_ result: Result<([MPSWaypoint], [MPSRoute]), Error>) -> Void) {
 
         guard !destinations.isEmpty else {
             completionHandler(.failure(MPSError.RequestError.invalidArgument))
             return
         }
 
-        var query = "/"
-        query += "\(origin.longitude),\(origin.latitude);"
+        var path = Endpoint.route(forMode: routeMode) + "/"
+        path += "\(origin.longitude),\(origin.latitude);"
 
         for dest in destinations {
-            query += "\(dest.longitude),\(dest.latitude);"
+            path += "\(dest.longitude),\(dest.latitude);"
         }
-        query.removeLast()
-        query += "?steps=true"
+        path.removeLast()
+
+        var queryItems = [URLQueryItem(name: "steps", value: "true")]
 
         if routeOptions.contains(.calculateAlternatives) {
-            query += "&alternatives=true"
-        }
-        if routeOptions.contains(.overview) {
-            query += "&overview=full"
+            queryItems.append(URLQueryItem(name: "alternatives", value: "true"))
         }
 
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
-            return
+        if routeOptions.contains(.steps) {
+            queryItems.append(URLQueryItem(name: "steps", value: "true"))
+        }
+
+        if routeOptions.contains(.fullOverview) {
+            queryItems.append(URLQueryItem(name: "overview", value: "full"))
+        } else if routeOptions.contains(.simplifiedOverview) {
+            queryItems.append(URLQueryItem(name: "overview", value: "simplified"))
+        } else if routeOptions.contains(.noOverview) {
+            queryItems.append(URLQueryItem(name: "overview", value: "false"))
         }
 
         let request: URLRequest
         do {
-            request = try essentialRequest(withEndpoint: Endpoint.route(forType: routeType),
-                                           query: urlEncodedQuery,
-                                           httpMethod: HTTPMethod.get)
+            request = try urlRequest(withPath: path,
+                                     queryItems: queryItems,
+                                     httpMethod: HTTPMethod.get)
         } catch let requestError {
             completionHandler(.failure(requestError))
             return
@@ -412,13 +540,13 @@ public class MPSMapirServices {
 
         
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
@@ -426,65 +554,74 @@ public class MPSMapirServices {
             case 200:
                 if let data = data {
                     do {
-                        let decodedData = try self.decoder.decode(MPSRouteObject.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                        let decodedData = try self.decoder.decode(MPSRouteResult.self, from: data)
+                        DispatchQueue.main.async {
+                            completionHandler(.success(
+                                (decodedData.waypoints, decodedData.routes)
+                            ))
+                        }
                     } catch let decoderError {
                         DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
                         return
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
 
-    public func getStaticMap(center: CLLocationCoordinate2D,
-                             size: CGSize,
-                             zoomLevel: Int,
-                             markers: [MPSStaticMapMarker] = [],
-                             completionHandler: @escaping (Result<UIImage, Error>) -> Void) {
+    #if os(iOS) || os(watchOS) || os(tvOS)
+    /// Generates static map of an area of the map.
+    ///
+    /// - Parameter center: Center point of the map.
+    /// - Parameter size: size of the image. in pixels.
+    /// - Parameter zoomLevel: Zoom level of the map.
+    /// - Parameter markers: List of markers which is needed on the map.
+    /// - Parameter result: a `Result` of types `UIImage` if execution succeeds and `Error` if it fails.
+    public func staticMap(center: CLLocationCoordinate2D,
+                          size: CGSize,
+                          zoomLevel: Int,
+                          markers: [MPSStaticMapMarker] = [],
+                          completionHandler: @escaping (_ result: Result<UIImage, Error>) -> Void) {
 
-        guard !markers.isEmpty else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
-            return
-        }
+        var queryItems = [URLQueryItem(name: "width",       value: "\(Int(size.width))"),
+                          URLQueryItem(name: "height",      value: "\(Int(size.height))"),
+                          URLQueryItem(name: "zoom_level",  value: "\(zoomLevel))")]
 
-        var query = "?width=\(Int(size.width))&height=\(Int(size.height))&zoom_level=\(zoomLevel)"
-
-        for marker in markers {
-            query += "&markers=color:\(marker.style.rawValue)|label:\(marker.label)|\(marker.coordinate.longitude),\(marker.coordinate.latitude)"
-        }
-
-        guard let urlEncodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            completionHandler(.failure(MPSError.urlEncodingError))
-            return
+        if !markers.isEmpty {
+            for marker in markers {
+                let value = "color:\(marker.style.rawValue)|label:\(marker.label)|\(marker.coordinate.longitude),\(marker.coordinate.latitude)"
+                queryItems.append(URLQueryItem(name: "markers", value: value))
+            }
         }
 
         let request: URLRequest
         do {
-            request = try essentialRequest(withEndpoint: Endpoint.staticMap,
-                                           query: urlEncodedQuery,
-                                           httpMethod: HTTPMethod.get)
+            request = try urlRequest(withPath: Endpoint.staticMap,
+                                     queryItems: queryItems,
+                                     httpMethod: HTTPMethod.get)
         } catch let requestError {
             completionHandler(.failure(requestError))
             return
         }
 
-        session.dataTask(with: request) { (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 DispatchQueue.main.async { completionHandler(.failure(error)) }
                 return
             }
 
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.invalidResponse)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
                 return
             }
 
@@ -499,14 +636,87 @@ public class MPSMapirServices {
                     }
                 }
             case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.badRequest)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
                 return
             case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.notFound)) }
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
                 return
             default:
                 return
             }
-        }.resume()
+        }
+
+        dataTask.resume()
     }
+
+    #elseif os(macOS)
+    /// Generates static map of an area of the map.
+    ///
+    /// - Parameter center: Center point of the map.
+    /// - Parameter size: size of the image. in pixels.
+    /// - Parameter zoomLevel: Zoom level of the map.
+    /// - Parameter markers: List of markers which is needed on the map.
+    /// - Parameter result: a `Result` of types `NSImage` if execution succeeds and `Error` if it fails.
+    public func staticMap(center: CLLocationCoordinate2D,
+                          size: CGSize,
+                          zoomLevel: Int,
+                          markers: [MPSStaticMapMarker] = [],
+                          completionHandler: @escaping (_ result: Result<NSImage, Error>) -> Void) {
+
+        var queryItems = [URLQueryItem(name: "width",       value: "\(Int(size.width))"),
+                                  URLQueryItem(name: "height",      value: "\(Int(size.height))"),
+                                  URLQueryItem(name: "zoom_level",  value: "\(zoomLevel))")]
+
+        if !markers.isEmpty {
+            for marker in markers {
+                let value = "color:\(marker.style.rawValue)|label:\(marker.label)|\(marker.coordinate.longitude),\(marker.coordinate.latitude)"
+                queryItems.append(URLQueryItem(name: "markers", value: value))
+            }
+        }
+
+        let request: URLRequest
+        do {
+            request = try urlRequest(withPath: Endpoint.staticMap,
+                                     queryItems: queryItems,
+                                     httpMethod: HTTPMethod.get)
+        } catch let requestError {
+            completionHandler(.failure(requestError))
+            return
+        }
+
+        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+                return
+            }
+
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                return
+            }
+
+            switch urlResponse.statusCode {
+            case 200:
+                if let data = data {
+                    if let decodedImage = NSImage(data: data) {
+                        DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
+                        return
+                    } else {
+                        DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
+                    }
+                }
+            case 400:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
+                return
+            case 404:
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
+                return
+            default:
+                return
+            }
+        }
+
+        dataTask.resume()
+    }
+    #endif
 }

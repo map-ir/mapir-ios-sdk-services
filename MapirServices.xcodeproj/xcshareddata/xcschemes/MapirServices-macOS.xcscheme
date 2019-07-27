@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3D9C428F22745894000A6585"
-               BuildableName = "MapirServices.framework"
-               BlueprintName = "MapirServices-iOS"
+               BlueprintIdentifier = "C004680622E5DDD000CF922E"
+               BuildableName = "MapirServices_macOS.framework"
+               BlueprintName = "MapirServices-macOS"
                ReferencedContainer = "container:MapirServices.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,23 +27,14 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D9C428F22745894000A6585"
-            BuildableName = "MapirServices.framework"
-            BlueprintName = "MapirServices-iOS"
-            ReferencedContainer = "container:MapirServices.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3D9C42F02274604A000A6585"
-               BuildableName = "MapirServices-iOSTests.xctest"
-               BlueprintName = "MapirServices-iOSTests"
+               BlueprintIdentifier = "C004680E22E5DDD000CF922E"
+               BuildableName = "MapirServices-macOSTests.xctest"
+               BlueprintName = "MapirServices-macOSTests"
                ReferencedContainer = "container:MapirServices.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -59,15 +50,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D9C428F22745894000A6585"
-            BuildableName = "MapirServices.framework"
-            BlueprintName = "MapirServices-iOS"
-            ReferencedContainer = "container:MapirServices.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -78,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D9C428F22745894000A6585"
-            BuildableName = "MapirServices.framework"
-            BlueprintName = "MapirServices-iOS"
+            BlueprintIdentifier = "C004680622E5DDD000CF922E"
+            BuildableName = "MapirServices_macOS.framework"
+            BlueprintName = "MapirServices-macOS"
             ReferencedContainer = "container:MapirServices.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

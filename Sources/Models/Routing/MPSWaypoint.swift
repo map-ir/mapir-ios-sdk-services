@@ -16,6 +16,9 @@ public struct MPSWaypoint {
     /// Name of the street the coordinate snapped to.
     public var name: String
 
+    /// The distance, in metres, from the input coordinate to the snapped coordinate
+    public var distance: Double
+
     /// `CLLocationCoordinate2D` of the snapped coordinate.
     public var coordinates: CLLocationCoordinate2D?
 }
@@ -24,6 +27,7 @@ extension MPSWaypoint: Decodable {
     enum CodingKeys: String, CodingKey {
         case hint
         case name
+        case distance
         case coordinates = "location"
     }
 
@@ -32,6 +36,7 @@ extension MPSWaypoint: Decodable {
 
         hint = try container.decode(String.self, forKey: .hint)
         name = try container.decode(String.self, forKey: .name)
+        distance = try container.decode(Double.self, forKey: .distance)
 
         let coords = try? container.decode([Double].self, forKey: .coordinates)
         if let coords = coords {

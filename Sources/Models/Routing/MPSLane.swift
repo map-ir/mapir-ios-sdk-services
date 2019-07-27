@@ -11,10 +11,40 @@ import Foundation
 /// A Lane represents a turn lane at the corresponding turn location.
 public struct MPSLane {
 
+    public enum Indication: String, Codable {
+
+        /// No dedicated indication is shown.
+        case none
+
+        /// a normal turn to the right
+        case right
+
+        /// a normal turn to the left
+        case left
+
+        /// a slight turn to the right
+        case slightRight = "slight right"
+
+        /// a slight turn to the left
+        case slightLeft = "slight left"
+
+        /// a sharp right turn
+        case sharpRight = "sharp right"
+
+        /// a sharp turn to the left
+        case sharpLeft = "sharp left"
+
+        /// indicates reversal of direction
+        case uturn
+
+        /// no relevant change in direction
+        case straight
+    }
+
     /// a indication (e.g. marking on the road) specifying the turn lane.
     /// - A road can have multiple indications (e.g. an arrow pointing straight and left).
     ///     The indications are given in an array, each containing one of the following types.
-    public var indications: [MPSLaneIndication]
+    public var indications: [MPSLane.Indication]
 
     /// a boolean flag indicating whether the lane is a valid choice in the current maneuver.
     public var valid: Bool
@@ -31,36 +61,6 @@ extension MPSLane: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         valid = try container.decode(Bool.self, forKey: .valid)
-        indications = try container.decode([MPSLaneIndication].self, forKey: .indications)
+        indications = try container.decode([MPSLane.Indication].self, forKey: .indications)
     }
-}
-
-public enum MPSLaneIndication: String, Codable {
-
-    /// No dedicated indication is shown.
-    case none
-
-    /// a normal turn to the right
-    case right
-
-    /// a normal turn to the left
-    case left
-
-    /// a slight turn to the right
-    case slightRight = "slight right"
-
-    /// a slight turn to the left
-    case slightLeft = "slight left"
-
-    /// a sharp right turn
-    case sharpRight = "sharp right"
-
-    /// a sharp turn to the left
-    case sharpLeft = "sharp left"
-
-    /// indicates reversal of direction
-    case uturn
-
-    /// no relevant change in direction
-    case straight
 }

@@ -253,7 +253,7 @@ public class MPSMapirServices {
     /// It's important to know that the result is calculated with consideration of traffic and land routes.
     public func distanceMatrix(from origins: [CLLocationCoordinate2D],
                                to destinations: [CLLocationCoordinate2D],
-                               options: MPSDistanceMatrixOptions = [],
+                               options: MPSDistanceMatrix.Options = [],
                                completionHandler: @escaping (_ result: Result<MPSDistanceMatrix, Error>) -> Void) {
 
         var queryItems: [URLQueryItem] = []

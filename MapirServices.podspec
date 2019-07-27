@@ -1,23 +1,33 @@
 Pod::Spec.new do |s|
 
   s.name                      = "MapirServices"
-  s.version                   = "0.1.0"
+  s.version                   = "0.2.0"
   s.summary                   = "a SDK to access services of map.ir."
 
   s.homepage                  = "https://support.map.ir/"
+  s.social_media_url          = 'https://twitter.com/map_ir_Official'
   s.license                   = { :type => "MIT", :file => "LICENSE" }
 
-  s.author                    = { "Map.ir" => "a.asadi@map.ir" }
-  s.source                    = { :git => "https://github.com/map-ir/ios-sdk-v1-services-beta", :tag => "v#{s.version}" }
+  s.author                    = { "Map.ir"        => "support@map.ir",
+                                  "Alireza Asadi" => "a.asadi@map.ir" }
+  s.documentation_url         = 'https://support.map.ir/developers/iservice/'
+  s.source                    = { :git => "https://github.com/map-ir/ios-sdk-v1-services-beta", :tag => s.version.to_s }
 
   # --- iOS ------------------------------------------------- #
-
-  s.platform                  = :ios
   s.ios.deployment_target     = '9.0'
+  s.ios.framework             = 'UIKit'
 
   # --- macOS ----------------------------------------------- #
-  # s.platform                  = :osx
-  # s.osx.deployment_target     = '10.10'
+  s.osx.deployment_target     = '10.10'
+  s.osx.framework             = 'AppKit'
+
+  # --- watchOS --------------------------------------------- #
+  s.watchos.deployment_target = '3.0'
+  s.watchos.framework         = 'UIKit'
+
+  # --- tvOS ------------------------------------------------ #
+  s.tvos.deployment_target    = '9.0'
+  s.tvos.framework            = 'UIKit'
 
   s.requires_arc              = true
   s.module_name               = "MapirServiecs"

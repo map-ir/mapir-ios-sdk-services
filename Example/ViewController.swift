@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     /// The Label
     lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "🚀\nMapirServices\nExample\nYou may watch your debbugin console :)"
+        label.text = "🚀\nMapirServices\nExample\nYou may watch your debbuging console :)"
         label.font = .systemFont(ofSize: 25, weight: .semibold)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping

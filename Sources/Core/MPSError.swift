@@ -13,11 +13,15 @@ public enum MPSError: Error {
     /// Errors related to the service.
     enum ServiceError: Error {
 
-        /// Indicates token-related errors.
+        /// Indicates token-related errors. either not defined or invalid one.
         case invalidAccessToken
 
-        /// Error due to unavailability of services.
-        case serviceUnavailabele
+        var localizedDescription: String {
+            switch self {
+            case .invalidAccessToken:
+                return "Token is not defined. use MPSMapirServices(accessToken:) at least once or add your token to Info.plist with key MAPIRAccessToken."
+            }
+        }
     }
 
     /// Response related errors.

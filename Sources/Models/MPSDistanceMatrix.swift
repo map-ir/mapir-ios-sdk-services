@@ -18,8 +18,13 @@ public struct MPSDistanceMatrix {
             self.rawValue = rawValue
         }
 
+        /// Calculate distances.
         public static let distance = MPSDistanceMatrix.Options(rawValue: 1 << 0)
+
+        /// Calculate durations.
         public static let duration = MPSDistanceMatrix.Options(rawValue: 1 << 1)
+
+        /// Sort results by distance and duration.
         public static let sorted = MPSDistanceMatrix.Options(rawValue: 1 << 2)
     }
 
@@ -27,6 +32,9 @@ public struct MPSDistanceMatrix {
     public var durations: [MPSDuration]
     public var origins: [MPSLocation]
     public var destinations: [MPSLocation]
+}
+
+extension MPSDistanceMatrix: Decodable {
 
     private struct DistanceHelper: Decodable {
         var origin: String
@@ -51,9 +59,7 @@ public struct MPSDistanceMatrix {
             case duration
         }
     }
-}
 
-extension MPSDistanceMatrix: Decodable {
     enum CodingKeys: String, CodingKey {
         case distances = "distance"
         case durations = "duration"
@@ -73,12 +79,12 @@ extension MPSDistanceMatrix: Decodable {
         origins = [MPSLocation]()
         destinations = [MPSLocation]()
 
-        for (_, value) in originsHelper {
-            origins.append(value)
+        for (_, origin) in originsHelper {
+            origins.append(origin)
         }
 
-        for (_, value) in destinationHelper {
-            destinations.append(value)
+        for (_, destination) in destinationHelper {
+            destinations.append(destination)
         }
         
         if let durationHelper = durationHelper {
@@ -101,6 +107,25 @@ extension MPSDistanceMatrix: Decodable {
                     distances.append(newDistance)
                 }
             }
+        }
+    }
+}
+
+public enum DistanceMatrixError: Error, LocalizedError {
+    case duplicateCoordinateName([String])
+
+    case invalidCharacterInName(String)
+
+    case emptyName
+
+    var localizedDescription: String {
+        switch self {
+        case .duplicateCoordinateName(let name):
+            return "Duplicate name found. \"\(name)\" is/are duplicate."
+        case .invalidCharacterInName(let name):
+            return "\"\(name)\" contains invalid characters. Names must only contain alphanumeric characters"
+        case .emptyName:
+            return "found an empty name. Names can't be empty."
         }
     }
 }

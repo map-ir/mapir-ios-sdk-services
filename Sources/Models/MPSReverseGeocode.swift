@@ -11,25 +11,100 @@ import Foundation
 
 public struct MPSReverseGeocode {
 
-    public var address: String?
-    public var postalAddress: String?
-    public var compactAddress: String?
-    public var last: String?
-    public var name: String?
-    public var poi: String?
-    public var country: String?
-    public var province: String?
-    public var county: String?
-    public var district: String?
-    public var ruralDistrict: String?
-    public var city: String?
-    public var village: String?
-    public var region: String?
-    public var neighbourhood: String?
-    public var primary: String?
-    public var plaque: String?
-    public var postalCode: String?
-    public var coordinates: CLLocationCoordinate2D?
+    /// Full address
+    ///
+    /// In farsi: آدرس کامل
+    public private(set) var address: String?
+
+    /// Postal Address: City / Main Street / Last Street
+    ///
+    /// In farsi: آدرس پستی
+    public private(set) var postalAddress: String?
+
+    /// Compact Address: City / District / Main Street / Last Street
+    ///
+    /// In farsi: آدرس کوتاه
+    public private(set) var compactAddress: String?
+
+    /// Name of the Last street or place.
+    ///
+    /// In farsi: نام خود محل یا آخرین خیابان
+    public private(set) var last: String?
+
+    /// Name of the Last street or place.
+    ///
+    /// In farsi: نام خود محل یا آخرین خیابان
+    public private(set) var name: String?
+
+    /// Name of the place.
+    ///
+    /// In farsi: نام مکان در صورت وجود
+    public private(set) var poi: String?
+
+    /// Country of the place.
+    ///
+    /// In farsi: کشور
+    public private(set) var country: String?
+
+    /// Province of the place.
+    ///
+    /// In farsi: استان
+    public private(set) var province: String?
+
+    /// County of the place.
+    ///
+    /// In farsi: شهرستان
+    public private(set) var county: String?
+
+    /// District of the place.
+    ///
+    /// In farsi: منطقه شهرداری
+    public private(set) var district: String?
+
+    /// Rural district of the place if it is located in a rural aera.
+    ///
+    /// In farsi: دهستان
+    public private(set) var ruralDistrict: String?
+
+    /// City of the place.
+    ///
+    /// In farsi: شهر
+    public private(set) var city: String?
+
+    /// Village of the place.
+    ///
+    /// In farsi: روستا
+    public private(set) var village: String?
+
+    /// Region of the place based on municipal information.
+    ///
+    /// In farsi: بخش
+    public private(set) var region: String?
+
+    /// Neighbourhood name of the place based on municipal information.
+    ///
+    /// In farsi: نام محله شهرداری
+    public private(set) var neighbourhood: String?
+
+    /// Name of the last primary street leading to the place.
+    ///
+    /// In farsi: خیابان اصلی منتهی به محل
+    public private(set) var primary: String?
+
+    /// Building number (Plaque) of the place.
+    ///
+    /// In farsi: پلاک
+    public private(set) var plaque: String?
+
+    /// Postal code of the place.
+    ///
+    /// In farsi: کد پستی
+    public private(set) var postalCode: String?
+
+    /// Coordinates of the place.
+    ///
+    /// In farsi: مختصات
+    public private(set) var coordinates: CLLocationCoordinate2D?
 
     enum CodingKeys: String, CodingKey {
         case address
@@ -41,11 +116,11 @@ public struct MPSReverseGeocode {
         case country
         case province
         case county
-        case district
+        case district = "region"
         case ruralDistrict = "rural_district"
         case city
         case village
-        case region
+        case region = "district"
         case neighbourhood
         case primary
         case plaque

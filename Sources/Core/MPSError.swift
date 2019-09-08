@@ -50,3 +50,51 @@ public enum MPSError: Error {
     /// Error due to decoding image into UIImage
     case imageDecodingError
 }
+
+public struct NetworkError: Error {
+
+    enum Defenition: Int {
+        case badRequest = 400
+        case Unauthorized = 401
+        case Forbidden = 403
+        case NotFound = 404
+        case internalServerError = 500
+        case badGateway = 502
+        case serviceUnavailable = 503
+        case gatewayTimeout = 504
+        case other = -1
+
+        init(code: RawValue) {
+            if let def = Defenition(rawValue: code) {
+                self = def
+            } else {
+                self = .other
+            }
+        }
+    }
+
+    enum Side {
+        case server
+        case client
+
+        init(code: Int) {
+            if code < 500 && code >= 400 {
+                self = .client
+            } else if code < 600 && code >= 500 {
+                self = .server
+            } else {
+                fatalError("Invalid Status Code.")
+            }
+        }
+    }
+
+    let code: Int
+    let defenition: Defenition
+    let side: Side
+
+    init(code: Int) {
+        self.defenition = Defenition(code: code)
+        self.side = Side(code: code)
+        self.code = code
+    }
+}

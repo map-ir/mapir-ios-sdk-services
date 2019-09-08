@@ -157,46 +157,46 @@ extension MapirServices {
     public func reverseGeocode(for coordinate: CLLocationCoordinate2D,
                                completionHandler: @escaping (_ result: Result<MPSReverseGeocode, Error>) -> Void) {
 
-        let request: URLRequest
-        do {
-            request = try urlRequestForReverseGeocode(coordinate: coordinate)
-        } catch let requestError {
-            completionHandler(.failure(requestError))
-            return
-        }
-
-        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error {
-                DispatchQueue.main.async { completionHandler(.failure(error)) }
-                return
-            }
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
+        dispatchQueue.async {
+            let request: URLRequest
+            do {
+                request = try self.urlRequestForReverseGeocode(coordinate: coordinate)
+            } catch let requestError {
+                DispatchQueue.main.async { completionHandler(.failure(requestError)) }
                 return
             }
 
-            switch urlResponse.statusCode {
-            case 200:
-                if let data = data {
-                    do {
-                        let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
-                        return
-                    } catch let parseError {
-                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
-                        return
-                    }
+            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error {
+                    DispatchQueue.main.async { completionHandler(.failure(error)) }
+                    return
                 }
-            case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-            case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
-            default:
-                return
-            }
-        }
+                guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                    return
+                }
 
-        dataTask.resume()
+                switch urlResponse.statusCode {
+                case 200:
+                    if let data = data {
+                        do {
+                            let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
+                            DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                            return
+                        } catch let parseError {
+                            DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                            return
+                        }
+                    }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
+                    return
+                default:
+                    return
+                }
+            }
+            dataTask.resume()
+        }
     }
 }
 
@@ -223,50 +223,47 @@ extension MapirServices {
     public func fastReverseGeocode(for coordinate: CLLocationCoordinate2D,
                                    completionHandler: @escaping (_ result: Result<MPSReverseGeocode, Error>) -> Void) {
 
-        let request: URLRequest
-        do {
-            request = try urlRequestForReverseGeocode(coordinate: coordinate)
-        } catch let requestError {
-            completionHandler(.failure(requestError))
-            return
-        }
-
-        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error {
-                DispatchQueue.main.async { completionHandler(.failure(error)) }
+        dispatchQueue.async {
+            let request: URLRequest
+            do {
+                request = try self.urlRequestForReverseGeocode(coordinate: coordinate)
+            } catch let requestError {
+                DispatchQueue.main.async { completionHandler(.failure(requestError)) }
                 return
             }
 
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                completionHandler(.failure(MPSError.ResponseError.invalidResponse))
-                return
-            }
-
-            switch urlResponse.statusCode {
-            case 200:
-                if let data = data {
-                    do {
-                        let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
-                        DispatchQueue.main.async { completionHandler(.success(decodedData)) }
-                        return
-                    } catch let parseError {
-                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
-                        return
-                    }
+            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error {
+                    DispatchQueue.main.async { completionHandler(.failure(error)) }
+                    return
                 }
-            case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-                return
-            case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
-                return
-            default:
-                return
+
+                guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                    return
+                }
+
+                switch urlResponse.statusCode {
+                case 200:
+                    if let data = data {
+                        do {
+                            let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
+                            DispatchQueue.main.async { completionHandler(.success(decodedData)) }
+                            return
+                        } catch let parseError {
+                            DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                            return
+                        }
+                    }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
+                    return
+                default:
+                    return
+                }
             }
+            dataTask.resume()
         }
-
-        dataTask.resume()
-
     }
 }
 
@@ -398,11 +395,8 @@ extension MapirServices {
                             DispatchQueue.main.async { completionHandler(.failure(parseError)) }
                         }
                     }
-                case 400:
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-                    return
-                case 404:
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
                     return
                 default:
                     return
@@ -433,63 +427,62 @@ extension MapirServices {
                        filter: MPSSearch.Filter? = nil,
                        completionHandler: @escaping (_ result: Result<MPSSearch, Error>) -> Void) {
 
-        var request: URLRequest
-        do {
-            request = try urlRequest(withPath: Endpoint.search,
-                                     queryItems: nil,
-                                     httpMethod: HTTPMethod.post)
-        } catch let requestError {
-            completionHandler(.failure(requestError))
-            return
-        }
-
-        var search = MPSSearch(text: text,
-                               categories: categories,
-                               filter: filter,
-                               coordinates: coordinate)
-
-        do {
-            let httpBody = try encoder.encode(search)
-            request.httpBody = httpBody
-        } catch let encoderError {
-            completionHandler(.failure(encoderError))
-            return
-        }
-
-        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
-
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+        dispatchQueue.async {
+            var request: URLRequest
+            do {
+                request = try self.urlRequest(withPath: Endpoint.search,
+                                         queryItems: nil,
+                                         httpMethod: HTTPMethod.post)
+            } catch let requestError {
+                DispatchQueue.main.async { completionHandler(.failure(requestError)) }
                 return
             }
 
-            switch urlResponse.statusCode {
-            case 200:
-                if let data = data {
-                    do {
-                        let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
-                        let searchResults = decodedData.results
-                        search.results = searchResults
-                        DispatchQueue.main.async { completionHandler(.success(search)) }
-                        return
-                    } catch let parseError {
-                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
-                        return
-                    }
+            var search = MPSSearch(text: text,
+                                   categories: categories,
+                                   filter: filter,
+                                   coordinates: coordinate)
+
+            do {
+                let httpBody = try self.encoder.encode(search)
+                request.httpBody = httpBody
+            } catch let encoderError {
+                DispatchQueue.main.async { completionHandler(.failure(encoderError)) }
+                return
+            }
+
+            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
+
+                guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                    return
                 }
-            case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-                return
-            case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
-                return
-            default:
-                return
-            }
-        }
 
-        dataTask.resume()
+                switch urlResponse.statusCode {
+                case 200:
+                    if let data = data {
+                        do {
+                            let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
+                            let searchResults = decodedData.results
+                            search.results = searchResults
+                            DispatchQueue.main.async { completionHandler(.success(search)) }
+                            return
+                        } catch let parseError {
+                            DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                            return
+                        }
+                    }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
+                    return
+                default:
+                    return
+                }
+            }
+
+            dataTask.resume()
+        }
     }
 }
 
@@ -509,64 +502,61 @@ extension MapirServices {
                              categories: MPSSearch.Categories = [],
                              filter: MPSSearch.Filter? = nil,
                              completionHandler: @escaping (_ result: Result<MPSSearch, Error>) -> Void) {
-
-        var request: URLRequest
-        do {
-            request = try urlRequest(withPath: Endpoint.autocomleteSearch,
-                                     queryItems: nil,
-                                     httpMethod: HTTPMethod.post)
-        } catch let requestError {
-            completionHandler(.failure(requestError))
-            return
-        }
-
-        var autocomplete = MPSSearch(text: text,
-                                               categories: categories,
-                                               filter: filter,
-                                               coordinates: coordinate)
-
-        do {
-            let httpBody = try encoder.encode(autocomplete)
-            request.httpBody = httpBody
-        } catch let encoderError {
-            completionHandler(.failure(encoderError))
-            return
-        }
-
-        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
-
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+        dispatchQueue.async {
+            var request: URLRequest
+            do {
+                request = try self.urlRequest(withPath: Endpoint.autocomleteSearch,
+                                         queryItems: nil,
+                                         httpMethod: HTTPMethod.post)
+            } catch let requestError {
+                DispatchQueue.main.async { completionHandler(.failure(requestError)) }
                 return
             }
 
-            switch urlResponse.statusCode {
-            case 200:
-                if let data = data {
-                    do {
-                        let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
-                        let autocompleteResult = decodedData.results
-                        autocomplete.results = autocompleteResult
-                        DispatchQueue.main.async { completionHandler(.success(autocomplete)) }
-                        return
-                    } catch let parseError {
-                        DispatchQueue.main.async { completionHandler(.failure(parseError)) }
-                        return
-                    }
+            var autocomplete = MPSSearch(text: text,
+                                         categories: categories,
+                                         filter: filter,
+                                         coordinates: coordinate)
+            do {
+                let httpBody = try self.encoder.encode(autocomplete)
+                request.httpBody = httpBody
+            } catch let encoderError {
+                DispatchQueue.main.async { completionHandler(.failure(encoderError)) }
+                return
+            }
+
+            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
+
+                guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                    return
                 }
-            case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-                return
-            case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
-                return
-            default:
-                return
-            }
-        }
 
-        dataTask.resume()
+                switch urlResponse.statusCode {
+                case 200:
+                    if let data = data {
+                        do {
+                            let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
+                            let autocompleteResult = decodedData.results
+                            autocomplete.results = autocompleteResult
+                            DispatchQueue.main.async { completionHandler(.success(autocomplete)) }
+                            return
+                        } catch let parseError {
+                            DispatchQueue.main.async { completionHandler(.failure(parseError)) }
+                            return
+                        }
+                    }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
+                    return
+                default:
+                    return
+                }
+            }
+
+            dataTask.resume()
+        }
     }
 }
 
@@ -625,58 +615,56 @@ extension MapirServices {
                       options: MPSRoute.Options = [],
                       completionHandler: @escaping (_ result: Result<([MPSWaypoint], [MPSRoute]), Error>) -> Void) {
 
-        guard !destinations.isEmpty else {
-            completionHandler(.failure(MPSError.RequestError.invalidArgument))
-            return
-        }
-
-        let request: URLRequest
-        do {
-            request = try urlRequestForRoute(origin: origin, destinations: destinations, mode: mode, options: options)
-        } catch let requestError {
-            completionHandler(.failure(requestError))
-            return
-        }
-
-        
-
-        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error {
-                DispatchQueue.main.async { completionHandler(.failure(error)) }
-            }
-
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+        dispatchQueue.async {
+            guard !destinations.isEmpty else {
+                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.invalidArgument)) }
                 return
             }
 
-            switch urlResponse.statusCode {
-            case 200:
-                if let data = data {
-                    do {
-                        let decodedData = try self.decoder.decode(MPSRouteResult.self, from: data)
-                        DispatchQueue.main.async {
-                            completionHandler(.success(
-                                (decodedData.waypoints, decodedData.routes)
-                            ))
-                        }
-                    } catch let decoderError {
-                        DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
-                        return
-                    }
+            let request: URLRequest
+            do {
+                request = try self.urlRequestForRoute(origin: origin, destinations: destinations, mode: mode, options: options)
+            } catch let requestError {
+                DispatchQueue.main.async { completionHandler(.failure(requestError)) }
+                return
+            }
+
+
+
+            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error {
+                    DispatchQueue.main.async { completionHandler(.failure(error)) }
                 }
-            case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-                return
-            case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
-                return
-            default:
-                return
-            }
-        }
 
-        dataTask.resume()
+                guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                    return
+                }
+
+                switch urlResponse.statusCode {
+                case 200:
+                    if let data = data {
+                        do {
+                            let decodedData = try self.decoder.decode(MPSRouteResult.self, from: data)
+                            DispatchQueue.main.async {
+                                completionHandler(.success(
+                                    (decodedData.waypoints, decodedData.routes)
+                                ))
+                            }
+                        } catch let decoderError {
+                            DispatchQueue.main.async { completionHandler(.failure(decoderError)) }
+                            return
+                        }
+                    }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
+                    return
+                default:
+                    return
+                }
+            }
+            dataTask.resume()
+        }
     }
 }
 
@@ -686,7 +674,7 @@ extension MapirServices {
     func urlRequestForStaticMap(center: CLLocationCoordinate2D, size: CGSize, zoomLevel: Int, markers: [MPSStaticMapMarker]) throws -> URLRequest {
         var queryItems = [URLQueryItem(name: "width",       value: "\(Int(size.width))"),
                           URLQueryItem(name: "height",      value: "\(Int(size.height))"),
-                          URLQueryItem(name: "zoom_level",  value: "\(zoomLevel))")]
+                          URLQueryItem(name: "zoom_level",  value: "\(zoomLevel)")]
 
         if !markers.isEmpty {
             for marker in markers {
@@ -713,47 +701,45 @@ extension MapirServices {
                           markers: [MPSStaticMapMarker] = [],
                           completionHandler: @escaping (_ result: Result<UIImage, Error>) -> Void) {
 
-        let request: URLRequest
-        do {
-            request = try urlRequestForStaticMap(center: center, size: size, zoomLevel: zoomLevel, markers: markers)
-        } catch let requestError {
-            completionHandler(.failure(requestError))
-            return
-        }
-
-        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error {
-                DispatchQueue.main.async { completionHandler(.failure(error)) }
+        dispatchQueue.async {
+            let request: URLRequest
+            do {
+                request = try self.urlRequestForStaticMap(center: center, size: size, zoomLevel: zoomLevel, markers: markers)
+            } catch let requestError {
+                DispatchQueue.main.async { completionHandler(.failure(requestError)) }
                 return
             }
 
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                return
-            }
-
-            switch urlResponse.statusCode {
-            case 200:
-                if let data = data {
-                    if let decodedImage = UIImage(data: data) {
-                        DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
-                        return
-                    } else {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
-                    }
+            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, defenition) in
+                if let defenition = defenition {
+                    DispatchQueue.main.async { completionHandler(.failure(defenition)) }
+                    return
                 }
-            case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-                return
-            case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
-                return
-            default:
-                return
-            }
-        }
 
-        dataTask.resume()
+                guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                    return
+                }
+
+                switch urlResponse.statusCode {
+                case 200:
+                    if let data = data {
+                        if let decodedImage = UIImage(data: data) {
+                            DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
+                            return
+                        } else {
+                            DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
+                        }
+                    }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
+                    return
+                default:
+                    return
+                }
+            }
+            dataTask.resume()
+        }
     }
 
     #elseif os(macOS)
@@ -770,47 +756,45 @@ extension MapirServices {
                           markers: [MPSStaticMapMarker] = [],
                           completionHandler: @escaping (_ result: Result<NSImage, Error>) -> Void) {
 
-        let request: URLRequest
-        do {
-            request = try urlRequestForStaticMap(center: center, size: size, zoomLevel: zoomLevel, markers: markers)
-        } catch let requestError {
-            completionHandler(.failure(requestError))
-            return
-        }
-
-        let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error {
-                DispatchQueue.main.async { completionHandler(.failure(error)) }
+        dispatchQueue.async {
+            let request: URLRequest
+            do {
+                request = try urlRequestForStaticMap(center: center, size: size, zoomLevel: zoomLevel, markers: markers)
+            } catch let requestError {
+                DispatchQueue.main.async { completionHandler(.failure(requestError)) }
                 return
             }
 
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                return
-            }
-
-            switch urlResponse.statusCode {
-            case 200:
-                if let data = data {
-                    if let decodedImage = NSImage(data: data) {
-                        DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
-                        return
-                    } else {
-                        DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
-                    }
+            let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error {
+                    DispatchQueue.main.async { completionHandler(.failure(error)) }
+                    return
                 }
-            case 400:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.badRequest)) }
-                return
-            case 404:
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.notFound)) }
-                return
-            default:
-                return
-            }
-        }
 
-        dataTask.resume()
+                guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
+                    return
+                }
+
+                switch urlResponse.statusCode {
+                case 200:
+                    if let data = data {
+                        if let decodedImage = NSImage(data: data) {
+                            DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
+                            return
+                        } else {
+                            DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
+                        }
+                    }
+                case 400...599:
+                    DispatchQueue.main.async { completionHandler(.failure(NetworkError(code: urlResponse.statusCode))) }
+                    return
+                default:
+                    return
+                }
+            }
+            dataTask.resume()
+        }
     }
     #endif
 }

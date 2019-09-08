@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     }()
 
     // MARK: Instance of MapirServices
-    let mps = MPSMapirServices.shared
+    let mps = MapirServices.shared
     
     // MARK: View-Lifecycle
     
@@ -37,6 +37,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+
+        MapirServices.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImY4Yjk3ZDc3ZGRhN2NjYmYwMGJiMmY0NDJkNTkwOTZkZjdjNDMyNTUyODZjNTBmNzQ3YzBmNTc2OTRiMzc0NzYyYmY5YTdjNzk2NTExZTAxIn0.eyJhdWQiOiIzNjg3IiwianRpIjoiZjhiOTdkNzdkZGE3Y2NiZjAwYmIyZjQ0MmQ1OTA5NmRmN2M0MzI1NTI4NmM1MGY3NDdjMGY1NzY5NGIzNzQ3NjJiZjlhN2M3OTY1MTFlMDEiLCJpYXQiOjE1NjE0NDA1MDUsIm5iZiI6MTU2MTQ0MDUwNSwiZXhwIjoxNTY0MTE4OTA0LCJzdWIiOiIiLCJzY29wZXMiOlsiYmFzaWMiXX0.ZnuEzhaL8az3Mdp5cmDV7IcjxPEWVQ04MedE2ASvbnI-lNDkVgj2PtCYa_xE4cW-NusobfnRioSpOUTRDIgdr9c9R1LHioaba5VVACjDzOQQbjF4fWAvNUdd-wIomeajzFSuH3MZhzca1jdo-598fUtVjEN_C_6TsOYLsU2n1Vo5HweHOnpxDWW_2Ms15IUpyCXxu_zT1M-DFxcyRYCh5hlkZ5bvv4DmBeG0EYRMGIE3TmpRQY8vJQU1dNFDlVD5iRDffakRf-9rXZnE_XbAXot7oODPEQIWkkP449c3AT_xe-FD1xJqFNV2KmtxdCavVnITBCimcTPO39Ce9xd80g"
 
         let coordinates = CLLocationCoordinate2D(latitude: 35.732527, longitude: 51.422710)
         let size = CGSize(width: 300, height: 250)
@@ -85,8 +87,8 @@ class ViewController: UIViewController {
         let pointC = CLLocationCoordinate2D(latitude: 35.771551, longitude: 51.439705)
         let pointD = CLLocationCoordinate2D(latitude: 35.769149, longitude: 51.411467)
 
-        let origins = [pointA, pointB]
-        let destinations = [pointC, pointD]
+        let origins = [pointA, pointB].map { (UUID().uuidString.replacingOccurrences(of: "-", with: ""), $0) }
+        let destinations = [pointC, pointD].map { (UUID().uuidString.replacingOccurrences(of: "-", with: ""), $0) }
 
         mps.distanceMatrix(from: origins, to: destinations, options: .sorted) { (result) in
             switch result {
@@ -99,8 +101,7 @@ class ViewController: UIViewController {
         }
 
         let stringToSearch = "ساوجی نیا"
-
-        mps.search(for: stringToSearch, around: coordinates, selectionOptions: [.poi, .roads], filter: .city("تهران")) { (result) in
+        mps.search(for: stringToSearch, around: coordinates, categories: [.poi, .road], filter: .city("تهران")) { (result) in
             switch result {
             case .success(let searchResult):
                 print("getSearchResult method was successful.")
@@ -110,7 +111,7 @@ class ViewController: UIViewController {
             }
         }
 
-        mps.autocomplete(for: stringToSearch, around: coordinates, selectionOptions: [.poi, .roads]) { (result) in
+        mps.autocomplete(for: stringToSearch, around: coordinates, categories: [.poi, .road]) { (result) in
             switch result {
             case .success(let searchResult):
                 print("getAutocompleteSearchResult method was successful.")
@@ -122,8 +123,8 @@ class ViewController: UIViewController {
 
         mps.route(from: pointA,
                   to: [pointB, pointC],
-                  routeMode: .drivingNoExclusion,
-                  routeOptions: .calculateAlternatives) { (result) in
+                  mode: .drivingNoExclusion,
+                  options: .calculateAlternatives) { (result) in
 
             switch result {
             case .success(let (waypoint, route)):

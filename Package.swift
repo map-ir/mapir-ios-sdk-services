@@ -11,7 +11,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .Package(url: "https://github.com/raphaelmor/Polyline.git", .upToNextMinor(from: "4.2.1"))
+        .package(url: "https://github.com/raphaelmor/Polyline.git", .upToNextMinor(from: "4.2.1"))
     ],
     targets: [
         .target(

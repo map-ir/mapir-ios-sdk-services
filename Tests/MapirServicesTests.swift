@@ -38,7 +38,7 @@ class MapirServicesInitsTests: XCTestCase {
     static let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBjNTc5MzRiN2JjN2MzYzM2ODRiNDc5NWE5Y2E5MWY0Mzk1ZWU1ZmExMGZiMDQxZjg2Nzg5NTZiMmJmMGQ3NTc2MTgyMzYxY2ZkMDcxN2E0In0.eyJhdWQiOiI3MyIsImp0aSI6IjBjNTc5MzRiN2JjN2MzYzM2ODRiNDc5NWE5Y2E5MWY0Mzk1ZWU1ZmExMGZiMDQxZjg2Nzg5NTZiMmJmMGQ3NTc2MTgyMzYxY2ZkMDcxN2E0IiwiaWF0IjoxNTU3OTA2ODI4LCJuYmYiOjE1NTc5MDY4MjgsImV4cCI6MTU2MDMyNTkwNiwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.Cmx41bGBRvaqU3ig_ySLQPA13XZaWCq3Ml2JMejJbXng4SlSutUgKk_tVt_IoS3U81MWk1zwQs18LmSITZf5Qhme_jbecNElY2RNflMssVGYXVcq6PxcHHvOol2pOyGzUeqPL0-sBVPMr80QDXqJyy9m8OZlbvbmNE_9ZLS88JFolyEAbSLY2sulS6J5lPDEv2coCVf17eEQuXgLtNzvpIgyIBOofsxhreWI7YNW5w7cpv-uzzTpW0DBligx-0sSE5zxkVjQztVkDFiAglYkaAjR56LEZrsL5eQNKKrOtDsATLl04EEkJ6Vi7UO6T49POhbEAl-DG7D8gszAnXAgXA"
 
     func testInitWithToken_initializesServiceWithTokenAssigned() {
-        let service = MPSMapirServices(apiKey: MapirServicesInitsTests.token)
+        let service = MapirServices(apiKey: MapirServicesInitsTests.token)
         XCTAssertNotNil(service)
         XCTAssertNotNil(service.token)
         XCTAssertEqual(service.token, MapirServicesInitsTests.token)
@@ -49,10 +49,10 @@ class MapirServicesTests: XCTestCase {
 
     static let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBjNTc5MzRiN2JjN2MzYzM2ODRiNDc5NWE5Y2E5MWY0Mzk1ZWU1ZmExMGZiMDQxZjg2Nzg5NTZiMmJmMGQ3NTc2MTgyMzYxY2ZkMDcxN2E0In0.eyJhdWQiOiI3MyIsImp0aSI6IjBjNTc5MzRiN2JjN2MzYzM2ODRiNDc5NWE5Y2E5MWY0Mzk1ZWU1ZmExMGZiMDQxZjg2Nzg5NTZiMmJmMGQ3NTc2MTgyMzYxY2ZkMDcxN2E0IiwiaWF0IjoxNTU3OTA2ODI4LCJuYmYiOjE1NTc5MDY4MjgsImV4cCI6MTU2MDMyNTkwNiwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.Cmx41bGBRvaqU3ig_ySLQPA13XZaWCq3Ml2JMejJbXng4SlSutUgKk_tVt_IoS3U81MWk1zwQs18LmSITZf5Qhme_jbecNElY2RNflMssVGYXVcq6PxcHHvOol2pOyGzUeqPL0-sBVPMr80QDXqJyy9m8OZlbvbmNE_9ZLS88JFolyEAbSLY2sulS6J5lPDEv2coCVf17eEQuXgLtNzvpIgyIBOofsxhreWI7YNW5w7cpv-uzzTpW0DBligx-0sSE5zxkVjQztVkDFiAglYkaAjR56LEZrsL5eQNKKrOtDsATLl04EEkJ6Vi7UO6T49POhbEAl-DG7D8gszAnXAgXA"
 
-    var service: MPSMapirServices!
+    var service: MapirServices!
 
     override func setUp() {
-        self.service = MPSMapirServices.init(apiKey: MapirServicesTests.token)
+        self.service = MapirServices.init(apiKey: MapirServicesTests.token)
 
         let sessionConfig = URLSessionConfiguration.ephemeral
         sessionConfig.protocolClasses = [URLProtocolMock.self]

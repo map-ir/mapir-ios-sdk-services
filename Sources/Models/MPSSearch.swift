@@ -10,22 +10,65 @@ import CoreLocation
 import Foundation
 
 public struct MPSSearch {
-    public var allResultsCount: Int
-    public var results: [MPSSearchResult]
-}
-
-extension MPSSearch: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case allResultsCount = "odata.count"
-        case results = "value"
-    }
-}
-
-struct SearchInput: Encodable {
     var text: String
-    var selectionOptions: MPSSearchOptions?
-    var filter: MPSSearchFilter?
+    var categories: MPSSearch.Categories?
+    var filter: MPSSearch.Filter?
     var coordinates: CLLocationCoordinate2D
+    var results: [MPSSearchResult] = []
+
+    public struct Categories: OptionSet {
+
+        public let rawValue: Int
+
+        public init(rawValue: Int) { self.rawValue = rawValue }
+
+        /// Points of interest.
+        public static let poi                   = MPSSearch.Categories(rawValue: 1 << 0)
+
+        /// City names.
+        public static let city                  = MPSSearch.Categories(rawValue: 1 << 1)
+
+        /// Any kind of road. Street, Freeway, Alley, Avenue, Tunnels, etc.
+        public static let road                  = MPSSearch.Categories(rawValue: 1 << 2)
+
+        /// Neighborhood names.
+        public static let neighborhood          = MPSSearch.Categories(rawValue: 1 << 3)
+
+        /// County names.
+        public static let county                = MPSSearch.Categories(rawValue: 1 << 4)
+
+        /// District names.
+        public static let district              = MPSSearch.Categories(rawValue: 1 << 5)
+
+        /// Landuse names.
+        public static let landuse               = MPSSearch.Categories(rawValue: 1 << 6)
+
+        /// Province names.
+        public static let province              = MPSSearch.Categories(rawValue: 1 << 7)
+
+        ///
+        public static let bodyOfWaterOrJungles  = MPSSearch.Categories(rawValue: 1 << 8)
+    }
+
+    public enum Filter {
+
+        public enum DistanceUnit: String {
+            case kilometer  = "km"
+            case meter      = "m"
+        }
+
+        case distance(Double, unit: DistanceUnit)
+
+        case city(String)
+        case county(String)
+        case province(String)
+        case neighborhood(String)
+        case district(String)
+    }
+
+}
+
+extension MPSSearch: Encodable {
 
     enum CodingKeys: String, CodingKey {
         case text
@@ -39,64 +82,16 @@ struct SearchInput: Encodable {
         case coordinates
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(text, forKey: .text)
 
-        if let selectionOptions = selectionOptions {
-            var select = ""
-
-            if selectionOptions.contains(.city) {
-                select += "city,"
-            }
-            if selectionOptions.contains(.county) {
-                select += "county,"
-            }
-            if selectionOptions.contains(.district) {
-                select += "district,"
-            }
-            if selectionOptions.contains(.landuse) {
-                select += "landuse,"
-            }
-            if selectionOptions.contains(.neighborhood) {
-                select += "neighborhood,"
-            }
-            if selectionOptions.contains(.poi) {
-                select += "poi,"
-            }
-            if selectionOptions.contains(.province) {
-                select += "province,"
-            }
-            if selectionOptions.contains(.roads) {
-                select += "roads,"
-            }
-            if selectionOptions.contains(.woodwater) {
-                select += "woodwater,"
-            }
-            if !select.isEmpty {
-                select.removeLast()
-                try container.encode(select, forKey: .selectionOptions)
-            }
+        if let selectionOptions = categories {
+            try container.encode(selectionOptions, forKey: .selectionOptions)
         }
 
         if let filter = filter {
-            var filterText = ""
-            switch filter {
-            case .distance(let amount, let unit):
-                filterText = "distance eq \(amount)\(unit.rawValue)"
-            case .city(let name):
-                filterText = "city eq \(name)"
-            case .province(let name):
-                filterText = "province eq \(name)"
-            case .county(let name):
-                filterText = "county eq \(name)"
-            case .neighbourhood(let name):
-                filterText = "neighbourhood eq \(name)"
-            case .district(let name):
-                filterText = "district eq \(name)"
-            }
-
-            try container.encode(filterText, forKey: .filter)
+            try container.encode(filter, forKey: .filter)
         }
 
         var geometryContainer = container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .coordinates)
@@ -104,39 +99,103 @@ struct SearchInput: Encodable {
         let array = [coordinates.longitude, coordinates.latitude]
         try geometryContainer.encode(array, forKey: .coordinates)
     }
-
 }
 
-public struct MPSSearchOptions: OptionSet {
+extension MPSSearch: Decodable {
+    internal struct SearchResponseScheme: Decodable {
+        var count: Int
+        var results: [MPSSearchResult]
 
-    public let rawValue: Int
+        enum CodingKeys: String, CodingKey {
+            case allResultsCount = "odata.count"
+            case results = "value"
+        }
 
-    public init(rawValue: Int) { self.rawValue = rawValue }
-
-    public static let poi           = MPSSearchOptions(rawValue: 1 << 0)
-    public static let city          = MPSSearchOptions(rawValue: 1 << 1)
-    public static let roads         = MPSSearchOptions(rawValue: 1 << 2)
-    public static let neighborhood  = MPSSearchOptions(rawValue: 1 << 3)
-    public static let county        = MPSSearchOptions(rawValue: 1 << 4)
-    public static let district      = MPSSearchOptions(rawValue: 1 << 5)
-    public static let landuse       = MPSSearchOptions(rawValue: 1 << 6)
-    public static let province      = MPSSearchOptions(rawValue: 1 << 7)
-    public static let woodwater     = MPSSearchOptions(rawValue: 1 << 8)
-}
-
-public enum MPSSearchFilter {
-
-    public enum DistanceUnit: String {
-        case kilometer  = "km"
-        case meter      = "m"
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.results = try container.decode([MPSSearchResult].self, forKey: .results)
+            self.count = 0
+        }
     }
 
-    case distance(Double, unit: DistanceUnit)
+    public init(from decoder: Decoder) throws {
+        let scheme = try SearchResponseScheme(from: decoder)
+        self.results = scheme.results
+        self.text = ""
+        self.coordinates = CLLocationCoordinate2D()
+    }
+}
 
-    case city(String)
-    case county(String)
-    case province(String)
-    case neighbourhood(String)
-    case district(String)
+extension MPSSearch.Filter: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        var textToEncode = ""
+        switch self {
+        case .distance(let amount, let unit):
+            textToEncode = "distance eq \(amount)\(unit.rawValue)"
+        case .city(let name):
+            textToEncode = "city eq \(name)"
+        case .province(let name):
+            textToEncode = "province eq \(name)"
+        case .county(let name):
+            textToEncode = "county eq \(name)"
+        case .neighborhood(let name):
+            textToEncode = "neighbourhood eq \(name)"
+        case .district(let name):
+            textToEncode = "district eq \(name)"
+        }
 
+        try container.encode(textToEncode)
+    }
+}
+
+extension MPSSearch.Categories: Encodable {
+    enum CategoryKeys: String {
+        case city
+        case county
+        case district
+        case landuse
+        case neighborhood = "neighbourhood"
+        case poi
+        case province
+        case road = "roads"
+        case bodyOfWaterOrJungle
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+
+        var select: [CategoryKeys] = []
+        if self.contains(.city) {
+            select.append(.city)
+        }
+        if self.contains(.county) {
+            select.append(.county)
+        }
+        if self.contains(.district) {
+            select.append(.district)
+        }
+        if self.contains(.landuse) {
+            select.append(.landuse)
+        }
+        if self.contains(.neighborhood) {
+            select.append(.neighborhood)
+        }
+        if self.contains(.poi) {
+            select.append(.poi)
+        }
+        if self.contains(.province) {
+            select.append(.province)
+        }
+        if self.contains(.road) {
+            select.append(.road)
+        }
+        if self.contains(.bodyOfWaterOrJungles) {
+            select.append(.bodyOfWaterOrJungle)
+        }
+
+        let selectText = select.map { $0.rawValue }.joined(separator: ",")
+        try container.encode(selectText)
+
+    }
 }

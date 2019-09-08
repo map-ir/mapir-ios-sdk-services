@@ -421,7 +421,7 @@ extension MapirServices {
     ///
     /// - Parameter text: the name or any data about the place.
     /// - Parameter location: center of search.
-    /// - Parameter selectionOptions: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
+    /// - Parameter categories: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
     /// - Parameter filter: filters of search. e.g. places with distance less that specified meters.
     /// - Parameter result: a `Result` of types array of `MPSSearchResult`s if execution succeeds and `Error` if it fails.
     ///
@@ -429,9 +429,9 @@ extension MapirServices {
     /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
     public func search(for text: String,
                        around coordinate: CLLocationCoordinate2D,
-                       categories: MPSSearchCategories = [],
-                       filter: MPSSearchFilter? = nil,
-                       completionHandler: @escaping (_ result: Result<[MPSSearchResult], Error>) -> Void) {
+                       categories: MPSSearch.Categories = [],
+                       filter: MPSSearch.Filter? = nil,
+                       completionHandler: @escaping (_ result: Result<MPSSearch, Error>) -> Void) {
 
         var request: URLRequest
         do {
@@ -443,13 +443,13 @@ extension MapirServices {
             return
         }
 
-        let searchBody = SearchInput(text: text,
-                                     selectionOptions: categories,
-                                     filter: filter,
-                                     coordinates: coordinate)
+        var search = MPSSearch(text: text,
+                               categories: categories,
+                               filter: filter,
+                               coordinates: coordinate)
 
         do {
-            let httpBody = try encoder.encode(searchBody)
+            let httpBody = try encoder.encode(search)
             request.httpBody = httpBody
         } catch let encoderError {
             completionHandler(.failure(encoderError))
@@ -470,7 +470,8 @@ extension MapirServices {
                     do {
                         let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
                         let searchResults = decodedData.results
-                        DispatchQueue.main.async { completionHandler(.success(searchResults)) }
+                        search.results = searchResults
+                        DispatchQueue.main.async { completionHandler(.success(search)) }
                         return
                     } catch let parseError {
                         DispatchQueue.main.async { completionHandler(.failure(parseError)) }
@@ -498,16 +499,16 @@ extension MapirServices {
     /// Autocompletes for text around a location.
     /// - Parameter text: Input text.
     /// - Parameter location: Center of autocomplete search
-    /// - Parameter selectionOptions: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
+    /// - Parameter categories: type of places, e.g. Road, POI, city, etc. more selected options will result in more accurte search.
     /// - Parameter filter: filters of search. e.g. places with distance less that specified meters.
     /// - Parameter result: a `Result` of types array of `MPSAutocompleteResult`s if execution succeeds and `Error` if it fails.
     ///
     /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
     public func autocomplete(for text: String,
                              around coordinate: CLLocationCoordinate2D,
-                             categories: MPSSearchCategories = [],
-                             filter: MPSSearchFilter? = nil,
-                             completionHandler: @escaping (_ result: Result<[MPSAutocompleteResult], Error>) -> Void) {
+                             categories: MPSSearch.Categories = [],
+                             filter: MPSSearch.Filter? = nil,
+                             completionHandler: @escaping (_ result: Result<MPSSearch, Error>) -> Void) {
 
         var request: URLRequest
         do {
@@ -519,13 +520,13 @@ extension MapirServices {
             return
         }
 
-        let autocompleteSearchBody = SearchInput(text: text,
-                                                 selectionOptions: categories,
-                                                 filter: filter,
-                                                 coordinates: coordinate)
+        var autocomplete = MPSSearch(text: text,
+                                               categories: categories,
+                                               filter: filter,
+                                               coordinates: coordinate)
 
         do {
-            let httpBody = try encoder.encode(autocompleteSearchBody)
+            let httpBody = try encoder.encode(autocomplete)
             request.httpBody = httpBody
         } catch let encoderError {
             completionHandler(.failure(encoderError))
@@ -544,9 +545,10 @@ extension MapirServices {
             case 200:
                 if let data = data {
                     do {
-                        let decodedData = try self.decoder.decode(MPSAutocomplete.self, from: data)
+                        let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
                         let autocompleteResult = decodedData.results
-                        DispatchQueue.main.async { completionHandler(.success(autocompleteResult)) }
+                        autocomplete.results = autocompleteResult
+                        DispatchQueue.main.async { completionHandler(.success(autocomplete)) }
                         return
                     } catch let parseError {
                         DispatchQueue.main.async { completionHandler(.failure(parseError)) }

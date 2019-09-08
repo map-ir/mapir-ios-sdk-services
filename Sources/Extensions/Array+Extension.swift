@@ -20,4 +20,23 @@ extension Array where Element: Hashable {
     mutating func removeDuplicates() {
         self = self.removingDuplicates()
     }
+
+    func hasDuplicates() -> Bool {
+        var addedDict: [Element: Bool] = [:]
+
+        for element in self {
+            if addedDict.updateValue(true, forKey: element) != nil {
+                return true
+            }
+        }
+        return false
+    }
+
+    func duplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+
+        return filter {
+            addedDict.updateValue(true, forKey: $0) != nil
+        }
+    }
 }

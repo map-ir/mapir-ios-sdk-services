@@ -16,7 +16,7 @@ public struct MPSLocation {
     public var district: String?
     public var ruralDistrict: String?
     public var suburb: String?
-    public var neighbourhood: String?
+    public var neighborhood: String?
     public var coordinates: CLLocationCoordinate2D?
 }
 
@@ -28,7 +28,7 @@ extension MPSLocation: Decodable {
         case district = "district_title"
         case ruralDistrict = "ruraldistrict_title"
         case suburb = "suburb_title"
-        case neighbourhood = "neighbourhood_title"
+        case neighborhood = "neighbourhood_title"
         case coordinates
     }
 
@@ -41,7 +41,7 @@ extension MPSLocation: Decodable {
         district = try container.decode(String.self, forKey: .district)
         ruralDistrict = try container.decode(String.self, forKey: .ruralDistrict)
         suburb = try container.decode(String.self, forKey: .suburb)
-        neighbourhood = try container.decode(String.self, forKey: .neighbourhood)
+        neighborhood = try container.decode(String.self, forKey: .neighborhood)
         let array = try? container.decode([Double].self, forKey: .coordinates)
         if let array = array {
             coordinates = CLLocationCoordinate2D(latitude: array[1], longitude: array[0])

@@ -81,10 +81,10 @@ public struct MPSReverseGeocode {
     /// In farsi: بخش
     public private(set) var region: String?
 
-    /// Neighbourhood name of the place based on municipal information.
+    /// Neighborhood name of the place based on municipal information.
     ///
     /// In farsi: نام محله شهرداری
-    public private(set) var neighbourhood: String?
+    public private(set) var neighborhood: String?
 
     /// Name of the last primary street leading to the place.
     ///
@@ -121,7 +121,7 @@ public struct MPSReverseGeocode {
         case city
         case village
         case region = "district"
-        case neighbourhood
+        case neighborhood = "neighbourhood"
         case primary
         case plaque
         case postalCode = "postal_code"
@@ -149,7 +149,7 @@ extension MPSReverseGeocode: Decodable {
         city = try value.decode(String.self, forKey: .city)
         village = try value.decode(String.self, forKey: .village)
         region = try value.decode(String.self, forKey: .region)
-        neighbourhood = try value.decode(String.self, forKey: .neighbourhood)
+        neighborhood = try value.decode(String.self, forKey: .neighborhood)
         primary = try value.decode(String.self, forKey: .primary)
         plaque = try value.decode(String.self, forKey: .plaque)
         postalCode = try value.decode(String.self, forKey: .postalCode)

@@ -46,8 +46,8 @@ public struct MPSSearch {
         /// Province names.
         public static let province              = MPSSearch.Categories(rawValue: 1 << 7)
 
-        ///
-        public static let bodyOfWaterOrJungles  = MPSSearch.Categories(rawValue: 1 << 8)
+        /// Body of water or jungle.
+        public static let bodyOfWaterOrJungle   = MPSSearch.Categories(rawValue: 1 << 8)
     }
 
     public enum Filter {
@@ -159,7 +159,7 @@ extension MPSSearch.Categories: Encodable {
         case poi
         case province
         case road = "roads"
-        case bodyOfWaterOrJungle
+        case bodyOfWaterOrJungle = "woodwater"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -190,7 +190,7 @@ extension MPSSearch.Categories: Encodable {
         if self.contains(.road) {
             select.append(.road)
         }
-        if self.contains(.bodyOfWaterOrJungles) {
+        if self.contains(.bodyOfWaterOrJungle) {
             select.append(.bodyOfWaterOrJungle)
         }
 

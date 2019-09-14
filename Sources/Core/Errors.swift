@@ -12,7 +12,7 @@ enum ServiceError: Error {
     case invalidAccessToken
 
     var localizedDescription: String {
-        return "Token is not defined. use MPSMapirServices(accessToken:) at least once or add your token to Info.plist with key MAPIRAccessToken."
+        return "Token is not defined. use MPSMapirServices(accessToken:) or add your token to Info.plist with key MAPIRAccessToken."
     }
 }
 

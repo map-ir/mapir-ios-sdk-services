@@ -91,3 +91,15 @@ public enum RouteError: Error, LocalizedError {
         return "No destination is specified. At least one is needed."
     }
 }
+
+extension Route {
+    internal struct ResponseScheme: Decodable {
+        var waypoints: [Waypoint]
+        var routes: [Route]
+
+        enum CodingKeys: String, CodingKey {
+            case waypoints
+            case routes
+        }
+    }
+}

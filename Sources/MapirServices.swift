@@ -546,7 +546,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.utils.decoder.decode(MPSRouteResult.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(Route.ResponseScheme.self, from: data)
                             DispatchQueue.main.async {
                                 completionHandler(.success(
                                     (decodedData.waypoints, decodedData.routes)

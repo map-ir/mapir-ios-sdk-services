@@ -6,14 +6,6 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
-import Foundation
-
-public enum MPSError: Error {
-
-    /// Error due to generating request URL
-    case urlEncodingError
-}
-
 enum ServiceError: Error {
 
     /// Indicates token-related errors. either not defined or invalid one.

@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 
         let coordinates = CLLocationCoordinate2D(latitude: 35.732527, longitude: 51.422710)
         let size = CGSize(width: 300, height: 250)
-        let marker = MPSStaticMapMarker(coordinate: coordinates, style: MPSStaticMapMarker.Style.red, label: "mapir")
+        let marker = StaticMapMarker(coordinate: coordinates, style: StaticMapMarker.Style.red, label: "mapir")
 
         mps.staticMap(center: coordinates,
                          size: size,

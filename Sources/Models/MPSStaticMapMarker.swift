@@ -38,3 +38,19 @@ public struct MPSStaticMapMarker {
         self.label = label
     }
 }
+
+enum StaticMapError: Error {
+    /// Error due to decoding image into UIImage
+    case imageDecodingError
+
+    case zoomLevelOutOfRange
+
+    var localizedDescription: String {
+        switch self {
+        case .imageDecodingError:
+            return "Couldn't decode image"
+        case .zoomLevelOutOfRange:
+            return "Zoom level is out of valid range. Zoom level must be less than 20 or more than 0. (0 < zoomLevel < 20)"
+        }
+    }
+}

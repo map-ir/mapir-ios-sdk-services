@@ -118,6 +118,10 @@ public enum DistanceMatrixError: Error, LocalizedError {
 
     case emptyName
 
+    case noOriginsSpecified
+
+    case noDestinationsSpecified
+
     var localizedDescription: String {
         switch self {
         case .duplicateCoordinateName(let name):
@@ -125,7 +129,11 @@ public enum DistanceMatrixError: Error, LocalizedError {
         case .invalidCharacterInName(let name):
             return "\"\(name)\" contains invalid characters. Names must only contain alphanumeric characters"
         case .emptyName:
-            return "found an empty name. Names can't be empty."
+            return "Found an empty name. Names can't be empty."
+        case .noOriginsSpecified:
+            return "No origin is specified. At least one is needed."
+        case .noDestinationsSpecified:
+            return "No destination is specified. At least one is needed."
         }
     }
 }

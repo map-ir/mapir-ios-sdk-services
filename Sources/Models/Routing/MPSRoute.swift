@@ -82,3 +82,12 @@ extension MPSRoute: Decodable {
         legs = try container.decode([MPSLeg].self, forKey: .legs)
     }
 }
+
+public enum RouteError: Error, LocalizedError {
+
+    case noDestinationsSpecified
+
+    var localizedDescription: String {
+        return "No destination is specified. At least one is needed."
+    }
+}

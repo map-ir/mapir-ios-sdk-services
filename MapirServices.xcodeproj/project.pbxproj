@@ -543,13 +543,13 @@
 		C08DB45022CB59FD00FAE64A /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
 				C02DCF6422CA1C9600BA403F /* MPSWaypoint.swift */,
 				C02DCF6822CA1DC300BA403F /* MPSLeg.swift */,
 				C02DCF6622CA1CE700BA403F /* MPSStep.swift */,
 				C02DCF6A22CA213000BA403F /* MPSManeuver.swift */,
 				C02DCF6C22CA213B00BA403F /* MPSIntersection.swift */,
 				C08DB44C22CB302600FAE64A /* MPSLane.swift */,
-				C08DB44E22CB570800FAE64A /* MPSRoute.swift */,
 				C0B79B2122D361BB005E9C24 /* MPSRouteResult.swift */,
 			);
 			path = Routing;

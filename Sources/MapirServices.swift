@@ -113,7 +113,7 @@ public final class MapirServices {
         urlComponents.queryItems = queryItems
 
         guard let url = urlComponents.url else {
-            throw MPSError.urlEncodingError
+            preconditionFailure("Couldn't create URL.")
         }
 
         var request = URLRequest(url: url)
@@ -123,7 +123,7 @@ public final class MapirServices {
         if let token = MapirServices.accessToken {
             request.addValue(token, forHTTPHeaderField: "x-api-key")
         } else {
-            throw MPSError.ServiceError.invalidAccessToken
+            throw ServiceError.invalidAccessToken
         }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(self.userAgent, forHTTPHeaderField: "User-Agent")
@@ -171,10 +171,8 @@ extension MapirServices {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return
                 }
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+
+                let urlResponse = urlResponse as! HTTPURLResponse
 
                 switch urlResponse.statusCode {
                 case 200:
@@ -238,10 +236,7 @@ extension MapirServices {
                     return
                 }
 
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+                let urlResponse = urlResponse as! HTTPURLResponse
 
                 switch urlResponse.statusCode {
                 case 200:
@@ -308,14 +303,21 @@ extension MapirServices {
     func argumentCheck(origins: [(name: String, coordinate: CLLocationCoordinate2D)],
                        destinations: [(name: String, coordinate: CLLocationCoordinate2D)]) throws {
 
-        var notAllowedCharacters = CharacterSet.alphanumerics.inverted
-        notAllowedCharacters.insert(charactersIn: "_")
+        guard !origins.isEmpty else {
+            throw DistanceMatrixError.noOriginsSpecified
+        }
+
+        guard !destinations.isEmpty else {
+            throw DistanceMatrixError.noDestinationsSpecified
+        }
+
+        var allowedCharacters = CharacterSet.alphanumerics
+        allowedCharacters.insert(charactersIn: "_")
 
         let originNames = try origins.map { (origin) -> String in
             let name = origin.name
             if name.isEmpty { throw DistanceMatrixError.emptyName }
-            let chars = CharacterSet(charactersIn: name).intersection(notAllowedCharacters)
-            if !chars.isEmpty {
+            if !CharacterSet(charactersIn: name).isSubset(of: allowedCharacters) {
                 throw DistanceMatrixError.invalidCharacterInName(name)
             }
             return name
@@ -329,8 +331,7 @@ extension MapirServices {
         let destinationNames = try destinations.map { (destination) -> String in
             let name = destination.name
             if name.isEmpty { throw DistanceMatrixError.emptyName }
-            let chars = CharacterSet(charactersIn: name).intersection(notAllowedCharacters)
-            if !chars.isEmpty {
+            if !CharacterSet(charactersIn: name).isSubset(of: allowedCharacters) {
                 throw DistanceMatrixError.invalidCharacterInName(name)
             }
             return name
@@ -377,14 +378,9 @@ extension MapirServices {
                     return
                 }
 
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+                let urlResponse = urlResponse as! HTTPURLResponse
 
-                let statusCode = urlResponse.statusCode
-
-                switch statusCode {
+                switch urlResponse.statusCode {
                 case 200:
                     if let data = data {
                         do {
@@ -454,10 +450,7 @@ extension MapirServices {
             let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+                let urlResponse = urlResponse as! HTTPURLResponse
 
                 switch urlResponse.statusCode {
                 case 200:
@@ -528,10 +521,7 @@ extension MapirServices {
             let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+                let urlResponse = urlResponse as! HTTPURLResponse
 
                 switch urlResponse.statusCode {
                 case 200:
@@ -567,6 +557,10 @@ extension MapirServices {
                             destinations: [CLLocationCoordinate2D],
                             mode: MPSRoute.Mode,
                             options: MPSRoute.Options) throws -> URLRequest {
+
+        guard !destinations.isEmpty else {
+            throw RouteError.noDestinationsSpecified
+        }
 
         var path = Endpoint.route(forMode: mode) + "/"
         path += "\(origin.longitude),\(origin.latitude);"
@@ -616,10 +610,6 @@ extension MapirServices {
                       completionHandler: @escaping (_ result: Result<([MPSWaypoint], [MPSRoute]), Error>) -> Void) {
 
         dispatchQueue.async {
-            guard !destinations.isEmpty else {
-                DispatchQueue.main.async { completionHandler(.failure(MPSError.RequestError.invalidArgument)) }
-                return
-            }
 
             let request: URLRequest
             do {
@@ -636,10 +626,7 @@ extension MapirServices {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                 }
 
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+                let urlResponse = urlResponse as! HTTPURLResponse
 
                 switch urlResponse.statusCode {
                 case 200:
@@ -671,7 +658,12 @@ extension MapirServices {
 // MARK: - Static Map
 
 extension MapirServices {
-    func urlRequestForStaticMap(center: CLLocationCoordinate2D, size: CGSize, zoomLevel: Int, markers: [MPSStaticMapMarker]) throws -> URLRequest {
+    func urlRequestForStaticMap(center: CLLocationCoordinate2D, size: CGSize, zoomLevel: UInt8, markers: [MPSStaticMapMarker]) throws -> URLRequest {
+
+        guard zoomLevel < 20 else {
+            throw StaticMapError.zoomLevelOutOfRange
+        }
+
         var queryItems = [URLQueryItem(name: "width",       value: "\(Int(size.width))"),
                           URLQueryItem(name: "height",      value: "\(Int(size.height))"),
                           URLQueryItem(name: "zoom_level",  value: "\(zoomLevel)")]
@@ -697,7 +689,7 @@ extension MapirServices {
     /// - Parameter result: a `Result` of types `UIImage` if execution succeeds and `Error` if it fails.
     public func staticMap(center: CLLocationCoordinate2D,
                           size: CGSize,
-                          zoomLevel: Int,
+                          zoomLevel: UInt8,
                           markers: [MPSStaticMapMarker] = [],
                           completionHandler: @escaping (_ result: Result<UIImage, Error>) -> Void) {
 
@@ -710,16 +702,13 @@ extension MapirServices {
                 return
             }
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, defenition) in
-                if let defenition = defenition {
-                    DispatchQueue.main.async { completionHandler(.failure(defenition)) }
+            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+                if let error = error {
+                    DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return
                 }
 
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+                let urlResponse = urlResponse as! HTTPURLResponse
 
                 switch urlResponse.statusCode {
                 case 200:
@@ -728,7 +717,7 @@ extension MapirServices {
                             DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
                             return
                         } else {
-                            DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
+                            DispatchQueue.main.async { completionHandler(.failure(StaticMapError.imageDecodingError)) }
                         }
                     }
                 case 400...599:
@@ -771,10 +760,7 @@ extension MapirServices {
                     return
                 }
 
-                guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                    DispatchQueue.main.async { completionHandler(.failure(MPSError.ResponseError.invalidResponse)) }
-                    return
-                }
+                let urlResponse = urlResponse as! HTTPURLResponse
 
                 switch urlResponse.statusCode {
                 case 200:
@@ -783,7 +769,7 @@ extension MapirServices {
                             DispatchQueue.main.async { completionHandler(.success(decodedImage)) }
                             return
                         } else {
-                            DispatchQueue.main.async { completionHandler(.failure(MPSError.imageDecodingError)) }
+                            DispatchQueue.main.async { completionHandler(.failure(StaticMapError.imageDecodingError)) }
                         }
                     }
                 case 400...599:

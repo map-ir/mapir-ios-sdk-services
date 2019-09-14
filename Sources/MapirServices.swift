@@ -51,13 +51,23 @@ public final class MapirServices {
                                               target: nil)
     
     private init() {
-        session = .shared
         if MapirServices.accessToken == nil {
             if let token = Bundle.main.object(forInfoDictionaryKey: "MAPIRAccessToken") as? String {
                 MapirServices.accessToken = token
             }
         }
 
+        commonInit()
+    }
+
+    public init(accessToken: String) {
+        MapirServices.accessToken = accessToken
+        commonInit()
+        MapirServices.shared = self
+    }
+
+    private func commonInit() {
+        session = .shared
     }
 
     private let userAgent: String = {

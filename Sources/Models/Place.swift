@@ -1,6 +1,6 @@
 //
 //  MPSLocation.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 5/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,7 +9,7 @@
 import CoreLocation
 import Foundation
 
-public struct MPSLocation {
+public struct Place {
     public var name: String?
     public var province: String?
     public var county: String?
@@ -20,7 +20,7 @@ public struct MPSLocation {
     public var coordinates: CLLocationCoordinate2D?
 }
 
-extension MPSLocation: Decodable {
+extension Place: Decodable {
     enum CodingKeys: String, CodingKey {
         case name
         case province = "province_name"

@@ -1,6 +1,6 @@
 //
-//  MPSIntersection.swift
-//  MapirServices-iOS
+//  Intersection.swift
+//  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,7 +9,7 @@
 import CoreLocation
 import Foundation
 
-public struct MPSIntersection {
+public struct Intersection {
 
     /// A `CLLocationCoordinate2D` describing the location of the turn.
     public var location: CLLocationCoordinate2D?
@@ -43,10 +43,10 @@ public struct MPSIntersection {
 
     /// Array of Lane objects that denote the available turn lanes at the intersection.
     /// - If no lane information is available for an intersection, the lanes property will not be present.
-    public var lanes: [MPSLane]?
+    public var lanes: [Lane]?
 }
 
-extension MPSIntersection: Decodable {
+extension Intersection: Decodable {
     enum CodingKeys: String, CodingKey {
         case location
         case bearings
@@ -69,6 +69,6 @@ extension MPSIntersection: Decodable {
         entry = try container.decode([Bool].self, forKey: .entry)
         self.in = try? container.decode(Int.self, forKey: .in)
         out = try? container.decode(Int.self, forKey: .out)
-        lanes = try? container.decode([MPSLane].self, forKey: .lanes)
+        lanes = try? container.decode([Lane].self, forKey: .lanes)
     }
 }

@@ -1,6 +1,6 @@
 //
-//  MPSLeg.swift
-//  MapirServices-iOS
+//  RouteLeg.swift
+//  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-public struct MPSLeg {
+public struct RouteLeg {
     /// Depends on the `steps` parameter.
-    public var steps: [MPSStep]
+    public var steps: [RouteStep]
 
     /// The distance traveled by this route leg, in `Double` meters.
     public var distance: Double
@@ -25,7 +25,7 @@ public struct MPSLeg {
     public var weight: Double
 }
 
-extension MPSLeg: Decodable {
+extension RouteLeg: Decodable {
     enum CodingKeys: String, CodingKey {
         case steps
         case distance
@@ -41,6 +41,6 @@ extension MPSLeg: Decodable {
         duration = try container.decode(Double.self, forKey: .duration)
         summary = try container.decode(String.self, forKey: .summary)
         weight = try container.decode(Double.self, forKey: .weight)
-        steps = try container.decode([MPSStep].self, forKey: .steps)
+        steps = try container.decode([RouteStep].self, forKey: .steps)
     }
 }

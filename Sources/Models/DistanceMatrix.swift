@@ -1,6 +1,6 @@
 //
 //  MPSDistanceMatrix.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 5/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MPSDistanceMatrix {
+public struct DistanceMatrix {
 
     public struct Options: OptionSet {
 
@@ -19,22 +19,34 @@ public struct MPSDistanceMatrix {
         }
 
         /// Calculate distances.
-        public static let distance = MPSDistanceMatrix.Options(rawValue: 1 << 0)
+        public static let distance = DistanceMatrix.Options(rawValue: 1 << 0)
 
         /// Calculate durations.
-        public static let duration = MPSDistanceMatrix.Options(rawValue: 1 << 1)
+        public static let duration = DistanceMatrix.Options(rawValue: 1 << 1)
 
         /// Sort results by distance and duration.
-        public static let sorted = MPSDistanceMatrix.Options(rawValue: 1 << 2)
+        public static let sorted = DistanceMatrix.Options(rawValue: 1 << 2)
     }
 
-    public var distances: [MPSDistance]
-    public var durations: [MPSDuration]
-    public var origins: [MPSLocation]
-    public var destinations: [MPSLocation]
+    public var distances: [DistanceMatrix.Distance]
+    public var durations: [DistanceMatrix.Duration]
+    public var origins: [Place]
+    public var destinations: [Place]
+
+    public struct Distance {
+        public var origin: Place
+        public var destination: Place
+        public var distance: Double
+    }
+
+    public struct Duration {
+        public var origin: Place
+        public var destination: Place
+        public var duration: Double
+    }
 }
 
-extension MPSDistanceMatrix: Decodable {
+extension DistanceMatrix: Decodable {
 
     private struct DistanceHelper: Decodable {
         var origin: String
@@ -69,15 +81,15 @@ extension MPSDistanceMatrix: Decodable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let originsHelper = try container.decode([String: MPSLocation].self, forKey: .origins)
-        let destinationHelper = try container.decode([String: MPSLocation].self, forKey: .destinations)
+        let originsHelper = try container.decode([String: Place].self, forKey: .origins)
+        let destinationHelper = try container.decode([String: Place].self, forKey: .destinations)
         let durationHelper = try? container.decode([DurationHelper].self, forKey: .durations)
         let distanceHelper = try? container.decode([DistanceHelper].self, forKey: .distances)
 
-        durations = [MPSDuration]()
-        distances = [MPSDistance]()
-        origins = [MPSLocation]()
-        destinations = [MPSLocation]()
+        durations = [DistanceMatrix.Duration]()
+        distances = [DistanceMatrix.Distance]()
+        origins = [Place]()
+        destinations = [Place]()
 
         for (_, origin) in originsHelper {
             origins.append(origin)
@@ -90,7 +102,7 @@ extension MPSDistanceMatrix: Decodable {
         if let durationHelper = durationHelper {
             for helper in durationHelper {
                 if let origin = originsHelper[helper.origin], let destination = destinationHelper[helper.destination] {
-                    let newDuration = MPSDuration(origin: origin,
+                    let newDuration = DistanceMatrix.Duration(origin: origin,
                                                   destination: destination,
                                                   duration: helper.duration)
                     durations.append(newDuration)
@@ -101,7 +113,7 @@ extension MPSDistanceMatrix: Decodable {
         if let distanceHelper = distanceHelper {
             for helper in distanceHelper {
                 if let origin = originsHelper[helper.origin], let destination = destinationHelper[helper.destination] {
-                    let newDistance = MPSDistance(origin: origin,
+                    let newDistance = DistanceMatrix.Distance(origin: origin,
                                                   destination: destination,
                                                   distance: helper.distance)
                     distances.append(newDistance)

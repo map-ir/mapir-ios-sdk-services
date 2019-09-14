@@ -1,6 +1,6 @@
 //
 //  MPIRReverseGeocode.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 11/3/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,7 +9,7 @@
 import CoreLocation
 import Foundation
 
-public struct MPSReverseGeocode {
+public struct ReverseGeocode {
 
     /// Full address
     ///
@@ -133,7 +133,7 @@ public struct MPSReverseGeocode {
     }
 }
 
-extension MPSReverseGeocode: Decodable {
+extension ReverseGeocode: Decodable {
     public init(from decoder: Decoder) throws {
         let value = try decoder.container(keyedBy: CodingKeys.self)
         address = try value.decode(String.self, forKey: .address)

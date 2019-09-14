@@ -1,6 +1,6 @@
 //
 //  MPSStaticMapMarker.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 16/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,9 +9,9 @@
 import CoreLocation
 import Foundation
 
-public struct MPSStaticMapMarker {
+public struct StaticMapMarker {
     public var coordinate: CLLocationCoordinate2D
-    public var style: MPSStaticMapMarker.Style
+    public var style: StaticMapMarker.Style
     public var label: String
 
     public enum Style: String {
@@ -32,7 +32,7 @@ public struct MPSStaticMapMarker {
 
     }
 
-    public init(coordinate: CLLocationCoordinate2D, style: MPSStaticMapMarker.Style, label: String) {
+    public init(coordinate: CLLocationCoordinate2D, style: StaticMapMarker.Style, label: String) {
         self.coordinate = coordinate
         self.style = style
         self.label = label

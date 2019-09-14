@@ -1,26 +1,27 @@
 //
 //  MPSSearchResult.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
 import CoreLocation
-import Foundation
 
-public struct MPSSearchResult {
-    public var text: String
-    public var title: String
-    public var address: String
-    public var province: String
-    public var city: String
-    public var type: String
-    public var fClass: String
-    public var coordinates: CLLocationCoordinate2D
+extension Search {
+    public struct Result {
+        public var text: String
+        public var title: String
+        public var address: String
+        public var province: String
+        public var city: String
+        public var type: String
+        public var fClass: String
+        public var coordinates: CLLocationCoordinate2D
+    }
 }
 
-extension MPSSearchResult: Decodable {
+extension Search.Result: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case text = "Text"

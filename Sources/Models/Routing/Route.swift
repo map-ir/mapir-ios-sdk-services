@@ -1,6 +1,6 @@
 //
-//  MPSRoute.swift
-//  MapirServices-iOS
+//  Route.swift
+//  MapirServices
 //
 //  Created by Alireza Asadi on 11/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 import Polyline
 
-public struct MPSRoute {
+public struct Route {
 
     public enum Mode: String {
         case drivingExcludeAirPollutionZone     = "zojofard"
@@ -25,11 +25,11 @@ public struct MPSRoute {
 
         public init(rawValue: Int) { self.rawValue = rawValue }
 
-        public static let calculateAlternatives = MPSRoute.Options(rawValue: 1 << 0)
-        public static let fullOverview          = MPSRoute.Options(rawValue: 1 << 1)
-        public static let simplifiedOverview    = MPSRoute.Options(rawValue: 1 << 2)
-        public static let noOverview            = MPSRoute.Options(rawValue: 1 << 3)
-        public static let steps                 = MPSRoute.Options(rawValue: 1 << 4)
+        public static let calculateAlternatives = Route.Options(rawValue: 1 << 0)
+        public static let fullOverview          = Route.Options(rawValue: 1 << 1)
+        public static let simplifiedOverview    = Route.Options(rawValue: 1 << 2)
+        public static let noOverview            = Route.Options(rawValue: 1 << 3)
+        public static let steps                 = Route.Options(rawValue: 1 << 4)
     }
 
     /// The distance traveled by the route, in `Double` meters.
@@ -49,10 +49,10 @@ public struct MPSRoute {
     public var weightName: String?
 
     /// The legs between the given waypoints, an array of RouteLeg objects.
-    public var legs: [MPSLeg]
+    public var legs: [RouteLeg]
 }
 
-extension MPSRoute: Decodable {
+extension Route: Decodable {
     enum CodingKeys: String, CodingKey {
         case distance
         case duration
@@ -79,7 +79,7 @@ extension MPSRoute: Decodable {
         }
         weight = try container.decode(Double.self, forKey: .weight)
         weightName = try? container.decode(String.self, forKey: .weightName)
-        legs = try container.decode([MPSLeg].self, forKey: .legs)
+        legs = try container.decode([RouteLeg].self, forKey: .legs)
     }
 }
 

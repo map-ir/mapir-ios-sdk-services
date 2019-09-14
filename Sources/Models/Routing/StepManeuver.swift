@@ -1,6 +1,6 @@
 //
-//  MPSManeuver.swift
-//  MapirServices-iOS
+//  StepManeuver.swift
+//  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,7 +9,7 @@
 import CoreLocation
 import Foundation
 
-public struct MPSManeuver {
+public struct StepManeuver {
 
     public enum ManeuverType: String, Decodable {
         /// a basic turn into direction of the `modifier`
@@ -110,17 +110,17 @@ public struct MPSManeuver {
     public var bearingBefore: Int
 
     /// An enum indicating the type of maneuver.
-    public var type: MPSManeuver.ManeuverType
+    public var type: StepManeuver.ManeuverType
 
     /// An optional `String` indicating the direction change of the maneuver.
-    public var modifier: MPSManeuver.Modifier?
+    public var modifier: StepManeuver.Modifier?
 
     /// An optional `Integer` indicating number of the exit to take.
     /// The field exists for the following `type` field: `roundabout / rotary` and `else`
     public var exit: Int?
 }
 
-extension MPSManeuver: Decodable {
+extension StepManeuver: Decodable {
     enum CodingKeys: String, CodingKey {
         case location
         case bearingBefore = "bearing_before"
@@ -139,8 +139,8 @@ extension MPSManeuver: Decodable {
         }
         bearingAfter = try container.decode(Int.self, forKey: .bearingAfter)
         bearingBefore = try container.decode(Int.self, forKey: .bearingBefore)
-        type = try container.decode(MPSManeuver.ManeuverType.self, forKey: .type)
-        modifier = try? container.decode(MPSManeuver.Modifier.self, forKey: .modifier)
+        type = try container.decode(StepManeuver.ManeuverType.self, forKey: .type)
+        modifier = try? container.decode(StepManeuver.Modifier.self, forKey: .modifier)
         exit = try? container.decode(Int.self, forKey: .exit)
     }
 }

@@ -1,6 +1,6 @@
 //
 //  MPSSearch.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,12 +9,12 @@
 import CoreLocation
 import Foundation
 
-public struct MPSSearch {
+public struct Search {
     var text: String
-    var categories: MPSSearch.Categories?
-    var filter: MPSSearch.Filter?
+    var categories: Search.Categories?
+    var filter: Search.Filter?
     var coordinates: CLLocationCoordinate2D
-    var results: [MPSSearchResult] = []
+    var results: [Search.Result] = []
 
     public struct Categories: OptionSet {
 
@@ -23,31 +23,31 @@ public struct MPSSearch {
         public init(rawValue: Int) { self.rawValue = rawValue }
 
         /// Points of interest.
-        public static let poi                   = MPSSearch.Categories(rawValue: 1 << 0)
+        public static let poi                   = Search.Categories(rawValue: 1 << 0)
 
         /// City names.
-        public static let city                  = MPSSearch.Categories(rawValue: 1 << 1)
+        public static let city                  = Search.Categories(rawValue: 1 << 1)
 
         /// Any kind of road. Street, Freeway, Alley, Avenue, Tunnels, etc.
-        public static let road                  = MPSSearch.Categories(rawValue: 1 << 2)
+        public static let road                  = Search.Categories(rawValue: 1 << 2)
 
         /// Neighborhood names.
-        public static let neighborhood          = MPSSearch.Categories(rawValue: 1 << 3)
+        public static let neighborhood          = Search.Categories(rawValue: 1 << 3)
 
         /// County names.
-        public static let county                = MPSSearch.Categories(rawValue: 1 << 4)
+        public static let county                = Search.Categories(rawValue: 1 << 4)
 
         /// District names.
-        public static let district              = MPSSearch.Categories(rawValue: 1 << 5)
+        public static let district              = Search.Categories(rawValue: 1 << 5)
 
         /// Landuse names.
-        public static let landuse               = MPSSearch.Categories(rawValue: 1 << 6)
+        public static let landuse               = Search.Categories(rawValue: 1 << 6)
 
         /// Province names.
-        public static let province              = MPSSearch.Categories(rawValue: 1 << 7)
+        public static let province              = Search.Categories(rawValue: 1 << 7)
 
         /// Body of water or jungle.
-        public static let bodyOfWaterOrJungle   = MPSSearch.Categories(rawValue: 1 << 8)
+        public static let bodyOfWaterOrJungle   = Search.Categories(rawValue: 1 << 8)
     }
 
     public enum Filter {
@@ -68,7 +68,7 @@ public struct MPSSearch {
 
 }
 
-extension MPSSearch: Encodable {
+extension Search: Encodable {
 
     enum CodingKeys: String, CodingKey {
         case text
@@ -101,10 +101,10 @@ extension MPSSearch: Encodable {
     }
 }
 
-extension MPSSearch: Decodable {
+extension Search: Decodable {
     internal struct SearchResponseScheme: Decodable {
         var count: Int
-        var results: [MPSSearchResult]
+        var results: [Search.Result]
 
         enum CodingKeys: String, CodingKey {
             case allResultsCount = "odata.count"
@@ -113,7 +113,7 @@ extension MPSSearch: Decodable {
 
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.results = try container.decode([MPSSearchResult].self, forKey: .results)
+            self.results = try container.decode([Search.Result].self, forKey: .results)
             self.count = 0
         }
     }
@@ -126,7 +126,7 @@ extension MPSSearch: Decodable {
     }
 }
 
-extension MPSSearch.Filter: Encodable {
+extension Search.Filter: Encodable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         var textToEncode = ""
@@ -149,7 +149,7 @@ extension MPSSearch.Filter: Encodable {
     }
 }
 
-extension MPSSearch.Categories: Encodable {
+extension Search.Categories: Encodable {
     enum CategoryKeys: String {
         case city
         case county

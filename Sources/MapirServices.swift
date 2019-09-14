@@ -69,7 +69,7 @@ extension MapirServices {
     /// This methods calls APIs to find address of a location based on its coordinates.
     /// `completionHandler` gets called whenever execution finishes with success or error.
     public func reverseGeocode(for coordinate: CLLocationCoordinate2D,
-                               completionHandler: @escaping (_ result: Result<MPSReverseGeocode, Error>) -> Void) {
+                               completionHandler: @escaping (_ result: Result<ReverseGeocode, Error>) -> Void) {
 
         dispatchQueue.async {
             let request: URLRequest
@@ -92,7 +92,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.utils.decoder.decode(MPSReverseGeocode.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(ReverseGeocode.self, from: data)
                             DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                             return
                         } catch let parseError {
@@ -133,7 +133,7 @@ extension MapirServices {
     ///
     /// this method is a faster way to access to the address of a location. result will be available about 50ms faster than usual with this method.
     public func fastReverseGeocode(for coordinate: CLLocationCoordinate2D,
-                                   completionHandler: @escaping (_ result: Result<MPSReverseGeocode, Error>) -> Void) {
+                                   completionHandler: @escaping (_ result: Result<ReverseGeocode, Error>) -> Void) {
 
         dispatchQueue.async {
             let request: URLRequest
@@ -156,7 +156,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.utils.decoder.decode(MPSReverseGeocode.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(ReverseGeocode.self, from: data)
                             DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                             return
                         } catch let parseError {
@@ -181,7 +181,7 @@ extension MapirServices {
 extension MapirServices {
     func urlRequestForDistanceMatrix(origins: [(name: String, coordinate: CLLocationCoordinate2D)],
                                      destinations: [(name: String, coordinate: CLLocationCoordinate2D)],
-                                     options: MPSDistanceMatrix.Options) throws -> URLRequest {
+                                     options: DistanceMatrix.Options) throws -> URLRequest {
 
         var queryItems: [URLQueryItem] = []
         let originsValue = origins
@@ -268,8 +268,8 @@ extension MapirServices {
     /// It's important to know that the result is calculated with consideration of traffic and land routes.
     public func distanceMatrix(from origins: [(name: String, coordinate: CLLocationCoordinate2D)],
                                to destinations: [(name: String, coordinate: CLLocationCoordinate2D)],
-                               options: MPSDistanceMatrix.Options = [],
-                               completionHandler: @escaping (_ result: Result<MPSDistanceMatrix, Error>) -> Void) {
+                               options: DistanceMatrix.Options = [],
+                               completionHandler: @escaping (_ result: Result<DistanceMatrix, Error>) -> Void) {
 
         dispatchQueue.async {
             do {
@@ -298,7 +298,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.utils.decoder.decode(MPSDistanceMatrix.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(DistanceMatrix.self, from: data)
                             DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                             return
                         } catch let parseError {
@@ -333,9 +333,9 @@ extension MapirServices {
     /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
     public func search(for text: String,
                        around coordinate: CLLocationCoordinate2D,
-                       categories: MPSSearch.Categories = [],
-                       filter: MPSSearch.Filter? = nil,
-                       completionHandler: @escaping (_ result: Result<MPSSearch, Error>) -> Void) {
+                       categories: Search.Categories = [],
+                       filter: Search.Filter? = nil,
+                       completionHandler: @escaping (_ result: Result<Search, Error>) -> Void) {
 
         dispatchQueue.async {
             var request: URLRequest
@@ -348,7 +348,7 @@ extension MapirServices {
                 return
             }
 
-            var search = MPSSearch(text: text,
+            var search = Search(text: text,
                                    categories: categories,
                                    filter: filter,
                                    coordinates: coordinate)
@@ -370,7 +370,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.utils.decoder.decode(MPSSearch.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(Search.self, from: data)
                             let searchResults = decodedData.results
                             search.results = searchResults
                             DispatchQueue.main.async { completionHandler(.success(search)) }
@@ -406,9 +406,9 @@ extension MapirServices {
     /// Using more accurate filters and options will result in more accurate results. Number of results will not be more than 16 results.
     public func autocomplete(for text: String,
                              around coordinate: CLLocationCoordinate2D,
-                             categories: MPSSearch.Categories = [],
-                             filter: MPSSearch.Filter? = nil,
-                             completionHandler: @escaping (_ result: Result<MPSSearch, Error>) -> Void) {
+                             categories: Search.Categories = [],
+                             filter: Search.Filter? = nil,
+                             completionHandler: @escaping (_ result: Result<Search, Error>) -> Void) {
         dispatchQueue.async {
             var request: URLRequest
             do {
@@ -420,7 +420,7 @@ extension MapirServices {
                 return
             }
 
-            var autocomplete = MPSSearch(text: text,
+            var autocomplete = Search(text: text,
                                          categories: categories,
                                          filter: filter,
                                          coordinates: coordinate)
@@ -441,7 +441,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.utils.decoder.decode(MPSSearch.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(Search.self, from: data)
                             let autocompleteResult = decodedData.results
                             autocomplete.results = autocompleteResult
                             DispatchQueue.main.async { completionHandler(.success(autocomplete)) }
@@ -469,8 +469,8 @@ extension MapirServices {
 extension MapirServices {
     func urlRequestForRoute(origin: CLLocationCoordinate2D,
                             destinations: [CLLocationCoordinate2D],
-                            mode: MPSRoute.Mode,
-                            options: MPSRoute.Options) throws -> URLRequest {
+                            mode: Route.Mode,
+                            options: Route.Options) throws -> URLRequest {
 
         guard !destinations.isEmpty else {
             throw RouteError.noDestinationsSpecified
@@ -519,9 +519,9 @@ extension MapirServices {
     /// [OSRM documentation](http://project-osrm.org/docs/v5.22.0/api/?language=Swift#general-options).
     public func route(from origin: CLLocationCoordinate2D,
                       to destinations: [CLLocationCoordinate2D],
-                      mode: MPSRoute.Mode,
-                      options: MPSRoute.Options = [],
-                      completionHandler: @escaping (_ result: Result<([MPSWaypoint], [MPSRoute]), Error>) -> Void) {
+                      mode: Route.Mode,
+                      options: Route.Options = [],
+                      completionHandler: @escaping (_ result: Result<([Waypoint], [Route]), Error>) -> Void) {
 
         dispatchQueue.async {
 
@@ -572,7 +572,7 @@ extension MapirServices {
 // MARK: - Static Map
 
 extension MapirServices {
-    func urlRequestForStaticMap(center: CLLocationCoordinate2D, size: CGSize, zoomLevel: UInt8, markers: [MPSStaticMapMarker]) throws -> URLRequest {
+    func urlRequestForStaticMap(center: CLLocationCoordinate2D, size: CGSize, zoomLevel: UInt8, markers: [StaticMapMarker]) throws -> URLRequest {
 
         guard zoomLevel < 20 else {
             throw StaticMapError.zoomLevelOutOfRange
@@ -604,7 +604,7 @@ extension MapirServices {
     public func staticMap(center: CLLocationCoordinate2D,
                           size: CGSize,
                           zoomLevel: UInt8,
-                          markers: [MPSStaticMapMarker] = [],
+                          markers: [StaticMapMarker] = [],
                           completionHandler: @escaping (_ result: Result<UIImage, Error>) -> Void) {
 
         dispatchQueue.async {

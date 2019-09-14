@@ -1,6 +1,6 @@
 //
 //  NetworkUtilities.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 23/6/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -15,7 +15,7 @@ internal struct Utilities {
         static let distanceMatrix = "/distancematrix"
         static let search = "/search"
         static let autocomleteSearch = "/search/autocomplete"
-        static func route(forMode mode: MPSRoute.Mode) -> String {
+        static func route(forMode mode: Route.Mode) -> String {
             return "/routes/\(mode.rawValue)/v1/driving"
         }
         static let staticMap = "/static"

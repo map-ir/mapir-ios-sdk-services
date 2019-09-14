@@ -116,6 +116,7 @@
 		C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */; };
 		C0EA4FE322CA002600BC04EF /* MPSAutocompleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */; };
 		C0EA4FE522CA003400BC04EF /* MPSAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */; };
+		C0ED4C7C232CFA5A00B2EC4B /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */; };
 		C0FA896822E899A3003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0FA897022E899A4003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0FA897122E899A4003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -318,6 +319,7 @@
 		C0EA4FE022C9EE2600BC04EF /* MPSSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSSearchResult.swift; sourceTree = "<group>"; };
 		C0EA4FE222CA002600BC04EF /* MPSAutocompleteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocompleteResult.swift; sourceTree = "<group>"; };
 		C0EA4FE422CA003400BC04EF /* MPSAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSAutocomplete.swift; sourceTree = "<group>"; };
+		C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilities.swift; sourceTree = "<group>"; };
 		C0FBFA2722D2009400A03FCC /* MPSStaticMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPSStaticMapMarker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -505,6 +507,7 @@
 			children = (
 				C04CF66822A27D6E009761C4 /* HTTPMethod.swift */,
 				C02E70E022B11B6D0058BCA7 /* Errors.swift */,
+				C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -940,6 +943,7 @@
 				C08DB44F22CB570800FAE64A /* MPSRoute.swift in Sources */,
 				C0EA4FE322CA002600BC04EF /* MPSAutocompleteResult.swift in Sources */,
 				C02DCF6B22CA213000BA403F /* MPSManeuver.swift in Sources */,
+				C0ED4C7C232CFA5A00B2EC4B /* NetworkUtilities.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
 				C0FBFA2822D2009400A03FCC /* MPSStaticMapMarker.swift in Sources */,
 				C0EA4FE122C9EE2600BC04EF /* MPSSearchResult.swift in Sources */,

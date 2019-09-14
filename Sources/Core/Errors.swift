@@ -1,5 +1,5 @@
 //
-//  MPSError.swift
+//  Errors.swift
 //  MapirServices
 //
 //  Created by Alireza Asadi on 22/3/1398 AP.

@@ -1,5 +1,5 @@
 //
-//  MPSSearchResult.swift
+//  Search+Result.swift
 //  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.

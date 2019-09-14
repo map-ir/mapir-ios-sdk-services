@@ -100,10 +100,10 @@
 		C0EA4F9A22C89A8300BC04EF /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9622C89A8200BC04EF /* Place.swift */; };
 		C0EA4FDF22C9EBC800BC04EF /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* Search.swift */; };
 		C0EA4FE122C9EE2600BC04EF /* Search+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */; };
-		C0ED4C7C232CFA5A00B2EC4B /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */; };
-		C0ED4C7D232CFF9400B2EC4B /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */; };
-		C0ED4C7E232CFF9400B2EC4B /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */; };
-		C0ED4C7F232CFF9500B2EC4B /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */; };
+		C0ED4C7C232CFA5A00B2EC4B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */; };
+		C0ED4C7D232CFF9400B2EC4B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */; };
+		C0ED4C7E232CFF9400B2EC4B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */; };
+		C0ED4C7F232CFF9500B2EC4B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */; };
 		C0ED4C80232CFFA500B2EC4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FB74F231FE9F300C3931D /* Array+Extension.swift */; };
 		C0ED4C81232CFFA600B2EC4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FB74F231FE9F300C3931D /* Array+Extension.swift */; };
 		C0ED4C82232CFFA600B2EC4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FB74F231FE9F300C3931D /* Array+Extension.swift */; };
@@ -305,7 +305,7 @@
 		C0EA4F9622C89A8200BC04EF /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		C0EA4FDE22C9EBC800BC04EF /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Result.swift"; sourceTree = "<group>"; };
-		C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilities.swift; sourceTree = "<group>"; };
+		C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C0FBFA2722D2009400A03FCC /* StaticMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticMapMarker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -490,7 +490,7 @@
 			children = (
 				C04CF66822A27D6E009761C4 /* HTTPMethod.swift */,
 				C02E70E022B11B6D0058BCA7 /* Errors.swift */,
-				C0ED4C7B232CFA5A00B2EC4B /* NetworkUtilities.swift */,
+				C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -923,7 +923,7 @@
 				C0EA4F9922C89A8300BC04EF /* DistanceMatrix.swift in Sources */,
 				C08DB44F22CB570800FAE64A /* Route.swift in Sources */,
 				C02DCF6B22CA213000BA403F /* StepManeuver.swift in Sources */,
-				C0ED4C7C232CFA5A00B2EC4B /* NetworkUtilities.swift in Sources */,
+				C0ED4C7C232CFA5A00B2EC4B /* Utilities.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
 				C0FBFA2822D2009400A03FCC /* StaticMapMarker.swift in Sources */,
 				C0EA4FE122C9EE2600BC04EF /* Search+Result.swift in Sources */,
@@ -966,7 +966,7 @@
 				C056048222E709A2004A2F9C /* RouteLeg.swift in Sources */,
 				C056047222E7098D004A2F9C /* MapirServices.swift in Sources */,
 				C056047F22E7099B004A2F9C /* HTTPMethod.swift in Sources */,
-				C0ED4C7E232CFF9400B2EC4B /* NetworkUtilities.swift in Sources */,
+				C0ED4C7E232CFF9400B2EC4B /* Utilities.swift in Sources */,
 				C056048922E709A8004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
 				C056048322E709A2004A2F9C /* RouteStep.swift in Sources */,
 				C056048422E709A2004A2F9C /* StepManeuver.swift in Sources */,
@@ -1001,7 +1001,7 @@
 				C05604E922E737B7004A2F9C /* Search.swift in Sources */,
 				C05604E822E737B7004A2F9C /* Place.swift in Sources */,
 				C05604F622E737B7004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
-				C0ED4C7D232CFF9400B2EC4B /* NetworkUtilities.swift in Sources */,
+				C0ED4C7D232CFF9400B2EC4B /* Utilities.swift in Sources */,
 				C05604F022E737B7004A2F9C /* RouteStep.swift in Sources */,
 				C05604F122E737B7004A2F9C /* StepManeuver.swift in Sources */,
 				C05604F422E737B7004A2F9C /* Route.swift in Sources */,
@@ -1028,7 +1028,7 @@
 				C05604C722E737B6004A2F9C /* Search.swift in Sources */,
 				C05604C622E737B6004A2F9C /* Place.swift in Sources */,
 				C05604D422E737B6004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
-				C0ED4C7F232CFF9500B2EC4B /* NetworkUtilities.swift in Sources */,
+				C0ED4C7F232CFF9500B2EC4B /* Utilities.swift in Sources */,
 				C05604CE22E737B6004A2F9C /* RouteStep.swift in Sources */,
 				C05604CF22E737B6004A2F9C /* StepManeuver.swift in Sources */,
 				C05604D222E737B6004A2F9C /* Route.swift in Sources */,

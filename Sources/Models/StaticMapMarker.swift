@@ -1,5 +1,5 @@
 //
-//  MPSStaticMapMarker.swift
+//  StaticMapMarker.swift
 //  MapirServices
 //
 //  Created by Alireza Asadi on 16/4/1398 AP.

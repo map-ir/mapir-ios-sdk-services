@@ -1,5 +1,5 @@
 //
-//  NetworkUtilities.swift
+//  Utilities.swift
 //  MapirServices
 //
 //  Created by Alireza Asadi on 23/6/1398 AP.

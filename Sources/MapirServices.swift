@@ -18,37 +18,18 @@ import AppKit
 
 public final class MapirServices {
 
-    /// Map.ir API endpoints.
-    private struct Endpoint {
-        static let reverseGeocode = "/reverse"
-        static let fastReverseGeocode = "/fast-reverse"
-        static let distanceMatrix = "/distancematrix"
-        static let search = "/search"
-        static let autocomleteSearch = "/search/autocomplete"
-        static func route(forMode mode: MPSRoute.Mode) -> String {
-            return "/routes/\(mode.rawValue)/v1/driving"
-        }
-        static let staticMap = "/static"
-
-    }
-
     /// Singleton object of MPSMapirServices
     public private(set) static var shared = MapirServices()
-    
-    internal let host: String = "map.ir"
-    
+
     public static var accessToken: String?
-
-    internal var session: URLSession!
-
-    private let decoder = JSONDecoder()
-    private let encoder = JSONEncoder()
 
     private let dispatchQueue = DispatchQueue(label: "ir.map.services",
                                               qos: .default,
                                               attributes: .concurrent,
                                               autoreleaseFrequency: .inherit,
                                               target: nil)
+
+    internal var utils = Utilities(session: .shared)
     
     private init() {
         if MapirServices.accessToken == nil {
@@ -56,90 +37,13 @@ public final class MapirServices {
                 MapirServices.accessToken = token
             }
         }
-
-        commonInit()
     }
 
     public init(accessToken: String) {
         MapirServices.accessToken = accessToken
-        commonInit()
         MapirServices.shared = self
     }
 
-    private func commonInit() {
-        session = .shared
-    }
-
-    private let userAgent: String = {
-        var components: [String] = []
-
-        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
-            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-            components.append("\(appName)/\(version)")
-        }
-
-        let libraryBundle: Bundle? = Bundle(for: MapirServices.self)
-
-        if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String, let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
-            components.append("\(libraryName)/\(version)")
-        }
-
-        let system: String
-        #if os(OSX)
-            system = "macOS"
-        #elseif os(iOS)
-            system = "iOS"
-        #elseif os(watchOS)
-            system = "watchOS"
-        #elseif os(tvOS)
-            system = "tvOS"
-        #endif
-        let systemVersion = ProcessInfo().operatingSystemVersion
-        components.append("\(system)/\(systemVersion.majorVersion).\(systemVersion.minorVersion).\(systemVersion.patchVersion)")
-
-        let chip: String
-        #if arch(x86_64)
-            chip = "x86_64"
-        #elseif arch(arm)
-            chip = "arm"
-        #elseif arch(arm64)
-            chip = "arm64"
-        #elseif arch(i386)
-            chip = "i386"
-        #endif
-        components.append("(\(chip))")
-
-        return components.joined(separator: " ")
-    }()
-
-    private func urlRequest(withPath path: String,
-                            queryItems: [URLQueryItem]?,
-                            httpMethod: String) throws -> URLRequest {
-
-        var urlComponents = URLComponents()
-        urlComponents.scheme     = "https"
-        urlComponents.host       = self.host
-        urlComponents.path       = path
-        urlComponents.queryItems = queryItems
-
-        guard let url = urlComponents.url else {
-            preconditionFailure("Couldn't create URL.")
-        }
-
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 10
-        request.httpMethod = httpMethod
-
-        if let token = MapirServices.accessToken {
-            request.addValue(token, forHTTPHeaderField: "x-api-key")
-        } else {
-            throw ServiceError.invalidAccessToken
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(self.userAgent, forHTTPHeaderField: "User-Agent")
-
-        return request
-    }
 }
 
 // MARK: - Reverse Geocode
@@ -150,7 +54,7 @@ extension MapirServices {
         let queryItems = [URLQueryItem(name: "lat", value: "\(coordinate.latitude)"),
                           URLQueryItem(name: "lon", value: "\(coordinate.longitude)")]
 
-        let request = try urlRequest(withPath: Endpoint.reverseGeocode, queryItems: queryItems, httpMethod: HTTPMethod.get)
+        let request = try utils.urlRequest(withPath: Utilities.Endpoints.reverseGeocode, queryItems: queryItems, httpMethod: HTTPMethod.get)
 
         return request
     }
@@ -176,7 +80,7 @@ extension MapirServices {
                 return
             }
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return
@@ -188,7 +92,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(MPSReverseGeocode.self, from: data)
                             DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                             return
                         } catch let parseError {
@@ -215,7 +119,7 @@ extension MapirServices {
         let queryItems = [URLQueryItem(name: "lat", value: "\(coordinate.latitude)"),
                           URLQueryItem(name: "lon", value: "\(coordinate.longitude)")]
 
-        let request = try urlRequest(withPath: Endpoint.reverseGeocode,
+        let request = try utils.urlRequest(withPath: Utilities.Endpoints.reverseGeocode,
                                      queryItems: queryItems,
                                      httpMethod: HTTPMethod.get)
         return request
@@ -240,7 +144,7 @@ extension MapirServices {
                 return
             }
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return
@@ -252,7 +156,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.decoder.decode(MPSReverseGeocode.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(MPSReverseGeocode.self, from: data)
                             DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                             return
                         } catch let parseError {
@@ -306,7 +210,7 @@ extension MapirServices {
             }
         }
 
-        let request = try urlRequest(withPath: Endpoint.distanceMatrix, queryItems: queryItems, httpMethod: HTTPMethod.get)
+        let request = try utils.urlRequest(withPath: Utilities.Endpoints.distanceMatrix, queryItems: queryItems, httpMethod: HTTPMethod.get)
         return request
     }
 
@@ -382,7 +286,7 @@ extension MapirServices {
                 return
             }
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return
@@ -394,7 +298,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.decoder.decode(MPSDistanceMatrix.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(MPSDistanceMatrix.self, from: data)
                             DispatchQueue.main.async { completionHandler(.success(decodedData)) }
                             return
                         } catch let parseError {
@@ -436,7 +340,7 @@ extension MapirServices {
         dispatchQueue.async {
             var request: URLRequest
             do {
-                request = try self.urlRequest(withPath: Endpoint.search,
+                request = try self.utils.urlRequest(withPath: Utilities.Endpoints.search,
                                          queryItems: nil,
                                          httpMethod: HTTPMethod.post)
             } catch let requestError {
@@ -450,14 +354,14 @@ extension MapirServices {
                                    coordinates: coordinate)
 
             do {
-                let httpBody = try self.encoder.encode(search)
+                let httpBody = try self.utils.encoder.encode(search)
                 request.httpBody = httpBody
             } catch let encoderError {
                 DispatchQueue.main.async { completionHandler(.failure(encoderError)) }
                 return
             }
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
                 let urlResponse = urlResponse as! HTTPURLResponse
@@ -466,7 +370,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(MPSSearch.self, from: data)
                             let searchResults = decodedData.results
                             search.results = searchResults
                             DispatchQueue.main.async { completionHandler(.success(search)) }
@@ -508,7 +412,7 @@ extension MapirServices {
         dispatchQueue.async {
             var request: URLRequest
             do {
-                request = try self.urlRequest(withPath: Endpoint.autocomleteSearch,
+                request = try self.utils.urlRequest(withPath: Utilities.Endpoints.autocomleteSearch,
                                          queryItems: nil,
                                          httpMethod: HTTPMethod.post)
             } catch let requestError {
@@ -521,14 +425,14 @@ extension MapirServices {
                                          filter: filter,
                                          coordinates: coordinate)
             do {
-                let httpBody = try self.encoder.encode(autocomplete)
+                let httpBody = try self.utils.encoder.encode(autocomplete)
                 request.httpBody = httpBody
             } catch let encoderError {
                 DispatchQueue.main.async { completionHandler(.failure(encoderError)) }
                 return
             }
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error { DispatchQueue.main.async { completionHandler(.failure(error)) } }
 
                 let urlResponse = urlResponse as! HTTPURLResponse
@@ -537,7 +441,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.decoder.decode(MPSSearch.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(MPSSearch.self, from: data)
                             let autocompleteResult = decodedData.results
                             autocomplete.results = autocompleteResult
                             DispatchQueue.main.async { completionHandler(.success(autocomplete)) }
@@ -572,7 +476,7 @@ extension MapirServices {
             throw RouteError.noDestinationsSpecified
         }
 
-        var path = Endpoint.route(forMode: mode) + "/"
+        var path = Utilities.Endpoints.route(forMode: mode) + "/"
         path += "\(origin.longitude),\(origin.latitude);"
 
         for dest in destinations {
@@ -598,7 +502,7 @@ extension MapirServices {
             queryItems.append(URLQueryItem(name: "overview", value: "false"))
         }
 
-        let request = try urlRequest(withPath: path, queryItems: queryItems, httpMethod: HTTPMethod.get)
+        let request = try utils.urlRequest(withPath: path, queryItems: queryItems, httpMethod: HTTPMethod.get)
         return request
     }
 
@@ -631,7 +535,7 @@ extension MapirServices {
 
 
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                 }
@@ -642,7 +546,7 @@ extension MapirServices {
                 case 200:
                     if let data = data {
                         do {
-                            let decodedData = try self.decoder.decode(MPSRouteResult.self, from: data)
+                            let decodedData = try self.utils.decoder.decode(MPSRouteResult.self, from: data)
                             DispatchQueue.main.async {
                                 completionHandler(.success(
                                     (decodedData.waypoints, decodedData.routes)
@@ -685,7 +589,7 @@ extension MapirServices {
             }
         }
 
-        let request = try urlRequest(withPath: Endpoint.staticMap, queryItems: queryItems, httpMethod: HTTPMethod.get)
+        let request = try utils.urlRequest(withPath: Utilities.Endpoints.staticMap, queryItems: queryItems, httpMethod: HTTPMethod.get)
         return request
     }
 
@@ -712,7 +616,7 @@ extension MapirServices {
                 return
             }
 
-            let dataTask = self.session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return
@@ -751,20 +655,20 @@ extension MapirServices {
     /// - Parameter result: a `Result` of types `NSImage` if execution succeeds and `Error` if it fails.
     public func staticMap(center: CLLocationCoordinate2D,
                           size: CGSize,
-                          zoomLevel: Int,
+                          zoomLevel: UInt8,
                           markers: [MPSStaticMapMarker] = [],
                           completionHandler: @escaping (_ result: Result<NSImage, Error>) -> Void) {
 
         dispatchQueue.async {
             let request: URLRequest
             do {
-                request = try urlRequestForStaticMap(center: center, size: size, zoomLevel: zoomLevel, markers: markers)
+                request = try self.urlRequestForStaticMap(center: center, size: size, zoomLevel: zoomLevel, markers: markers)
             } catch let requestError {
                 DispatchQueue.main.async { completionHandler(.failure(requestError)) }
                 return
             }
 
-            let dataTask = session.dataTask(with: request) { (data, urlResponse, error) in
+            let dataTask = self.utils.session.dataTask(with: request) { (data, urlResponse, error) in
                 if let error = error {
                     DispatchQueue.main.async { completionHandler(.failure(error)) }
                     return

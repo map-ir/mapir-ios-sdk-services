@@ -179,19 +179,19 @@ extension MapirServices {
 // MARK: - Distance Matrix
 
 extension MapirServices {
-    func urlRequestForDistanceMatrix(origins: [(name: String, coordinate: CLLocationCoordinate2D)],
-                                     destinations: [(name: String, coordinate: CLLocationCoordinate2D)],
+    func urlRequestForDistanceMatrix(origins: [String: CLLocationCoordinate2D],
+                                     destinations: [String: CLLocationCoordinate2D],
                                      options: DistanceMatrix.Options) throws -> URLRequest {
 
         var queryItems: [URLQueryItem] = []
         let originsValue = origins
-            .map { ["\($0.name)", "\($0.coordinate.latitude)", "\($0.coordinate.longitude)"].joined(separator: ",") }
+            .map { ["\($0.key)", "\($0.value.latitude)", "\($0.value.longitude)"].joined(separator: ",") }
             .joined(separator: "|")
 
         queryItems.append(URLQueryItem(name: "origins", value: originsValue))
 
         let destinationsValue = destinations
-            .map { ["\($0.name)", "\($0.coordinate.latitude)", "\($0.coordinate.longitude)"].joined(separator: ",") }
+            .map { ["\($0.key)", "\($0.value.latitude)", "\($0.value.longitude)"].joined(separator: ",") }
             .joined(separator: "|")
 
         queryItems.append(URLQueryItem(name: "destinations", value: destinationsValue))
@@ -214,8 +214,8 @@ extension MapirServices {
         return request
     }
 
-    func argumentCheck(origins: [(name: String, coordinate: CLLocationCoordinate2D)],
-                       destinations: [(name: String, coordinate: CLLocationCoordinate2D)]) throws {
+    func argumentCheck(origins: [String: CLLocationCoordinate2D],
+                       destinations: [String: CLLocationCoordinate2D]) throws {
 
         guard !origins.isEmpty else {
             throw DistanceMatrixError.noOriginsSpecified
@@ -228,32 +228,20 @@ extension MapirServices {
         var allowedCharacters = CharacterSet.alphanumerics
         allowedCharacters.insert(charactersIn: "_")
 
-        let originNames = try origins.map { (origin) -> String in
-            let name = origin.name
+        let originNames = origins.keys
+        for name in originNames {
             if name.isEmpty { throw DistanceMatrixError.emptyName }
             if !CharacterSet(charactersIn: name).isSubset(of: allowedCharacters) {
                 throw DistanceMatrixError.invalidCharacterInName(name)
             }
-            return name
         }
 
-        let originDuplicates = originNames.duplicates()
-        if !originDuplicates.isEmpty {
-            throw DistanceMatrixError.duplicateCoordinateName(originDuplicates)
-        }
-
-        let destinationNames = try destinations.map { (destination) -> String in
-            let name = destination.name
+        let destinationNames = destinations.keys
+        for name in destinationNames {
             if name.isEmpty { throw DistanceMatrixError.emptyName }
             if !CharacterSet(charactersIn: name).isSubset(of: allowedCharacters) {
                 throw DistanceMatrixError.invalidCharacterInName(name)
             }
-            return name
-        }
-
-        let destinationDuplicates = destinationNames.duplicates()
-        if !destinationDuplicates.isEmpty {
-            throw DistanceMatrixError.duplicateCoordinateName(destinationDuplicates)
         }
     }
 
@@ -266,8 +254,8 @@ extension MapirServices {
     ///
     /// This method is used to find distance and duration between some origins and destinations. The result durations are in seconds and distances are in meters.
     /// It's important to know that the result is calculated with consideration of traffic and land routes.
-    public func distanceMatrix(from origins: [(name: String, coordinate: CLLocationCoordinate2D)],
-                               to destinations: [(name: String, coordinate: CLLocationCoordinate2D)],
+    public func distanceMatrix(from origins: [String: CLLocationCoordinate2D],
+                               to destinations: [String: CLLocationCoordinate2D],
                                options: DistanceMatrix.Options = [],
                                completionHandler: @escaping (_ result: Result<DistanceMatrix, Error>) -> Void) {
 
@@ -276,6 +264,7 @@ extension MapirServices {
                 try self.argumentCheck(origins: origins, destinations: destinations)
             } catch let argumentError {
                 DispatchQueue.main.async { completionHandler(.failure(argumentError)) }
+                return
             }
 
             let request: URLRequest
@@ -656,7 +645,7 @@ extension MapirServices {
     public func staticMap(center: CLLocationCoordinate2D,
                           size: CGSize,
                           zoomLevel: UInt8,
-                          markers: [MPSStaticMapMarker] = [],
+                          markers: [StaticMapMarker] = [],
                           completionHandler: @escaping (_ result: Result<NSImage, Error>) -> Void) {
 
         dispatchQueue.async {

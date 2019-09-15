@@ -10,6 +10,7 @@ import CoreLocation
 import Foundation
 
 public struct Place {
+    internal var uuid = UUID()
     public var name: String?
     public var province: String?
     public var county: String?
@@ -18,6 +19,16 @@ public struct Place {
     public var suburb: String?
     public var neighborhood: String?
     public var coordinates: CLLocationCoordinate2D?
+}
+
+extension Place: Equatable, Hashable {
+    public static func == (lhs: Place, rhs: Place) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
+    }
 }
 
 extension Place: Decodable {

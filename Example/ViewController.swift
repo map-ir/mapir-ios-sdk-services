@@ -87,8 +87,8 @@ class ViewController: UIViewController {
         let pointC = CLLocationCoordinate2D(latitude: 35.771551, longitude: 51.439705)
         let pointD = CLLocationCoordinate2D(latitude: 35.769149, longitude: 51.411467)
 
-        let origins = [pointA, pointB].map { (UUID().uuidString.replacingOccurrences(of: "-", with: ""), $0) }
-        let destinations = [pointC, pointD].map { (UUID().uuidString.replacingOccurrences(of: "-", with: ""), $0) }
+        let origins = ["pointa": pointA, "pointb": pointB]
+        let destinations = ["pointc": pointC, "pointd": pointD]
 
         mps.distanceMatrix(from: origins, to: destinations, options: .sorted) { (result) in
             switch result {

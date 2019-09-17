@@ -216,8 +216,6 @@ extension DistanceMatrix: Decodable {
 
 // MARK: - Errors
 public enum DistanceMatrixError: Error, LocalizedError {
-    case duplicateCoordinateName([String])
-
     case invalidCharacterInName(String)
 
     case emptyName
@@ -228,8 +226,6 @@ public enum DistanceMatrixError: Error, LocalizedError {
 
     var localizedDescription: String {
         switch self {
-        case .duplicateCoordinateName(let name):
-            return "Duplicate name found. \"\(name)\" is/are duplicate."
         case .invalidCharacterInName(let name):
             return "\"\(name)\" contains invalid characters. Names must only contain alphanumeric characters"
         case .emptyName:

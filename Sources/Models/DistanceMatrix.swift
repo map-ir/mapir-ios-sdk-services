@@ -10,8 +10,8 @@ import Foundation
 
 public struct DistanceMatrix {
 
-    public private(set) var distances: [DistanceMatrix.Distance]
-    public private(set) var durations: [DistanceMatrix.Duration]
+    public private(set) var distances: Table<String, Double>
+    public private(set) var durations: Table<String, Double>
     public private(set) var origins: [String: Place]
     public private(set) var destinations: [String: Place]
 }
@@ -19,89 +19,58 @@ public struct DistanceMatrix {
 // MARK: - Distance methods
 extension DistanceMatrix {
     public func distance(from origin: Place, to destination: Place) -> Double? {
-        return distances.first { $0.origin == origin && $0.destination == destination }?.distance
-    }
-
-    public func distance(from originName: String, to destinationName: String) -> Double? {
-        guard let origin = origins[originName] else { return nil }
-        guard let destination = destinations[destinationName] else { return nil }
+        guard let (origin, _) = origins.first(where: { $0.value == origin }) else { return nil }
+        guard let (destination, _) = destinations.first(where: { $0.value == destination }) else { return nil }
         return distance(from: origin, to: destination)
     }
 
-    public func distance(from originNames: [String], to destinationName: String) -> [String: Double]? {
-        guard let destination = destinations[destinationName] else { return nil }
-        var output: [String: Double] = [:]
-
-        for name in originNames {
-            if let origin = origins[name] {
-                if let distance = distance(from: origin, to: destination) {
-                    output.updateValue(distance, forKey: name)
-                }
-            }
-        }
-
-        return output
+    public func distance(from origin: String, to destination: String) -> Double? {
+        return distances[origin, destination]
     }
 
-    public func distance(from originName: String, to destinationNames: [String]) -> [String: Double]? {
-        guard let origin = origins[originName] else { return nil }
+    public func allDistances(from origin: String) -> [String: Double]? {
+        return distances.valuesOf(row: origin)
+    }
 
-        var output: [String: Double] = [:]
-        for name in destinationNames {
-            if let destination = destinations[name] {
-                if let distance = distance(from: origin, to: destination) {
-                    output.updateValue(distance, forKey: name)
-                }
-            }
-        }
+    public func allDistances(to destination: String) -> [String: Double]? {
+        return distances.valuesOf(column: destination)
+    }
 
-        return output
+    public func distance(from origins: Set<String>, to destination: String) -> [String: Double]? {
+        return distances.valuesOf(column: destination)?.filter { origins.contains($0.key) }
+    }
+
+    public func distance(from origin: String, to destinations: Set<String>) -> [String: Double]? {
+        return distances.valuesOf(row: origin)?.filter { destinations.contains($0.key) }
     }
 }
 
 // MARK: - Duration methods
 extension DistanceMatrix {
-    public func duration(from origin: Place, to destination: Place) -> Double? {
-        return durations.first { $0.origin == origin && $0.destination == destination }?.duration
+//    public func duration(from origin: Place, to destination: Place) -> Double? {
+//        return durations.first { $0.origin == origin && $0.destination == destination }?.duration
+//    }
+    public func duration(from origin: String, to destination: String) -> Double? {
+        return durations[origin, destination]
     }
 
-    public func duration(from originName: String, to destinationName: String) -> Double? {
-        guard let origin = origins[originName] else { return nil }
-        guard let destination = destinations[destinationName] else { return nil }
-        return duration(from: origin, to: destination)
+    public func allDurations(from origin: String) -> [String: Double]? {
+        return durations.valuesOf(row: origin)
     }
 
-    public func duration(from originNames: [String], to destinationName: String) -> [String: Double]? {
-        guard let destination = destinations[destinationName] else { return nil }
-        var output: [String: Double] = [:]
-
-        for name in originNames {
-            if let origin = origins[name] {
-                if let duration = duration(from: origin, to: destination) {
-                    output.updateValue(duration, forKey: name)
-                }
-            }
-        }
-
-        return output
+    public func allDurations(to destination: String) -> [String: Double]? {
+        return durations.valuesOf(column: destination)
     }
 
-    public func duration(from originName: String, to destinationNames: [String]) -> [String: Double]? {
-        guard let origin = origins[originName] else { return nil }
-
-        var output: [String: Double] = [:]
-        for name in destinationNames {
-            if let destination = destinations[name] {
-                if let duration = duration(from: origin, to: destination) {
-                    output.updateValue(duration, forKey: name)
-                }
-            }
-        }
-
-        return output
+    public func duration(from origins: Set<String>, to destination: String) -> [String: Double]? {
+        return durations.valuesOf(column: destination)?.filter { origins.contains($0.key) }
     }
+
+    public func duration(from origin: String, to destinations: Set<String>) -> [String: Double]? {
+        return durations.valuesOf(row: origin)?.filter { destinations.contains($0.key) }
+    }
+
 }
-
 
 // MARK: - Related Structures
 extension DistanceMatrix {
@@ -139,7 +108,7 @@ extension DistanceMatrix {
 // MARK: - Utilities
 extension DistanceMatrix: Decodable {
 
-    private struct DistanceHelper: Decodable {
+    private struct DistanceResponseScheme: Decodable {
         var origin: String
         var destination: String
         var distance: Double
@@ -151,7 +120,7 @@ extension DistanceMatrix: Decodable {
         }
     }
 
-    private struct DurationHelper: Decodable {
+    private struct DurationResponseScheme: Decodable {
         var origin: String
         var destination: String
         var duration: Double
@@ -172,43 +141,31 @@ extension DistanceMatrix: Decodable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let originsHelper = try container.decode([String: Place].self, forKey: .origins)
-        let destinationHelper = try container.decode([String: Place].self, forKey: .destinations)
-        let durationHelper = try? container.decode([DurationHelper].self, forKey: .durations)
-        let distanceHelper = try? container.decode([DistanceHelper].self, forKey: .distances)
+        origins = try container.decode([String: Place].self, forKey: .origins)
+        destinations = try container.decode([String: Place].self, forKey: .destinations)
+        let durationResponse = try? container.decode([DurationResponseScheme].self, forKey: .durations)
+        let distanceResponse = try? container.decode([DistanceResponseScheme].self, forKey: .distances)
 
-        durations = [DistanceMatrix.Duration]()
-        distances = [DistanceMatrix.Distance]()
-        origins = [:]
-        destinations = [:]
+        durations = Table()
+        distances = Table()
 
-        for (name, origin) in originsHelper {
+        for (name, origin) in origins {
             origins.updateValue(origin, forKey: name)
         }
 
-        for (name, destination) in destinationHelper {
+        for (name, destination) in destinations {
             destinations.updateValue(destination, forKey: name)
         }
         
-        if let durationHelper = durationHelper {
-            for helper in durationHelper {
-                if let origin = originsHelper[helper.origin], let destination = destinationHelper[helper.destination] {
-                    let newDuration = DistanceMatrix.Duration(origin: origin,
-                                                  destination: destination,
-                                                  duration: helper.duration)
-                    durations.append(newDuration)
-                }
+        if let durationResponse = durationResponse {
+            for aDuration in durationResponse {
+                durations[aDuration.origin, aDuration.destination] = aDuration.duration
             }
         }
 
-        if let distanceHelper = distanceHelper {
-            for helper in distanceHelper {
-                if let origin = originsHelper[helper.origin], let destination = destinationHelper[helper.destination] {
-                    let newDistance = DistanceMatrix.Distance(origin: origin,
-                                                  destination: destination,
-                                                  distance: helper.distance)
-                    distances.append(newDistance)
-                }
+        if let distanceResponse = distanceResponse {
+            for aDistance in distanceResponse {
+                distances[aDistance.origin, aDistance.destination] = aDistance.distance
             }
         }
     }

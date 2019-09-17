@@ -82,28 +82,50 @@ public class Table<Header: Hashable, Element> {
 
     public func remove(row: Header) {
         rows.remove(row)
-        for key in gridKeysWith(row: row) {
+        for key in gridAddressesWith(row: row) {
             grid.removeValue(forKey: key)
         }
     }
 
     public func remove(column: Header) {
         columns.remove(column)
-        for key in gridKeysWith(column: column) {
+        for key in gridAddressesWith(column: column) {
             grid.removeValue(forKey: key)
         }
     }
 
-    private func gridKeysWith(row: Header) -> [Address] {
+    public func valuesOf(column: Header) -> [Header: Element]? {
+        guard columns.contains(column) else { return nil }
+        var output: [Header: Element] = [:]
+        for address in gridAddressesWith(column: column) {
+            if let value = grid[address] {
+                output.updateValue(value, forKey: address.row)
+            }
+        }
+        return output
+    }
+
+    public func valuesOf(row: Header) -> [Header: Element]? {
+        guard rows.contains(row) else { return nil }
+        var output: [Header: Element] = [:]
+        for address in gridAddressesWith(row: row) {
+            if let value = grid[address] {
+                output.updateValue(value, forKey: address.column)
+            }
+        }
+        return output
+    }
+
+    private func gridAddressesWith(row: Header) -> [Address] {
         return grid.keys.filter { $0.row == row }
     }
 
-    private func gridKeysWith(column: Header) -> [Address] {
+    private func gridAddressesWith(column: Header) -> [Address] {
         return grid.keys.filter { $0.column == column }
     }
 
     private func gridAddressFor(row: Header, column: Header) -> Address {
-        Address(row: row, column: column)
+        return Address(row: row, column: column)
     }
 
     private func isRowValid(row: Header) -> Bool {

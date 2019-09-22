@@ -8,6 +8,7 @@
 
 import CoreLocation
 
+// MARK: Search Result
 extension Search {
     public struct Result {
         public var text: String
@@ -21,6 +22,7 @@ extension Search {
     }
 }
 
+// MARK: - Search Result Utilities
 extension Search.Result: Decodable {
 
     enum CodingKeys: String, CodingKey {

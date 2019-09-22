@@ -15,7 +15,10 @@ public struct Search {
     var filter: Search.Filter?
     var coordinates: CLLocationCoordinate2D
     var results: [Search.Result] = []
+}
 
+// MARK: - Related structures
+extension Search {
     public struct Categories: OptionSet {
 
         public let rawValue: Int
@@ -68,6 +71,7 @@ public struct Search {
 
 }
 
+// MARK: - Utilities
 extension Search: Encodable {
 
     enum CodingKeys: String, CodingKey {

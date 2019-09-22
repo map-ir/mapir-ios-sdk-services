@@ -11,13 +11,29 @@ import Foundation
 
 public struct Place {
     internal var uuid = UUID()
+
+    // Name of the Place.
     public var name: String?
+
+    // Province which places is located in
     public var province: String?
+
+    // County which places is located in
     public var county: String?
+
+    // District which places is located in
     public var district: String?
+
+    // Rural district which places is located in
     public var ruralDistrict: String?
+
+    // Suburb which places is located in
     public var suburb: String?
+
+    // Neighbor which places is located in
     public var neighborhood: String?
+
+    // Coordinates of the place.
     public var coordinates: CLLocationCoordinate2D?
 }
 

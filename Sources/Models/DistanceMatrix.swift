@@ -91,18 +91,6 @@ extension DistanceMatrix {
         /// Sort results by distance and duration.
         public static let sorted = DistanceMatrix.Options(rawValue: 1 << 2)
     }
-
-    public struct Distance {
-        public var origin: Place
-        public var destination: Place
-        public var distance: Double
-    }
-
-    public struct Duration {
-        public var origin: Place
-        public var destination: Place
-        public var duration: Double
-    }
 }
 
 // MARK: - Utilities

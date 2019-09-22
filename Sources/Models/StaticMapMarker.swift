@@ -39,6 +39,7 @@ public struct StaticMapMarker {
     }
 }
 
+// MARK: - Errors
 enum StaticMapError: Error {
     /// Error due to decoding image into UIImage
     case imageDecodingError

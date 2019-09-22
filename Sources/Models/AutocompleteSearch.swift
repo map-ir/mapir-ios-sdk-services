@@ -8,4 +8,4 @@
 
 import Foundation
 
-public typealias AutocompleteSearch = Search.Result
+public typealias AutocompleteSearch = Search

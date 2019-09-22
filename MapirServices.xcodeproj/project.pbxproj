@@ -96,7 +96,6 @@
 		C062B86F2330E62B00B731CF /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C062B86D2330E62B00B731CF /* Table.swift */; };
 		C062B8702330E62B00B731CF /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C062B86D2330E62B00B731CF /* Table.swift */; };
 		C062B8712330E62B00B731CF /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C062B86D2330E62B00B731CF /* Table.swift */; };
-		C06FB750231FE9F300C3931D /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FB74F231FE9F300C3931D /* Array+Extension.swift */; };
 		C08DB44D22CB302600FAE64A /* Lane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* Lane.swift */; };
 		C08DB44F22CB570800FAE64A /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* Route.swift */; };
 		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
@@ -108,9 +107,6 @@
 		C0ED4C7D232CFF9400B2EC4B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */; };
 		C0ED4C7E232CFF9400B2EC4B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */; };
 		C0ED4C7F232CFF9500B2EC4B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED4C7B232CFA5A00B2EC4B /* Utilities.swift */; };
-		C0ED4C80232CFFA500B2EC4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FB74F231FE9F300C3931D /* Array+Extension.swift */; };
-		C0ED4C81232CFFA600B2EC4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FB74F231FE9F300C3931D /* Array+Extension.swift */; };
-		C0ED4C82232CFFA600B2EC4B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FB74F231FE9F300C3931D /* Array+Extension.swift */; };
 		C0FA896822E899A3003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0FA897022E899A4003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0FA897122E899A4003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -300,7 +296,6 @@
 		C05604A822E7204F004A2F9C /* MapirServices-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MapirServices-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C059F20F232D146A00AB1193 /* AutocompleteSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutocompleteSearch.swift; sourceTree = "<group>"; };
 		C062B86D2330E62B00B731CF /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
-		C06FB74F231FE9F300C3931D /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		C08DB44C22CB302600FAE64A /* Lane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lane.swift; sourceTree = "<group>"; };
 		C08DB44E22CB570800FAE64A /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -527,7 +522,6 @@
 			isa = PBXGroup;
 			children = (
 				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */,
-				C06FB74F231FE9F300C3931D /* Array+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -935,7 +929,6 @@
 				C0EA4FE122C9EE2600BC04EF /* Search+Result.swift in Sources */,
 				C02E70E122B11B6D0058BCA7 /* Errors.swift in Sources */,
 				C02DCF6922CA1DC300BA403F /* RouteLeg.swift in Sources */,
-				C06FB750231FE9F300C3931D /* Array+Extension.swift in Sources */,
 				C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */,
 				C02DCF6522CA1C9600BA403F /* Waypoint.swift in Sources */,
 				C0EA4FDF22C9EBC800BC04EF /* Search.swift in Sources */,
@@ -982,7 +975,6 @@
 				C056047922E70993004A2F9C /* Place.swift in Sources */,
 				C056048122E709A2004A2F9C /* Waypoint.swift in Sources */,
 				C056048522E709A2004A2F9C /* Intersection.swift in Sources */,
-				C0ED4C81232CFFA600B2EC4B /* Array+Extension.swift in Sources */,
 				C056047B22E70993004A2F9C /* Search+Result.swift in Sources */,
 				C062B8702330E62B00B731CF /* Table.swift in Sources */,
 				C056048022E7099B004A2F9C /* Errors.swift in Sources */,
@@ -1017,7 +1009,6 @@
 				C05604E222E737B7004A2F9C /* ReverseGeocode.swift in Sources */,
 				C05604EE22E737B7004A2F9C /* Waypoint.swift in Sources */,
 				C05604F222E737B7004A2F9C /* Intersection.swift in Sources */,
-				C0ED4C80232CFFA500B2EC4B /* Array+Extension.swift in Sources */,
 				C05604E622E737B7004A2F9C /* DistanceMatrix.swift in Sources */,
 				C05604E022E737B7004A2F9C /* HTTPMethod.swift in Sources */,
 				C062B86F2330E62B00B731CF /* Table.swift in Sources */,
@@ -1045,7 +1036,6 @@
 				C05604C022E737B6004A2F9C /* ReverseGeocode.swift in Sources */,
 				C05604CC22E737B6004A2F9C /* Waypoint.swift in Sources */,
 				C05604D022E737B6004A2F9C /* Intersection.swift in Sources */,
-				C0ED4C82232CFFA600B2EC4B /* Array+Extension.swift in Sources */,
 				C05604C422E737B6004A2F9C /* DistanceMatrix.swift in Sources */,
 				C05604BE22E737B6004A2F9C /* HTTPMethod.swift in Sources */,
 				C062B8712330E62B00B731CF /* Table.swift in Sources */,

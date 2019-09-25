@@ -1,6 +1,6 @@
 //
-//  MPSLocation.swift
-//  MapirServices-iOS
+//  Place.swift
+//  MapirServices
 //
 //  Created by Alireza Asadi on 5/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,18 +9,45 @@
 import CoreLocation
 import Foundation
 
-public struct MPSLocation {
+public struct Place {
+    internal var uuid = UUID()
+
+    // Name of the Place.
     public var name: String?
+
+    // Province which places is located in
     public var province: String?
+
+    // County which places is located in
     public var county: String?
+
+    // District which places is located in
     public var district: String?
+
+    // Rural district which places is located in
     public var ruralDistrict: String?
+
+    // Suburb which places is located in
     public var suburb: String?
-    public var neighbourhood: String?
+
+    // Neighbor which places is located in
+    public var neighborhood: String?
+
+    // Coordinates of the place.
     public var coordinates: CLLocationCoordinate2D?
 }
 
-extension MPSLocation: Decodable {
+extension Place: Equatable, Hashable {
+    public static func == (lhs: Place, rhs: Place) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
+    }
+}
+
+extension Place: Decodable {
     enum CodingKeys: String, CodingKey {
         case name
         case province = "province_name"
@@ -28,7 +55,7 @@ extension MPSLocation: Decodable {
         case district = "district_title"
         case ruralDistrict = "ruraldistrict_title"
         case suburb = "suburb_title"
-        case neighbourhood = "neighbourhood_title"
+        case neighborhood = "neighbourhood_title"
         case coordinates
     }
 
@@ -41,7 +68,7 @@ extension MPSLocation: Decodable {
         district = try container.decode(String.self, forKey: .district)
         ruralDistrict = try container.decode(String.self, forKey: .ruralDistrict)
         suburb = try container.decode(String.self, forKey: .suburb)
-        neighbourhood = try container.decode(String.self, forKey: .neighbourhood)
+        neighborhood = try container.decode(String.self, forKey: .neighborhood)
         let array = try? container.decode([Double].self, forKey: .coordinates)
         if let array = array {
             coordinates = CLLocationCoordinate2D(latitude: array[1], longitude: array[0])

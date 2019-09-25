@@ -1,6 +1,6 @@
 //
-//  MPSWaypoint.swift
-//  MapirServices-iOS
+//  Waypoint.swift
+//  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -9,7 +9,7 @@
 import CoreLocation
 import Foundation
 
-public struct MPSWaypoint {
+public struct Waypoint {
     /// Unique internal identifier of the segment
     var hint: String
 
@@ -23,7 +23,7 @@ public struct MPSWaypoint {
     public var coordinates: CLLocationCoordinate2D?
 }
 
-extension MPSWaypoint: Decodable {
+extension Waypoint: Decodable {
     enum CodingKeys: String, CodingKey {
         case hint
         case name

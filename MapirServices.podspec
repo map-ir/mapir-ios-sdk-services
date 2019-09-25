@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                      = "MapirServices"
-  s.version                   = "0.2.0"
+  s.version                   = "0.5.0"
   s.summary                   = "a SDK to access services of map.ir."
 
   s.homepage                  = "https://support.map.ir/"

@@ -1,6 +1,6 @@
 //
-//  MPSStep.swift
-//  MapirServices-iOS
+//  RouteStep.swift
+//  MapirServices
 //
 //  Created by Alireza Asadi on 10/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.
@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 import Polyline
 
-public struct MPSStep {
+public struct RouteStep {
 
     /// The distance of travel from the maneuver to the subsequent step, in `Double` meters.
     public var distance: Double
@@ -19,7 +19,7 @@ public struct MPSStep {
     public var duration: Double
 
     /// A list of Intersection objects that are passed along the segment, the very first belonging to the `MPSManeuver`
-    public var intersections: [MPSIntersection]
+    public var intersections: [Intersection]
 
     /// The unsimplified geometry of the route segment, depending on the geometries parameter.
     public var geometry: [CLLocationCoordinate2D]?
@@ -50,7 +50,7 @@ public struct MPSStep {
     public var exits: [String]?
 
     /// A `MPSManeuver` object representing the maneuver.
-    public var maneuver: MPSManeuver
+    public var maneuver: StepManeuver
 
     /// The calculated weight of the step.
     public var wieght: Double
@@ -60,7 +60,7 @@ public struct MPSStep {
 
 }
 
-extension MPSStep: Decodable {
+extension RouteStep: Decodable {
     enum CodingKeys: String, CodingKey {
         case distance
         case duration
@@ -84,7 +84,7 @@ extension MPSStep: Decodable {
 
         distance = try container.decode(Double.self, forKey: .distance)
         duration = try container.decode(Double.self, forKey: .duration)
-        intersections = try container.decode([MPSIntersection].self, forKey: .intersections)
+        intersections = try container.decode([Intersection].self, forKey: .intersections)
 
         let polylineHash = try container.decode(String.self, forKey: .geometry)
         let polyline = Polyline(encodedPolyline: polylineHash)
@@ -105,7 +105,7 @@ extension MPSStep: Decodable {
         rotaryName = try? container.decode(String.self, forKey: .rotaryName)
         rotaryPronunciation = try? container.decode(String.self, forKey: .rotaryPronounciation)
         mode = try container.decode(String.self, forKey: .mode)
-        maneuver = try container.decode(MPSManeuver.self, forKey: .maneuver)
+        maneuver = try container.decode(StepManeuver.self, forKey: .maneuver)
         wieght = try container.decode(Double.self, forKey: .weight)
         drivingSide = try container.decode(MPSDrivingSide.self, forKey: .drivingSide)
     }

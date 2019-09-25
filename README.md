@@ -6,14 +6,13 @@
 <a href="https://developer.apple.com/swift/">
 <img src="https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat" alt="Swift 5.0">
 </a>
-<!---
+
 <a href="http://cocoapods.org/pods/MapirServices">
 <img src="https://img.shields.io/cocoapods/v/MapirServices.svg?style=flat" alt="Version">
 </a>
 <a href="http://cocoapods.org/pods/MapirServices">
 <img src="https://img.shields.io/cocoapods/p/MapirServices.svg?style=flat" alt="Platform">
 </a>
--->
 
 <a href="https://github.com/Carthage/Carthage">
 <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage Compatible">
@@ -37,17 +36,14 @@ The example application is the best way to see `MapirServices` in action. Simply
 
 ## Installation
 
-<!---
 ### CocoaPods
 
 MapirServices is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-```bash
+```ruby
 pod 'MapirServices'
 ```
-
--->
 
 ### Carthage
 
@@ -69,17 +65,14 @@ To integrate using Apple's [Swift Package Manager](https://swift.org/package-man
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/map-ir/ios-sdk-v1-services-beta", from: "0.1.0")
+    .package(url: "https://github.com/map-ir/ios-sdk-v1-services-beta", from: "0.5.0")
 ]
 ```
 
-
-<!---
 ### Manually
 
-If you prefer not to use any of the aforementioned dependency managers, you can integrate MapirServices into your project manually. Simply drag the `Sources` Folder into your Xcode project.
+If you prefer not to use any of the aforementioned dependency managers, you can integrate MapirServices into your project manually. Simply drag the `Sources` Folder into your Xcode project. (not recommended)
 
--->
 
 ## Usage
 1. Get an access token from [App Registration](https://corp.map.ir/registration/) site.
@@ -92,11 +85,27 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
     ```swift
     let services = MPSMapirServices.shared
     ```
+    
+## Latest Changes
+### Version 0.5.0
+- Added a new initializer to `MapirServices` use access token without adding it to info.plist.
+- Changed errors to be more expressive.
+- Removed `MPS` prefix from every class and struct name.
+- Renamed `MPSLocation` to `Place`.
+- Refactored the `DistanceMatrix` data structure. Finding distance between two place (by name) had O(N * M) time comlexity, but now it is O(1), So it's a lot faster.
+- Added some utility methods to find distance and duration between places in DistanceMatrix.
+- Refactored `distanceMatrix(from:to:option:completionHandler)` implementation. Input coordinates changed from `[CLLocationCoordinate2D]` to a `[String: CLLocationCoordinate2D]`. so every input coordinate has a name specified by the user itself and it helps to access distance and duration between coordinates by their name.
+- Renamed search options to search categories.
+- Changed `search(for:around:categories:filter:completionHandler:)` method result to a complete `Search` object. Search has a property named results of type `Search.Result> which contains the result of the search. This change helps user to have their selected options and categories along with the result of the search.
+- Changed `autocomplete(for:around:categories:filter:completionHandler:)` to work the same as `search(for:around:categories:filter:completionHandler:)` to have the same functionality.
+- Changed `route(from:to:routeMode:routeOptions:completionHandler:)` to `route(from:to:mode:options:completionHandler:)`.  "route" term seemed obvious.
+- All of methods run their prepration in a concurrent thread instead of main (UI) thread.
+- Changed result of the `fastReverseGeocode(for:)` to be the same as `reverseGeocode(for:)`. an instance of `ReverseGeocode`.
+- Added various documentation to the code itself.
+- Removed unused and unnecessary files.
+- Updated Examples and Playground files with the latest changes.
 
-<!--
-## Contributing
-Contributions are very welcome 🙌
--->
+*__for more, see CHANGELOG.__*
 
 ## License
 

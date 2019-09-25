@@ -1,6 +1,6 @@
 //
 //  CLLocationCoordinate2D+initFromArray.swift
-//  MapirServices-iOS
+//  MapirServices
 //
 //  Created by Alireza Asadi on 12/4/1398 AP.
 //  Copyright © 1398 AP Map. All rights reserved.

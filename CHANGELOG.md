@@ -1,5 +1,6 @@
 #  Changelog
 ## Version 0.5.0
+Since 0.2.0:
 - Added a new initializer to `MapirServices` use access token without adding it to info.plist.
 - Changed errors to be more expressive.
 - Removed `MPS` prefix from every class and struct name.

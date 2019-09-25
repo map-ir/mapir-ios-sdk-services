@@ -47,9 +47,12 @@ extension DistanceMatrix {
 
 // MARK: - Duration methods
 extension DistanceMatrix {
-//    public func duration(from origin: Place, to destination: Place) -> Double? {
-//        return durations.first { $0.origin == origin && $0.destination == destination }?.duration
-//    }
+    public func duration(from origin: Place, to destination: Place) -> Double? {
+        guard let (origin, _) = origins.first(where: { $0.value == origin }) else { return nil }
+        guard let (destination, _) = destinations.first(where: { $0.value == destination }) else { return nil }
+        return duration(from: origin, to: destination)
+    }
+
     public func duration(from origin: String, to destination: String) -> Double? {
         return durations[origin, destination]
     }

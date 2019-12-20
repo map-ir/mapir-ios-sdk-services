@@ -6,6 +6,19 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+enum MSError: Error {
+
+    case geocodingCanceled
+
+    case invalidAPIKey
+
+    case network
+
+    case geocodeFoundNoResult
+
+    case reverseGeocodeFoundNoResult
+}
+
 enum ServiceError: Error {
 
     /// Indicates token-related errors. either not defined or invalid one.

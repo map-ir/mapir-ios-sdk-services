@@ -23,6 +23,10 @@
 		C02DCF6B22CA213000BA403F /* StepManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* StepManeuver.swift */; };
 		C02DCF6D22CA213B00BA403F /* Intersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* Intersection.swift */; };
 		C02E70E122B11B6D0058BCA7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E70E022B11B6D0058BCA7 /* Errors.swift */; };
+		C0474891239187EE007F74E1 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0474890239187EE007F74E1 /* AccountManager.swift */; };
+		C047489A23918A11007F74E1 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489923918A11007F74E1 /* NetworkingManager.swift */; };
+		C047489C23918CE7007F74E1 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */; };
+		C047489E23919054007F74E1 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489D23919054007F74E1 /* Dictionary+Extension.swift */; };
 		C04CF65F22A25E5D009761C4 /* ReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF65E22A25E5D009761C4 /* ReverseGeocode.swift */; };
 		C04CF66922A27D6E009761C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04CF66822A27D6E009761C4 /* HTTPMethod.swift */; };
 		C056047022E6ED0B004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046322E6ED01004A2F9C /* Polyline.framework */; };
@@ -88,6 +92,14 @@
 		C056052022E739D5004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046B22E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C056052222E739D9004A2F9C /* Polyline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C056046F22E6ED01004A2F9C /* Polyline.framework */; };
 		C056052322E739D9004A2F9C /* Polyline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C056046F22E6ED01004A2F9C /* Polyline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C059A12923855D63001646A6 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A12823855D63001646A6 /* Geocoder.swift */; };
+		C059A12A23855D63001646A6 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A12823855D63001646A6 /* Geocoder.swift */; };
+		C059A12B23855D63001646A6 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A12823855D63001646A6 /* Geocoder.swift */; };
+		C059A12C23855D63001646A6 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A12823855D63001646A6 /* Geocoder.swift */; };
+		C059A135238561C7001646A6 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
+		C059A136238561C7001646A6 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
+		C059A137238561C7001646A6 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
+		C059A138238561C7001646A6 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
 		C059F210232D146A00AB1193 /* AutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059F20F232D146A00AB1193 /* AutocompleteSearch.swift */; };
 		C059F211232D146A00AB1193 /* AutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059F20F232D146A00AB1193 /* AutocompleteSearch.swift */; };
 		C059F212232D146A00AB1193 /* AutocompleteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059F20F232D146A00AB1193 /* AutocompleteSearch.swift */; };
@@ -287,6 +299,10 @@
 		C02DCF6A22CA213000BA403F /* StepManeuver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepManeuver.swift; sourceTree = "<group>"; };
 		C02DCF6C22CA213B00BA403F /* Intersection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intersection.swift; sourceTree = "<group>"; };
 		C02E70E022B11B6D0058BCA7 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		C0474890239187EE007F74E1 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		C047489923918A11007F74E1 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
+		C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
+		C047489D23919054007F74E1 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		C04CF65E22A25E5D009761C4 /* ReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocode.swift; sourceTree = "<group>"; };
 		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -295,6 +311,8 @@
 		C056049322E72014004A2F9C /* MapirServices_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C05604A022E7204F004A2F9C /* MapirServices_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C05604A822E7204F004A2F9C /* MapirServices-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MapirServices-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C059A12823855D63001646A6 /* Geocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
+		C059A134238561C7001646A6 /* Placemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placemark.swift; sourceTree = "<group>"; };
 		C059F20F232D146A00AB1193 /* AutocompleteSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutocompleteSearch.swift; sourceTree = "<group>"; };
 		C062B86D2330E62B00B731CF /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
@@ -437,6 +455,12 @@
 			children = (
 				C004680922E5DDD000CF922E /* MapirServices.h */,
 				3D9C42A122745900000A6585 /* MapirServices.swift */,
+				C059A12823855D63001646A6 /* Geocoder.swift */,
+				C059A134238561C7001646A6 /* Placemark.swift */,
+				C0474890239187EE007F74E1 /* AccountManager.swift */,
+				C047489923918A11007F74E1 /* NetworkingManager.swift */,
+				C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */,
+				C047489D23919054007F74E1 /* Dictionary+Extension.swift */,
 				C04CF66722A27D57009761C4 /* Core */,
 				C04CF65D22A25E1E009761C4 /* Models */,
 				C086ACF522C34A45004256EA /* Extensions */,
@@ -921,12 +945,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				C08DB44D22CB302600FAE64A /* Lane.swift in Sources */,
+				C059A12923855D63001646A6 /* Geocoder.swift in Sources */,
 				C02DCF6D22CA213B00BA403F /* Intersection.swift in Sources */,
+				C0474891239187EE007F74E1 /* AccountManager.swift in Sources */,
 				C0EA4F9922C89A8300BC04EF /* DistanceMatrix.swift in Sources */,
 				C08DB44F22CB570800FAE64A /* Route.swift in Sources */,
 				C02DCF6B22CA213000BA403F /* StepManeuver.swift in Sources */,
 				C0ED4C7C232CFA5A00B2EC4B /* Utilities.swift in Sources */,
 				3D9C42A222745900000A6585 /* MapirServices.swift in Sources */,
+				C059A135238561C7001646A6 /* Placemark.swift in Sources */,
+				C047489C23918CE7007F74E1 /* URLRequest+Extension.swift in Sources */,
+				C047489E23919054007F74E1 /* Dictionary+Extension.swift in Sources */,
 				C0FBFA2822D2009400A03FCC /* StaticMapMarker.swift in Sources */,
 				C0EA4FE122C9EE2600BC04EF /* Search+Result.swift in Sources */,
 				C02E70E122B11B6D0058BCA7 /* Errors.swift in Sources */,
@@ -938,6 +967,7 @@
 				C02DCF6722CA1CE700BA403F /* RouteStep.swift in Sources */,
 				C0EA4F9A22C89A8300BC04EF /* Place.swift in Sources */,
 				C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
+				C047489A23918A11007F74E1 /* NetworkingManager.swift in Sources */,
 				C04CF65F22A25E5D009761C4 /* ReverseGeocode.swift in Sources */,
 				C059F210232D146A00AB1193 /* AutocompleteSearch.swift in Sources */,
 			);
@@ -965,12 +995,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C056047322E70993004A2F9C /* ReverseGeocode.swift in Sources */,
+				C059A12B23855D63001646A6 /* Geocoder.swift in Sources */,
 				C056048222E709A2004A2F9C /* RouteLeg.swift in Sources */,
 				C056047222E7098D004A2F9C /* MapirServices.swift in Sources */,
 				C056047F22E7099B004A2F9C /* HTTPMethod.swift in Sources */,
 				C0ED4C7E232CFF9400B2EC4B /* Utilities.swift in Sources */,
 				C056048922E709A8004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
 				C056048322E709A2004A2F9C /* RouteStep.swift in Sources */,
+				C059A137238561C7001646A6 /* Placemark.swift in Sources */,
 				C056048422E709A2004A2F9C /* StepManeuver.swift in Sources */,
 				C056048722E709A2004A2F9C /* Route.swift in Sources */,
 				C056047722E70993004A2F9C /* DistanceMatrix.swift in Sources */,
@@ -1000,12 +1032,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05604EF22E737B7004A2F9C /* RouteLeg.swift in Sources */,
+				C059A12A23855D63001646A6 /* Geocoder.swift in Sources */,
 				C05604E922E737B7004A2F9C /* Search.swift in Sources */,
 				C05604E822E737B7004A2F9C /* Place.swift in Sources */,
 				C05604F622E737B7004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
 				C0ED4C7D232CFF9400B2EC4B /* Utilities.swift in Sources */,
 				C05604F022E737B7004A2F9C /* RouteStep.swift in Sources */,
 				C05604F122E737B7004A2F9C /* StepManeuver.swift in Sources */,
+				C059A136238561C7001646A6 /* Placemark.swift in Sources */,
 				C05604F422E737B7004A2F9C /* Route.swift in Sources */,
 				C05604ED22E737B7004A2F9C /* StaticMapMarker.swift in Sources */,
 				C05604E222E737B7004A2F9C /* ReverseGeocode.swift in Sources */,
@@ -1027,12 +1061,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05604CD22E737B6004A2F9C /* RouteLeg.swift in Sources */,
+				C059A12C23855D63001646A6 /* Geocoder.swift in Sources */,
 				C05604C722E737B6004A2F9C /* Search.swift in Sources */,
 				C05604C622E737B6004A2F9C /* Place.swift in Sources */,
 				C05604D422E737B6004A2F9C /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
 				C0ED4C7F232CFF9500B2EC4B /* Utilities.swift in Sources */,
 				C05604CE22E737B6004A2F9C /* RouteStep.swift in Sources */,
 				C05604CF22E737B6004A2F9C /* StepManeuver.swift in Sources */,
+				C059A138238561C7001646A6 /* Placemark.swift in Sources */,
 				C05604D222E737B6004A2F9C /* Route.swift in Sources */,
 				C05604CB22E737B6004A2F9C /* StaticMapMarker.swift in Sources */,
 				C05604C022E737B6004A2F9C /* ReverseGeocode.swift in Sources */,

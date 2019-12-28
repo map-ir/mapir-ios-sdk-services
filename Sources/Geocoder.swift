@@ -9,14 +9,14 @@
 import Foundation
 
 @objc(MSGeocoder)
-class Geocoder: NSObject {
+public class Geocoder: NSObject {
 
     /// Geocoder or ReverseGeocoder
-    public typealias GeocodeCompletionHandler = ([Placemark]?, Error?) -> ()
+    public typealias GeocodeCompletionHandler = ([Placemark]?, Swift.Error?) -> Void
 
     /// Current status of `Geocoder` object.
-    public var isGeocoding: Bool {
-        if let task = dataTask {
+    @objc public var isGeocoding: Bool {
+        if let task = activeTask {
             switch task.state {
             case .running:
                 return true
@@ -30,9 +30,7 @@ class Geocoder: NSObject {
         }
     }
 
-    private var dataTask: URLSessionDataTask?
-
-    var completionHandler: GeocodeCompletionHandler?
+    private var activeTask: URLSessionDataTask?
 
     /// Creates a request to reverse geocode the given location.
     ///
@@ -44,20 +42,54 @@ class Geocoder: NSObject {
     /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
     /// task.
     @objc(reverseGeocodeLocation:completionHandler:)
-    func reverseGeocode(_ location: CLLocation, completionHandler: @escaping GeocodeCompletionHandler) {
-        guard AccountManager.shared.isAuthorized else {
-            completionHandler(nil, MSError.invalidAPIKey)
-            return
-        }
-
-        self.completionHandler = completionHandler
-
-        let request = self.urlRequestForReverseGeocodingTask(location: location)
-
-        self.dataTask = NetworkingManager.dataTask(with: request, completionHandler: networkCompletionHandler(data:response:error:))
-        self.dataTask?.resume()
+    public func reverseGeocode(_ location: CLLocation, completionHandler: @escaping GeocodeCompletionHandler) {
+        reverseGeocode(location.coordinate, completionHandler: completionHandler)
     }
 
+    /// Creates a request to reverse geocode the given coordinates.
+    ///
+    /// - Parameters:
+    ///   - coordinate: Coordainte to find its address.
+    ///   - completionHandler: Completion handler block to run after the reverse geocode
+    ///   result is available.
+    ///
+    /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
+    /// task.
+    @objc(reverseGeocodeCoordinate:completionHandler:)
+    public func reverseGeocode(_ coordinate: CLLocationCoordinate2D, completionHandler: @escaping GeocodeCompletionHandler) {
+        cancel()
+
+        perform(.reverseGeocode(coordinate), completionHandler: completionHandler, decoder: decodeReverseGeocode(from:))
+    }
+
+    /// Creates a request to reverse geocode the given location in shorter time.
+    ///
+    /// - Parameters:
+    ///   - location: `CLLocation` object to find its address.
+    ///   - completionHandler: Completion handler block to run after the reverse geocode
+    ///   result is available.
+    ///
+    /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
+    /// task.
+    @objc(fastReverseGeocodeLocation:completionHandler:)
+    public func fastReverseGeocode(_ location: CLLocation, completionHandler: @escaping GeocodeCompletionHandler) {
+        fastReverseGeocode(location.coordinate, completionHandler: completionHandler)
+    }
+
+    /// Creates a request to reverse geocode the given coordinate in shorter time.
+    ///
+    /// - Parameters:
+    ///   - coordinate: Coordainte to find its address.
+    ///   - completionHandler: Completion handler block to run after the reverse geocode.
+    ///
+    /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
+    /// task.
+    @objc(fastReverseGeocodeCoordainte:completionHandler:)
+    public func fastReverseGeocode(_ coordinate: CLLocationCoordinate2D, completionHandler: @escaping GeocodeCompletionHandler) {
+        cancel()
+
+        perform(.fastReverseGeocode(coordinate), completionHandler: completionHandler, decoder: decodeReverseGeocode(from:))
+    }
 
     /// Initiates a request to find goecode for specified address.
     ///
@@ -68,76 +100,151 @@ class Geocoder: NSObject {
     ///   The geocoder will execute the result regardless of whether the request was
     ///   successful or not.
     @objc(geocodeAddress:city:completionHandler:)
-    func geocode(_ address: String, city: String? = nil, completionHandler: @escaping GeocodeCompletionHandler) {
-        guard AccountManager.shared.isAuthorized else {
-            completionHandler(nil, MSError.invalidAPIKey)
-            return
-        }
+    public func geocode(_ address: String, city: String? = nil, completionHandler: @escaping GeocodeCompletionHandler) {
+        cancel()
 
-        self.completionHandler = completionHandler
-
-        let request = self.urlRequestForGeocodeTask(string: address, city: city)
-
-        self.dataTask = NetworkingManager.dataTask(with: request, completionHandler: networkCompletionHandler(data:response:error:))
-        self.dataTask?.resume()
-    }
-
-    func networkCompletionHandler(data: Data?, response: URLResponse?, error: Error?) {
-        guard let completionHandler = self.completionHandler else { return }
-
-        if error != nil {
-            completionHandler(nil, MSError.network)
-            return
-        }
-
-        let response = response as! HTTPURLResponse
-        guard let data = data else {
-            completionHandler(nil, MSError.network)
-            return
-        }
-
-        switch response.statusCode {
-        case 200:
-            do {
-                let decodedBody = try JSONDecoder().decode(Placemark.ReverseGeocodeResponseScheme.self, from: data)
-                let placemark = Placemark(fromReverseGeocodeResponse: decodedBody)
-                completionHandler([placemark], error)
-                return
-            } catch {
-                completionHandler(nil, error)
-                return
-            }
-        case 300..<500:
-            fallthrough
-        case 500..<600:
-            completionHandler(nil, MSError.network)
-        default:
-            fatalError("Unknown response status code.")
-        }
-
+        perform(.forwardGeocode(address, city), completionHandler: completionHandler, decoder: decodeForwardReverseGeocode(from:))
     }
 
     /// Cancels the current running geocoding or reverseGeocoding task.
     @objc public func cancel() {
-        dataTask?.cancel()
-        if completionHandler != nil {
-            networkCompletionHandler(data: nil, response: nil, error: MSError.geocodingCanceled)
-        }
-
-        dataTask = nil
+        activeTask?.cancel()
+        activeTask = nil
     }
 }
 
-// MARK: Generatin URL Requests
+// MARK: Geocoding Errors
 
 extension Geocoder {
-    func urlRequestForReverseGeocodingTask(location: CLLocation) -> URLRequest {
+
+    /// Errors related to geocoding.
+    @objc(GeocoderError)
+    public enum Error: UInt, Swift.Error {
+
+        /// Indicates that you are not using a Map.ir API key or your key is invalid.
+        case unauthorized
+
+        /// Indicates that network was unavailable or a network error occured.
+        case network
+
+        /// Indicates that the task was canceled.
+        case canceled
+
+        /// Indicates that geocode or reverse geocode had no result.
+        case noResult
+    }
+}
+
+// MARK: Running Tasks
+
+extension Geocoder {
+    enum Task {
+        case forwardGeocode(String, String?)
+        case reverseGeocode(CLLocationCoordinate2D)
+        case fastReverseGeocode(CLLocationCoordinate2D)
+    }
+
+    func perform(_ task: Task, completionHandler: @escaping GeocodeCompletionHandler, decoder: @escaping (Data) -> ([Placemark]?)) {
+        guard AccountManager.isAuthorized else {
+            completionHandler(nil, Error.unauthorized)
+            return
+        }
+
+        var request: URLRequest
+        switch task {
+        case let .fastReverseGeocode(coordaintes):
+            request = self.urlRequestForReverseGeocodingTask(coordinate: coordaintes)
+        case let .reverseGeocode(coordaintes):
+            request = self.urlRequestForFastReverseGeocodingTask(coordinate: coordaintes)
+        case let .forwardGeocode(address, city):
+            request = self.urlRequestForGeocodeTask(string: address, city: city)
+        }
+
+        self.activeTask = NetworkingManager.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
+                    completionHandler(nil, Error.canceled)
+                } else {
+                    completionHandler(nil, Error.network)
+                }
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200:
+                    if let data = data, let placemarks = decoder(data) {
+                        completionHandler(placemarks, nil)
+                    } else {
+                        completionHandler(nil, Error.noResult)
+                    }
+                case 401:
+                    completionHandler(nil, Error.unauthorized)
+                case 400, 402..<500:
+                    completionHandler(nil, Error.noResult)
+                case 300..<400, 500..<600:
+                    completionHandler(nil, Error.network)
+                default:
+                    fatalError("Unknown response status code.")
+                }
+            } else {
+                completionHandler(nil, Error.network)
+            }
+        }
+    }
+}
+
+// MARK: Decoders
+
+extension Geocoder {
+    func decodeReverseGeocode(from data: Data) -> [Placemark]? {
+        let decoder = JSONDecoder()
+        if let decoded = try? decoder.decode(Placemark.ReverseGeocodeResponseScheme.self, from: data) {
+            let placemark = Placemark(fromReverseGeocodeResponse: decoded)
+            return [placemark]
+        } else {
+            return nil
+        }
+    }
+
+    func decodeForwardReverseGeocode(from data: Data) -> [Placemark]? {
+        let decoder = JSONDecoder()
+        if let decoded = try? decoder.decode(Placemark.ReverseGeocodeResponseScheme.self, from: data) {
+            let placemark = Placemark(fromReverseGeocodeResponse: decoded)
+            return [placemark]
+        } else {
+            return nil
+        }
+    }
+}
+
+// MARK: Generating URL Requests
+
+extension Geocoder {
+    func urlRequestForReverseGeocodingTask(coordinate: CLLocationCoordinate2D) -> URLRequest {
         var urlComponents = NetworkingManager.baseURLComponents
-        let coordinate = location.coordinate
-        let queryItems = ["lat": "\(coordinate.latitude)", "lon": "\(coordinate.longitude)"].convertedToURLQueryItems()
+        let queryItems = [
+            "lat": String(coordinate.latitude),
+            "lon": String(coordinate.longitude)
+        ].convertedToURLQueryItems()
 
         urlComponents.queryItems = queryItems
-        urlComponents.path = "reverse"
+        urlComponents.path = "/reverse"
+
+        let request = NetworkingManager.request(url: urlComponents)
+
+        return request
+    }
+
+    func urlRequestForFastReverseGeocodingTask(coordinate: CLLocationCoordinate2D) -> URLRequest {
+        var urlComponents = NetworkingManager.baseURLComponents
+        let queryItems = [
+            "lat": String(coordinate.latitude),
+            "lon": String(coordinate.longitude)
+        ].convertedToURLQueryItems()
+
+        urlComponents.queryItems = queryItems
+        urlComponents.path = "/fast-reverse"
 
         let request = NetworkingManager.request(url: urlComponents)
 
@@ -152,7 +259,7 @@ extension Geocoder {
         }
 
         urlComponents.queryItems = queryItems.convertedToURLQueryItems()
-        urlComponents.path = "search/v2"
+        urlComponents.path = "/search/v2"
 
         let request = NetworkingManager.request(url: urlComponents)
 

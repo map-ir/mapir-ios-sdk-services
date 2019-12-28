@@ -117,7 +117,6 @@
 		C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		C047489D23919054007F74E1 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		C04CF65E22A25E5D009761C4 /* ReverseGeocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocode.swift; sourceTree = "<group>"; };
-		C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapirServicesPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C04CF66822A27D6E009761C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C04F54DF233BFE0300512825 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		C059A12823855D63001646A6 /* Geocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
@@ -161,7 +160,6 @@
 		3D9C428622745894000A6585 = {
 			isa = PBXGroup;
 			children = (
-				C04CF66522A270A0009761C4 /* MapirServicesPlayground.playground */,
 				3D9C42A0227458FA000A6585 /* Sources */,
 				3D9C43222274629B000A6585 /* Example */,
 				3D9C429B227458E8000A6585 /* Configs */,

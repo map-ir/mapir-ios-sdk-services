@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(MSPlacemark)
-class Placemark: NSObject {
+public class Placemark: NSObject {
 
     /// Full address
     ///

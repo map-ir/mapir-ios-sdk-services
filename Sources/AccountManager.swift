@@ -7,17 +7,24 @@
 //
 
 class AccountManager {
-
-    internal var apiKey: String?
-
     static let shared = AccountManager()
 
+    var apiKey: String?
     var isAuthorized: Bool {
-        return apiKey?.isEmpty ?? false
+        if let apiKey = apiKey {
+            return !apiKey.isEmpty
+        } else {
+            return false
+        }
     }
 
+    @objc static var isAuthorized: Bool { shared.isAuthorized }
+
+    @objc public static var apiKey: String? { shared.apiKey }
+
     private init() {
-        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "MAPIRAccessToken") as? String {
+        if let apiKey = (Bundle.main.object(forInfoDictionaryKey: "MapirAPIKey") ??
+            Bundle.main.object(forInfoDictionaryKey: "MAPIRAccessToken")) as? String {
             self.apiKey = apiKey
         }
     }

@@ -23,14 +23,16 @@ class NetworkingManager {
     static let userAgent: String = {
         var components: [String] = []
 
-        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
+        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ??
+            Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
             let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
             components.append("\(appName)/\(version)")
         }
 
-        let libraryBundle: Bundle? = Bundle(for: MapirServices.self)
+        let libraryBundle: Bundle? = Bundle(for: NetworkingManager.self)
 
-        if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String, let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String,
+            let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
             components.append("\(libraryName)/\(version)")
         }
 
@@ -45,7 +47,12 @@ class NetworkingManager {
         system = "tvOS"
         #endif
         let systemVersion = ProcessInfo().operatingSystemVersion
-        components.append("\(system)/\(systemVersion.majorVersion).\(systemVersion.minorVersion).\(systemVersion.patchVersion)")
+        let sysVersionString = [
+            "\(systemVersion.majorVersion)",
+            "\(systemVersion.minorVersion)",
+            "\(systemVersion.patchVersion)"
+        ].joined(separator: ".")
+        components.append("\(system)/\(sysVersionString)")
 
         let chip: String
         #if arch(x86_64)
@@ -87,14 +94,21 @@ class NetworkingManager {
         chip = "i386"
         #endif
         let systemVersion = ProcessInfo().operatingSystemVersion
-        components.append("\(system)/\(systemVersion.majorVersion).\(systemVersion.minorVersion).\(systemVersion.patchVersion)(\(chip))")
+        let sysVersionString = [
+            "\(systemVersion.majorVersion)",
+            "\(systemVersion.minorVersion)",
+            "\(systemVersion.patchVersion)(\(chip))"
+        ].joined(separator: ".")
+        components.append("\(system)/\(sysVersionString)")
 
-        let libraryBundle: Bundle? = Bundle(for: MapirServices.self)
-        if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String, let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
+        let libraryBundle: Bundle? = Bundle(for: NetworkingManager.self)
+        if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String,
+            let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
             components.append("\(libraryName)/\(version)")
         }
 
-        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
+        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ??
+            Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
             let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
             components.append("\(appName)/\(version)")
         }
@@ -105,7 +119,7 @@ class NetworkingManager {
     private init() { }
 
     static func request(url urlComponents: URLComponents,
-                 httpMethod: URLRequest.HTTPMethod = .get) -> URLRequest {
+                        httpMethod: URLRequest.HTTPMethod = .get) -> URLRequest {
 
         var request = URLRequest(url: urlComponents, httpMethod: httpMethod, timeoutInterval: shared.timeoutInterval)
 
@@ -118,9 +132,12 @@ class NetworkingManager {
         return request
     }
 
-    typealias NetworkingCompletionHandler = (Data?, URLResponse?, Error?) -> ()
+    typealias NetworkingCompletionHandler = (Data?, URLResponse?, Error?) -> Void
 
-    static func dataTask(with urlRequest: URLRequest, completionHandler: @escaping NetworkingCompletionHandler) -> URLSessionDataTask {
-        shared.session.dataTask(with: urlRequest, completionHandler: completionHandler)
+    static let session: URLSession = URLSession(configuration: .default)
+
+    static func dataTask(with urlRequest: URLRequest,
+                         completionHandler: @escaping NetworkingCompletionHandler) -> URLSessionDataTask {
+        session.dataTask(with: urlRequest, completionHandler: completionHandler)
     }
 }

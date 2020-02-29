@@ -14,7 +14,7 @@ import Foundation
 public class Search: NSObject {
 
     /// Completion handler type of searching.
-    public typealias SearchCompletionHandler = ([Search.Result]?, Swift.Error?) -> Void
+    public typealias SearchCompletionHandler = (_ results: [Search.Result]?, _ error: Swift.Error?) -> Void
 
     /// Current configuration for search.
     ///
@@ -224,7 +224,7 @@ extension Search {
         }
 
         if let filter = configuration.filter {
-            query["$filter"] = filter.urlRepresentation()
+            query["$filter"] = filter.urlRepresentation
         }
 
         if let categories = configuration.categories, !categories.isEmpty {

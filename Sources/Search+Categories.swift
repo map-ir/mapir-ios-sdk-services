@@ -12,40 +12,40 @@ extension Search {
     @objc public final class Categories: NSObject, OptionSet {
 
         /// Raw value for option set.
-        public let rawValue: Int
+        @objc public let rawValue: Int
 
         /// Initializes a category set with raw value. Do not use directly.
-        public init(rawValue: Int) { self.rawValue = rawValue }
+        @objc public init(rawValue: Int) { self.rawValue = rawValue }
 
         /// Points of interest.
-        public static let poi                   = Search.Categories(rawValue: 1 << 0)
+        @objc public static let poi                   = Search.Categories(rawValue: 1 << 0)
 
         /// City names.
-        public static let city                  = Search.Categories(rawValue: 1 << 1)
+        @objc public static let city                  = Search.Categories(rawValue: 1 << 1)
 
         /// Any kind of road. Street, Freeway, Alley, Avenue, Tunnels, etc.
-        public static let road                  = Search.Categories(rawValue: 1 << 2)
+        @objc public static let road                  = Search.Categories(rawValue: 1 << 2)
 
         /// Neighborhood names.
-        public static let neighborhood          = Search.Categories(rawValue: 1 << 3)
+        @objc public static let neighborhood          = Search.Categories(rawValue: 1 << 3)
 
         /// County names.
-        public static let county                = Search.Categories(rawValue: 1 << 4)
+        @objc public static let county                = Search.Categories(rawValue: 1 << 4)
 
         /// District names.
-        public static let district              = Search.Categories(rawValue: 1 << 5)
+        @objc public static let district              = Search.Categories(rawValue: 1 << 5)
 
         /// Landuse names.
-        public static let landuse               = Search.Categories(rawValue: 1 << 6)
+        @objc public static let landuse               = Search.Categories(rawValue: 1 << 6)
 
         /// Province names.
-        public static let province              = Search.Categories(rawValue: 1 << 7)
+        @objc public static let province              = Search.Categories(rawValue: 1 << 7)
 
         /// Body of water or jungle.
-        public static let bodyOfWaterOrJungle   = Search.Categories(rawValue: 1 << 8)
+        @objc public static let bodyOfWaterOrJungle   = Search.Categories(rawValue: 1 << 8)
 
         /// Nearby search.
-        public static let nearby                = Search.Categories(rawValue: 1 << 9)
+        @objc public static let nearby                = Search.Categories(rawValue: 1 << 9)
     }
 }
 

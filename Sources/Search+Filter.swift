@@ -31,25 +31,48 @@ extension Search {
     }
 }
 
-extension Search.Filter {
-    func urlRepresentation() -> String {
-        var textToEncode = ""
-        
+extension Search.Filter: CustomStringConvertible {
+
+    public var description: String {
+        switch self {
+        case .distance: return "distance"
+        case .city: return "city"
+        case .province: return "province"
+        case .county: return "county"
+        case .neighborhood: return "neighbourhood"
+        case .district: return "district"
+        }
+    }
+
+    public var stringValue: String {
+        switch self {
+        case .distance(let amount): return String(amount)
+        case .city(let name): return name
+        case .province(let name): return name
+        case .county(let name): return name
+        case .neighborhood(let name): return name
+        case .district(let number): return String(number)
+        }
+    }
+
+    var urlRepresentation: String {
+        var desc = ""
+
         switch self {
         case .distance(let amount):
-            textToEncode = "distance eq \(amount)m"
+            desc = "distance eq \(amount)"
         case .city(let name):
-            textToEncode = "city eq \(name)"
+            desc = "city eq \(name)"
         case .province(let name):
-            textToEncode = "province eq \(name)"
+            desc = "province eq \(name)"
         case .county(let name):
-            textToEncode = "county eq \(name)"
+            desc = "county eq \(name)"
         case .neighborhood(let name):
-            textToEncode = "neighbourhood eq \(name)"
+            desc = "neighbourhood eq \(name)"
         case .district(let name):
-            textToEncode = "district eq \(name)"
+            desc = "district eq \(name)"
         }
 
-        return textToEncode
+        return desc
     }
 }

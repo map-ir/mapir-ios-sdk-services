@@ -11,6 +11,7 @@ extension Search {
     public class Configuration: NSObject {
 
         /// Default configuration with no categories, filter and center coordinate provided.
+        @objc(emptyConfiguration)
         public static let empty: Configuration = Configuration()
 
         /// Categories of search
@@ -30,8 +31,22 @@ extension Search {
 // MARK: Adding and removing filter in Obj-C
 
 extension Search.Configuration {
-    @objc(setFilterWithName:value:)
-    public func setFilter(name: String, value: String) {
+
+    /// Adds a filter to the configuration using its name and value.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `filter` property.
+    ///
+    /// - Parameters:
+    ///   - name: name of the filter. can be either `distance`, `city`, `county`,
+    ///     `province`, `neighborhood` or `district`.
+    ///
+    ///   - value: name, amount or number of the value. for example, `distance` accepts a
+    ///     `Double` value converted to `String`.
+    ///
+    /// - returns: `true` for success.
+    @discardableResult @objc(setFilterWithName:value:)
+    public func setFilter(name: String, value: String) -> Bool {
         var filter: Search.Filter?
 
         switch name.lowercased() {
@@ -45,7 +60,7 @@ extension Search.Configuration {
             }
         case "province":
             filter = .province(name: value)
-        case "neghborhood":
+        case "neighborhood":
             filter = .neighborhood(name: value)
         case "district":
             if let number = Int(value) {
@@ -55,11 +70,28 @@ extension Search.Configuration {
             filter = nil
         }
 
-        self.filter = filter
+        if let filter = filter {
+            self.filter = filter
+            return true
+        } else {
+            return false
+        }
     }
 
-    @objc(removeFilter)
-    public func removeFilter() {
+    /// Returns the current `filter`. It will be empty if no filter is available.
+    ///
+    /// - returns: A single key-value pair dictionary which represents the filter and
+    /// its associated value, when filter is set. Empty dictionary otherwise.
+    @objc public func getFilter() -> [String: String] {
+        if let filter = filter {
+            return [filter.description: filter.stringValue]
+        } else {
+            return [:]
+        }
+    }
+
+    /// removes the current active filter from the configuration.
+    @objc public func removeFilter() {
         filter = nil
     }
 }
@@ -67,18 +99,44 @@ extension Search.Configuration {
 // MARK: Adding and removing Center Coordinate in Obj-C
 
 extension Search.Configuration {
+
+    /// Sets the center coordinate for the configuration.
+    ///
+    /// - Parameters:
+    ///   - latitude: latitude value of the coordinate.
+    ///   - longitude: longitude value of the coordinate.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `center` property.
     @objc(setCenterLatitude:longitude:)
     public func setCenter(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
+    /// Sets the center coordinate for the configuration using a `CLLocation` object.
+    ///
+    /// - Parameter location: Input `CLLocation` object to use to set `center`.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `center` property.
     @objc(setCenterUsingLocation:)
     public func setCenter(using location: CLLocation) {
         center = location.coordinate
     }
 
-    @objc(removeCenter)
-    public func removeCenter() {
+    /// Returns `center` propery of the configuration.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `center` property.
+    @objc public func getCenter() -> CLLocationCoordinate2D {
+        return center ?? kCLLocationCoordinate2DInvalid
+    }
+
+    /// Removes the current value in center `propery`.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `center` property.
+    @objc public func removeCenter() {
         center = nil
     }
 }

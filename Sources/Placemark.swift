@@ -9,103 +9,116 @@
 import Foundation
 
 @objc(MSPlacemark)
-public class Placemark: NSObject {
+public final class Placemark: NSObject, Identifiable {
+
+    /// Unique idnetifier of the placemark.
+    @objc public let id: UUID
 
     /// Full address
-    ///
-    /// In farsi: آدرس کامل
-    public private(set) var address: String?
+    @objc public let address: String?
 
     /// Postal Address: City / Main Street / Last Street
-    ///
-    /// In farsi: آدرس پستی
-    public private(set) var postalAddress: String?
+    @objc public let postalAddress: String?
 
     /// Compact Address: City / District / Main Street / Last Street
-    ///
-    /// In farsi: آدرس کوتاه
-    public private(set) var compactAddress: String?
+    @objc public let compactAddress: String?
 
     /// Name of the Last street or place.
-    ///
-    /// In farsi: نام خود محل یا آخرین خیابان
-    public private(set) var last: String?
+    @objc public let last: String?
 
     /// Name of the Last street or place.
-    ///
-    /// In farsi: نام خود محل یا آخرین خیابان
-    public private(set) var name: String?
+    @objc public let name: String?
 
     /// Name of the place.
-    ///
-    /// In farsi: نام مکان در صورت وجود
-    public private(set) var poi: String?
+    @objc public let poi: String?
 
     /// Country of the place.
-    ///
-    /// In farsi: کشور
-    public private(set) var country: String?
+    @objc public let country: String?
 
     /// Province of the place.
-    ///
-    /// In farsi: استان
-    public private(set) var province: String?
+    @objc public let province: String?
 
     /// County of the place.
-    ///
-    /// In farsi: شهرستان
-    public private(set) var county: String?
+    @objc public let county: String?
 
     /// District of the place.
-    ///
-    /// In farsi: منطقه شهرداری
-    public private(set) var district: String?
+    @objc public let district: String?
 
     /// Rural district of the place if it is located in a rural aera.
-    ///
-    /// In farsi: دهستان
-    public private(set) var ruralDistrict: String?
+    @objc public let ruralDistrict: String?
 
     /// City of the place.
-    ///
-    /// In farsi: شهر
-    public private(set) var city: String?
+    @objc public let city: String?
 
     /// Village of the place.
-    ///
-    /// In farsi: روستا
-    public private(set) var village: String?
+    @objc public let village: String?
 
     /// Region of the place based on municipal information.
-    ///
-    /// In farsi: بخش
-    public private(set) var region: String?
+    @objc public let region: String?
 
     /// Neighborhood name of the place based on municipal information.
-    ///
-    /// In farsi: نام محله شهرداری
-    public private(set) var neighborhood: String?
+    @objc public let neighborhood: String?
 
     /// Name of the last primary street leading to the place.
-    ///
-    /// In farsi: خیابان اصلی منتهی به محل
-    public private(set) var primary: String?
+    @objc public let primary: String?
 
     /// Building number (Plaque) of the place.
-    ///
-    /// In farsi: پلاک
-    public private(set) var plaque: String?
+    @objc public let plaque: String?
 
     /// Postal code of the place.
-    ///
-    /// In farsi: کد پستی
-    public private(set) var postalCode: String?
+    @objc public let postalCode: String?
 
     /// Location of the place.
-    public private(set) var location: CLLocation?
+    @objc public let location: CLLocation?
 
-    init(fromReverseGeocodeResponse response: ReverseGeocodeResponseScheme) {
+    init(
+        id: UUID,
+        address: String?,
+        postalAddress: String?,
+        compactAddress: String?,
+        last: String?,
+        name: String?,
+        poi: String?,
+        country: String?,
+        province: String?,
+        county: String?,
+        district: String?,
+        ruralDistrict: String?,
+        city: String?,
+        village: String?,
+        region: String?,
+        neighborhood: String?,
+        primary: String?,
+        plaque: String?,
+        postalCode: String?,
+        location: CLLocation?
+    ) {
+        self.id = id
+        self.address = address
+        self.postalAddress = postalAddress
+        self.compactAddress = compactAddress
+        self.last = last
+        self.name = name
+        self.poi = poi
+        self.country = country
+        self.province = province
+        self.county = county
+        self.district = district
+        self.ruralDistrict = ruralDistrict
+        self.city = city
+        self.village = village
+        self.region = region
+        self.neighborhood = neighborhood
+        self.primary = primary
+        self.plaque = plaque
+        self.postalCode = postalCode
+        self.location = location
+    }
 
+    // MARK: Equatable conformance
+
+    static func == (_ rhs: Placemark, _ lhs: Placemark) -> Bool {
+        rhs.id == lhs.id
     }
 }
 
@@ -183,5 +196,62 @@ extension Placemark {
                 coordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
             }
         }
+    }
+}
+
+extension Placemark {
+
+    convenience init(from r: ReverseGeocodeResponseScheme) {
+        var location: CLLocation?
+        if let coordinate = r.coordinates {
+            location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        }
+        self.init(
+            id: UUID(),
+            address: r.address,
+            postalAddress: r.postalAddress,
+            compactAddress: r.compactAddress,
+            last: r.last,
+            name: r.name,
+            poi: r.postalAddress,
+            country: r.country,
+            province: r.province,
+            county: r.county,
+            district: r.district,
+            ruralDistrict: r.ruralDistrict,
+            city: r.city,
+            village: r.village,
+            region: r.region,
+            neighborhood: r.neighborhood,
+            primary: r.primary,
+            plaque: r.plaque,
+            postalCode: r.postalCode,
+            location: location
+        )
+    }
+
+    convenience init(from d: DistanceMatrix.Result.ResponseScheme.PlaceScheme) {
+        self.init(
+            id: UUID(),
+            address: nil,
+            postalAddress: nil,
+            compactAddress: nil,
+            last: nil,
+            name: d.name,
+            poi: nil,
+            country: nil,
+            province: d.provinceName,
+            county: d.countyName,
+            district: d.districtName,
+            ruralDistrict: d.ruraldistrictName,
+            city: nil,
+            village: nil,
+            region: nil,
+            neighborhood: d.neighbourhoodTitle,
+            primary: nil,
+            plaque: nil,
+            postalCode: nil,
+            location: nil
+        )
     }
 }

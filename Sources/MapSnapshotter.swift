@@ -11,7 +11,7 @@ import UIKit
 @objc class MapSnapshotter: NSObject {
 
     /// Snapshot completion handler.
-    public typealias SnapshotCompletionHandler = (UIImage?, Swift.Error?) -> Void
+    public typealias SnapshotCompletionHandler = (_ snapshot: UIImage?, _ error: Swift.Error?) -> Void
 
     /// Current status of `MapSnapshotter` object.
     public var isLoading: Bool {
@@ -39,6 +39,9 @@ import UIKit
     @objc(createSnapshotWithConfiguration:completionHandler:)
     public func createSnapshot(with configuration: Configuration,
                                completionHandler: @escaping SnapshotCompletionHandler) {
+
+        cancel()
+        
         guard AccountManager.isAuthorized else {
             completionHandler(nil, Error.unauthorized)
             return
@@ -116,23 +119,21 @@ extension MapSnapshotter {
     func urlRequestForSnapshotterTask(with configuration: Configuration) -> URLRequest {
         var urlComponents = NetworkingManager.baseURLComponents
 
-        var queryItems = [
+        var queryItems = URLQueryItem.queryItems(from: [
             "width": "\(Int(configuration.size.width))",
             "height": "\(Int(configuration.size.height))",
             "zoom_level": "\(configuration.zoomLevel)"
-        ].convertedToURLQueryItems()
+        ])
 
-        if !configuration.markers.isEmpty {
-            for marker in configuration.markers {
-                var components: [String] = []
-                let coords = marker.location.coordinate
+        for marker in configuration.markers {
+            var components: [String] = []
+            let coords = marker.location.coordinate
 
-                components.append("color:\(marker.style.stringValue)")
-                components.append("label:\(marker.label)")
-                components.append("\(coords.longitude),\(coords.latitude)")
+            components.append("color:\(marker.style.stringValue)")
+            components.append("label:\(marker.label)")
+            components.append("\(coords.longitude),\(coords.latitude)")
 
-                queryItems.append(URLQueryItem(name: "markers", value: components.joined(separator: "|")))
-            }
+            queryItems.append(URLQueryItem(name: "markers", value: components.joined(separator: "|")))
         }
 
         urlComponents.queryItems = queryItems

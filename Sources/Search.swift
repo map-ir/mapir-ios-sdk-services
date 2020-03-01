@@ -192,8 +192,7 @@ extension Search {
     func urlRequestForSearch(text: String, configuration: Search.Configuration) -> URLRequest {
         var urlComponents = NetworkingManager.baseURLComponents
 
-        let query: [String: String] = queryParams(for: configuration)
-        urlComponents.queryItems = query.convertedToURLQueryItems()
+        urlComponents.queryItems = queryItems(for: configuration)
         urlComponents.path = "/search/v2"
 
         let request = NetworkingManager.request(url: urlComponents)
@@ -204,8 +203,7 @@ extension Search {
     func urlRequestForSuggestion(text: String, configuration: Search.Configuration) -> URLRequest {
         var urlComponents = NetworkingManager.baseURLComponents
 
-        let query: [String: String] = queryParams(for: configuration)
-        urlComponents.queryItems = query.convertedToURLQueryItems()
+        urlComponents.queryItems = queryItems(for: configuration)
         urlComponents.path = "/search/v2/autocomplete"
 
         let request = NetworkingManager.request(url: urlComponents)
@@ -213,7 +211,7 @@ extension Search {
         return request
     }
 
-    func queryParams(for configuration: Search.Configuration) -> [String: String] {
+    func queryItems(for configuration: Search.Configuration) -> [URLQueryItem] {
         var query: [String: String] = [:]
 
         if let center = configuration.center {
@@ -231,6 +229,6 @@ extension Search {
             query["$select"] = categories.urlRepresentation()
         }
 
-        return query
+        return URLQueryItem.queryItems(from: query)
     }
 }

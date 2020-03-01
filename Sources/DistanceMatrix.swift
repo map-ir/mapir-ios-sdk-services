@@ -225,7 +225,7 @@ extension DistanceMatrix {
             }
         }
 
-        urlComponents.queryItems = queryParams.convertedToURLQueryItems()
+        urlComponents.queryItems = URLQueryItem.queryItems(from: queryParams)
         urlComponents.path = "/distancematrix"
 
         return NetworkingManager.request(url: urlComponents)

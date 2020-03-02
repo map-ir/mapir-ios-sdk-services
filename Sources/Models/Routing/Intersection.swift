@@ -9,66 +9,132 @@
 import CoreLocation
 import Foundation
 
-public struct Intersection {
+/// An intersection gives a full representation of any cross-way the path passes
+/// bay.
+///
+/// For every step, the very first intersection (intersections[0]) corresponds
+/// to the location of the StepManeuver. Further intersections are listed for every
+/// cross-way until the next turn instruction.
+@objc(Intersection)
+public final class Intersection: NSObject {
 
     /// A `CLLocationCoordinate2D` describing the location of the turn.
-    public var location: CLLocationCoordinate2D?
+    @objc public var coordinate: CLLocationCoordinate2D
 
-    /// A list of `bearing` values (e.g. [0,90,180,270]) that are available at the intersection.
+    /// A list of `bearing` values (e.g. [0,90,180,270]) that are available at the
+    /// intersection.
+    ///
     /// The `bearings` describe all available roads at the intersection.
-    public var bearings: [Int]
+    @objc public var headings: [CLLocationDirection]
 
     /// An array of strings signifying the classes of the road exiting the intersection.
-    public var classes: [String]?
+    @objc public var roadClasses: RoadClass?
 
-    /// A list of entry flags, corresponding in a 1:1 relationship to the bearings.
-    /// - A value of true indicates that the respective road could be entered on a valid route.
-    ///     false indicates that the turn onto the respective road would violate a restriction.
-    public var entry: [Bool]
+    /// The indices of the items in the `bearings` array that correspond to the roads
+    /// that may be used to leave the intersection.
+    @objc public var usableOutletIndexes: IndexSet
 
     /// index into the bearings/entry array.
-    /// - Used to extract the bearing just after the turn. Namely,
-    ///     The clockwise angle from true north to the direction of travel immediately
-    ///     after the maneuver/passing the intersection.
-    ///     The value is not supplied for arrive maneuvers.
-    public var out: Int?
+    ///
+    /// Used to extract the bearing just after the turn. Namely,
+    /// The clockwise angle from true north to the direction of travel immediately
+    /// after the maneuver/passing the intersection.
+    /// The value is not supplied for arrive maneuvers.
+    @objc public var outletIndex: Int
 
     /// index into bearings/entry array.
-    /// - Used to calculate the bearing just before the turn.
-    ///     Namely, the clockwise angle from true north to the direction of travel immediately
-    ///     before the maneuver/passing the intersection.
-    ///     Bearings are given relative to the intersection. To get the bearing in the direction of driving,
-    ///     the bearing has to be rotated by a value of 180. The value is not supplied for depart maneuvers.
-    public var `in`: Int?
+    ///
+    /// Used to calculate the bearing just before the turn. Namely, the clockwise angle
+    /// from true north to the direction of travel immediately before the
+    /// maneuver/passing the intersection. Bearings are given relative to the
+    /// intersection. To get the bearing in the direction of driving, the bearing has to
+    /// be rotated by a value of 180. The value is not supplied for depart maneuvers.
+    @objc public var inletIndex: Int
 
     /// Array of Lane objects that denote the available turn lanes at the intersection.
-    /// - If no lane information is available for an intersection, the lanes property will not be present.
-    public var lanes: [Lane]?
+    ///
+    /// If no lane information is available for an intersection, the lanes property will
+    /// not be present.
+    @objc public var availableOutlets: [Lane]?
+
+    init(
+        coordinate: CLLocationCoordinate2D,
+        headings: [CLLocationDirection],
+        roadClasses: RoadClass?,
+        usableOutletIndexes: IndexSet,
+        outletIndex: Int,
+        inletIndex: Int,
+        availableOutlets: [Lane]?
+    ) {
+        self.coordinate = coordinate
+        self.headings = headings
+        self.roadClasses = roadClasses
+        self.usableOutletIndexes = usableOutletIndexes
+        self.outletIndex = outletIndex
+        self.inletIndex = inletIndex
+        self.availableOutlets = availableOutlets
+    }
 }
 
-extension Intersection: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case location
-        case bearings
-        case classes
-        case entry
-        case out
-        case `in`
-        case lanes
+// MARK: Decoding Intersection
+
+extension Intersection {
+
+    convenience init(from response: ResponseScheme) {
+        self.init(
+            coordinate: response.coordinate,
+            headings: response.bearings,
+            roadClasses: response.roadClasses,
+            usableOutletIndexes: response.usableOutletIndexes,
+            outletIndex: response.outletIndex,
+            inletIndex: response.inletIndex,
+            availableOutlets: response.availableOutlets
+        )
     }
 
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+    struct ResponseScheme: Decodable {
+        var coordinate: CLLocationCoordinate2D
+        var bearings: [CLLocationDirection]
+        var roadClasses: RoadClass?
+        var usableOutletIndexes: IndexSet
+        var outletIndex: Int
+        var inletIndex: Int
+        var availableOutlets: [Lane]?
 
-        let coords = try? container.decode([Double].self, forKey: .location)
-        if let coords = coords {
-            location = CLLocationCoordinate2D(from: coords)
+        private enum CodingKeys: String, CodingKey {
+            case location
+            case bearings
+            case classes
+            case entry
+            case out
+            case `in`
+            case lanes
         }
-        bearings = try container.decode([Int].self, forKey: .bearings)
-        classes = try? container.decode([String].self, forKey: .classes)
-        entry = try container.decode([Bool].self, forKey: .entry)
-        self.in = try? container.decode(Int.self, forKey: .in)
-        out = try? container.decode(Int.self, forKey: .out)
-        lanes = try? container.decode([Lane].self, forKey: .lanes)
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+
+            let coords = try container.decode([Double].self, forKey: .location)
+            coordinate = CLLocationCoordinate2D(from: coords) ?? kCLLocationCoordinate2DInvalid
+
+            bearings = try container.decode([CLLocationDirection].self, forKey: .bearings)
+
+            roadClasses = nil
+            if let classesArray = try container.decodeIfPresent([String].self, forKey: .classes) {
+                roadClasses = RoadClass(descriptions: classesArray)
+            }
+
+            usableOutletIndexes = IndexSet()
+            if let entry = try container.decodeIfPresent([Bool].self, forKey: .entry) {
+                let indexes = entry.enumerated().filter { $1 }.map { $0.offset }
+                usableOutletIndexes = IndexSet(indexes)
+            }
+
+            inletIndex = try container.decodeIfPresent(Int.self, forKey: .in) ?? -1
+            outletIndex = try container.decodeIfPresent(Int.self, forKey: .out) ?? -1
+
+            let availableOutlets = try? container.decodeIfPresent([Lane.ResponseScheme].self, forKey: .lanes)
+            self.availableOutlets = availableOutlets?.compactMap { Lane(from: $0) }
+        }
     }
 }

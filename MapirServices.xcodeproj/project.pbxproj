@@ -27,6 +27,9 @@
 		C059A135238561C7001646A6 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
 		C062B86E2330E62B00B731CF /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C062B86D2330E62B00B731CF /* Table.swift */; };
 		C080BA3023BB2C8B00B6AF80 /* MapboxDirections in Frameworks */ = {isa = PBXBuildFile; productRef = C080BA2F23BB2C8B00B6AF80 /* MapboxDirections */; };
+		C084F7A6240BD6D800FD5BF3 /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084F7A5240BD6D800FD5BF3 /* Directions.swift */; };
+		C084F7A8240BD70E00FD5BF3 /* Directions+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */; };
+		C084F7AA240BD81700FD5BF3 /* Directions+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084F7A9240BD81700FD5BF3 /* Directions+Configuration.swift */; };
 		C08DB44D22CB302600FAE64A /* Lane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44C22CB302600FAE64A /* Lane.swift */; };
 		C08DB44F22CB570800FAE64A /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB44E22CB570800FAE64A /* Route.swift */; };
 		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
@@ -42,7 +45,7 @@
 		C0EA4FDF22C9EBC800BC04EF /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* Search.swift */; };
 		C0EA4FE122C9EE2600BC04EF /* Search+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */; };
 		C0EFF66F23E8285D008F00EF /* Lane+Indication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFF66E23E8285D008F00EF /* Lane+Indication.swift */; };
-		C0EFF67123E83E05008F00EF /* Intersection+RoadClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFF67023E83E05008F00EF /* Intersection+RoadClass.swift */; };
+		C0EFF67123E83E05008F00EF /* RoadClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFF67023E83E05008F00EF /* RoadClass.swift */; };
 		C0FA897122E899A4003EB4E3 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C004680922E5DDD000CF922E /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0FBEDCF23E9534A00CA4204 /* SetpManeuver+ManeuverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBEDCE23E9534A00CA4204 /* SetpManeuver+ManeuverType.swift */; };
 		C0FBEDD123E95EC400CA4204 /* StepManeuver+Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBEDD023E95EC400CA4204 /* StepManeuver+Direction.swift */; };
@@ -116,6 +119,9 @@
 		C062B86D2330E62B00B731CF /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		C082D8F523B21BA9001889F7 /* Polyline.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Polyline.framework; path = Carthage/Build/iOS/Polyline.framework; sourceTree = "<group>"; };
+		C084F7A5240BD6D800FD5BF3 /* Directions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
+		C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Directions+Result.swift"; sourceTree = "<group>"; };
+		C084F7A9240BD81700FD5BF3 /* Directions+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Directions+Configuration.swift"; sourceTree = "<group>"; };
 		C08DB44C22CB302600FAE64A /* Lane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lane.swift; sourceTree = "<group>"; };
 		C08DB44E22CB570800FAE64A /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+initFromArray.swift"; sourceTree = "<group>"; };
@@ -132,7 +138,7 @@
 		C0EA4FDE22C9EBC800BC04EF /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Result.swift"; sourceTree = "<group>"; };
 		C0EFF66E23E8285D008F00EF /* Lane+Indication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lane+Indication.swift"; sourceTree = "<group>"; };
-		C0EFF67023E83E05008F00EF /* Intersection+RoadClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Intersection+RoadClass.swift"; sourceTree = "<group>"; };
+		C0EFF67023E83E05008F00EF /* RoadClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadClass.swift; sourceTree = "<group>"; };
 		C0FBEDCE23E9534A00CA4204 /* SetpManeuver+ManeuverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetpManeuver+ManeuverType.swift"; sourceTree = "<group>"; };
 		C0FBEDD023E95EC400CA4204 /* StepManeuver+Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StepManeuver+Direction.swift"; sourceTree = "<group>"; };
 		C0FBEDD223E97BE300CA4204 /* TransportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportType.swift; sourceTree = "<group>"; };
@@ -229,6 +235,9 @@
 				C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */,
 				C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */,
 				C0BD54DD23B9F2B90095985B /* DistanceMatrix+Options.swift */,
+				C084F7A5240BD6D800FD5BF3 /* Directions.swift */,
+				C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */,
+				C084F7A9240BD81700FD5BF3 /* Directions+Configuration.swift */,
 				C04CF65D22A25E1E009761C4 /* Models */,
 				C086ACF522C34A45004256EA /* Extensions */,
 			);
@@ -292,7 +301,7 @@
 				C0FBEDD023E95EC400CA4204 /* StepManeuver+Direction.swift */,
 				C0FBEDCE23E9534A00CA4204 /* SetpManeuver+ManeuverType.swift */,
 				C02DCF6C22CA213B00BA403F /* Intersection.swift */,
-				C0EFF67023E83E05008F00EF /* Intersection+RoadClass.swift */,
+				C0EFF67023E83E05008F00EF /* RoadClass.swift */,
 				C08DB44C22CB302600FAE64A /* Lane.swift */,
 				C0EFF66E23E8285D008F00EF /* Lane+Indication.swift */,
 			);
@@ -476,6 +485,8 @@
 				C0BD54DE23B9F2B90095985B /* DistanceMatrix+Options.swift in Sources */,
 				C0BD54DC23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift in Sources */,
 				C0FBEDD523E9919D00CA4204 /* DrivingSide.swift in Sources */,
+				C084F7A6240BD6D800FD5BF3 /* Directions.swift in Sources */,
+				C084F7AA240BD81700FD5BF3 /* Directions+Configuration.swift in Sources */,
 				C0EFF66F23E8285D008F00EF /* Lane+Indication.swift in Sources */,
 				C0C5028023B74A6400EF6E54 /* Search+Configuration.swift in Sources */,
 				C0C5027E23B742A400EF6E54 /* MapShapshotter+Marker.swift in Sources */,
@@ -486,12 +497,13 @@
 				C0BD54DA23B9CA560095985B /* DistanceMatrix+Result.swift in Sources */,
 				C00492B823AD48A900BD609E /* MapSnapshotter.swift in Sources */,
 				C0FBEDCF23E9534A00CA4204 /* SetpManeuver+ManeuverType.swift in Sources */,
-				C0EFF67123E83E05008F00EF /* Intersection+RoadClass.swift in Sources */,
+				C0EFF67123E83E05008F00EF /* RoadClass.swift in Sources */,
 				C02DCF6522CA1C9600BA403F /* Waypoint.swift in Sources */,
 				C0EA4FDF22C9EBC800BC04EF /* Search.swift in Sources */,
 				C062B86E2330E62B00B731CF /* Table.swift in Sources */,
 				C02DCF6722CA1CE700BA403F /* RouteStep.swift in Sources */,
 				C0FBEDD323E97BE300CA4204 /* TransportType.swift in Sources */,
+				C084F7A8240BD70E00FD5BF3 /* Directions+Result.swift in Sources */,
 				C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */,
 				C047489A23918A11007F74E1 /* NetworkingManager.swift in Sources */,
 			);

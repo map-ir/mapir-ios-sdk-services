@@ -116,15 +116,11 @@ extension Route {
             distance = try container.decode(Double.self, forKey: .distance)
             duration = try container.decode(Double.self, forKey: .duration)
 
-            let polylineHash = try container.decode(String.self, forKey: .geometry)
-            let polyline = Polyline(encodedPolyline: polylineHash)
-            let decodedPolyline = polyline.coordinates
-            if let decodedPolyline = decodedPolyline {
+            if let polylineHash = try container.decodeIfPresent(String.self, forKey: .geometry),
+                let decodedPolyline = Polyline(encodedPolyline: polylineHash).coordinates {
                 geometry = decodedPolyline
-            } else {
-                assertionFailure("Can't decode geometry from polyline hash.")
-                geometry = nil
             }
+
             weight = try container.decode(Double.self, forKey: .weight)
             weightName = try? container.decode(String.self, forKey: .weightName)
 

@@ -11,4 +11,3 @@ extension URLQueryItem {
         dictionary.map { URLQueryItem(name: $0, value: $1) }
     }
 }
-

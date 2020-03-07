@@ -10,7 +10,10 @@ import CoreLocation
 import Foundation
 
 extension CLLocationCoordinate2D {
-    init(from array: [Double]) {
-        self.init(latitude: array[1], longitude: array[0])
+
+    init?(from arrayLiteral: [Double]) {
+        guard arrayLiteral.count == 2 else { return nil }
+
+        self.init(latitude: arrayLiteral[1], longitude: arrayLiteral[0])
     }
 }

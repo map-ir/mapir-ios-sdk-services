@@ -211,16 +211,12 @@ extension DistanceMatrix {
         queryParams["origins"] = originsValue
         queryParams["destinations"] = destinationsValue
 
-        if configurations.options.contains(.sorted) {
-            queryParams["sorted"] = "true"
-        }
+        queryParams["sorted"] = configuration.sortResults ? "true" : "false"
 
-        if !(configurations.options.contains(.distance) && configurations.options.contains(.duration)) {
-            if configurations.options.contains(.distance) {
-                queryParams["$filter"] = "type eq distance"
-
-            }
-            if configurations.options.contains(.duration) {
+        if !configuration.includeDistances || !configuration.includeDurations {
+            if configuration.includeDistances {
+                 queryParams["$filter"] = "type eq distance"
+            } else if configuration.includeDistances {
                 queryParams["$filter"] = "type eq duration"
             }
         }

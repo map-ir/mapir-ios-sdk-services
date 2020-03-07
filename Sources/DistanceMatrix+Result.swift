@@ -15,44 +15,29 @@ extension DistanceMatrix {
     public class Result: NSObject {
 
         /// A 2D table containing distance values from every origin to every destination
-        public private(set) var distances: Table<String, Double> = Table()
+        public let distances: Table<String, Double>
 
         /// A 2D table containing duration values from every origin to every destination
-        public private(set) var durations: Table<String, Double> = Table()
+        public let durations: Table<String, Double>
 
         /// Connects name of input coordinate to its `Placemark` object. contains origins placemarks.
-        public private(set) var origins: [String: Placemark] = [:]
+        public let origins: [String: Placemark]
 
         /// Connects name of input coordinate to its `Placemark` object. contains destination placemarks.
-        public private(set) var destinations: [String: Placemark] = [:]
+        public let destinations: [String: Placemark]
 
-        /// Create a `DistanceMatrix.Result` from its network response.
-        convenience init(from responseScheme: ResponseScheme) {
-            self.init()
-            if let origins = responseScheme.origins {
-                for o in origins {
-                    self.origins[o.key] = Placemark(from: o.value)
-                }
-            }
+        public var configuration: Configuration?
 
-            if let destinations = responseScheme.destinations {
-                for d in destinations {
-                    self.destinations[d.key] = Placemark(from: d.value)
-                }
-            }
-
-            if let distances = responseScheme.distance {
-                for d in distances {
-                    self.distances[d.originIndex, d.destinationIndex] = d.disntance
-                }
-            }
-
-            if let durations = responseScheme.duration {
-                for d in durations {
-                    self.durations[d.originIndex, d.destinationIndex] = d.duration
-                }
-            }
-
+        init(
+            distances: Table<String, Double>,
+            durations: Table<String, Double>,
+            origins: [String: Placemark],
+            destinations: [String: Placemark]
+        ) {
+            self.distances = distances
+            self.durations = durations
+            self.origins = origins
+            self.destinations = destinations
         }
     }
 }
@@ -192,7 +177,44 @@ extension DistanceMatrix.Result {
 // MARK: Decoding result of distance matrix
 
 extension DistanceMatrix.Result {
-    struct ResponseScheme {
+
+    /// Create a `DistanceMatrix.Result` from its network response.
+    convenience init(from responseScheme: ResponseScheme) {
+        var resultOrigins: [String: Placemark] = [:]
+        if let origins = responseScheme.origins {
+            for o in origins {
+                resultOrigins[o.key] = Placemark(from: o.value)
+            }
+        }
+        var resultDestinations: [String: Placemark] = [:]
+        if let destinations = responseScheme.destinations {
+            for d in destinations {
+                resultDestinations[d.key] = Placemark(from: d.value)
+            }
+        }
+
+        let resultDistances = Table<String, Double>()
+        if let distances = responseScheme.distance {
+            for d in distances {
+                resultDistances[d.originIndex, d.destinationIndex] = d.disntance
+            }
+        }
+        let resultDurations = Table<String, Double>()
+        if let durations = responseScheme.duration {
+            for d in durations {
+                resultDurations[d.originIndex, d.destinationIndex] = d.duration
+            }
+        }
+
+        self.init(
+            distances: resultDistances,
+            durations: resultDurations,
+            origins: resultOrigins,
+            destinations: resultDestinations
+        )
+    }
+
+    struct ResponseScheme: Decodable {
         var distance: [DistanceScheme]?
         var duration: [DurationScheme]?
         var origins: [String: PlaceScheme]?
@@ -220,10 +242,4 @@ extension DistanceMatrix.Result {
             var duration: Double?
         }
     }
-}
-
-// MARK: Decodable conformance for DistanceMatrix.Result.Scheme
-
-extension DistanceMatrix.Result.ResponseScheme: Decodable {
-    
 }

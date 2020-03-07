@@ -15,13 +15,39 @@ extension DistanceMatrix {
 
         /// Default configuration.
         @objc(defaultConfiguration)
-        public static var `default` = Configuration(options: [.distance, .duration])
+        public static var `default`: Configuration { Configuration() }
 
-        /// Options to calculate the matrix.
-        @objc public var options: Options = []
+        /// Specifies that the result will include distances.
+        ///
+        /// - note: `includeDistances` and `inculdeDurations` can not be `false` at the same
+        /// time.
+        @objc public var includeDistances: Bool = true {
+            didSet {
+                updateProperties(lastUpdated: \.includeDistances)
+            }
+        }
 
-        @objc public init(options: Options) {
-            self.options = options
+        /// Specifies that the result will include durations.
+        ///
+        /// - note: `includeDistances` and `inculdeDurations` can not be `false` at the same
+        /// time.
+        @objc public var includeDurations: Bool = true {
+            didSet {
+                updateProperties(lastUpdated: \.includeDurations)
+            }
+        }
+
+        /// Specifies that the result needs to be sorted or not.
+        @objc public var sortResults: Bool = false
+    }
+}
+
+// MARK: Validating properties
+
+extension DistanceMatrix.Configuration {
+    private func updateProperties(lastUpdated: ReferenceWritableKeyPath<DistanceMatrix.Configuration, Bool>) {
+        if !includeDistances && !includeDurations {
+            self[keyPath: lastUpdated] = true
         }
     }
 }

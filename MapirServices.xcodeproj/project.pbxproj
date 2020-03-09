@@ -35,7 +35,6 @@
 		C08DB45A22CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */; };
 		C0BD54DA23B9CA560095985B /* DistanceMatrix+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */; };
 		C0BD54DC23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */; };
-		C0BD54DE23B9F2B90095985B /* DistanceMatrix+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD54DD23B9F2B90095985B /* DistanceMatrix+Options.swift */; };
 		C0C5027C23B7424100EF6E54 /* MapSnapshotter+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5027B23B7424100EF6E54 /* MapSnapshotter+Configuration.swift */; };
 		C0C5027E23B742A400EF6E54 /* MapShapshotter+Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5027D23B742A400EF6E54 /* MapShapshotter+Marker.swift */; };
 		C0C5028023B74A6400EF6E54 /* Search+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5027F23B74A6400EF6E54 /* Search+Configuration.swift */; };
@@ -127,7 +126,6 @@
 		C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+initFromArray.swift"; sourceTree = "<group>"; };
 		C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DistanceMatrix+Result.swift"; sourceTree = "<group>"; };
 		C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DIstanceMatrix+Configuration.swift"; sourceTree = "<group>"; };
-		C0BD54DD23B9F2B90095985B /* DistanceMatrix+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DistanceMatrix+Options.swift"; sourceTree = "<group>"; };
 		C0C5027B23B7424100EF6E54 /* MapSnapshotter+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapSnapshotter+Configuration.swift"; sourceTree = "<group>"; };
 		C0C5027D23B742A400EF6E54 /* MapShapshotter+Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapShapshotter+Marker.swift"; sourceTree = "<group>"; };
 		C0C5027F23B74A6400EF6E54 /* Search+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Configuration.swift"; sourceTree = "<group>"; };
@@ -229,12 +227,10 @@
 				C0474890239187EE007F74E1 /* AccountManager.swift */,
 				C047489923918A11007F74E1 /* NetworkingManager.swift */,
 				C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */,
-				C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */,
 				C062B86D2330E62B00B731CF /* Table.swift */,
 				C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */,
 				C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */,
 				C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */,
-				C0BD54DD23B9F2B90095985B /* DistanceMatrix+Options.swift */,
 				C084F7A5240BD6D800FD5BF3 /* Directions.swift */,
 				C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */,
 				C084F7A9240BD81700FD5BF3 /* Directions+Configuration.swift */,
@@ -283,6 +279,7 @@
 		C086ACF522C34A45004256EA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */,
 				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */,
 			);
 			path = Extensions;
@@ -482,7 +479,6 @@
 				C02DCF6B22CA213000BA403F /* StepManeuver.swift in Sources */,
 				C059A135238561C7001646A6 /* Placemark.swift in Sources */,
 				C047489C23918CE7007F74E1 /* URLRequest+Extension.swift in Sources */,
-				C0BD54DE23B9F2B90095985B /* DistanceMatrix+Options.swift in Sources */,
 				C0BD54DC23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift in Sources */,
 				C0FBEDD523E9919D00CA4204 /* DrivingSide.swift in Sources */,
 				C084F7A6240BD6D800FD5BF3 /* Directions.swift in Sources */,

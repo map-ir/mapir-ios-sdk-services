@@ -120,20 +120,24 @@ extension MapSnapshotter {
         var urlComponents = NetworkingManager.baseURLComponents
 
         var queryItems = URLQueryItem.queryItems(from: [
-            "width": "\(Int(configuration.size.width))",
-            "height": "\(Int(configuration.size.height))",
-            "zoom_level": "\(configuration.zoomLevel)"
+            "center": "\(configuration.centerCoordinate.longitude),\(configuration.centerCoordinate.latitude)",
+            "width": String(Int(configuration.size.width)),
+            "height": String(Int(configuration.size.height)),
+            "zoom_level": String(configuration.zoomLevel),
         ])
 
         for marker in configuration.markers {
             var components: [String] = []
-            let coords = marker.location.coordinate
+            let coords = marker.coordinate
 
             components.append("color:\(marker.style.stringValue)")
-            components.append("label:\(marker.label)")
+            if let label = marker.label {
+                components.append("label:\(label)")
+            }
             components.append("\(coords.longitude),\(coords.latitude)")
 
-            queryItems.append(URLQueryItem(name: "markers", value: components.joined(separator: "|")))
+            queryItems.append(
+                URLQueryItem(name: "markers", value: components.joined(separator: "|")))
         }
 
         urlComponents.queryItems = queryItems

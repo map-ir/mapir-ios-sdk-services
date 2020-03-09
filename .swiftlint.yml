@@ -18,6 +18,7 @@ disabled_rules: # rule identifiers to exclude from running
   - nsobject_prefer_isequal
   - conditional_returns_on_newline
   - switch_case_on_newline
+  - trailing_comma
 
 included:
   - Sources

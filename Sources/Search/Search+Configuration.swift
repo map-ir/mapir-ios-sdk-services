@@ -7,12 +7,16 @@
 //
 
 extension Search {
+
+    /// Holds configurations of a `Search` object.
+    ///
+    /// `Search` uses a `Configuration` object for each search request.
     @objc(SearchConfiguration)
     public class Configuration: NSObject {
 
         /// Default configuration with no categories, filter and center coordinate provided.
         @objc(emptyConfiguration)
-        public static let empty: Configuration = Configuration()
+        public static var empty: Configuration { Configuration() }
 
         /// Categories of search
         @objc var categories: Search.Categories?
@@ -28,7 +32,7 @@ extension Search {
     }
 }
 
-// MARK: Adding and removing filter in Obj-C
+// MARK: Manipulate filter in Objective-C
 
 extension Search.Configuration {
 

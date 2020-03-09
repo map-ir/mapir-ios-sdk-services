@@ -123,7 +123,7 @@ class NetworkingManager {
 
         var request = URLRequest(url: urlComponents, httpMethod: httpMethod, timeoutInterval: shared.timeoutInterval)
 
-        if let accessToken = AccountManager.shared.apiKey {
+        if let accessToken = AccountManager.apiKey {
             request.addValue(accessToken, forHTTPHeaderField: "x-api-key")
         }
 

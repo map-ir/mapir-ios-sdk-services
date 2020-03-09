@@ -80,7 +80,6 @@
 		3D9C429022745894000A6585 /* MapirServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9C429C227458E8000A6585 /* MapirServices.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapirServices.plist; sourceTree = "<group>"; };
 		3D9C429D227458E8000A6585 /* MapirServicesTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapirServicesTests.plist; sourceTree = "<group>"; };
-		3D9C42A122745900000A6585 /* MapirServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapirServices.swift; sourceTree = "<group>"; };
 		3D9C42A92274599D000A6585 /* MapirServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9C42B7227459D6000A6585 /* MapirServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9C42C522745A07000A6585 /* MapirServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,28 +212,15 @@
 			isa = PBXGroup;
 			children = (
 				C004680922E5DDD000CF922E /* MapirServices.h */,
-				3D9C42A122745900000A6585 /* MapirServices.swift */,
-				C0EA4FDE22C9EBC800BC04EF /* Search.swift */,
-				C0C5027F23B74A6400EF6E54 /* Search+Configuration.swift */,
-				C0C5028123B74ACF00EF6E54 /* Search+Filter.swift */,
-				C0C5028323B74AE300EF6E54 /* Search+Categories.swift */,
-				C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */,
-				C059A12823855D63001646A6 /* Geocoder.swift */,
-				C00492B723AD48A900BD609E /* MapSnapshotter.swift */,
-				C0C5027D23B742A400EF6E54 /* MapShapshotter+Marker.swift */,
-				C0C5027B23B7424100EF6E54 /* MapSnapshotter+Configuration.swift */,
 				C059A134238561C7001646A6 /* Placemark.swift */,
 				C0474890239187EE007F74E1 /* AccountManager.swift */,
 				C047489923918A11007F74E1 /* NetworkingManager.swift */,
-				C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */,
 				C062B86D2330E62B00B731CF /* Table.swift */,
-				C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */,
-				C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */,
-				C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */,
-				C084F7A5240BD6D800FD5BF3 /* Directions.swift */,
-				C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */,
-				C084F7A9240BD81700FD5BF3 /* Directions+Configuration.swift */,
-				C04CF65D22A25E1E009761C4 /* Models */,
+				C077EE4024162BE00006C262 /* Search */,
+				C077EE3F24162BD80006C262 /* Geocoder */,
+				C077EE3E24162BCE0006C262 /* MapSnapshotter */,
+				C077EE3D24162BAC0006C262 /* DistanceMatrix */,
+				C077EE3B24162B7B0006C262 /* Directions */,
 				C086ACF522C34A45004256EA /* Extensions */,
 			);
 			path = Sources;
@@ -260,14 +246,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		C04CF65D22A25E1E009761C4 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				C08DB45022CB59FD00FAE64A /* Routing */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		C051A23222DC53AA00E71703 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,16 +254,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C086ACF522C34A45004256EA /* Extensions */ = {
+		C077EE3B24162B7B0006C262 /* Directions */ = {
 			isa = PBXGroup;
 			children = (
-				C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */,
-				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */,
+				C084F7A5240BD6D800FD5BF3 /* Directions.swift */,
+				C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */,
+				C084F7A9240BD81700FD5BF3 /* Directions+Configuration.swift */,
+				C077EE3C24162B9B0006C262 /* Model */,
 			);
-			path = Extensions;
+			path = Directions;
 			sourceTree = "<group>";
 		};
-		C08DB45022CB59FD00FAE64A /* Routing */ = {
+		C077EE3C24162B9B0006C262 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				C08DB44E22CB570800FAE64A /* Route.swift */,
@@ -302,7 +282,57 @@
 				C08DB44C22CB302600FAE64A /* Lane.swift */,
 				C0EFF66E23E8285D008F00EF /* Lane+Indication.swift */,
 			);
-			path = Routing;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C077EE3D24162BAC0006C262 /* DistanceMatrix */ = {
+			isa = PBXGroup;
+			children = (
+				C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */,
+				C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */,
+				C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */,
+			);
+			path = DistanceMatrix;
+			sourceTree = "<group>";
+		};
+		C077EE3E24162BCE0006C262 /* MapSnapshotter */ = {
+			isa = PBXGroup;
+			children = (
+				C00492B723AD48A900BD609E /* MapSnapshotter.swift */,
+				C0C5027D23B742A400EF6E54 /* MapShapshotter+Marker.swift */,
+				C0C5027B23B7424100EF6E54 /* MapSnapshotter+Configuration.swift */,
+			);
+			path = MapSnapshotter;
+			sourceTree = "<group>";
+		};
+		C077EE3F24162BD80006C262 /* Geocoder */ = {
+			isa = PBXGroup;
+			children = (
+				C059A12823855D63001646A6 /* Geocoder.swift */,
+			);
+			path = Geocoder;
+			sourceTree = "<group>";
+		};
+		C077EE4024162BE00006C262 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C0EA4FDE22C9EBC800BC04EF /* Search.swift */,
+				C0C5027F23B74A6400EF6E54 /* Search+Configuration.swift */,
+				C0C5028123B74ACF00EF6E54 /* Search+Filter.swift */,
+				C0C5028323B74AE300EF6E54 /* Search+Categories.swift */,
+				C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		C086ACF522C34A45004256EA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */,
+				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+initFromArray.swift */,
+				C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

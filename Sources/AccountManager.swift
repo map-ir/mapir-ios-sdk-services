@@ -14,11 +14,12 @@
     private static let shared = AccountManager()
 
     private var apiKey: String?
-    private var isAuthorized: Bool {
-        (apiKey ?? "").isEmpty ? false : true
-    }
+    private var isAuthorized: Bool
 
-    static var isAuthorized: Bool { shared.isAuthorized }
+    static var isAuthorized: Bool {
+        get { shared.isAuthorized }
+        set { shared.isAuthorized = newValue }
+    }
 
     /// The [Map.ir](https://map.ir) API key, used by all of the services.
     ///
@@ -30,14 +31,40 @@
     /// before using services.
     @objc public static var apiKey: String? {
         get { shared.apiKey }
-        set { shared.apiKey = newValue }
+        set {
+            shared.apiKey = newValue
+            shared.isAuthorized = (newValue ?? "").isEmpty ? false : true
+        }
     }
 
     private override init() {
         if let apiKey = (Bundle.main.object(forInfoDictionaryKey: "MapirAPIKey") ??
             Bundle.main.object(forInfoDictionaryKey: "MAPIRAccessToken")) as? String {
             self.apiKey = apiKey
+            self.isAuthorized = true
+        } else {
+            self.isAuthorized = false
         }
+
         super.init()
+        setupObservers()
+    }
+
+    deinit {
+        if let observer = unauthorizedObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
+    private var unauthorizedObserver: Any?
+
+    private func setupObservers() {
+        unauthorizedObserver = NotificationCenter.default.addObserver(
+            forName: NetworkingManager.unauthorizedNotification,
+            object: nil,
+            queue: nil
+        ) { [weak self] (_) in
+            self?.isAuthorized = false
+        }
     }
 }

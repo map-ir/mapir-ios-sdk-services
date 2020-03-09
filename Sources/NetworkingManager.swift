@@ -132,12 +132,19 @@ class NetworkingManager {
         return request
     }
 
+    static let unauthorizedNotification = Notification.Name(rawValue: "unauthorizedAPIKeyNotification")
+
     typealias NetworkingCompletionHandler = (Data?, URLResponse?, Error?) -> Void
 
     static let session: URLSession = URLSession(configuration: .default)
 
     static func dataTask(with urlRequest: URLRequest,
                          completionHandler: @escaping NetworkingCompletionHandler) -> URLSessionDataTask {
-        session.dataTask(with: urlRequest, completionHandler: completionHandler)
+        session.dataTask(with: urlRequest) { (data, response, error) in
+            if let response = response as? HTTPURLResponse, response.statusCode == 403 {
+                NotificationCenter.default.post(name: unauthorizedNotification, object: nil)
+            }
+            completionHandler(data, response, error)
+        }
     }
 }

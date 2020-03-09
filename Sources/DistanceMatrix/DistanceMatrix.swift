@@ -34,7 +34,7 @@ public class DistanceMatrix: NSObject {
 
     var activeTask: URLSessionDataTask?
 
-    var allowedCharacters: CharacterSet = {
+    static var allowedCharacters: CharacterSet = {
         var allowed = CharacterSet.alphanumerics
         allowed.insert(charactersIn: "_") // Underscore is allowed.
         allowed.remove(charactersIn: "-") // Hyphen is not allowed.
@@ -164,7 +164,7 @@ extension DistanceMatrix {
         }
 
         for (key, _) in input {
-            guard !key.isEmpty, CharacterSet(charactersIn: key).isSubset(of: allowedCharacters) else {
+            guard !key.isEmpty, CharacterSet(charactersIn: key).isSubset(of: DistanceMatrix.allowedCharacters) else {
                 return false
             }
         }

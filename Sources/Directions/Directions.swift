@@ -144,9 +144,7 @@ extension Directions {
 
         /// Invalid input arguments.
         ///
-        /// Errors in arguments contain issues like inserting no origins and/or no
-        /// destinations, having empty string as key for any of input dictionaries or
-        /// having "-" in the name.
+        /// Errors in arguments contain issues like inserting no waypoints.
         case invalidArguments
     }
 }

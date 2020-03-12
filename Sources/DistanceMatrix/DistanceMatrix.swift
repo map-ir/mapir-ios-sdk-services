@@ -216,7 +216,7 @@ extension DistanceMatrix {
         if !configuration.includeDistances || !configuration.includeDurations {
             if configuration.includeDistances {
                  queryParams["$filter"] = "type eq distance"
-            } else if configuration.includeDistances {
+            } else if configuration.includeDurations {
                 queryParams["$filter"] = "type eq duration"
             }
         }

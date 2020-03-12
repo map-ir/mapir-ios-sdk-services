@@ -196,7 +196,7 @@ extension DistanceMatrix.Result {
         let resultDistances = Table<String, Double>()
         if let distances = responseScheme.distance {
             for d in distances {
-                resultDistances[d.originIndex, d.destinationIndex] = d.disntance
+                resultDistances[d.originIndex, d.destinationIndex] = d.distance
             }
         }
         let resultDurations = Table<String, Double>()
@@ -233,7 +233,7 @@ extension DistanceMatrix.Result {
         struct DistanceScheme: Decodable {
             var originIndex: String
             var destinationIndex: String
-            var disntance: Double?
+            var distance: Double?
         }
 
         struct DurationScheme: Decodable {

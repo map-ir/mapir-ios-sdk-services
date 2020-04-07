@@ -11,6 +11,7 @@ extension URLRequest {
     enum HTTPMethod: String {
         case get
         case post
+        case delete
     }
 
     init(url urlComponents: URLComponents,

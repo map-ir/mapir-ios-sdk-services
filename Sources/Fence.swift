@@ -17,7 +17,7 @@ import Foundation
     @objc public let id: Int
 
     /// Boundary is the a Polygon object that represents the area of the fence.
-    @objc public let boundary: [Polygon]
+    @objc public let boundaries: [Polygon]
 
     /// Additional data about the  geofence.
     @objc public let meta: [String: String]?
@@ -30,13 +30,13 @@ import Foundation
 
     init(
         id: Int,
-        boundary: [Polygon],
+        boundaries: [Polygon],
         meta: [String: String]?,
         creationDate: Date?,
         lastUpdateDate: Date?
     ) {
         self.id = id
-        self.boundary = boundary
+        self.boundaries = boundaries
         self.meta = meta
         self.creationDate = creationDate
         self.lastUpdateDate = lastUpdateDate
@@ -71,7 +71,7 @@ extension Fence {
     ///
     /// - Returns: A `Bool` value. `true`
     @objc public func contains(_ coordinate: CLLocationCoordinate2D, includeBoundaries: Bool = true) -> Bool {
-        for polygon in boundary {
+        for polygon in boundaries {
             if polygon.contains(coordinate, includeBoundary: includeBoundaries) {
                 return true
             }
@@ -110,7 +110,7 @@ extension Fence {
 
         self.init(
             id: response.id,
-            boundary: polygons,
+            boundaries: polygons,
             meta: response.meta,
             creationDate: response.createdAt,
             lastUpdateDate: response.updatedAt

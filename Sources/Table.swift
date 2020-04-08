@@ -118,7 +118,6 @@ public class Table<Key: Hashable, Element> {
         return column
     }
 
-
     /// Removes a row and removes every cell associated with it.
     ///
     /// - Parameter row: The row to remove.
@@ -240,7 +239,7 @@ extension Table {
     }
 }
 
-/// MARK: Protocol conformance.
+// MARK: Protocol conformance.
 
 extension Table: Equatable, Hashable where Element: Hashable {
 

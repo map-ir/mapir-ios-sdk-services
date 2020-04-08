@@ -148,8 +148,8 @@ extension Search.Result {
             }
 
             let coordContainer = try container.nestedContainer(keyedBy: GeomCodingKeys.self, forKey: .geom)
-            let coords = try coordContainer.decode([Double].self, forKey: .coordinates)
-            coordinate = CLLocationCoordinate2D(from: coords)
+            let coords = try coordContainer.decode(CLLocationCoordinate2D.GeoJSONType.self, forKey: .coordinates)
+            coordinate = try CLLocationCoordinate2D(fromGeoJSONGeometry: coords)
         }
     }
 }

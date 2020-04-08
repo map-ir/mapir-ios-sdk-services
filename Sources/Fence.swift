@@ -94,18 +94,12 @@ extension Array where Element == Fence {
 
 extension Fence {
     convenience init(from response: ResponseScheme) {
-        var polygons: [Polygon] = []
+        let polygons: [Polygon]
         switch response.boundary {
-        case .polygon(let geoJSONPolygonRep):
-            if let polygon = try? Polygon(geoJSONRepresentation: geoJSONPolygonRep) {
-                polygons.append(polygon)
-            }
-        case .multiPolygon(let geoJSONMultiPolygonRep):
-            geoJSONMultiPolygonRep.forEach { (geoJSONPolygonRep) in
-                if let polygon = try? Polygon(geoJSONRepresentation: geoJSONPolygonRep) {
-                    polygons.append(polygon)
-                }
-            }
+        case .polygon(let polygon):
+            polygons = [polygon]
+        case .multiPolygon(let multiPolygon):
+            polygons = multiPolygon
         }
 
         self.init(
@@ -123,36 +117,6 @@ extension Fence {
         var meta: [String: String]?
         var createdAt: Date?
         var updatedAt: Date?
-
-        enum Geometry: Decodable {
-            case polygon(geoJSONRep: [[[Double]]])
-            case multiPolygon(geoJSONRep: [[[[Double]]]])
-
-            enum GeometryType: String, Decodable {
-                case polygon = "Polygon"
-                case multiPolygon = "MultiPolygon"
-            }
-
-            enum CodingKeys: String, CodingKey {
-                case type
-                case coordinates
-            }
-
-            init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-
-                let type = try container.decode(GeometryType.self, forKey: .type)
-
-                switch type {
-                case .polygon:
-                    let coordinates = try container.decode([[[Double]]].self, forKey: .coordinates)
-                    self = .polygon(geoJSONRep: coordinates)
-                case .multiPolygon:
-                    let coordinates = try container.decode([[[[Double]]]].self, forKey: .coordinates)
-                    self = .multiPolygon(geoJSONRep: coordinates)
-                }
-            }
-        }
 
         enum CodingKeys: String, CodingKey {
             case id

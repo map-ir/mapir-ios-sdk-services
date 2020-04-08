@@ -74,8 +74,9 @@ extension Waypoint {
             distance = try container.decode(Double.self, forKey: .distance)
 
             coordinate = kCLLocationCoordinate2DInvalid
-            if let coords = try? container.decode([Double].self, forKey: .coordinates) {
-                coordinate = CLLocationCoordinate2D(from: coords) ?? kCLLocationCoordinate2DInvalid
+            if let coords = try? container.decode(CLLocationCoordinate2D.GeoJSONType.self, forKey: .coordinates) {
+                coordinate = (try? CLLocationCoordinate2D(fromGeoJSONGeometry: coords))
+                    ?? kCLLocationCoordinate2DInvalid
             }
         }
     }

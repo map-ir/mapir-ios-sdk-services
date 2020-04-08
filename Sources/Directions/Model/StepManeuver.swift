@@ -86,7 +86,8 @@ extension StepManeuver {
 
             self.coordinate = kCLLocationCoordinate2DInvalid
             if let coords = try? container.decode([Double].self, forKey: .location) {
-                self.coordinate = CLLocationCoordinate2D(from: coords) ?? kCLLocationCoordinate2DInvalid
+                self.coordinate = (try? CLLocationCoordinate2D(fromGeoJSONGeometry: coords))
+                    ?? kCLLocationCoordinate2DInvalid
             }
 
             bearingAfter = try container.decodeIfPresent(CLLocationDirection.self, forKey: .bearingAfter)

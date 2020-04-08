@@ -49,15 +49,15 @@ import Foundation
     ///
     /// Fails if input array of polygons is empty or any of polygons have less than 4
     /// coordinates.
-    convenience init(geoJSONRepresentation: [[[Double]]]) throws {
-        guard let outerRing = geoJSONRepresentation.first else {
+    convenience init(fromGeoJSONGeometry geometry: [[[Double]]]) throws {
+        guard let outerRing = geometry.first else {
             throw GeoJSONError.insufficientPolygons
         }
 
-        let outerRingCoordinates = outerRing.compactMap { CLLocationCoordinate2D(from: $0) }
+        let outerRingCoordinates = try outerRing.compactMap { try CLLocationCoordinate2D(fromGeoJSONGeometry: $0) }
 
-        let interiorRings: [Polygon] = try geoJSONRepresentation[1...].map { (rings) in
-            let coordinates = rings.compactMap { CLLocationCoordinate2D(from: $0) }
+        let interiorRings: [Polygon] = try geometry[1...].map { (rings) in
+            let coordinates = try rings.compactMap { try CLLocationCoordinate2D(fromGeoJSONGeometry: $0) }
             let polygon = try Polygon(coordinates: coordinates)
             return polygon
         }
@@ -176,12 +176,15 @@ extension Polygon {
     }
 }
 
-enum GeoJSONError: Error {
+extension Polygon: GeoJSONGeometryConvertible {
+    func convertedToGeoJSONGeometry() -> [[[Double]]] {
+        let exteriorPolygon = coordinates.map { $0.convertedToGeoJSONGeometry() }
+        var coordinates: [[[Double]]] = [exteriorPolygon]
+        for interiorPolygon in interiorPolygons {
+            coordinates.append(
+                interiorPolygon.coordinates.map { $0.convertedToGeoJSONGeometry() })
 
-    /// A polygon needs at least 4 coordinates in it to be acceptable. Less than 4
-    /// coordinates will cause an error.
-    case insufficientCoordinates
-
-    /// Happens when polygon in empty.
-    case insufficientPolygons
+        }
+        return coordinates
+    }
 }

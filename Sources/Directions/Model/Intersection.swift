@@ -114,8 +114,8 @@ extension Intersection {
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
-            let coords = try container.decode([Double].self, forKey: .location)
-            coordinate = CLLocationCoordinate2D(from: coords) ?? kCLLocationCoordinate2DInvalid
+            let coords = try container.decode(CLLocationCoordinate2D.GeoJSONType.self, forKey: .location)
+            coordinate = (try? CLLocationCoordinate2D(fromGeoJSONGeometry: coords)) ?? kCLLocationCoordinate2DInvalid
 
             bearings = try container.decode([CLLocationDirection].self, forKey: .bearings)
 

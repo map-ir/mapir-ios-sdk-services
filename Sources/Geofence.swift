@@ -47,46 +47,21 @@ import Foundation
         completionHandler: @escaping FenceBatchLoadingCompletionHandler
     ) {
         loadingTask?.cancel()
-        guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
-            return
-        }
 
         let request = urlRequestForBatchLoadingFences(range: range)
 
-        loadingTask = NetworkingManager.dataTask(with: request) { [weak self] (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
+        loadingTask = dataTask(
+            with: request,
+            decoderBlock: decodeBatchLoadingResult(from:)
+        ) { (fences, error) in
+            guard let fences = fences, error == nil else {
+                completionHandler(nil, error)
                 return
             }
 
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let fences = self?.decodeBatchLoadingResult(from: data) {
-                        fences.forEach { Geofence.fences.update(with: $0) }
-                        completionHandler(fences, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
+            fences.forEach { Geofence.fences.update(with: $0) }
+            completionHandler(fences, error)
         }
-
         loadingTask?.resume()
     }
 
@@ -96,44 +71,19 @@ import Foundation
         completionHandler: @escaping FenceLoadingCompletionHandler
     ) {
         loadingTask?.cancel()
-        guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
-            return
-        }
 
         let request = urlRequestForLoadingFence(id: id)
 
-        loadingTask = NetworkingManager.dataTask(with: request) { [weak self] (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
+        loadingTask = dataTask(
+            with: request,
+            decoderBlock: decodeLoadingResult(from:)
+        ) { (fence, error) in
+            guard let fence = fence, error == nil else {
+                completionHandler(nil, error)
                 return
             }
-
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let fence = self?.decodeLoadingResult(from: data) {
-                        Geofence.fences.update(with: fence)
-                        completionHandler(fence, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
+            Geofence.fences.update(with: fence)
+            completionHandler(fence, error)
         }
 
         loadingTask?.resume()
@@ -145,7 +95,21 @@ import Foundation
         withBoundaries boundaries: [Polygon],
         completionHandler: @escaping CreationCompletionHandler
     ) {
+        let request = urlRequestForCraetingFence(polygons: boundaries)
 
+        let createTask = dataTask(
+            with: request,
+            decoderBlock: decodeCreatingResult(from:)
+        ) { (id, error) in
+            guard let id = id, error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            let fence = Fence(id: id, boundaries: boundaries)
+            completionHandler(fence, nil)
+        }
+
+        createTask.resume()
     }
 
     var deleteTask: URLSessionDataTask?
@@ -164,44 +128,19 @@ import Foundation
         completionHandler: @escaping DeletionCompletionHandler
     ) {
         loadingTask?.cancel()
-        guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
-            return
-        }
 
         let request = urlRequestForLoadingFence(id: id)
 
-        loadingTask = NetworkingManager.dataTask(with: request) { [weak self] (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
+        loadingTask = dataTask(
+            with: request,
+            decoderBlock: decodeDeletingResult(from:)
+        ) { (fence, error) in
+            guard let fence = fence else {
+                completionHandler(nil, error)
                 return
             }
-
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let fence = self?.decodeLoadingResult(from: data) {
-                        Geofence.fences.update(with: fence)
-                        completionHandler(fence, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
+            Geofence.fences.remove(fence)
+            completionHandler(fence, error)
         }
 
         loadingTask?.resume()
@@ -270,6 +209,45 @@ extension Geofence {
         return request
     }
 
+    func urlRequestForCraetingFence(polygons: [Polygon]) -> URLRequest {
+        var urlComponents = NetworkingManager.baseURLComponents
+
+        urlComponents.path = "/geofence/stages"
+
+        var requset = NetworkingManager.request(url: urlComponents, httpMethod: .post)
+
+        let boundry = UUID().uuidString
+        requset.setValue("multipart/form-data; boundary=\(boundry)", forHTTPHeaderField: "Content-Type")
+
+        let geometry: Geometry
+        if polygons.count == 1 {
+            geometry = .polygon(polygons.first!)
+        } else {
+            geometry = .multiPolygon(polygons)
+        }
+        let feature = Feature(geometry: geometry)
+        let featureCollection = FeatureCollection(features: [feature])
+        let encoder = JSONEncoder()
+        let geoJSONData = try? encoder.encode(featureCollection)
+
+        let boundryStart = "--\(boundry)\r\n"
+        let contentDisposition =
+            "Content-Disposition: form-data; name=\"polygons\"; filename=\"polygons.geojson\"\r\n"
+        let contentType = "Content-Type: application/json\r\n\r\n"
+        let boundryEnd = "\r\n--\(boundry)--\r\n"
+
+        var body = Data()
+        body.append(boundryStart.data(using: .utf8)!)
+        body.append(contentDisposition.data(using: .utf8)!)
+        body.append(contentType.data(using: .utf8)!)
+        if let geoJSONData = geoJSONData {
+            body.append(geoJSONData)
+        }
+        body.append(boundryEnd.data(using: .utf8)!)
+
+        requset.httpBody = body
+        return requset
+    }
 }
 
 extension Geofence {
@@ -323,5 +301,69 @@ extension Geofence {
         } else {
             return nil
         }
+    }
+
+    func decodeCreatingResult(from data: Data) -> Int? {
+
+        struct GeofenceCreateResponse: Decodable {
+            var id: Int
+            var message: String
+        }
+
+        let decoder = JSONDecoder()
+        if let decodedData = try? decoder.decode(GeofenceCreateResponse.self, from: data) {
+            return decodedData.id
+        } else {
+            return nil
+        }
+    }
+}
+
+extension Geofence {
+    @discardableResult
+    func dataTask<R>(
+        with urlRequest: URLRequest,
+        decoderBlock: @escaping (Data) -> R?,
+        completionHandler: @escaping (_ result: R?, _ error: Error?) -> Void
+    ) -> URLSessionDataTask {
+
+        guard AccountManager.isAuthorized else {
+            completionHandler(nil, Error.unauthorized)
+            return URLSessionDataTask()
+        }
+
+        let dataTask = NetworkingManager.dataTask(with: urlRequest) { (data, response, error) in
+            if error != nil {
+                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
+                    completionHandler(nil, Error.canceled)
+                } else {
+                    completionHandler(nil, Error.network)
+                }
+                return
+            }
+
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200, 201:
+                    if let data = data, let decoded = decoderBlock(data) {
+                        completionHandler(decoded, nil)
+                    } else {
+                        completionHandler(nil, Error.noResult)
+                    }
+                case 401:
+                    completionHandler(nil, Error.unauthorized)
+                case 400, 402..<500:
+                    completionHandler(nil, Error.noResult)
+                case 300..<400, 500..<600:
+                    completionHandler(nil, Error.network)
+                default:
+                    fatalError("Unknown response status code.")
+                }
+            } else {
+                completionHandler(nil, Error.network)
+            }
+        }
+
+        return dataTask
     }
 }

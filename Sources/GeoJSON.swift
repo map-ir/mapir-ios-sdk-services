@@ -11,6 +11,10 @@ import Foundation
 struct FeatureCollection: Codable {
     var features: [Feature]
 
+    init(features: [Feature]) {
+        self.features = features
+    }
+
     enum CodingKeys: String, CodingKey {
         case features, type
     }
@@ -32,6 +36,11 @@ struct FeatureCollection: Codable {
 struct Feature: Codable {
     var geometry: Geometry
     var properties: [String: Any] = [:]
+
+    init(geometry: Geometry, properties: [String: Any] = [:]) {
+        self.geometry = geometry
+        self.properties = properties
+    }
 
     enum CodingKeys: String, CodingKey {
         case geometry, properties, type

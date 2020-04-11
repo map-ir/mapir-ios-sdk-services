@@ -85,6 +85,16 @@ extension Polygon {
 
         var angles: [Double] = []
 
+        var isCoordinateInsideInteriorPolygons = false
+        if !interiorPolygons.isEmpty {
+            for interiorPolygon in interiorPolygons {
+                if interiorPolygon.contains(coordinate, includeBoundary: !includeBoundary) {
+                    isCoordinateInsideInteriorPolygons = true
+                    break
+                }
+            }
+        }
+
         for (offset, vertex) in coordinates.enumerated() {
             guard offset + 1 < coordinates.endIndex else { break }
             let nextIndex = offset + 1
@@ -120,8 +130,9 @@ extension Polygon {
 
         let sum = angles.reduce(0.0, +)
         let sumDevidedByPi = Int((sum / Double.pi).rounded(.toNearestOrEven))
+        let isCoordinateInsidePolygon = sumDevidedByPi == 2 || sumDevidedByPi == -2
 
-        return sumDevidedByPi == 2 || sumDevidedByPi == -2
+        return isCoordinateInsidePolygon && !isCoordinateInsideInteriorPolygons
     }
 
     private enum Quarter {

@@ -11,11 +11,14 @@ import Foundation
 enum GeoJSONError: Error {
 
     /// A polygon needs at least 4 coordinates as vertices to be acceptable. This error
-    /// occures when a `Polygon` is being created with 3 or less coordinates.
+    /// occurs when a `Polygon` is being created with 3 or less coordinates.
     case insufficientCoordinates
 
     /// Happens when polygon is empty.
     case insufficientPolygons
+
+    /// Interior polygons of a `Polygon` should have no interior polygons of their own.
+    case incorrectInteriorPolygonsFormat
 
     /// To create a `CLLocationCoordinate2D` object using a GeoJSON notation, an array
     /// of longitude and latitude is needed. if the array has any more or less values other than

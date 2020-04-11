@@ -31,9 +31,9 @@ import Foundation
     init(
         id: Int,
         boundaries: [Polygon],
-        meta: [String: String]?,
-        creationDate: Date?,
-        lastUpdateDate: Date?
+        meta: [String: String]? = nil,
+        creationDate: Date? = nil,
+        lastUpdateDate: Date? = nil
     ) {
         self.id = id
         self.boundaries = boundaries

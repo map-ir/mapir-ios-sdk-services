@@ -41,6 +41,12 @@ import Foundation
         guard coordinates.count > 3 else {
             throw GeoJSONError.insufficientCoordinates
         }
+
+        guard interiorPolygons.isEmpty ||
+            interiorPolygons.map({ $0.interiorPolygons.isEmpty }).allSatisfy({ $0 }) else {
+            throw GeoJSONError.incorrectCoordinateComponents
+        }
+
         self.coordinates = coordinates
         self.interiorPolygons = interiorPolygons
     }
@@ -68,7 +74,7 @@ import Foundation
 
 extension Polygon {
 
-    /// Tests a coordinate to findout whether it is inide the receiver or not.
+    /// Tests a coordinate to find out whether it is inside the receiver or not.
     ///
     /// - Parameters:
     ///   - coordinate: A coordinate to test.
@@ -111,12 +117,12 @@ extension Polygon {
             let slopeLine1 = slope(origin: coordinate, coordinate: vertex)
             let angleLine1 = atan(slopeLine1)
             let q1 = Quarter(of: vertex, relativeTo: coordinate)
-            let angleOfLine1WithPosX = angleWithPostiveX(angle: angleLine1, inQuarter: q1)
+            let angleOfLine1WithPosX = angleWithPositiveX(angle: angleLine1, inQuarter: q1)
 
             let slopeLine2 = slope(origin: coordinate, coordinate: nextVertex)
             let angleLine2 = atan(slopeLine2)
             let q2 = Quarter(of: nextVertex, relativeTo: coordinate)
-            let angleOfLine2WithPosX = angleWithPostiveX(angle: angleLine2, inQuarter: q2)
+            let angleOfLine2WithPosX = angleWithPositiveX(angle: angleLine2, inQuarter: q2)
 
             var angleBetweenLines = angleOfLine2WithPosX - angleOfLine1WithPosX
             if angleBetweenLines < -Double.pi {
@@ -129,8 +135,8 @@ extension Polygon {
         }
 
         let sum = angles.reduce(0.0, +)
-        let sumDevidedByPi = Int((sum / Double.pi).rounded(.toNearestOrEven))
-        let isCoordinateInsidePolygon = sumDevidedByPi == 2 || sumDevidedByPi == -2
+        let sumDividedByPi = Int((sum / Double.pi).rounded(.toNearestOrEven))
+        let isCoordinateInsidePolygon = sumDividedByPi == 2 || sumDividedByPi == -2
 
         return isCoordinateInsidePolygon && !isCoordinateInsideInteriorPolygons
     }
@@ -163,7 +169,7 @@ extension Polygon {
         value >= 0 ? value : -value
     }
 
-    private func angleWithPostiveX(angle: Double, inQuarter quarter: Quarter) -> Double {
+    private func angleWithPositiveX(angle: Double, inQuarter quarter: Quarter) -> Double {
         let value = abs(angle)
 
         switch quarter {

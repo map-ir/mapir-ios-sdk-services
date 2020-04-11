@@ -36,7 +36,7 @@ extension Lane {
         @objc static let sharpLeft = Indication(rawValue: 1 << 6)
 
         /// indicates reversal of direction
-        @objc static let uturn = Indication(rawValue: 1 << 7)
+        @objc static let uTurn = Indication(rawValue: 1 << 7)
 
         /// no relevant change in direction
         @objc static let straight = Indication(rawValue: 1 << 8)
@@ -64,8 +64,8 @@ extension Lane.Indication {
                 indications.insert(.slightLeft)
             case "straight":
                 indications.insert(.straight)
-            case "uturn":
-                indications.insert(.uturn)
+            case "uturn", "uTurn":
+                indications.insert(.uTurn)
             case "none":
                 break
             default:
@@ -87,7 +87,7 @@ extension Lane.Indication {
         if contains(.slightRight) { descriptions.append("slight right") }
         if contains(.slightLeft) { descriptions.append("slight left") }
         if contains(.straight) { descriptions.append("straight") }
-        if contains(.uturn) { descriptions.append("uturn") }
+        if contains(.uTurn) { descriptions.append("uturn") }
 
         return descriptions.joined(separator: ", ")
     }

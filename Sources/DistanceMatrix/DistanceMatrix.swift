@@ -16,7 +16,7 @@ public class DistanceMatrix: NSObject {
     /// Configuration for distance matrix calculation.
     public var configuration: DistanceMatrix.Configuration = .default
 
-    /// Current status of `MapSnapshotter` object.
+    /// Current status of `DistanceMatrix` object.
     public var isActive: Bool {
         if let task = activeTask {
             switch task.state {
@@ -43,11 +43,11 @@ public class DistanceMatrix: NSObject {
 
     public func distanceMatrix(from origins: [String: CLLocationCoordinate2D],
                                to destinations: [String: CLLocationCoordinate2D],
-                               configuartion: DistanceMatrix.Configuration,
+                               configuration: DistanceMatrix.Configuration,
                                completionHandler: @escaping DistanceMatrixCompletionHandler) {
 
         cancel()
-        self.configuration = configuartion
+        self.configuration = configuration
 
         performDistanceMatrix(from: origins,
                               to: destinations,
@@ -62,7 +62,7 @@ public class DistanceMatrix: NSObject {
 
         distanceMatrix(from: origins,
                        to: destinations,
-                       configuartion: configuration,
+                       configuration: configuration,
                        completionHandler: completionHandler)
     }
 
@@ -82,7 +82,7 @@ extension DistanceMatrix {
         /// Indicates that you are not using a Map.ir API key or your key is invalid.
         case unauthorized
 
-        /// Indicates that network was unavailable or a network error occured.
+        /// Indicates that network was unavailable or a network error occurred.
         case network
 
         /// Indicates that the task was canceled.

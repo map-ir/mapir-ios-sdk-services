@@ -26,7 +26,7 @@ extension Search {
 
         /// Center coordinate for search.
         ///
-        /// providing a center coordiante will change search type to nearby search.
+        /// providing a center coordinate will change search type to nearby search.
         /// otherwise results will be global.
         var center: CLLocationCoordinate2D?
     }
@@ -128,7 +128,7 @@ extension Search.Configuration {
         center = location.coordinate
     }
 
-    /// Returns `center` propery of the configuration.
+    /// Returns `center` property of the configuration.
     ///
     /// - note: This method is intended to be used in Objective-C only. In Swift use
     /// `center` property.
@@ -136,7 +136,7 @@ extension Search.Configuration {
         return center ?? kCLLocationCoordinate2DInvalid
     }
 
-    /// Removes the current value in center `propery`.
+    /// Removes the current value in `center` property.
     ///
     /// - note: This method is intended to be used in Objective-C only. In Swift use
     /// `center` property.

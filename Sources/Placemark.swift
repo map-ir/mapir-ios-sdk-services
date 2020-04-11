@@ -11,7 +11,7 @@ import Foundation
 @objc(MSPlacemark)
 public final class Placemark: NSObject, Identifiable {
 
-    /// Unique idnetifier of the placemark.
+    /// Unique identifier of the placemark.
     @objc public let id: UUID
 
     /// Full address
@@ -44,7 +44,7 @@ public final class Placemark: NSObject, Identifiable {
     /// District of the place.
     @objc public let district: String?
 
-    /// Rural district of the place if it is located in a rural aera.
+    /// Rural district of the place if it is located in a rural area.
     @objc public let ruralDistrict: String?
 
     /// City of the place.
@@ -243,7 +243,7 @@ extension Placemark {
             province: d.provinceName,
             county: d.countyName,
             district: d.districtName,
-            ruralDistrict: d.ruraldistrictName,
+            ruralDistrict: d.ruralDistrictName,
             city: nil,
             village: nil,
             region: nil,

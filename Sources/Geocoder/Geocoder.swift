@@ -50,7 +50,7 @@ public class Geocoder: NSObject {
     /// Creates a request to reverse geocode the given coordinates.
     ///
     /// - Parameters:
-    ///   - coordinate: Coordainte to find its address.
+    ///   - coordinate: The coordinate to find its address.
     ///   - completionHandler: Completion handler block to run after the reverse geocode
     ///   result is available.
     ///
@@ -84,7 +84,7 @@ public class Geocoder: NSObject {
     /// Creates a request to reverse geocode the given coordinate in shorter time.
     ///
     /// - Parameters:
-    ///   - coordinate: Coordainte to find its address.
+    ///   - coordinate: The coordinate to find its address.
     ///   - completionHandler: Completion handler block to run after the reverse geocode.
     ///
     /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
@@ -136,7 +136,7 @@ extension Geocoder {
         /// Indicates that you are not using a Map.ir API key or your key is invalid.
         case unauthorized
 
-        /// Indicates that network was unavailable or a network error occured.
+        /// Indicates that network was unavailable or a network error occurred.
         case network
 
         /// Indicates that the task was canceled.
@@ -167,10 +167,10 @@ extension Geocoder {
 
         var request: URLRequest
         switch task {
-        case let .fastReverseGeocode(coordaintes):
-            request = self.urlRequestForReverseGeocodingTask(coordinate: coordaintes)
-        case let .reverseGeocode(coordaintes):
-            request = self.urlRequestForFastReverseGeocodingTask(coordinate: coordaintes)
+        case let .fastReverseGeocode(coordinates):
+            request = self.urlRequestForReverseGeocodingTask(coordinate: coordinates)
+        case let .reverseGeocode(coordinates):
+            request = self.urlRequestForFastReverseGeocodingTask(coordinate: coordinates)
         case let .forwardGeocode(address, city):
             request = self.urlRequestForGeocodeTask(string: address, city: city)
         }

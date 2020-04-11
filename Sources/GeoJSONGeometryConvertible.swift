@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// An geometrical object which is convertable from and to GeoJSON notation.
+/// A geometrical object which is convertible from and to GeoJSON notation.
 protocol GeoJSONGeometryConvertible {
 
     /// A type that represents the format that the geometry is presented in GeoJSON.

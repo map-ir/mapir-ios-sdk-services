@@ -178,11 +178,11 @@ extension RouteStep {
             case geometry
             case name
             case ref
-            case pronounciation
+            case pronunciation
             case destination
             case exits = "exit"
             case rotaryName = "rotary_name"
-            case rotaryPronounciation = "rotary_pronounciation"
+            case rotaryPronunciation = "rotary_pronunciation"
             case mode
             case maneuver
             case weight
@@ -207,12 +207,12 @@ extension RouteStep {
 
             name = try container.decode(String.self, forKey: .name)
             ref = try container.decodeIfPresent(String.self, forKey: .ref)
-            pronunciation = try container.decodeIfPresent(String.self, forKey: .pronounciation)
+            pronunciation = try container.decodeIfPresent(String.self, forKey: .pronunciation)
 
             destinations = try container.decodeIfPresent([String].self, forKey: .destination)
             exits = try container.decodeIfPresent([String].self, forKey: .exits)
             rotaryName = try container.decodeIfPresent(String.self, forKey: .rotaryName)
-            rotaryPronunciation = try container.decodeIfPresent(String.self, forKey: .rotaryPronounciation)
+            rotaryPronunciation = try container.decodeIfPresent(String.self, forKey: .rotaryPronunciation)
 
             let transportTypeString = try container.decodeIfPresent(String.self, forKey: .mode) ?? ""
             transportType = TransportType(description: transportTypeString)

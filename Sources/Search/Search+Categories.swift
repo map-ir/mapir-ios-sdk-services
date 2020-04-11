@@ -35,8 +35,8 @@ extension Search {
         /// District names.
         @objc public static let district              = Search.Categories(rawValue: 1 << 5)
 
-        /// Landuse names.
-        @objc public static let landuse               = Search.Categories(rawValue: 1 << 6)
+        /// Land-use names.
+        @objc public static let landUse               = Search.Categories(rawValue: 1 << 6)
 
         /// Province names.
         @objc public static let province              = Search.Categories(rawValue: 1 << 7)
@@ -57,7 +57,7 @@ extension Search.Categories {
             case city
             case county
             case district
-            case landuse
+            case landUse = "landuse"
             case neighborhood = "neighbourhood"
             case poi
             case province
@@ -75,8 +75,8 @@ extension Search.Categories {
         if self.contains(.district) {
             select.append(.district)
         }
-        if self.contains(.landuse) {
-            select.append(.landuse)
+        if self.contains(.landUse) {
+            select.append(.landUse)
         }
         if self.contains(.neighborhood) {
             select.append(.neighborhood)

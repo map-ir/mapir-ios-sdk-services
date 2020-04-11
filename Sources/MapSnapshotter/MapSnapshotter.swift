@@ -31,10 +31,10 @@ import UIKit
 
     private var activeTask: URLSessionDataTask?
 
-    /// Creates an snapshot of map according to the specified configuration.
+    /// Creates a snapshot of map according to the specified configuration.
     ///
     /// - Parameters:
-    ///   - configuration: Configutration of snapshotting task.
+    ///   - configuration: The configuration of snapshotting task.
     ///   - completionHandler: Completion handler block to run after the snapshot is available.
     @objc(createSnapshotWithConfiguration:completionHandler:)
     public func createSnapshot(with configuration: Configuration,
@@ -102,7 +102,7 @@ extension MapSnapshotter {
         /// Indicates that you are not using a Map.ir API key or your key is invalid.
         case unauthorized
 
-        /// Indicates that network was unavailable or a network error occured.
+        /// Indicates that network was unavailable or a network error occurred.
         case network
 
         /// Indicates that the task was canceled.

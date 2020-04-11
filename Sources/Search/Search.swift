@@ -51,7 +51,7 @@ public class Search: NSObject {
 
         perform(.search(text, configuration),
                 completionHandler: completionHandler,
-                decoder: deocdeSearchResults(from:))
+                decoder: decodeSearchResults(from:))
     }
 
     /// Searches for completion suggestions for the input text, using current configuration.
@@ -82,7 +82,7 @@ public class Search: NSObject {
 
         perform(.suggestion(text, configuration),
                 completionHandler: completionHandler,
-                decoder: deocdeSearchResults(from:))
+                decoder: decodeSearchResults(from:))
     }
 
     /// Cancels the current running task.
@@ -177,7 +177,7 @@ extension Search {
 // MARK: Decoder
 
 extension Search {
-    func deocdeSearchResults(from data: Data) -> [Search.Result]? {
+    func decodeSearchResults(from data: Data) -> [Search.Result]? {
         let decoder = JSONDecoder()
         if let decoded = try? decoder.decode(Search.Result.SearchResponseScheme.self, from: data) {
             return decoded.value.map { Search.Result(from: $0) }

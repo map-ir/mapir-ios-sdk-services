@@ -19,19 +19,19 @@ extension Search {
         /// Province of the result.
         @objc let province: String?
 
-        /// The name of county accociated with the result.
+        /// The name of county associated with the result.
         @objc let county: String?
 
-        /// The district accociated with the result.
+        /// The district associated with the result.
         @objc let district: String?
 
-        /// The city accociated with the result.
+        /// The city associated with the result.
         @objc let city: String?
 
-        /// The region accociated with the result.
+        /// The region associated with the result.
         @objc let region: String?
 
-        /// The neighborhood name accociated with the result.
+        /// The neighborhood name associated with the result.
         @objc let neighborhood: String?
 
         /// Title of the result.
@@ -46,7 +46,7 @@ extension Search {
         /// FClass of the result.
         @objc let fclass: String?
 
-        /// Coordinate associtated with the result.
+        /// Coordinate associated with the result.
         let coordinate: CLLocationCoordinate2D?
 
         init(from resultResponse: Search.Result.ResultScheme) {

@@ -19,8 +19,8 @@ extension Array: GeoJSONGeometryConvertible where Element == Polygon {
 
     init(fromGeoJSONGeometry geometry: [[[[Double]]]]) throws {
         self = []
-        for polygonGeom in geometry {
-            self.append(try Polygon(fromGeoJSONGeometry: polygonGeom))
+        for polygonGeometry in geometry {
+            self.append(try Polygon(fromGeoJSONGeometry: polygonGeometry))
         }
     }
 }

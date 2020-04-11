@@ -61,14 +61,14 @@ extension StepManeuver {
         case rotary
 
         /// Describes a turn at a small roundabout that should be treated as normal turn.
-        /// The modifier indicates the turn direciton.
+        /// The modifier indicates the turn direction.
         case roundaboutTurn
 
         /// not an actual turn but a change in the driving conditions. For example the travel mode.
         /// If the road takes a turn itself, the  modifier describes the direction
         case notification
 
-        /// Describes a maneuver exiting a roundabout (usually preceeded by a `roundabout` instruction)
+        /// Describes a maneuver exiting a roundabout (usually preceded by a `roundabout` instruction)
         case exitRoundabout
 
         /// Describes the maneuver exiting a rotary (large named `roundabout`)

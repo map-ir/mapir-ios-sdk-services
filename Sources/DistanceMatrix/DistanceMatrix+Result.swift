@@ -225,7 +225,7 @@ extension DistanceMatrix.Result {
             var provinceName: String?
             var countyName: String?
             var districtName: String?
-            var ruraldistrictName: String?
+            var ruralDistrictName: String?
             var suburbTitle: String?
             var neighbourhoodTitle: String?
         }

@@ -6,7 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
-/// Table is a 2-Dimentional dictionary. It consist of rows and columns. In a table,
+/// Table is a 2-Dimensional dictionary. It consist of rows and columns. In a table,
 /// every value is stored using two keys, its row and column.
 ///
 ///

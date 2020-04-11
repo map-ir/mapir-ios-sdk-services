@@ -1,5 +1,5 @@
 //
-//  DIstanceMatrix+Configuration.swift
+//  DistanceMatrix+Configuration.swift
 //  MapirServices-iOS
 //
 //  Created by Alireza Asadi on 9/10/1398 AP.
@@ -19,7 +19,7 @@ extension DistanceMatrix {
 
         /// Specifies that the result will include distances.
         ///
-        /// - note: `includeDistances` and `inculdeDurations` can not be `false` at the same
+        /// - note: `includeDistances` and `includeDurations` can not be `false` at the same
         /// time.
         @objc public var includeDistances: Bool = true {
             didSet {
@@ -29,7 +29,7 @@ extension DistanceMatrix {
 
         /// Specifies that the result will include durations.
         ///
-        /// - note: `includeDistances` and `inculdeDurations` can not be `false` at the same
+        /// - note: `includeDistances` and `includeDurations` can not be `false` at the same
         /// time.
         @objc public var includeDurations: Bool = true {
             didSet {

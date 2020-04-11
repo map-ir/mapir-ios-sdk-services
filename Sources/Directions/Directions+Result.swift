@@ -19,7 +19,7 @@ extension Directions {
         /// An array of `Route` objects, ordered by descending recommendation rank.
         ///
         /// If you specify `n` as number of alternative routes in configuration,
-        /// you may have less than `(n + 1)` `Route`s in this proprty.
+        /// you may have less than `(n + 1)` `Route`s in this property.
         @objc public let routes: [Route]
 
         /// The configuration of the `Directions` request which resulted in this `Route`s.

@@ -133,7 +133,7 @@ extension Directions {
         /// Indicates that you are not using a Map.ir API key or your key is invalid.
         case unauthorized
 
-        /// Indicates that network was unavailable or a network error occured.
+        /// Indicates that network was unavailable or a network error occurred.
         case network
 
         /// Indicates that the task was canceled.

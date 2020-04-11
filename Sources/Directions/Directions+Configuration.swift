@@ -18,10 +18,10 @@ extension Directions {
 
         public static var `default`: Configuration { Configuration() }
 
-        /// The type of the transpostation used.
+        /// The type of the transportation used.
         public var vehicleType: Directions.VehicleType = .privateCar
 
-        /// Traffic restriced areas that needed to be excluded from the result.
+        /// Traffic restricted areas that needed to be excluded from the result.
         ///
         /// - note: At this moment, this property will considered when the `vehicleType` is
         /// `.privateCar`. Otherwise, this will be ignored
@@ -54,7 +54,7 @@ extension Directions {
         /// Indicates that the direction needs to be calculated for driving.
         ///
         /// Private cars are consist of cars that have to obey the normal traffic rules,
-        /// such as personal cars and pirvate taxi services.
+        /// such as personal cars and private taxi services.
         case privateCar
 
         /// Indicates that the direction needs to be calculated for walking.
@@ -84,10 +84,10 @@ extension Directions {
         /// No traffic restrictions.
         case none
 
-        /// Restricts routing to traffic control aera only.
+        /// Restricts routing to traffic control area only.
         case trafficControlArea
 
-        /// Restricts routing to air pollution control aera. This also includes the area
+        /// Restricts routing to air pollution control area. This also includes the area
         /// that `.trafficControlArea` contains.
         case airPollutionControlArea
 

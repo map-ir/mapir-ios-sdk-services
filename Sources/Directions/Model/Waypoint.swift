@@ -23,7 +23,7 @@ public final class Waypoint: NSObject {
     /// Name of the street the coordinate snapped to.
     @objc public var name: String
 
-    /// The distance, in metres, from the input coordinate to the snapped coordinate.
+    /// The distance, measured in meters, from the input coordinate to the snapped coordinate.
     @objc public var coordinateAccuracy: CLLocationAccuracy
 
     /// `CLLocationCoordinate2D` of the snapped coordinate.

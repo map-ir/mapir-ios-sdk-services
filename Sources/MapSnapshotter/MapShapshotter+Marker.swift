@@ -17,7 +17,7 @@ extension MapSnapshotter {
     @objc(MapSnapshotterMarker)
     final class Marker: NSObject {
 
-        /// The Label of the marker tht will be shown under the marker.
+        /// The Label of the marker that will be shown under the marker.
         @objc public var label: String?
 
         /// Coordinate at which marker will be placed.
@@ -29,7 +29,7 @@ extension MapSnapshotter {
         /// Creates marker for the snapshot at specified coordinate.
         ///
         /// - Parameters:
-        ///   - coordinate: Coordiante of the marker.
+        ///   - coordinate: The coordinate of the marker.
         ///   - label: The text to show under the marker.
         ///   - style: The style of the marker.
         @objc public init(at coordinate: CLLocationCoordinate2D, label: String, style: Marker.Style) {

@@ -26,7 +26,7 @@ public enum TransportType: Int {
     /// The route requires the user to board a ferry.
     ///
     /// Available for automobile, walking and cycling directions. The user should verify
-    /// whether the bicylce or automobile is allowed onboard or not.
+    /// whether the bicycle or automobile is allowed onboard or not.
     case ferry
 
     /// The route requires the user to cross a movable bridge.
@@ -43,7 +43,7 @@ public enum TransportType: Int {
     /// The route requires the user to walk.
     ///
     /// Available for walking and cycling directions. For cycling means that user is
-    /// expected to dismount the bicylce.
+    /// expected to dismount the bicycle.
     case walking
 
     /// The route requires the user to ride a bicycle.

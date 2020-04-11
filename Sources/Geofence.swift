@@ -23,7 +23,7 @@ import Foundation
     ///
     /// - Parameters:
     ///   - count: Number of fences to load.
-    ///   - skipCount: Number of fences to skip. latest uploaded fances come first.
+    ///   - skipCount: Number of fences to skip. latest uploaded fences come first.
     ///   - completionHandler: A block to run once the result is available.
     @objc(loadFencesCount:skippingCount:completionHandler:)
     public func loadFences(
@@ -95,7 +95,7 @@ import Foundation
         withBoundaries boundaries: [Polygon],
         completionHandler: @escaping CreationCompletionHandler
     ) {
-        let request = urlRequestForCraetingFence(polygons: boundaries)
+        let request = urlRequestForCreatingFence(polygons: boundaries)
 
         let createTask = dataTask(
             with: request,
@@ -156,7 +156,7 @@ extension Geofence {
         /// Indicates that you are not using a Map.ir API key or your key is invalid.
         case unauthorized
 
-        /// Indicates that network was unavailable or a network error occured.
+        /// Indicates that network was unavailable or a network error occurred.
         case network
 
         /// Indicates that the task was canceled.
@@ -209,15 +209,15 @@ extension Geofence {
         return request
     }
 
-    func urlRequestForCraetingFence(polygons: [Polygon]) -> URLRequest {
+    func urlRequestForCreatingFence(polygons: [Polygon]) -> URLRequest {
         var urlComponents = NetworkingManager.baseURLComponents
 
         urlComponents.path = "/geofence/stages"
 
-        var requset = NetworkingManager.request(url: urlComponents, httpMethod: .post)
+        var request = NetworkingManager.request(url: urlComponents, httpMethod: .post)
 
-        let boundry = UUID().uuidString
-        requset.setValue("multipart/form-data; boundary=\(boundry)", forHTTPHeaderField: "Content-Type")
+        let boundary = UUID().uuidString
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
         let geometry: Geometry
         if polygons.count == 1 {
@@ -230,23 +230,23 @@ extension Geofence {
         let encoder = JSONEncoder()
         let geoJSONData = try? encoder.encode(featureCollection)
 
-        let boundryStart = "--\(boundry)\r\n"
+        let boundaryStart = "--\(boundary)\r\n"
         let contentDisposition =
             "Content-Disposition: form-data; name=\"polygons\"; filename=\"polygons.geojson\"\r\n"
         let contentType = "Content-Type: application/json\r\n\r\n"
-        let boundryEnd = "\r\n--\(boundry)--\r\n"
+        let boundaryEnd = "\r\n--\(boundary)--\r\n"
 
         var body = Data()
-        body.append(boundryStart.data(using: .utf8)!)
+        body.append(boundaryStart.data(using: .utf8)!)
         body.append(contentDisposition.data(using: .utf8)!)
         body.append(contentType.data(using: .utf8)!)
         if let geoJSONData = geoJSONData {
             body.append(geoJSONData)
         }
-        body.append(boundryEnd.data(using: .utf8)!)
+        body.append(boundaryEnd.data(using: .utf8)!)
 
-        requset.httpBody = body
-        return requset
+        request.httpBody = body
+        return request
     }
 }
 

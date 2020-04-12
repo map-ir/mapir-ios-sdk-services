@@ -138,13 +138,46 @@ class NetworkingManager {
 
     static let session: URLSession = URLSession(configuration: .default)
 
-    static func dataTask(with urlRequest: URLRequest,
-                         completionHandler: @escaping NetworkingCompletionHandler) -> URLSessionDataTask {
-        session.dataTask(with: urlRequest) { (data, response, error) in
-            if let response = response as? HTTPURLResponse, response.statusCode == 403 {
-                NotificationCenter.default.post(name: unauthorizedNotification, object: nil)
+    @discardableResult
+    static func dataTask<Result>(
+        with urlRequest: URLRequest,
+        decoderBlock: @escaping (Data) -> Result?,
+        completionHandler: @escaping (_ result: Result?, _ error: Error?) -> Void
+    ) -> URLSessionDataTask? {
+
+        let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
+            if error != nil {
+                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
+                    completionHandler(nil, ServiceError.canceled)
+                } else {
+                    completionHandler(nil, ServiceError.network)
+                }
+                return
             }
-            completionHandler(data, response, error)
+
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 200, 201:
+                    if let data = data, let decoded = decoderBlock(data) {
+                        completionHandler(decoded, nil)
+                    } else {
+                        completionHandler(nil, ServiceError.noResult)
+                    }
+                case 401:
+                    NotificationCenter.default.post(name: unauthorizedNotification, object: nil)
+                    completionHandler(nil, ServiceError.unauthorized)
+                case 400, 402..<500:
+                    completionHandler(nil, ServiceError.noResult)
+                case 300..<400, 500..<600:
+                    completionHandler(nil, ServiceError.network)
+                default:
+                    fatalError("Unknown response status code.")
+                }
+            } else {
+                completionHandler(nil, ServiceError.network)
+            }
         }
+
+        return dataTask
     }
 }

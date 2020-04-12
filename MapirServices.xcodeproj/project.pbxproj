@@ -234,14 +234,9 @@
 				C0474890239187EE007F74E1 /* AccountManager.swift */,
 				C047489923918A11007F74E1 /* NetworkingManager.swift */,
 				C062B86D2330E62B00B731CF /* Table.swift */,
-				C0A2BDDB241CD44D005FD6FD /* Geofence.swift */,
-				C09CA154243CBE2400E4AFBA /* GeoJSON.swift */,
-				C0266060243DCF2000A96479 /* GeoJSONGeometryConvertible.swift */,
-				C026605E243DA85800A96479 /* GeoJSONError.swift */,
 				C09CA152243C61FB00E4AFBA /* ServiceError.swift */,
-				C0B9961C2430B2C600E69C88 /* Fence.swift */,
-				C07AD2C3243B5D670043B3AA /* Polygon.swift */,
-				C07AD2C5243B5D900043B3AA /* BoundingBox.swift */,
+				C00576D1244338E500CF4D55 /* GeoJSON */,
+				C00576D2244338F500CF4D55 /* Geofence */,
 				C077EE4024162BE00006C262 /* Search */,
 				C077EE3F24162BD80006C262 /* Geocoder */,
 				C077EE3E24162BCE0006C262 /* MapSnapshotter */,
@@ -270,6 +265,27 @@
 				3D9C432F2274629C000A6585 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		C00576D1244338E500CF4D55 /* GeoJSON */ = {
+			isa = PBXGroup;
+			children = (
+				C09CA154243CBE2400E4AFBA /* GeoJSON.swift */,
+				C0266060243DCF2000A96479 /* GeoJSONGeometryConvertible.swift */,
+				C026605E243DA85800A96479 /* GeoJSONError.swift */,
+				C07AD2C3243B5D670043B3AA /* Polygon.swift */,
+				C07AD2C5243B5D900043B3AA /* BoundingBox.swift */,
+			);
+			path = GeoJSON;
+			sourceTree = "<group>";
+		};
+		C00576D2244338F500CF4D55 /* Geofence */ = {
+			isa = PBXGroup;
+			children = (
+				C0A2BDDB241CD44D005FD6FD /* Geofence.swift */,
+				C0B9961C2430B2C600E69C88 /* Fence.swift */,
+			);
+			path = Geofence;
 			sourceTree = "<group>";
 		};
 		C051A23222DC53AA00E71703 /* Frameworks */ = {

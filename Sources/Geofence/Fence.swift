@@ -132,7 +132,6 @@ extension Fence {
             id = try container.decode(Int.self, forKey: .id)
             boundary = try container.decode(Geometry.self, forKey: .boundary)
 
-            // FIXME: Needs to know what meta contains.
             meta = try? container.decodeIfPresent([String: String].self, forKey: .meta)
 
             let creationDateString = try container.decodeIfPresent(String.self, forKey: .createdAt)

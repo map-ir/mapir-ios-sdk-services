@@ -8,16 +8,21 @@
 
 import Foundation
 
+/// `Geofence` is a service to define geographical polygons as special areas. Then
+/// you can determine the status of a geographical point relative to the `Fence`.
 @objc public final class Geofence: NSObject {
 
-    public typealias CreationCompletionHandler = (_ fence: Fence?, _ error: Swift.Error?) -> Void
-    public typealias DeletionCompletionHandler = (_ fence: Fence?, _ error: Swift.Error?) -> Void
-    public typealias FenceBatchLoadingCompletionHandler = (_ fences: [Fence]?, _ error: Swift.Error?) -> Void
-    public typealias FenceLoadingCompletionHandler = (_ fences: Fence?, _ error: Swift.Error?) -> Void
+    public typealias CreationCompletionHandler = (_ fence: Fence?, _ error: Error?) -> Void
+    public typealias DeletionCompletionHandler = (_ fence: Fence?, _ error: Error?) -> Void
+    public typealias FenceBatchLoadingCompletionHandler = (_ fences: [Fence]?, _ error: Error?) -> Void
+    public typealias FenceLoadingCompletionHandler = (_ fences: Fence?, _ error: Error?) -> Void
 
+    /// All the fences that are loaded using any instance of `Geofence` class.
+    ///
+    /// `Fence`s in this property are all related to a API key.
+    ///
+    /// - note: When the API key changes, this property updates and becomes empty.
     public static var fences: Set<Fence> = []
-
-    var loadingTask: URLSessionDataTask?
 
     /// Loads geofences associated with the API key, from Map.ir.
     ///
@@ -41,16 +46,20 @@ import Foundation
     ///
     /// - Parameters:
     ///   - range: Range of the fence indexes to load.
-    ///   - completionHandler: A block to run once the result is available.
+    ///   - completionHandler: A completion handler block to run once the results are
+    ///     available.
     public func loadFences(
         inRange range: ClosedRange<Int>,
         completionHandler: @escaping FenceBatchLoadingCompletionHandler
     ) {
-        loadingTask?.cancel()
+        guard AccountManager.isAuthorized else {
+            completionHandler(nil, ServiceError.unauthorized)
+            return
+        }
 
         let request = urlRequestForBatchLoadingFences(range: range)
 
-        loadingTask = dataTask(
+        let loadingTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeBatchLoadingResult(from:)
         ) { (fences, error) in
@@ -62,19 +71,29 @@ import Foundation
             fences.forEach { Geofence.fences.update(with: $0) }
             completionHandler(fences, error)
         }
+
         loadingTask?.resume()
     }
 
+    /// Loads a specific `Fence` with its ID from the server.
+    ///
+    /// - Parameters:
+    ///   - id: ID of the `Fence` that is needed.
+    ///   - completionHandler: a completion handler block to run when the specified fence
+    ///     becomes available.
     @objc(loadFenceWithID:completionHandler:)
     public func loadFence(
         withID id: Int,
         completionHandler: @escaping FenceLoadingCompletionHandler
     ) {
-        loadingTask?.cancel()
+        guard AccountManager.isAuthorized else {
+            completionHandler(nil, ServiceError.unauthorized)
+            return
+        }
 
         let request = urlRequestForLoadingFence(id: id)
 
-        loadingTask = dataTask(
+        let loadingTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeLoadingResult(from:)
         ) { (fence, error) in
@@ -90,14 +109,30 @@ import Foundation
 
     }
 
+    /// Creates a new `Fence` object from the specified boundaries.
+    ///
+    /// This method sends the boundaries to the server, If this task finishes
+    /// successfully, creates a `Fence` with the boundary and the id that the server
+    /// assigns to it.
+    ///
+    /// - Parameters:
+    ///   - boundaries: An array of `Polygon`s representing the area that the `Fence` is
+    ///     going to show.
+    ///   - completionHandler: A completion handler block to run when the `Fence` is
+    ///     genereted properly.
     @objc(createFenceWithBoundaries:completionHandler:)
     public func createFence(
         withBoundaries boundaries: [Polygon],
         completionHandler: @escaping CreationCompletionHandler
     ) {
+        guard AccountManager.isAuthorized else {
+            completionHandler(nil, ServiceError.unauthorized)
+            return
+        }
+
         let request = urlRequestForCreatingFence(polygons: boundaries)
 
-        let createTask = dataTask(
+        let createTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeCreatingResult(from:)
         ) { (id, error) in
@@ -109,11 +144,16 @@ import Foundation
             completionHandler(fence, nil)
         }
 
-        createTask.resume()
+        createTask?.resume()
     }
 
-    var deleteTask: URLSessionDataTask?
-
+    /// Deletes a given `Fence` from the server. If succeeds passes the deleted `Fence` to the
+    /// `completionHandler`, Otherwise passes the error associated with the process.
+    ///
+    /// - Parameters:
+    ///   - fence: The fence to delete
+    ///   - completionHandler: A completion handler block to run once the task is
+    ///     completed.
     @objc(deleteFence:completionHandler:)
     public func deleteFence(
         _ fence: Fence,
@@ -122,16 +162,26 @@ import Foundation
         deleteFence(withID: fence.id, completionHandler: completionHandler)
     }
 
+    /// Deletes the fence with the given ID. If succeeds passes the deleted `Fence` to the
+    /// `completionHandler`, Otherwise passes the error associated with the process.
+    ///
+    /// - Parameters:
+    ///   - id: ID of the fence that is wanted to be deleted.
+    ///   - completionHandler: the completion handler block to run after the results are
+    ///     available or process encounters an error.
     @objc(deleteFenceWithID:completionHandler:)
     public func deleteFence(
         withID id: Int,
         completionHandler: @escaping DeletionCompletionHandler
     ) {
-        loadingTask?.cancel()
-
+        guard AccountManager.isAuthorized else {
+            completionHandler(nil, ServiceError.unauthorized)
+            return
+        }
+        
         let request = urlRequestForLoadingFence(id: id)
 
-        loadingTask = dataTask(
+        let deletingTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeDeletingResult(from:)
         ) { (fence, error) in
@@ -143,27 +193,7 @@ import Foundation
             completionHandler(fence, error)
         }
 
-        loadingTask?.resume()
-    }
-}
-
-extension Geofence {
-
-    /// Errors related to geofence.
-    @objc(GeofenceError)
-    public enum Error: UInt, Swift.Error {
-
-        /// Indicates that you are not using a Map.ir API key or your key is invalid.
-        case unauthorized
-
-        /// Indicates that network was unavailable or a network error occurred.
-        case network
-
-        /// Indicates that the task was canceled.
-        case canceled
-
-        /// Indicates that geocode or reverse geocode had no result.
-        case noResult
+        deletingTask?.resume()
     }
 }
 
@@ -316,54 +346,5 @@ extension Geofence {
         } else {
             return nil
         }
-    }
-}
-
-extension Geofence {
-    @discardableResult
-    func dataTask<R>(
-        with urlRequest: URLRequest,
-        decoderBlock: @escaping (Data) -> R?,
-        completionHandler: @escaping (_ result: R?, _ error: Error?) -> Void
-    ) -> URLSessionDataTask {
-
-        guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
-            return URLSessionDataTask()
-        }
-
-        let dataTask = NetworkingManager.dataTask(with: urlRequest) { (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200, 201:
-                    if let data = data, let decoded = decoderBlock(data) {
-                        completionHandler(decoded, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
-        }
-
-        return dataTask
     }
 }

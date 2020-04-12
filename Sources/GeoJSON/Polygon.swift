@@ -34,7 +34,7 @@ import Foundation
     ///
     /// - Throws: Throws `GeoJSON.insufficientCoordinates` if coordinate count is less
     ///   than 4 (Which is required by polygon definition in GeoJSON).
-    public init(
+    @objc public init(
         coordinates: [CLLocationCoordinate2D],
         interiorPolygons: [Polygon] = []
     ) throws {
@@ -49,26 +49,6 @@ import Foundation
 
         self.coordinates = coordinates
         self.interiorPolygons = interiorPolygons
-    }
-
-    /// Creates a `Polygon` using GeoJSON values of polygon.
-    ///
-    /// Fails if input array of polygons is empty or any of polygons have less than 4
-    /// coordinates.
-    convenience init(fromGeoJSONGeometry geometry: [[[Double]]]) throws {
-        guard let outerRing = geometry.first else {
-            throw GeoJSONError.insufficientPolygons
-        }
-
-        let outerRingCoordinates = try outerRing.compactMap { try CLLocationCoordinate2D(fromGeoJSONGeometry: $0) }
-
-        let interiorRings: [Polygon] = try geometry[1...].map { (rings) in
-            let coordinates = try rings.compactMap { try CLLocationCoordinate2D(fromGeoJSONGeometry: $0) }
-            let polygon = try Polygon(coordinates: coordinates)
-            return polygon
-        }
-
-        try self.init(coordinates: outerRingCoordinates, interiorPolygons: interiorRings)
     }
 }
 
@@ -194,6 +174,27 @@ extension Polygon {
 }
 
 extension Polygon: GeoJSONGeometryConvertible {
+
+    /// Creates a `Polygon` using GeoJSON values of polygon.
+    ///
+    /// Fails if input array of polygons is empty or any of polygons have less than 4
+    /// coordinates.
+    convenience init(fromGeoJSONGeometry geometry: [[[Double]]]) throws {
+        guard let outerRing = geometry.first else {
+            throw GeoJSONError.insufficientPolygons
+        }
+
+        let outerRingCoordinates = try outerRing.compactMap { try CLLocationCoordinate2D(fromGeoJSONGeometry: $0) }
+
+        let interiorRings: [Polygon] = try geometry[1...].map { (rings) in
+            let coordinates = try rings.compactMap { try CLLocationCoordinate2D(fromGeoJSONGeometry: $0) }
+            let polygon = try Polygon(coordinates: coordinates)
+            return polygon
+        }
+
+        try self.init(coordinates: outerRingCoordinates, interiorPolygons: interiorRings)
+    }
+
     func convertedToGeoJSONGeometry() -> [[[Double]]] {
         let exteriorPolygon = coordinates.map { $0.convertedToGeoJSONGeometry() }
         var coordinates: [[[Double]]] = [exteriorPolygon]

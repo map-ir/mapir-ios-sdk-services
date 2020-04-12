@@ -43,44 +43,17 @@ import UIKit
         cancel()
         
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
+            completionHandler(nil, ServiceError.unauthorized)
             return
         }
 
         let request = self.urlRequestForSnapshotterTask(with: configuration)
 
-        activeTask = NetworkingManager.dataTask(with: request) { [weak self] (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let placemarks = self?.decodeImage(from: data) {
-                        completionHandler(placemarks, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
-
-        }
+        activeTask = NetworkingManager.dataTask(
+            with: request,
+            decoderBlock: decodeImage(from:),
+            completionHandler: completionHandler)
+        
         activeTask?.resume()
     }
 
@@ -88,28 +61,6 @@ import UIKit
     @objc public func cancel() {
         activeTask?.cancel()
         activeTask = nil
-    }
-}
-
-// MARK: Errors
-
-extension MapSnapshotter {
-
-    /// Errors related to map snapshotting.
-    @objc(MapSnapshotterError)
-    public enum Error: UInt, Swift.Error {
-
-        /// Indicates that you are not using a Map.ir API key or your key is invalid.
-        case unauthorized
-
-        /// Indicates that network was unavailable or a network error occurred.
-        case network
-
-        /// Indicates that the task was canceled.
-        case canceled
-
-        /// Indicates that snapshot creation task had no result.
-        case noResult
     }
 }
 

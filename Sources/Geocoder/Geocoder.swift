@@ -12,7 +12,7 @@ import Foundation
 public class Geocoder: NSObject {
 
     /// Geocoder or ReverseGeocoder
-    public typealias GeocodeCompletionHandler = (_ results: [Placemark]?, _ error: Swift.Error?) -> Void
+    public typealias GeocodeCompletionHandler = (_ results: [Placemark]?, _ error: Error?) -> Void
 
     /// Current status of `Geocoder` object.
     @objc public var isGeocoding: Bool {
@@ -125,28 +125,6 @@ public class Geocoder: NSObject {
     }
 }
 
-// MARK: Geocoding Errors
-
-extension Geocoder {
-
-    /// Errors related to geocoding.
-    @objc(GeocoderError)
-    public enum Error: UInt, Swift.Error {
-
-        /// Indicates that you are not using a Map.ir API key or your key is invalid.
-        case unauthorized
-
-        /// Indicates that network was unavailable or a network error occurred.
-        case network
-
-        /// Indicates that the task was canceled.
-        case canceled
-
-        /// Indicates that geocode or reverse geocode had no result.
-        case noResult
-    }
-}
-
 // MARK: Running Tasks
 
 extension Geocoder {
@@ -161,7 +139,7 @@ extension Geocoder {
                  decoder: @escaping (Data) -> ([Placemark]?)) {
         
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
+            completionHandler(nil, ServiceError.unauthorized)
             return
         }
 
@@ -175,37 +153,10 @@ extension Geocoder {
             request = self.urlRequestForGeocodeTask(string: address, city: city)
         }
 
-        self.activeTask = NetworkingManager.dataTask(with: request) { (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let placemarks = decoder(data) {
-                        completionHandler(placemarks, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
-        }
+        self.activeTask = NetworkingManager.dataTask(
+            with: request,
+            decoderBlock: decoder,
+            completionHandler: completionHandler)
     }
 }
 

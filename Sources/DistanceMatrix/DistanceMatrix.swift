@@ -72,34 +72,6 @@ public class DistanceMatrix: NSObject {
     }
 }
 
-// MARK: Errors
-
-extension DistanceMatrix {
-
-    @objc(DistanceMatrixError)
-    public enum Error: UInt, Swift.Error {
-
-        /// Indicates that you are not using a Map.ir API key or your key is invalid.
-        case unauthorized
-
-        /// Indicates that network was unavailable or a network error occurred.
-        case network
-
-        /// Indicates that the task was canceled.
-        case canceled
-
-        /// Indicates that snapshot creation task had no result.
-        case noResult
-
-        /// Invalid input arguments.
-        ///
-        /// Errors in arguments contain issues like inserting no origins and/or no
-        /// destinations, having empty string as key for any of input dictionaries or
-        /// having "-" in the name.
-        case invalidArguments
-    }
-}
-
 // MARK: Running Task
 
 extension DistanceMatrix {
@@ -110,12 +82,12 @@ extension DistanceMatrix {
                                completionHandler: @escaping DistanceMatrixCompletionHandler,
                                decoder: @escaping DecodingHandler) {
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
+            completionHandler(nil, ServiceError.unauthorized)
             return
         }
 
         guard validate(origins), validate(destinations) else {
-            completionHandler(nil, Error.invalidArguments)
+            completionHandler(nil, ServiceError.DistanceMatrixError.invalidArguments)
             return
         }
 
@@ -123,38 +95,11 @@ extension DistanceMatrix {
                                                          destinations: destinations,
                                                          configurations: configuration)
 
-        activeTask = NetworkingManager.dataTask(with: urlRequest) { [weak self] (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let distanceMatrix = self?.decodeDistanceMatrix(from: data) {
-                        completionHandler(distanceMatrix, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
-        }
-
+        activeTask = NetworkingManager.dataTask(
+            with: urlRequest,
+            decoderBlock: decoder,
+            completionHandler: completionHandler)
+        
         activeTask?.resume()
     }
 

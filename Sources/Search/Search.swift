@@ -14,7 +14,7 @@ import Foundation
 public class Search: NSObject {
 
     /// Completion handler type of searching.
-    public typealias SearchCompletionHandler = (_ results: [Search.Result]?, _ error: Swift.Error?) -> Void
+    public typealias SearchCompletionHandler = (_ results: [Search.Result]?, _ error: Error?) -> Void
 
     /// Current configuration for search.
     ///
@@ -92,28 +92,6 @@ public class Search: NSObject {
     }
 }
 
-// MARK: Errors
-
-extension Search {
-
-    /// Errors related to search.
-    @objc(SearchError)
-    public enum Error: UInt, Swift.Error {
-
-        /// Indicates that you are not using a Map.ir API key or your key is invalid.
-        case unauthorized
-
-        /// Indicates that network was unavailable or a network error occured.
-        case network
-
-        /// Indicates that the task was canceled.
-        case canceled
-
-        /// Indicates that geocode or reverse geocode had no result.
-        case noResult
-    }
-}
-
 // MARK: Running Tasks
 
 extension Search {
@@ -127,7 +105,7 @@ extension Search {
                  decoder: @escaping (Data) -> [Search.Result]?) {
 
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
+            completionHandler(nil, ServiceError.unauthorized)
             return
         }
 
@@ -139,38 +117,10 @@ extension Search {
             request = urlRequestForSearch(text: text, configuration: configuration)
         }
 
-        activeTask = NetworkingManager.dataTask(with: request) { (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
-                }
-                return
-            }
-
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let results = decoder(data) {
-                        completionHandler(results, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
-            }
-        }
-
+        activeTask = NetworkingManager.dataTask(
+            with: request,
+            decoderBlock: decoder,
+            completionHandler: completionHandler)
     }
 }
 

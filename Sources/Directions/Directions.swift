@@ -12,7 +12,7 @@ import Foundation
 @objc public final class Directions: NSObject {
 
     ///
-    public typealias DirectionsCompletionHandler = (_ result: Directions.Result?, _ Error: Swift.Error?) -> Void
+    public typealias DirectionsCompletionHandler = (_ result: Directions.Result?, _ Error: Error?) -> Void
 
     @objc public var configuration: Directions.Configuration = Configuration()
 
@@ -52,12 +52,12 @@ import Foundation
         self.configuration = configuration
 
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, Error.unauthorized)
+            completionHandler(nil, ServiceError.unauthorized)
             return
         }
 
         guard validate(coordinates) else {
-            completionHandler(nil, Error.invalidArguments)
+            completionHandler(nil, ServiceError.DirectionsError.invalidArguments)
             return
         }
 
@@ -65,38 +65,17 @@ import Foundation
             coordinates: coordinates,
             configuration: self.configuration)
 
-        activeTask = NetworkingManager.dataTask(with: urlRequest) { [weak self] (data, response, error) in
-            if error != nil {
-                if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, Error.canceled)
-                } else {
-                    completionHandler(nil, Error.network)
+        activeTask = NetworkingManager.dataTask(
+            with: urlRequest,
+            decoderBlock: decodeDirectionsResult(from:)) { (directions, error) in
+                guard let directions = directions, error == nil else {
+                    completionHandler(nil, error)
+                    return
                 }
-                return
-            }
 
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 200:
-                    if let data = data, let directions = self?.decodeDirectionsResult(from: data) {
-                        directions.configuration = configuration.copy() as? Directions.Configuration
-                        completionHandler(directions, nil)
-                    } else {
-                        completionHandler(nil, Error.noResult)
-                    }
-                case 401:
-                    completionHandler(nil, Error.unauthorized)
-                case 400, 402..<500:
-                    completionHandler(nil, Error.noResult)
-                case 300..<400, 500..<600:
-                    completionHandler(nil, Error.network)
-                default:
-                    fatalError("Unknown response status code.")
-                }
-            } else {
-                completionHandler(nil, Error.network)
+                directions.configuration = configuration.copy() as? Directions.Configuration
+                completionHandler(directions, nil)
             }
-        }
 
         activeTask?.resume()
 
@@ -111,41 +90,12 @@ import Foundation
 
 extension Directions {
     func validate(_ coordinates: [CLLocationCoordinate2D]) -> Bool {
-        guard coordinates.count > 1 else {
-            return false
-        }
-
-        let x = coordinates.first { (coordinate) -> Bool in
-            !CLLocationCoordinate2DIsValid(coordinate)
-        }
-
-        guard x == nil else {
+        guard coordinates.count > 1 &&
+            coordinates.allSatisfy({ CLLocationCoordinate2DIsValid($0) }) else {
             return false
         }
 
         return true
-    }
-}
-
-extension Directions {
-    @objc public enum Error: Int, Swift.Error {
-
-        /// Indicates that you are not using a Map.ir API key or your key is invalid.
-        case unauthorized
-
-        /// Indicates that network was unavailable or a network error occurred.
-        case network
-
-        /// Indicates that the task was canceled.
-        case canceled
-
-        /// Indicates that snapshot creation task had no result.
-        case noResult
-
-        /// Invalid input arguments.
-        ///
-        /// Errors in arguments contain issues like inserting no waypoints.
-        case invalidArguments
     }
 }
 

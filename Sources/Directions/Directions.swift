@@ -8,10 +8,22 @@
 
 import Foundation
 
-/// <#Description#>
+/// `Directions` is a service that is used to find route between places.
+///
+/// Use `Directions` to find optimal route among multiple coordinates. This service
+/// considers the traffic data wherever the date is available. [See the full list of
+/// the cities](https://support.map.ir/developers/api/route/1-0-0/document/) . This
+/// service also provides alternative routes, ETA, duration and distance between the
+/// coordinates.
+///
+/// Using Map.ir `Directions` service, not only you can find routes for driving with
+/// a car, but also routes for bicycling, walking.
+///
+/// It is also possible to exclude traffic restrictions of cities, such as air
+/// pollution control area and traffic control area in Tehran.
 @objc public final class Directions: NSObject {
 
-    ///
+    /// Completion handler type of Directions.
     public typealias DirectionsCompletionHandler = (_ result: Directions.Result?, _ Error: Error?) -> Void
 
     @objc public var configuration: Directions.Configuration = Configuration()
@@ -34,14 +46,13 @@ import Foundation
 
     private var activeTask: URLSessionDataTask?
 
-    /// Finds routes among at least two coordinates.
+    /// Finds routes among at least two coordinates with the given configuration.
     ///
-    ///
-    /// 
     /// - Parameters:
-    ///   - coordinates: <#coordinates description#>
-    ///   - configuration: <#configuration description#>
-    ///   - completionHandler: <#completionHandler description#>
+    ///   - coordinates: The coordintes to find the path among them.
+    ///   - configuration: Configuration object to use to find the route.
+    ///   - completionHandler: Completion handler block to use when the results are
+    ///     available or an error occurs.
     @objc(calculateDirectionAmongCoordinates:withConfiguration:completionHandler:)
     public func calculateDirections(
         among coordinates: [CLLocationCoordinate2D],

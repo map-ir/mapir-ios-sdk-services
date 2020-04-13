@@ -130,6 +130,11 @@ import Foundation
             return
         }
 
+        guard validateCreateArguments(boundaries) else {
+            completionHandler(nil, ServiceError.GeofenceError.invalidArguments)
+            return
+        }
+
         let request = urlRequestForCreatingFence(polygons: boundaries)
 
         let createTask = NetworkingManager.dataTask(
@@ -194,6 +199,16 @@ import Foundation
         }
 
         deletingTask?.resume()
+    }
+}
+
+extension Geofence {
+    func validateCreateArguments(_ polygons: [Polygon]) -> Bool {
+        guard polygons.count > 0 else {
+            return false
+        }
+
+        return true
     }
 }
 

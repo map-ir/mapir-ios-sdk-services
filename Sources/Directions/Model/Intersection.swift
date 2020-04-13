@@ -15,7 +15,7 @@ import Foundation
 /// For every step, the very first intersection (intersections[0]) corresponds
 /// to the location of the StepManeuver. Further intersections are listed for every
 /// cross-way until the next turn instruction.
-@objc(Intersection)
+@objc(SHIntersection)
 public final class Intersection: NSObject {
 
     /// A `CLLocationCoordinate2D` describing the location of the turn.

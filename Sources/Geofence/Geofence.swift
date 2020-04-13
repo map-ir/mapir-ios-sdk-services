@@ -10,7 +10,8 @@ import Foundation
 
 /// `Geofence` is a service to define geographical polygons as special areas. Then
 /// you can determine the status of a geographical point relative to the `Fence`.
-@objc public final class Geofence: NSObject {
+@objc(SHGeofence)
+public final class Geofence: NSObject {
 
     public typealias CreationCompletionHandler = (_ fence: Fence?, _ error: Error?) -> Void
     public typealias DeletionCompletionHandler = (_ fence: Fence?, _ error: Error?) -> Void
@@ -204,7 +205,7 @@ import Foundation
 
 extension Geofence {
     func validateCreateArguments(_ polygons: [Polygon]) -> Bool {
-        guard polygons.count > 0 else {
+        guard !polygons.isEmpty else {
             return false
         }
 

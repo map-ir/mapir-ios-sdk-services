@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 import Polyline
 
-@objc(Route)
+@objc(SHRoute)
 public final class Route: NSObject {
 
     /// The distance traveled by the route, in `Double` meters.

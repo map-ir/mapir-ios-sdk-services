@@ -10,7 +10,13 @@ import Foundation
 
 extension Lane {
 
-    @objc(LaneIndication)
+    /// Each of these options specifies a maneuver direction for which a given lane can
+    /// be used.
+    ///
+    /// A Lane object has zero or more indications that usually correspond to arrows on
+    /// signs or pavement markings. If no options are specified, it may be the case that
+    /// no maneuvers are indicated on signage or pavement markings for the lane.
+    @objc(SHLaneIndication)
     public final class Indication: NSObject, OptionSet {
 
         @objc public var rawValue: Int

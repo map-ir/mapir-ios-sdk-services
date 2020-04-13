@@ -13,54 +13,66 @@ import CoreLocation
 extension Search {
 
     /// Description of a search result object
-    @objc(SearchResult)
+    @objc(SHSearchResult)
     public final class Result: NSObject {
 
         /// Province of the result.
-        @objc let province: String?
+        @objc public let province: String?
 
         /// The name of county associated with the result.
-        @objc let county: String?
+        @objc public let county: String?
 
         /// The district associated with the result.
-        @objc let district: String?
+        @objc public let district: String?
 
         /// The city associated with the result.
-        @objc let city: String?
+        @objc public let city: String?
 
         /// The region associated with the result.
-        @objc let region: String?
+        @objc public let region: String?
 
         /// The neighborhood name associated with the result.
-        @objc let neighborhood: String?
+        @objc public let neighborhood: String?
 
         /// Title of the result.
-        @objc let title: String?
+        @objc public let title: String?
 
         /// Address of the result.
-        @objc let address: String?
+        @objc public let address: String?
 
         /// Type of the result.
-        @objc let type: String?
+        @objc public let type: String?
 
         /// FClass of the result.
-        @objc let fclass: String?
+        @objc public let fclass: String?
 
         /// Coordinate associated with the result.
-        let coordinate: CLLocationCoordinate2D?
+        public let coordinate: CLLocationCoordinate2D?
 
-        init(from resultResponse: Search.Result.ResultScheme) {
-            province = resultResponse.province
-            county = resultResponse.county
-            district = resultResponse.district
-            city = resultResponse.city
-            region = resultResponse.region
-            neighborhood = resultResponse.neighborhood
-            title = resultResponse.title
-            address = resultResponse.address
-            type = resultResponse.type
-            fclass = resultResponse.fclass
-            coordinate = resultResponse.coordinate
+        init(
+            province: String?,
+            county: String?,
+            district: String?,
+            city: String?,
+            region: String?,
+            neighborhood: String?,
+            title: String?,
+            address: String?,
+            type: String?,
+            fclass: String?,
+            coordinate: CLLocationCoordinate2D?
+        ) {
+            self.province = province
+            self.county = county
+            self.district = district
+            self.city = city
+            self.region = region
+            self.neighborhood = neighborhood
+            self.title = title
+            self.address = address
+            self.type = type
+            self.fclass = fclass
+            self.coordinate = coordinate
         }
     }
 }
@@ -101,6 +113,23 @@ extension Search.Result {
 }
 
 extension Search.Result {
+
+    convenience init(from resultResponse: Search.Result.ResultScheme) {
+        self.init(
+            province: resultResponse.province,
+            county: resultResponse.county,
+            district: resultResponse.district,
+            city: resultResponse.city,
+            region: resultResponse.region,
+            neighborhood: resultResponse.neighborhood,
+            title: resultResponse.title,
+            address: resultResponse.address,
+            type: resultResponse.type,
+            fclass: resultResponse.fclass,
+            coordinate: resultResponse.coordinate
+        )
+    }
+
     struct ResultScheme: Decodable {
         var province: String?
         var county: String?

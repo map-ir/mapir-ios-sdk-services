@@ -9,7 +9,10 @@
 // MARK: Search Categories
 
 extension Search {
-    @objc public final class Categories: NSObject, OptionSet {
+    /// Search `Categories` is an `OptionSet` You can create a `Categories` object using
+    /// multiple values in `Categories` class.
+    @objc(SHCategories)
+    public final class Categories: NSObject, OptionSet {
 
         /// Raw value for option set.
         @objc public let rawValue: Int

@@ -11,7 +11,7 @@ extension Search {
     /// Holds configurations of a `Search` object.
     ///
     /// `Search` uses a `Configuration` object for each search request.
-    @objc(SearchConfiguration)
+    @objc(SHSearchConfiguration)
     public class Configuration: NSObject {
 
         /// Default configuration with no categories, filter and center coordinate provided.

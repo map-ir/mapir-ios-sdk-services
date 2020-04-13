@@ -15,7 +15,8 @@ import Foundation
 /// The vertices are connected in the order that you provide. You should close the
 /// polygon by specifying same `CLLocationCoordinate2D`s as the first and the last
 /// vertex.
-@objc public final class Polygon: NSObject {
+@objc(SHPolygon)
+public final class Polygon: NSObject {
 
     /// Coordinates of vertices in the polygon.
     public var coordinates: [CLLocationCoordinate2D]

@@ -10,7 +10,8 @@ import Foundation
 
 extension StepManeuver {
 
-    @objc(StepManeuverDirection)
+    /// Shows different directions that a maneuver can take.
+    @objc(SHStepManeuverDirection)
     public enum Direction: Int {
 
         /// The step does not have a particular maneuver direction associated with it.

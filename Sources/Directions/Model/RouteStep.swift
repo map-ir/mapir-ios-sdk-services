@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 import Polyline
 
-@objc(RouteStep)
+@objc(SHRouteStep)
 public final class RouteStep: NSObject {
 
     /// The distance of travel from the maneuver to the subsequent step, in `Double`

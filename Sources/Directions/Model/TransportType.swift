@@ -9,7 +9,7 @@
 import Foundation
 
 ///  A `TransportType` specifies the mode of transportation used for part of a route.
-@objc(TransportType)
+@objc(SHTransportType)
 public enum TransportType: Int {
 
     /// The step does not have a particular transport type associated with it.

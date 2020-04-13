@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(ServiceError)
+@objc(SHServiceError)
 public enum ServiceError: UInt, Error {
 
     /// Indicates that you are not using a Map.ir API key or your key is invalid.
@@ -23,7 +23,7 @@ public enum ServiceError: UInt, Error {
     /// Indicates that geocode or reverse geocode had no result.
     case noResult
 
-    @objc(DistanceMatrixError)
+    @objc(SHDistanceMatrixError)
     enum DistanceMatrixError: UInt, Error {
 
         /// Invalid input arguments.
@@ -34,8 +34,17 @@ public enum ServiceError: UInt, Error {
         case invalidArguments
     }
 
-    @objc(DirectionsError)
+    @objc(SHDirectionsError)
     enum DirectionsError: UInt, Error {
+
+        /// Invalid input arguments.
+        ///
+        /// Errors in arguments contain issues like inserting no waypoints.
+        case invalidArguments
+    }
+
+    @objc(SHDirectionsError)
+    enum GeofenceError: UInt, Error {
 
         /// Invalid input arguments.
         ///

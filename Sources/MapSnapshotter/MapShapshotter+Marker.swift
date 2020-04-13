@@ -14,7 +14,7 @@ extension MapSnapshotter {
 
     /// A marker is placed on the snapshot of the map. It can be of different styles and
     /// show a string label under it.
-    @objc(MapSnapshotterMarker)
+    @objc(SHMapSnapshotterMarker)
     final class Marker: NSObject {
 
         /// The Label of the marker that will be shown under the marker.

@@ -10,7 +10,8 @@ import Foundation
 
 /// Errors related to decoding from GeoJSON or creating objects that are
 /// representable in GeoJSON format, such as `Polygon`.
-public enum GeoJSONError: Error {
+@objc(SHGeoJSONError)
+public enum GeoJSONError: UInt, Error {
 
     /// A polygon needs at least 4 coordinates as vertices to be acceptable. This error
     /// occurs when a `Polygon` is being created with 3 or less coordinates.

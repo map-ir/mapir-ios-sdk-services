@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(MSPlacemark)
+@objc(SHPlacemark)
 public final class Placemark: NSObject, Identifiable {
 
     /// Unique identifier of the placemark.

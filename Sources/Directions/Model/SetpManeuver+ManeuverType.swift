@@ -10,6 +10,7 @@ import Foundation
 
 extension StepManeuver {
 
+    /// Specifies different types of a `StepManeuver`
     @objc(StepManeuverType)
     public enum ManeuverType: Int {
 

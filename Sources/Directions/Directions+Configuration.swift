@@ -48,7 +48,7 @@ extension Directions {
 extension Directions {
 
     /// Defines different types of transportation modes available in the directions service.
-    @objc(DirectionsVehicleType)
+    @objc(SHDirectionsVehicleType)
     public enum VehicleType: Int {
 
         /// Indicates that the direction needs to be calculated for driving.
@@ -78,7 +78,7 @@ extension Directions {
     ///
     /// - note: At this moment, traffic restrictions only apply to the route when the
     /// `VehicleType` is `.privateCar`.
-    @objc(DirectionsTrafficRestriction)
+    @objc(SHDirectionsTrafficRestriction)
     public enum TrafficRestriction: Int {
 
         /// No traffic restrictions.
@@ -95,7 +95,7 @@ extension Directions {
 
     /// Use to add overview geometry either full, simplified according to highest zoom
     /// level it could be display on, or not at all.
-    @objc(DirectionsOverviewStyle)
+    @objc(SHDirectionsOverviewStyle)
     public enum OverviewStyle: Int {
 
         /// Result object will not have any overview geometry.

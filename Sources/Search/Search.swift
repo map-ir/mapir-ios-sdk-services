@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 
 /// Customizable search using Map.ir searching services.
-@objc(Search)
+@objc(SHSearch)
 public class Search: NSObject {
 
     /// Completion handler type of searching.

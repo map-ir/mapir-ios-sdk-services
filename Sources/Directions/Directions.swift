@@ -21,7 +21,8 @@ import Foundation
 ///
 /// It is also possible to exclude traffic restrictions of cities, such as air
 /// pollution control area and traffic control area in Tehran.
-@objc public final class Directions: NSObject {
+@objc(SHDirections)
+public final class Directions: NSObject {
 
     /// Completion handler type of Directions.
     public typealias DirectionsCompletionHandler = (_ result: Directions.Result?, _ Error: Error?) -> Void

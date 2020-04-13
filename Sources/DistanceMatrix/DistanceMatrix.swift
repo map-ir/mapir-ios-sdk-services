@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(DistanceMatrix)
+@objc(SHDistanceMatrix)
 public class DistanceMatrix: NSObject {
 
     public typealias DistanceMatrixCompletionHandler = (_ result: DistanceMatrix.Result?, _ error: Swift.Error?) -> Void

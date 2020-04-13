@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(MSGeocoder)
+@objc(SHGeocoder)
 public class Geocoder: NSObject {
 
     /// Geocoder or ReverseGeocoder

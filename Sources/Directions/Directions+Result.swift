@@ -11,7 +11,8 @@ import Foundation
 extension Directions {
 
     /// The output object of a `Directions` request.
-    @objc public final class Result: NSObject {
+    @objc(SHDirectionsResult)
+    public final class Result: NSObject {
 
         /// Array of `Waypoint` objects representing all waypoints along the path in order.
         @objc public let waypoints: [Waypoint]

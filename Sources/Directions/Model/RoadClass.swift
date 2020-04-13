@@ -8,9 +8,11 @@
 
 import Foundation
 
-@objc(RoadClass)
+/// An `OptionSet` that contains attributes of a road segment.
+@objc(SHRoadClass)
 public final class RoadClass: NSObject, OptionSet {
 
+    /// `OptionSet`'s raw value.
     @objc public var rawValue: Int
 
     public init(rawValue: Int) {

@@ -8,9 +8,12 @@
 
 import UIKit
 
-@objc class MapSnapshotter: NSObject {
+/// `MapSnapshotter` or Static Map service, is a service that creates a png image from
+/// part of the map.
+@objc(SHMapSnapshotter)
+class MapSnapshotter: NSObject {
 
-    /// Snapshot completion handler.
+    /// Snapshoting completion handler type.
     public typealias SnapshotCompletionHandler = (_ snapshot: UIImage?, _ error: Swift.Error?) -> Void
 
     /// Current status of `MapSnapshotter` object.

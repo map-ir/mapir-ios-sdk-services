@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(DrivingSide)
+@objc(SHDrivingSide)
 public enum DrivingSide: Int {
 
     /// specifies that the legal driving side at the location is `right`.

@@ -11,7 +11,7 @@ import Foundation
 extension DistanceMatrix {
 
     /// Indicates result of a distance matrix request.
-    @objc(DistanceMatrixResult)
+    @objc(SHDistanceMatrixResult)
     public class Result: NSObject {
 
         /// A 2D table containing distance values from every origin to every destination

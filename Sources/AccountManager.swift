@@ -8,7 +8,8 @@
 
 /// The `AccountManager` globally holds information about your API key and account
 /// on [Map.ir](https://map.ir).
-@objc class AccountManager: NSObject {
+@objc(SHAccountManager)
+class AccountManager: NSObject {
 
     /// Shared object
     private static let shared = AccountManager()

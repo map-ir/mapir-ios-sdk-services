@@ -16,7 +16,7 @@ extension MapSnapshotter {
     /// snapshot of the map.
     ///
     /// `MapSnapshotter` requires a configuration for a snapshotting task.
-    @objc(MapSnapshotterConfiguration)
+    @objc(SHMapSnapshotterConfiguration)
     final class Configuration: NSObject {
 
         /// Shows the center snapshotting camera.

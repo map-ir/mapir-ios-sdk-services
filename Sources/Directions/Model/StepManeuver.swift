@@ -9,16 +9,18 @@
 import CoreLocation
 import Foundation
 
-@objc(StepManeuver)
+@objc(SHStepManeuver)
 public final class StepManeuver: NSObject {
 
     /// A `CLLocationCoordinate2D`  describing the location of the turn.
     @objc public var coordinate: CLLocationCoordinate2D
 
-    /// The clockwise angle from true north to the direction of travel immediately after the maneuver. Range 0-359.
+    /// The clockwise angle from true north to the direction of travel immediately after
+    /// the maneuver. Range 0-359.
     public var finalHeading: CLLocationDirection?
 
-    /// The clockwise angle from true north to the direction of travel immediately before the maneuver. Range 0-359.
+    /// The clockwise angle from true north to the direction of travel immediately
+    /// before the maneuver. Range 0-359.
     public var initialHeading: CLLocationDirection?
 
     /// An enum indicating the type of maneuver.
@@ -29,7 +31,8 @@ public final class StepManeuver: NSObject {
 
     /// An optional `Integer` indicating number of the exit to take.
     ///
-    /// The field exists for the following `maneuverType`s: `roundabout`, `rotary` and `none`
+    /// The field exists for the following `maneuverType`s: `roundabout`, `rotary` and
+    /// `none`
     public var exitIndex: Int?
 
     init(

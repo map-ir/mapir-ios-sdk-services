@@ -9,7 +9,7 @@
 import CoreLocation
 import Foundation
 
-@objc(Waypoint)
+@objc(SHWaypoint)
 public final class Waypoint: NSObject {
 
     /// Unique internal identifier of the segment (ephemeral, not constant over data

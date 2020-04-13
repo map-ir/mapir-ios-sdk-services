@@ -9,7 +9,7 @@
 import Foundation
 
 /// A Lane represents a turn lane at the corresponding turn location.
-@objc(Lane)
+@objc(SHLane)
 public final class Lane: NSObject {
 
     /// a indication (e.g. marking on the road) specifying the turn lane.

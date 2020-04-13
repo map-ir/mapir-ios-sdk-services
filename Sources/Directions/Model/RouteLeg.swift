@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(RouteLeg)
+@objc(SHRouteLeg)
 public final class RouteLeg: NSObject {
     /// Depends on the `steps` parameter.
     @objc public let steps: [RouteStep]

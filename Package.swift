@@ -16,7 +16,7 @@ let package = Package(
     targets: [
         .target(
             name: "MapirServices",
-            dependencies: [],
+            dependencies: ["Polyline"],
             path: "Sources"
         ),
         .testTarget(

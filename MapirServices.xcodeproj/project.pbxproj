@@ -35,6 +35,12 @@
 		C09CA153243C61FB00E4AFBA /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CA152243C61FB00E4AFBA /* ServiceError.swift */; };
 		C09CA155243CBE2400E4AFBA /* GeoJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CA154243CBE2400E4AFBA /* GeoJSON.swift */; };
 		C0A2BDDC241CD44D005FD6FD /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2BDDB241CD44D005FD6FD /* Geofence.swift */; };
+		C0B2EA97244445310057B855 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA96244445310057B855 /* AppDelegate.swift */; };
+		C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA98244445310057B855 /* SceneDelegate.swift */; };
+		C0B2EA9B244445310057B855 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA9A244445310057B855 /* ViewController.swift */; };
+		C0B2EA9E244445310057B855 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EA9C244445310057B855 /* Main.storyboard */; };
+		C0B2EAA0244445320057B855 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EA9F244445320057B855 /* Assets.xcassets */; };
+		C0B2EAA3244445320057B855 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EAA1244445320057B855 /* LaunchScreen.storyboard */; };
 		C0B9961D2430B2C600E69C88 /* Fence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B9961C2430B2C600E69C88 /* Fence.swift */; };
 		C0BD54DA23B9CA560095985B /* DistanceMatrix+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */; };
 		C0BD54DC23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */; };
@@ -104,6 +110,14 @@
 		C09CA152243C61FB00E4AFBA /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		C09CA154243CBE2400E4AFBA /* GeoJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSON.swift; sourceTree = "<group>"; };
 		C0A2BDDB241CD44D005FD6FD /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
+		C0B2EA94244445310057B855 /* MapirServices Swift Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MapirServices Swift Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0B2EA96244445310057B855 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C0B2EA98244445310057B855 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C0B2EA9A244445310057B855 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C0B2EA9D244445310057B855 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C0B2EA9F244445320057B855 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C0B2EAA2244445320057B855 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C0B2EAA4244445320057B855 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0B9961C2430B2C600E69C88 /* Fence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fence.swift; sourceTree = "<group>"; };
 		C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DistanceMatrix+Result.swift"; sourceTree = "<group>"; };
 		C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DIstanceMatrix+Configuration.swift"; sourceTree = "<group>"; };
@@ -133,6 +147,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0B2EA91244445310057B855 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -156,6 +177,7 @@
 				3D9C42C522745A07000A6585 /* MapirServices.framework */,
 				3D9C43012274611B000A6585 /* MapirServices-tvOSTests.xctest */,
 				3D9C431122746198000A6585 /* MapirServices-macOSTests.xctest */,
+				C0B2EA94244445310057B855 /* MapirServices Swift Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,6 +227,7 @@
 		3D9C43222274629B000A6585 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				C0B2EA95244445310057B855 /* Swift Example */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -320,6 +343,20 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C0B2EA95244445310057B855 /* Swift Example */ = {
+			isa = PBXGroup;
+			children = (
+				C0B2EA96244445310057B855 /* AppDelegate.swift */,
+				C0B2EA98244445310057B855 /* SceneDelegate.swift */,
+				C0B2EA9A244445310057B855 /* ViewController.swift */,
+				C0B2EA9C244445310057B855 /* Main.storyboard */,
+				C0B2EA9F244445320057B855 /* Assets.xcassets */,
+				C0B2EAA1244445320057B855 /* LaunchScreen.storyboard */,
+				C0B2EAA4244445320057B855 /* Info.plist */,
+			);
+			path = "Swift Example";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -356,6 +393,23 @@
 			productReference = 3D9C429022745894000A6585 /* MapirServices.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C0B2EA93244445310057B855 /* MapirServices Swift Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0B2EAA5244445320057B855 /* Build configuration list for PBXNativeTarget "MapirServices Swift Example" */;
+			buildPhases = (
+				C0B2EA90244445310057B855 /* Sources */,
+				C0B2EA91244445310057B855 /* Frameworks */,
+				C0B2EA92244445310057B855 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MapirServices Swift Example";
+			productName = "MapirServices Swift Example";
+			productReference = C0B2EA94244445310057B855 /* MapirServices Swift Example.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -363,13 +417,16 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = "";
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Map;
 				TargetAttributes = {
 					3D9C428F22745894000A6585 = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1020;
+					};
+					C0B2EA93244445310057B855 = {
+						CreatedOnToolsVersion = 11.4;
 					};
 				};
 			};
@@ -390,6 +447,7 @@
 			projectRoot = "";
 			targets = (
 				3D9C428F22745894000A6585 /* MapirServices-iOS */,
+				C0B2EA93244445310057B855 /* MapirServices Swift Example */,
 			);
 		};
 /* End PBXProject section */
@@ -399,6 +457,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0B2EA92244445310057B855 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0B2EAA3244445320057B855 /* LaunchScreen.storyboard in Resources */,
+				C0B2EAA0244445320057B855 /* Assets.xcassets in Resources */,
+				C0B2EA9E244445310057B855 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +545,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0B2EA90244445310057B855 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0B2EA9B244445310057B855 /* ViewController.swift in Sources */,
+				C0B2EA97244445310057B855 /* AppDelegate.swift in Sources */,
+				C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C0B2EA9C244445310057B855 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0B2EA9D244445310057B855 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C0B2EAA1244445320057B855 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0B2EAA2244445320057B855 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3D9C429622745894000A6585 /* Debug */ = {
@@ -673,6 +770,44 @@
 			};
 			name = Release;
 		};
+		C0B2EAA6244445320057B855 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				INFOPLIST_FILE = "MapirServices Swift Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-Swift-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C0B2EAA7244445320057B855 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33DVPZ7L7T;
+				INFOPLIST_FILE = "MapirServices Swift Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ir.map.MapirServices-Swift-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -690,6 +825,15 @@
 			buildConfigurations = (
 				3D9C429922745894000A6585 /* Debug */,
 				3D9C429A22745894000A6585 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0B2EAA5244445320057B855 /* Build configuration list for PBXNativeTarget "MapirServices Swift Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0B2EAA6244445320057B855 /* Debug */,
+				C0B2EAA7244445320057B855 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -146,17 +146,19 @@ extension Geocoder {
         var request: URLRequest
         switch task {
         case let .fastReverseGeocode(coordinates):
-            request = self.urlRequestForReverseGeocodingTask(coordinate: coordinates)
-        case let .reverseGeocode(coordinates):
             request = self.urlRequestForFastReverseGeocodingTask(coordinate: coordinates)
+        case let .reverseGeocode(coordinates):
+            request = self.urlRequestForReverseGeocodingTask(coordinate: coordinates)
         case let .forwardGeocode(address, city):
             request = self.urlRequestForGeocodeTask(string: address, city: city)
         }
 
-        self.activeTask = NetworkingManager.dataTask(
+        activeTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decoder,
             completionHandler: completionHandler)
+
+        activeTask?.resume()
     }
 }
 

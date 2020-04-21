@@ -9,52 +9,80 @@
 // MARK: Search Categories
 
 extension Search {
+
     /// Search `Categories` is an `OptionSet` You can create a `Categories` object using
     /// multiple values in `Categories` class.
-    @objc(SHCategories)
-    public final class Categories: NSObject, OptionSet {
+    public struct Categories: OptionSet {
 
         /// Raw value for option set.
-        @objc public let rawValue: Int
+        public let rawValue: Int
 
         /// Initializes a category set with raw value. Do not use directly.
-        @objc public init(rawValue: Int) { self.rawValue = rawValue }
+        public init(rawValue: Int) { self.rawValue = rawValue }
 
         /// Points of interest.
-        @objc public static let poi                   = Search.Categories(rawValue: 1 << 0)
+        public static let poi                   = Search.Categories(rawValue: 1 << 0)
 
         /// City names.
-        @objc public static let city                  = Search.Categories(rawValue: 1 << 1)
+        public static let city                  = Search.Categories(rawValue: 1 << 1)
 
         /// Any kind of road. Street, Freeway, Alley, Avenue, Tunnels, etc.
-        @objc public static let road                  = Search.Categories(rawValue: 1 << 2)
+        public static let road                  = Search.Categories(rawValue: 1 << 2)
 
         /// Neighborhood names.
-        @objc public static let neighborhood          = Search.Categories(rawValue: 1 << 3)
+        public static let neighborhood          = Search.Categories(rawValue: 1 << 3)
 
         /// County names.
-        @objc public static let county                = Search.Categories(rawValue: 1 << 4)
+        public static let county                = Search.Categories(rawValue: 1 << 4)
 
         /// District names.
-        @objc public static let district              = Search.Categories(rawValue: 1 << 5)
+        public static let district              = Search.Categories(rawValue: 1 << 5)
 
         /// Land-use names.
-        @objc public static let landUse               = Search.Categories(rawValue: 1 << 6)
+        public static let landUse               = Search.Categories(rawValue: 1 << 6)
 
         /// Province names.
-        @objc public static let province              = Search.Categories(rawValue: 1 << 7)
+        public static let province              = Search.Categories(rawValue: 1 << 7)
 
         /// Body of water or jungle.
-        @objc public static let bodyOfWaterOrJungle   = Search.Categories(rawValue: 1 << 8)
+        public static let bodyOfWaterOrJungle   = Search.Categories(rawValue: 1 << 8)
 
         /// Nearby search.
-        @objc public static let nearby                = Search.Categories(rawValue: 1 << 9)
+        public static let nearby                = Search.Categories(rawValue: 1 << 9)
     }
 }
 
 extension Search.Categories {
-    func urlRepresentation() -> String {
+    init?(description: String) {
+        switch description {
+        case "nearby":
+            self.rawValue = Search.Categories.nearby.rawValue
+        case "city":
+            self.rawValue = Search.Categories.city.rawValue
+        case "county":
+            self.rawValue = Search.Categories.county.rawValue
+        case "district":
+            self.rawValue = Search.Categories.district.rawValue
+        case "landUse", "landuse":
+            self.rawValue = Search.Categories.landUse.rawValue
+        case "neighborhood", "neighbourhood":
+            self.rawValue = Search.Categories.neighborhood.rawValue
+        case "poi":
+            self.rawValue = Search.Categories.poi.rawValue
+        case "province":
+            self.rawValue = Search.Categories.province.rawValue
+        case "road", "roads":
+            self.rawValue = Search.Categories.road.rawValue
+        case "bodyOfWaterOrJungle", "woodwater":
+            self.rawValue = Search.Categories.bodyOfWaterOrJungle.rawValue
+        default: return nil
+        }
+    }
+}
 
+extension Search.Categories {
+
+    var stringValues: [String] {
         enum CategoryKeys: String {
             case nearby
             case city
@@ -97,6 +125,9 @@ extension Search.Categories {
             select.append(.bodyOfWaterOrJungle)
         }
 
-        return select.map { $0.rawValue }.joined(separator: ",")
+        return select.map { $0.rawValue }
+    }
+    var urlRepresentation: String {
+        stringValues.joined(separator: ",")
     }
 }

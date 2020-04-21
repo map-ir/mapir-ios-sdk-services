@@ -114,13 +114,15 @@ extension Search {
         case let .search(text, configuration):
             request = urlRequestForSearch(text: text, configuration: configuration)
         case let .suggestion(text, configuration):
-            request = urlRequestForSearch(text: text, configuration: configuration)
+            request = urlRequestForSuggestion(text: text, configuration: configuration)
         }
 
         activeTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decoder,
             completionHandler: completionHandler)
+
+        activeTask?.resume()
     }
 }
 
@@ -142,7 +144,7 @@ extension Search {
     func urlRequestForSearch(text: String, configuration: Search.Configuration) -> URLRequest {
         var urlComponents = NetworkingManager.baseURLComponents
 
-        urlComponents.queryItems = queryItems(for: configuration)
+        urlComponents.queryItems = queryItems(text: text, configuration: configuration)
         urlComponents.path = "/search/v2"
 
         let request = NetworkingManager.request(url: urlComponents)
@@ -153,7 +155,7 @@ extension Search {
     func urlRequestForSuggestion(text: String, configuration: Search.Configuration) -> URLRequest {
         var urlComponents = NetworkingManager.baseURLComponents
 
-        urlComponents.queryItems = queryItems(for: configuration)
+        urlComponents.queryItems = queryItems(text: text, configuration: configuration)
         urlComponents.path = "/search/v2/autocomplete"
 
         let request = NetworkingManager.request(url: urlComponents)
@@ -161,11 +163,13 @@ extension Search {
         return request
     }
 
-    func queryItems(for configuration: Search.Configuration) -> [URLQueryItem] {
+    func queryItems(text: String, configuration: Search.Configuration) -> [URLQueryItem] {
         var query: [String: String] = [:]
 
+        query["text"] = text
+
         if let center = configuration.center {
-            configuration.categories?.insert(.nearby)
+            configuration.categories.insert(.nearby)
 
             query["lat"] = String(center.latitude)
             query["lon"] = String(center.longitude)
@@ -175,8 +179,8 @@ extension Search {
             query["$filter"] = filter.urlRepresentation
         }
 
-        if let categories = configuration.categories, !categories.isEmpty {
-            query["$select"] = categories.urlRepresentation()
+        if !configuration.categories.isEmpty {
+            query["$select"] = configuration.categories.urlRepresentation
         }
 
         return URLQueryItem.queryItems(from: query)

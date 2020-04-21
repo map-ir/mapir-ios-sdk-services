@@ -159,17 +159,17 @@ extension Search.Result {
 
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            province = try container.decode(String.self, forKey: .province)
-            county = try container.decode(String.self, forKey: .county)
-            district = try container.decode(String.self, forKey: .district)
-            city = try container.decode(String.self, forKey: .city)
-            region = try container.decode(String.self, forKey: .region)
-            neighborhood = try container.decode(String.self, forKey: .neighborhood)
-            title = try container.decode(String.self, forKey: .title)
-            address = try container.decode(String.self, forKey: .address)
-            type = try container.decode(String.self, forKey: .type)
-            fclass = try container.decode(String.self, forKey: .fclass)
-            address = try container.decode(String.self, forKey: .address)
+            province = try container.decodeIfPresent(String.self, forKey: .province)
+            county = try container.decodeIfPresent(String.self, forKey: .county)
+            district = try container.decodeIfPresent(String.self, forKey: .district)
+            city = try container.decodeIfPresent(String.self, forKey: .city)
+            region = try container.decodeIfPresent(String.self, forKey: .region)
+            neighborhood = try container.decodeIfPresent(String.self, forKey: .neighborhood)
+            title = try container.decodeIfPresent(String.self, forKey: .title)
+            address = try container.decodeIfPresent(String.self, forKey: .address)
+            type = try container.decodeIfPresent(String.self, forKey: .type)
+            fclass = try container.decodeIfPresent(String.self, forKey: .fclass)
+            address = try container.decodeIfPresent(String.self, forKey: .address)
 
             enum GeomCodingKeys: String, CodingKey {
                 case type
@@ -177,8 +177,10 @@ extension Search.Result {
             }
 
             let coordContainer = try container.nestedContainer(keyedBy: GeomCodingKeys.self, forKey: .geom)
-            let coords = try coordContainer.decode(CLLocationCoordinate2D.GeoJSONType.self, forKey: .coordinates)
-            coordinate = try CLLocationCoordinate2D(fromGeoJSONGeometry: coords)
+            if let coords = try coordContainer.decodeIfPresent(
+                CLLocationCoordinate2D.GeoJSONType.self, forKey: .coordinates) {
+                coordinate = try CLLocationCoordinate2D(fromGeoJSONGeometry: coords)
+            }
         }
     }
 }

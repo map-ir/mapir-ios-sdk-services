@@ -19,16 +19,69 @@ extension Search {
         public static var empty: Configuration { Configuration() }
 
         /// Categories of search
-        @objc var categories: Search.Categories?
+        public var categories: Search.Categories = []
 
         /// It is a condition to filter the results based on it.
-        var filter: Search.Filter?
+        public var filter: Search.Filter?
 
         /// Center coordinate for search.
         ///
         /// providing a center coordinate will change search type to nearby search.
         /// otherwise results will be global.
-        var center: CLLocationCoordinate2D?
+        public var center: CLLocationCoordinate2D?
+    }
+}
+
+// MARK: Manipulate categories in Objective-C
+
+extension Search.Configuration {
+
+    /// Returns the string values of categories.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `categories` property.
+    ///
+    /// - Returns: Categories as converted to `String`.
+    @objc public func getCategories() -> [String] {
+        categories.stringValues
+    }
+
+    /// Adds a category to the search configuration using its string description.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `categories` property.
+    ///
+    /// - Parameter string: The description string of the category.
+    ///
+    /// - Returns: Correct form of the string format of the recently added category
+    ///   object. If the description does not specify any of the `Categories` options,
+    ///   returns `nil`.
+    @discardableResult
+    @objc public func addCategory(describing string: String) -> String? {
+        if let category = Search.Categories(description: string) {
+            categories.insert(category)
+            return category.stringValues.first
+        }
+        return nil
+    }
+
+    /// Removes a category from the search configuration using its string description.
+    ///
+    /// - note: This method is intended to be used in Objective-C only. In Swift use
+    /// `categories` property.
+    ///
+    /// - Parameter string: The description string of the category.
+    ///
+    /// - Returns: Correct form of the string format of the recently added category
+    ///   object. If the description does not specify any of the `Categories` options, or
+    ///   the specified category does not exist in the `categories`, returns `nil`.
+    @discardableResult
+    @objc public func removeCategory(describing string: String) -> String? {
+        if let category = Search.Categories(description: string), categories.contains(category) {
+            categories.remove(category)
+            return category.stringValues.first
+        }
+        return nil
     }
 }
 

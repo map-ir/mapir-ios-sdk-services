@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C00492B823AD48A900BD609E /* MapSnapshotter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00492B723AD48A900BD609E /* MapSnapshotter.swift */; };
+		C018BD512446FE3300EA51C4 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C018BD502446FE3300EA51C4 /* SearchTableViewController.swift */; };
 		C026605D243DA71700A96479 /* ArrayOfPolygon+GeoJSONGeometryConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026605C243DA71700A96479 /* ArrayOfPolygon+GeoJSONGeometryConvertible.swift */; };
 		C026605F243DA85800A96479 /* GeoJSONError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026605E243DA85800A96479 /* GeoJSONError.swift */; };
 		C0266061243DCF2000A96479 /* GeoJSONGeometryConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0266060243DCF2000A96479 /* GeoJSONGeometryConvertible.swift */; };
@@ -20,8 +21,13 @@
 		C047489A23918A11007F74E1 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489923918A11007F74E1 /* NetworkingManager.swift */; };
 		C047489C23918CE7007F74E1 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */; };
 		C047489E23919054007F74E1 /* URLQueryItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */; };
+		C05792AD2445B02200C2C821 /* GeocoderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */; };
 		C059A12923855D63001646A6 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A12823855D63001646A6 /* Geocoder.swift */; };
 		C059A135238561C7001646A6 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
+		C0607DF12445B83D006638AB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0607DEF2445B812006638AB /* Constants.swift */; };
+		C0607DF32445D374006638AB /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; };
+		C0607DF42445D374006638AB /* MapirServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* MapirServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0607DF92445E454006638AB /* PropertyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0607DF82445E454006638AB /* PropertyValueCell.swift */; };
 		C062B86E2330E62B00B731CF /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C062B86D2330E62B00B731CF /* Table.swift */; };
 		C06EAA192438BA3300B45C51 /* Polyline in Frameworks */ = {isa = PBXBuildFile; productRef = C06EAA182438BA3300B45C51 /* Polyline */; };
 		C07AD2C4243B5D670043B3AA /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07AD2C3243B5D670043B3AA /* Polygon.swift */; };
@@ -37,10 +43,11 @@
 		C0A2BDDC241CD44D005FD6FD /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2BDDB241CD44D005FD6FD /* Geofence.swift */; };
 		C0B2EA97244445310057B855 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA96244445310057B855 /* AppDelegate.swift */; };
 		C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA98244445310057B855 /* SceneDelegate.swift */; };
-		C0B2EA9B244445310057B855 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA9A244445310057B855 /* ViewController.swift */; };
 		C0B2EA9E244445310057B855 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EA9C244445310057B855 /* Main.storyboard */; };
 		C0B2EAA0244445320057B855 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EA9F244445320057B855 /* Assets.xcassets */; };
 		C0B2EAA3244445320057B855 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EAA1244445320057B855 /* LaunchScreen.storyboard */; };
+		C0B2EAA9244448C00057B855 /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EAA8244448BF0057B855 /* MainCollectionViewController.swift */; };
+		C0B2EAAB244498AC0057B855 /* ServiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EAAA244498AC0057B855 /* ServiceCell.swift */; };
 		C0B9961D2430B2C600E69C88 /* Fence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B9961C2430B2C600E69C88 /* Fence.swift */; };
 		C0BD54DA23B9CA560095985B /* DistanceMatrix+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */; };
 		C0BD54DC23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */; };
@@ -49,6 +56,8 @@
 		C0C5028023B74A6400EF6E54 /* Search+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5027F23B74A6400EF6E54 /* Search+Configuration.swift */; };
 		C0C5028223B74ACF00EF6E54 /* Search+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5028123B74ACF00EF6E54 /* Search+Filter.swift */; };
 		C0C5028423B74AE300EF6E54 /* Search+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5028323B74AE300EF6E54 /* Search+Categories.swift */; };
+		C0CC145D2446EABE00074A52 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CC145B2446E9F700074A52 /* Service.swift */; };
+		C0CC145F2446F2D100074A52 /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CC145E2446F2D100074A52 /* InputCell.swift */; };
 		C0EA4F9922C89A8300BC04EF /* DistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */; };
 		C0EA4FDF22C9EBC800BC04EF /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* Search.swift */; };
 		C0EA4FE122C9EE2600BC04EF /* Search+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */; };
@@ -60,6 +69,30 @@
 		C0FBEDD323E97BE300CA4204 /* TransportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBEDD223E97BE300CA4204 /* TransportType.swift */; };
 		C0FBEDD523E9919D00CA4204 /* DrivingSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBEDD423E9919D00CA4204 /* DrivingSide.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0607DF52445D374006638AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D9C428722745894000A6585 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D9C428F22745894000A6585;
+			remoteInfo = "MapirServices-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C0607DF72445D375006638AB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C0607DF42445D374006638AB /* MapirServices.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3D9C429022745894000A6585 /* MapirServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +114,7 @@
 		3D9C431122746198000A6585 /* MapirServices-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MapirServices-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C004680922E5DDD000CF922E /* MapirServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapirServices.h; sourceTree = "<group>"; };
 		C00492B723AD48A900BD609E /* MapSnapshotter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotter.swift; sourceTree = "<group>"; };
+		C018BD502446FE3300EA51C4 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		C026605C243DA71700A96479 /* ArrayOfPolygon+GeoJSONGeometryConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArrayOfPolygon+GeoJSONGeometryConvertible.swift"; sourceTree = "<group>"; };
 		C026605E243DA85800A96479 /* GeoJSONError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSONError.swift; sourceTree = "<group>"; };
 		C0266060243DCF2000A96479 /* GeoJSONGeometryConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSONGeometryConvertible.swift; sourceTree = "<group>"; };
@@ -94,8 +128,11 @@
 		C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLQueryItem+Extension.swift"; sourceTree = "<group>"; };
 		C04F54DF233BFE0300512825 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
+		C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocoderViewController.swift; sourceTree = "<group>"; };
 		C059A12823855D63001646A6 /* Geocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
 		C059A134238561C7001646A6 /* Placemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placemark.swift; sourceTree = "<group>"; };
+		C0607DEF2445B812006638AB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C0607DF82445E454006638AB /* PropertyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyValueCell.swift; sourceTree = "<group>"; };
 		C062B86D2330E62B00B731CF /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		C07AD2C3243B5D670043B3AA /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
@@ -113,11 +150,12 @@
 		C0B2EA94244445310057B855 /* MapirServices Swift Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MapirServices Swift Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B2EA96244445310057B855 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0B2EA98244445310057B855 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C0B2EA9A244445310057B855 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C0B2EA9D244445310057B855 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0B2EA9F244445320057B855 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0B2EAA2244445320057B855 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0B2EAA4244445320057B855 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0B2EAA8244448BF0057B855 /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
+		C0B2EAAA244498AC0057B855 /* ServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCell.swift; sourceTree = "<group>"; };
 		C0B9961C2430B2C600E69C88 /* Fence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fence.swift; sourceTree = "<group>"; };
 		C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DistanceMatrix+Result.swift"; sourceTree = "<group>"; };
 		C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DIstanceMatrix+Configuration.swift"; sourceTree = "<group>"; };
@@ -126,6 +164,8 @@
 		C0C5027F23B74A6400EF6E54 /* Search+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Configuration.swift"; sourceTree = "<group>"; };
 		C0C5028123B74ACF00EF6E54 /* Search+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Filter.swift"; sourceTree = "<group>"; };
 		C0C5028323B74AE300EF6E54 /* Search+Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Categories.swift"; sourceTree = "<group>"; };
+		C0CC145B2446E9F700074A52 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		C0CC145E2446F2D100074A52 /* InputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCell.swift; sourceTree = "<group>"; };
 		C0D3D3BA22DF1007005419F3 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
 		C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceMatrix.swift; sourceTree = "<group>"; };
 		C0EA4FDE22C9EBC800BC04EF /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -151,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0607DF32445D374006638AB /* MapirServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +389,14 @@
 			children = (
 				C0B2EA96244445310057B855 /* AppDelegate.swift */,
 				C0B2EA98244445310057B855 /* SceneDelegate.swift */,
-				C0B2EA9A244445310057B855 /* ViewController.swift */,
+				C0B2EAA8244448BF0057B855 /* MainCollectionViewController.swift */,
+				C0CC145B2446E9F700074A52 /* Service.swift */,
+				C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */,
+				C018BD502446FE3300EA51C4 /* SearchTableViewController.swift */,
+				C0607DEF2445B812006638AB /* Constants.swift */,
+				C0B2EAAA244498AC0057B855 /* ServiceCell.swift */,
+				C0CC145E2446F2D100074A52 /* InputCell.swift */,
+				C0607DF82445E454006638AB /* PropertyValueCell.swift */,
 				C0B2EA9C244445310057B855 /* Main.storyboard */,
 				C0B2EA9F244445320057B855 /* Assets.xcassets */,
 				C0B2EAA1244445320057B855 /* LaunchScreen.storyboard */,
@@ -400,10 +448,13 @@
 				C0B2EA90244445310057B855 /* Sources */,
 				C0B2EA91244445310057B855 /* Frameworks */,
 				C0B2EA92244445310057B855 /* Resources */,
+				C0607DF72445D375006638AB /* Embed Frameworks */,
+				C0607DF22445CFBE006638AB /* Insert Map.ir API key */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C0607DF62445D374006638AB /* PBXTargetDependency */,
 			);
 			name = "MapirServices Swift Example";
 			productName = "MapirServices Swift Example";
@@ -473,6 +524,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		C0607DF22445CFBE006638AB /* Insert Map.ir API key */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Insert Map.ir API key";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Inserting Map.ir API key...\"\nkey_file=~/.mapir\nkey=\"$(cat $key_file 2>/dev/null)\"\n\nif [ \"$key\" ]; then\n  plutil -replace MapirAPIKey -string $key \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n  echo \"API key inserted.\"\nelse\n  echo \"ERROR: Missing Map.ir API key. In order to use example application you need an API key. create an account or login to your account at <https://corp.map.ir/registration>, create a project or open an existing one, then create a new file at $key_file, add your project's API key to the file.\"\n  exit 1\nfi\n";
+		};
 		C082D8F823B23258001889F7 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -549,13 +618,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0B2EA9B244445310057B855 /* ViewController.swift in Sources */,
 				C0B2EA97244445310057B855 /* AppDelegate.swift in Sources */,
+				C0CC145D2446EABE00074A52 /* Service.swift in Sources */,
+				C05792AD2445B02200C2C821 /* GeocoderViewController.swift in Sources */,
+				C0B2EAAB244498AC0057B855 /* ServiceCell.swift in Sources */,
+				C0CC145F2446F2D100074A52 /* InputCell.swift in Sources */,
+				C0607DF92445E454006638AB /* PropertyValueCell.swift in Sources */,
+				C0B2EAA9244448C00057B855 /* MainCollectionViewController.swift in Sources */,
+				C018BD512446FE3300EA51C4 /* SearchTableViewController.swift in Sources */,
 				C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */,
+				C0607DF12445B83D006638AB /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0607DF62445D374006638AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D9C428F22745894000A6585 /* MapirServices-iOS */;
+			targetProxy = C0607DF52445D374006638AB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C0B2EA9C244445310057B855 /* Main.storyboard */ = {
@@ -776,7 +860,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33DVPZ7L7T;
-				INFOPLIST_FILE = "MapirServices Swift Example/Info.plist";
+				INFOPLIST_FILE = "Example/Swift Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -795,7 +879,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33DVPZ7L7T;
-				INFOPLIST_FILE = "MapirServices Swift Example/Info.plist";
+				INFOPLIST_FILE = "Example/Swift Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

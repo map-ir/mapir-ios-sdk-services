@@ -17,6 +17,7 @@
 		C02DCF6922CA1DC300BA403F /* RouteLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6822CA1DC300BA403F /* RouteLeg.swift */; };
 		C02DCF6B22CA213000BA403F /* StepManeuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6A22CA213000BA403F /* StepManeuver.swift */; };
 		C02DCF6D22CA213B00BA403F /* Intersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DCF6C22CA213B00BA403F /* Intersection.swift */; };
+		C037DE3E244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C037DE3D244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift */; };
 		C0474891239187EE007F74E1 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0474890239187EE007F74E1 /* AccountManager.swift */; };
 		C047489A23918A11007F74E1 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489923918A11007F74E1 /* NetworkingManager.swift */; };
 		C047489C23918CE7007F74E1 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */; };
@@ -123,6 +124,7 @@
 		C02DCF6822CA1DC300BA403F /* RouteLeg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteLeg.swift; sourceTree = "<group>"; };
 		C02DCF6A22CA213000BA403F /* StepManeuver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepManeuver.swift; sourceTree = "<group>"; };
 		C02DCF6C22CA213B00BA403F /* Intersection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intersection.swift; sourceTree = "<group>"; };
+		C037DE3D244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateSelectionViewController.swift; sourceTree = "<group>"; };
 		C0474890239187EE007F74E1 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		C047489923918A11007F74E1 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 				C0CC145B2446E9F700074A52 /* Service.swift */,
 				C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */,
 				C018BD502446FE3300EA51C4 /* SearchTableViewController.swift */,
+				C037DE3D244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift */,
 				C0607DEF2445B812006638AB /* Constants.swift */,
 				C0B2EAAA244498AC0057B855 /* ServiceCell.swift */,
 				C0CC145E2446F2D100074A52 /* InputCell.swift */,
@@ -625,6 +628,7 @@
 				C0CC145F2446F2D100074A52 /* InputCell.swift in Sources */,
 				C0607DF92445E454006638AB /* PropertyValueCell.swift in Sources */,
 				C0B2EAA9244448C00057B855 /* MainCollectionViewController.swift in Sources */,
+				C037DE3E244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift in Sources */,
 				C018BD512446FE3300EA51C4 /* SearchTableViewController.swift in Sources */,
 				C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */,
 				C0607DF12445B83D006638AB /* Constants.swift in Sources */,

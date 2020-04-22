@@ -36,7 +36,7 @@ extension Search {
         public static let county                = Search.Categories(rawValue: 1 << 4)
 
         /// District names.
-        public static let district              = Search.Categories(rawValue: 1 << 5)
+        public static let region                = Search.Categories(rawValue: 1 << 5)
 
         /// Land-use names.
         public static let landUse               = Search.Categories(rawValue: 1 << 6)
@@ -61,8 +61,8 @@ extension Search.Categories {
             self.rawValue = Search.Categories.city.rawValue
         case "county":
             self.rawValue = Search.Categories.county.rawValue
-        case "district":
-            self.rawValue = Search.Categories.district.rawValue
+        case "region":
+            self.rawValue = Search.Categories.region.rawValue
         case "landUse", "landuse":
             self.rawValue = Search.Categories.landUse.rawValue
         case "neighborhood", "neighbourhood":
@@ -87,9 +87,9 @@ extension Search.Categories {
             case nearby
             case city
             case county
-            case district
+            case region
             case landUse = "landuse"
-            case neighborhood = "neighbourhood"
+            case neighborhood //= "neighborhood"
             case poi
             case province
             case road = "roads"
@@ -103,8 +103,8 @@ extension Search.Categories {
         if self.contains(.county) {
             select.append(.county)
         }
-        if self.contains(.district) {
-            select.append(.district)
+        if self.contains(.region) {
+            select.append(.region)
         }
         if self.contains(.landUse) {
             select.append(.landUse)
@@ -123,6 +123,9 @@ extension Search.Categories {
         }
         if self.contains(.bodyOfWaterOrJungle) {
             select.append(.bodyOfWaterOrJungle)
+        }
+        if self.contains(.nearby) {
+            select.append(.nearby)
         }
 
         return select.map { $0.rawValue }

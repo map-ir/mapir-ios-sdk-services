@@ -28,16 +28,6 @@ class SearchTableViewController: UITableViewController {
 
     var searchCategories: Search.Categories = []
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -47,7 +37,7 @@ class SearchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 2
+        case 1: return 3
         case 2: return 2
         case 3: return 9
         case 4: return 1
@@ -78,9 +68,10 @@ class SearchTableViewController: UITableViewController {
     @IBAction func searchButtonTapped(_ sender: Any) {
         if let searchTerm = searchTextField.text, !searchTerm.isEmpty {
             let config = Search.Configuration()
-            if let latitudeString = latitudeTextField.text, let longitudeString = longitudeTextField.text, let latitude = Double(latitudeString), let longitude = Double(longitudeString) {
-                config.center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            if let centerCoordinates = readCenterCoordinatesFromLabels() {
+                config.center = centerCoordinates
             }
+
             if let filterValue = filterValueTextField.text, !filterValue.isEmpty {
                 var filter: Search.Filter?
                 switch filterSegmentedControl.selectedSegmentIndex {
@@ -144,6 +135,25 @@ class SearchTableViewController: UITableViewController {
             }
         }
     }
+
+    private func readCenterCoordinatesFromLabels() -> CLLocationCoordinate2D? {
+        if let latitudeString = latitudeTextField.text, let longitudeString = longitudeTextField.text, let latitude = Double(latitudeString), let longitude = Double(longitudeString) {
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        } else {
+            return nil
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CoordinateSelection" {
+            guard let destination = segue.destination as? CoordinateSelectionViewController else { return }
+
+            destination.delegate = self
+            if let centerCoordinates = readCenterCoordinatesFromLabels() {
+                destination.mapCenter = centerCoordinates
+            }
+        }
+    }
 }
 
 extension SearchTableViewController {
@@ -187,11 +197,6 @@ extension SearchTableViewController: MKMapViewDelegate {
         }
         annotationView.animatesWhenAdded = true
         annotationView.canShowCallout = true
-        annotationView.markerTintColor = UIColor(
-            hue: CGFloat.random(in: 0...1),
-            saturation: 0.5,
-            brightness: 1.0,
-            alpha: 1.0)
 
         return annotationView
     }
@@ -204,5 +209,14 @@ extension SearchTableViewController {
 
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension SearchTableViewController: CoordinateSelectionDelegate {
+    func viewController(_ vc: CoordinateSelectionViewController, willDismissWithSelectedCoordinate selectedCoordinate: CLLocationCoordinate2D?) {
+        guard let coordinate = selectedCoordinate else { return }
+
+        latitudeTextField.text = String(coordinate.latitude)
+        longitudeTextField.text = String(coordinate.longitude)
     }
 }

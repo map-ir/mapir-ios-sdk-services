@@ -30,8 +30,19 @@ extension Directions {
         /// Search for alternative routes. Passing a number `n` searches for up to `n`
         /// alternative routes.
         ///
+        /// Accepts an integer value between 0 to 3. Values greater than 3 or less than 0,
+        /// will be changed to 3 and 0 respectively.
+        ///
         /// - note: even if alternative routes are requested, a result cannot be guaranteed
-        public var numberOfAlternatives: Int = 0
+        public var numberOfAlternatives: Int = 0 {
+            didSet {
+                if numberOfAlternatives < 0 {
+                    numberOfAlternatives = 0
+                } else if numberOfAlternatives > 3 {
+                    numberOfAlternatives = 3
+                }
+            }
+        }
 
         /// Specifies whether the directions result, needs to have `RouteStep` instructions
         /// or not. Steps are the detail of each leg in the route.

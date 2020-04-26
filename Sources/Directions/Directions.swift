@@ -61,7 +61,7 @@ public final class Directions: NSObject {
         completionHandler: @escaping DirectionsCompletionHandler
     ) {
         cancel()
-        self.configuration = configuration
+        self.configuration = configuration.copy() as! Directions.Configuration
 
         guard AccountManager.isAuthorized else {
             completionHandler(nil, ServiceError.unauthorized)

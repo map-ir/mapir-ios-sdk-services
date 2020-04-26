@@ -19,6 +19,7 @@ class DirectionsTableViewController: UITableViewController {
     var directionsConfiguration: Directions.Configuration = .default
 
     var waypointAnnotations: [MKPointAnnotation] = []
+    var routeOverlays: [MKPolyline] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,11 +89,11 @@ class DirectionsTableViewController: UITableViewController {
 
         switch sender.selectedSegmentIndex {
         case 0:
-            directionsConfiguration.routeOverviewStyle = .none
+            directionsConfiguration.routeOverviewStyle = .full
         case 1:
             directionsConfiguration.routeOverviewStyle = .simplified
         case 2:
-            directionsConfiguration.routeOverviewStyle = .full
+            directionsConfiguration.routeOverviewStyle = .none
         default:
             break
         }
@@ -110,6 +111,8 @@ class DirectionsTableViewController: UITableViewController {
             return
         }
 
+        mapView.removeOverlays(routeOverlays)
+
         let coordinates = waypointAnnotations.map { $0.coordinate }
         directions.calculateDirections(among: coordinates, configuration: directionsConfiguration) { [weak self] (result, error) in
             if let error = error {
@@ -119,14 +122,15 @@ class DirectionsTableViewController: UITableViewController {
                         title: "Error",
                         message: "Something went wrong in routing process.\nError: \(errorDesc)")
                 }
+                return
             }
             if let result = result {
                 for route in result.routes {
                     if let coordinates = route.coordinates {
                         DispatchQueue.main.async {
                             let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                            self?.mapView.addAnnotation(polyline)
                             self?.mapView.addOverlay(polyline)
+                            self?.routeOverlays.append(polyline)
                         }
                     }
                 }

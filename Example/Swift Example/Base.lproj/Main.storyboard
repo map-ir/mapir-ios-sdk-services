@@ -245,7 +245,6 @@
                                                         <segment title="2"/>
                                                         <segment title="3"/>
                                                         <segment title="4"/>
-                                                        <segment title="5"/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="numberOfRoutesUpdated:" destination="xky-XS-tgI" eventType="valueChanged" id="fVa-Uf-3bb"/>
@@ -306,9 +305,9 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5uK-xU-tLD">
                                                     <rect key="frame" x="20" y="6" width="374" height="33"/>
                                                     <segments>
-                                                        <segment title="No overview"/>
-                                                        <segment title="Simplified"/>
                                                         <segment title="Full"/>
+                                                        <segment title="Simplified"/>
+                                                        <segment title="No overview"/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="routeOverviewStyleUpated:" destination="xky-XS-tgI" eventType="valueChanged" id="3Gk-1f-N2k"/>
@@ -328,18 +327,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Routing points and result" id="c48-SA-mfz">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="423" id="SxD-Qf-08S">
-                                        <rect key="frame" x="0.0" y="497" width="414" height="423"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="500" id="SxD-Qf-08S">
+                                        <rect key="frame" x="0.0" y="497" width="414" height="500"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SxD-Qf-08S" id="xuv-e3-Z9c">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="423"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SxD-Qf-08S" id="xuv-e3-Z9c">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="udM-Q9-uZL">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="600" id="vhO-Tc-0Y2"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="xky-XS-tgI" id="R36-rN-v6t"/>
                                                     </connections>

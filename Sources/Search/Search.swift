@@ -47,7 +47,7 @@ public class Search: NSObject {
                        completionHandler: @escaping SearchCompletionHandler) {
 
         cancel()
-        self.configuration = configuration
+        self.configuration = configuration.copy() as! Search.Configuration
 
         perform(.search(text, configuration),
                 completionHandler: completionHandler,
@@ -78,7 +78,7 @@ public class Search: NSObject {
                             completionHandler: @escaping SearchCompletionHandler) {
 
         cancel()
-        self.configuration = configuration
+        self.configuration = configuration.copy() as! Search.Configuration
 
         perform(.suggestion(text, configuration),
                 completionHandler: completionHandler,

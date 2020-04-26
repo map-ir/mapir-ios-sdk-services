@@ -26,29 +26,33 @@ public enum ServiceError: UInt, Error {
     @objc(SHDistanceMatrixError)
     enum DistanceMatrixError: UInt, Error {
 
-        /// Invalid input arguments.
-        ///
-        /// Errors in arguments contain issues like inserting no origins and/or no
-        /// destinations, having empty string as key for any of input dictionaries or
-        /// having "-" in the name.
-        case invalidArguments
+        /// Shows that origins and/or destinations dictionary are empty.
+        case emptyWaypointDictionary
+
+        /// Indicates that there is an invalid character in names of origins and/or
+        /// destinations waypoints.
+        case invalidCharacterInNames
     }
 
     @objc(SHDirectionsError)
     enum DirectionsError: UInt, Error {
 
-        /// Invalid input arguments.
-        ///
-        /// Errors in arguments contain issues like inserting no waypoints.
-        case invalidArguments
+        /// Shows that number of specified waypoints are less than two.
+        case invalidWaypoints
     }
 
     @objc(SHDirectionsError)
     enum GeofenceError: UInt, Error {
 
-        /// Invalid input arguments.
-        ///
-        /// Errors in arguments contain issues like inserting no waypoints.
-        case invalidArguments
+        /// Shows that array of input polygons is empty while creating a new
+        /// polygon.
+        case emptyPolygonsArray
+    }
+
+    @objc(SHDirectionsError)
+    enum MapSnapshotterError: UInt, Error {
+
+        /// Shows that the array of input markers is empty. At least one is required.
+        case emptyMarkersArray
     }
 }

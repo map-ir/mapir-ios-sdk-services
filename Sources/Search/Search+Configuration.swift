@@ -12,7 +12,7 @@ extension Search {
     ///
     /// `Search` uses a `Configuration` object for each search request.
     @objc(SHSearchConfiguration)
-    public class Configuration: NSObject {
+    public class Configuration: NSObject, NSCopying {
 
         /// Default configuration with no categories, filter and center coordinate provided.
         @objc(emptyConfiguration)
@@ -29,6 +29,26 @@ extension Search {
         /// providing a center coordinate will change search type to nearby search.
         /// otherwise results will be global.
         public var center: CLLocationCoordinate2D?
+
+        /// Creates a new `Configuration` object.
+        public init(
+            categories: Search.Categories = [],
+            filter: Search.Filter? = nil,
+            center: CLLocationCoordinate2D? = nil
+        ) {
+            self.categories = categories
+            self.filter = filter
+            self.center = center
+        }
+
+        /// Creates a copy of the receiver.
+        @objc public func copy(with zone: NSZone? = nil) -> Any {
+            return Configuration(
+                categories: categories,
+                filter: filter,
+                center: center
+            )
+        }
     }
 }
 

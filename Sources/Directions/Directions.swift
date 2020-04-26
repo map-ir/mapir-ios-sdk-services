@@ -56,7 +56,7 @@ public final class Directions: NSObject {
     ///     available or an error occurs.
     @objc(calculateDirectionAmongCoordinates:withConfiguration:completionHandler:)
     public func calculateDirections(
-        among coordinates: [CLLocationCoordinate2D],
+        among waypoints: [CLLocationCoordinate2D],
         configuration: Directions.Configuration,
         completionHandler: @escaping DirectionsCompletionHandler
     ) {
@@ -68,13 +68,13 @@ public final class Directions: NSObject {
             return
         }
 
-        guard validate(coordinates) else {
-            completionHandler(nil, ServiceError.DirectionsError.invalidArguments)
+        if let validationError = validate(waypoints) {
+            completionHandler(nil, validationError)
             return
         }
 
         let urlRequest = urlRequestForDirections(
-            coordinates: coordinates,
+            coordinates: waypoints,
             configuration: self.configuration)
 
         activeTask = NetworkingManager.dataTask(
@@ -101,13 +101,13 @@ public final class Directions: NSObject {
 }
 
 extension Directions {
-    func validate(_ coordinates: [CLLocationCoordinate2D]) -> Bool {
+    func validate(_ coordinates: [CLLocationCoordinate2D]) -> Error? {
         guard coordinates.count > 1 &&
             coordinates.allSatisfy({ CLLocationCoordinate2DIsValid($0) }) else {
-            return false
+                return ServiceError.DirectionsError.invalidWaypoints
         }
 
-        return true
+        return nil
     }
 }
 

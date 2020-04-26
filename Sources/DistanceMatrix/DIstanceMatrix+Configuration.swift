@@ -11,7 +11,7 @@
 extension DistanceMatrix {
 
     @objc(DistanceMatrixConfiguration)
-    public final class Configuration: NSObject {
+    public final class Configuration: NSObject, NSCopying {
 
         /// Default configuration.
         @objc(defaultConfiguration)
@@ -39,6 +39,24 @@ extension DistanceMatrix {
 
         /// Specifies that the result needs to be sorted or not.
         @objc public var sortResults: Bool = false
+
+        init(
+            includeDistances: Bool = true,
+            includeDurations: Bool = true,
+            sortResults: Bool = false
+        ) {
+            self.includeDistances = includeDistances
+            self.includeDurations = includeDistances
+            self.sortResults = sortResults
+        }
+
+        @objc public func copy(with zone: NSZone? = nil) -> Any {
+            return Configuration(
+                includeDistances: includeDistances,
+                includeDurations: includeDurations,
+                sortResults: sortResults
+            )
+        }
     }
 }
 

@@ -131,8 +131,8 @@ public final class Geofence: NSObject {
             return
         }
 
-        guard validateCreateArguments(boundaries) else {
-            completionHandler(nil, ServiceError.GeofenceError.invalidArguments)
+        if let validationError = validateCreateArguments(boundaries) {
+            completionHandler(nil, validationError)
             return
         }
 
@@ -204,12 +204,12 @@ public final class Geofence: NSObject {
 }
 
 extension Geofence {
-    func validateCreateArguments(_ polygons: [Polygon]) -> Bool {
+    func validateCreateArguments(_ polygons: [Polygon]) -> Error? {
         guard !polygons.isEmpty else {
-            return false
+            return ServiceError.GeofenceError.emptyPolygonsArray
         }
 
-        return true
+        return nil
     }
 }
 

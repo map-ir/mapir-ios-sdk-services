@@ -17,10 +17,7 @@ extension MapSnapshotter {
     ///
     /// `MapSnapshotter` requires a configuration for a snapshotting task.
     @objc(SHMapSnapshotterConfiguration)
-    final class Configuration: NSObject {
-
-        /// Shows the center snapshotting camera.
-        @objc public var centerCoordinate: CLLocationCoordinate2D
+    final class Configuration: NSObject, NSCopying {
 
         /// Indicates the size of the output image.
         @objc public var size: CGSize
@@ -29,46 +26,34 @@ extension MapSnapshotter {
         @objc public var zoomLevel: UInt
 
         /// List of `Marker`s that will be added on the result snapshot.
+        ///
+        /// - note: Since markers are used to specify the area that is shown by the map, at
+        ///   least one marker is required in a configuration object to be used as the center
+        ///   of the snap shotting area.
         @objc public var markers: [Marker]
 
         /// Creates a snapshot configuration.
         ///
         /// - Parameters:
-        ///   - centerCoordinate: Center of the snapshotting camera, as a
-        ///     `CLLocationCoordinate2D` object.
         ///   - size: Size of the result image. Unit of measurement is in `pixel`.
         ///   - zoomLevel: Zoom level of the the snapshotting camera.
         ///   - markers: Markers that are needed to be added to the map.
         @objc public init(
-            centerCoordinate: CLLocationCoordinate2D,
             size: CGSize,
             zoomLevel: UInt,
             markers: [Marker] = []
         ) {
-            self.centerCoordinate = centerCoordinate
             self.size = size
             self.zoomLevel = zoomLevel
             self.markers = []
         }
 
-        /// Creates a snapshot configuration.
-        ///
-        /// - Parameters:
-        ///   - center: Center of the snapshotting camera, as a `CLLocation` object.
-        ///   - size: Size of the result image. Unit of measurement is in `pixel`.
-        ///   - zoomLevel: Zoom level of the the snapshotting camera.
-        ///   - markers: Markers that are needed to be added to the map.
-        @objc public convenience init(
-            center: CLLocation,
-            size: CGSize,
-            zoomLevel: UInt,
-            markers: [Marker] = []
-        ) {
-            self.init(
-                centerCoordinate: center.coordinate,
+        @objc public func copy(with zone: NSZone? = nil) -> Any {
+            return Configuration(
                 size: size,
                 zoomLevel: zoomLevel,
-                markers: markers)
+                markers: markers
+            )
         }
 
         /// Adds a marker to the configuration.

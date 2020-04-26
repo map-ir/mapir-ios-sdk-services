@@ -40,13 +40,20 @@ class MapSnapshotter: NSObject {
     ///   - configuration: The configuration of snapshotting task.
     ///   - completionHandler: Completion handler block to run after the snapshot is available.
     @objc(createSnapshotWithConfiguration:completionHandler:)
-    public func createSnapshot(with configuration: Configuration,
-                               completionHandler: @escaping SnapshotCompletionHandler) {
+    public func createSnapshot(
+        with configuration: Configuration,
+        completionHandler: @escaping SnapshotCompletionHandler
+    ) {
 
         cancel()
         
         guard AccountManager.isAuthorized else {
             completionHandler(nil, ServiceError.unauthorized)
+            return
+        }
+
+        if let validationError = validate(configuration) {
+            completionHandler(nil, validationError)
             return
         }
 
@@ -67,6 +74,16 @@ class MapSnapshotter: NSObject {
     }
 }
 
+extension MapSnapshotter {
+    func validate(_ configuration: MapSnapshotter.Configuration) -> Error? {
+
+        if configuration.markers.isEmpty {
+            return ServiceError.MapSnapshotterError.emptyMarkersArray
+        }
+        return nil
+    }
+}
+
 // MARK: Generating URL Request
 
 extension MapSnapshotter {
@@ -74,7 +91,6 @@ extension MapSnapshotter {
         var urlComponents = NetworkingManager.baseURLComponents
 
         var queryItems = URLQueryItem.queryItems(from: [
-            "center": "\(configuration.centerCoordinate.longitude),\(configuration.centerCoordinate.latitude)",
             "width": String(Int(configuration.size.width)),
             "height": String(Int(configuration.size.height)),
             "zoom_level": String(configuration.zoomLevel),

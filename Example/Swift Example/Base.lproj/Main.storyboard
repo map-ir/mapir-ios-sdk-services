@@ -557,7 +557,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value for the filter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-eb-la2">
-                                                    <rect key="frame" x="116" y="4.5" width="282" height="34"/>
+                                                    <rect key="frame" x="116" y="4.5" width="115.5" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -570,7 +570,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="SaM-eb-la2" firstAttribute="top" secondItem="ij2-k6-qQL" secondAttribute="top" constant="4.5" id="1FN-Re-TCP"/>
-                                                <constraint firstAttribute="trailing" secondItem="SaM-eb-la2" secondAttribute="trailing" constant="16" id="93x-yH-sg8"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SaM-eb-la2" secondAttribute="trailing" constant="16" id="93x-yH-sg8"/>
                                                 <constraint firstAttribute="bottom" secondItem="sho-d8-x6d" secondAttribute="bottom" constant="12" id="DFa-Nc-hxQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="SaM-eb-la2" secondAttribute="bottom" constant="5.5" id="ZKu-5c-7Dz"/>
                                                 <constraint firstItem="SaM-eb-la2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sho-d8-x6d" secondAttribute="trailing" constant="20" id="jjc-EJ-6dv"/>

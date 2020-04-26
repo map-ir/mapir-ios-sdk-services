@@ -14,18 +14,18 @@ extension Directions {
     ///
     /// `Directions` request is customizable. It uses a `Configuration` object for each
     /// directions request.
-    @objc public final class Configuration: NSObject {
+    @objc public final class Configuration: NSObject, NSCopying {
 
-        public static var `default`: Configuration { Configuration() }
+        @objc public static var `default`: Configuration { Configuration() }
 
         /// The type of the transportation used.
-        public var vehicleType: Directions.VehicleType = .privateCar
+        @objc public var vehicleType: Directions.VehicleType = .privateCar
 
         /// Traffic restricted areas that needed to be excluded from the result.
         ///
         /// - note: At this moment, this property will considered when the `vehicleType` is
         /// `.privateCar`. Otherwise, this will be ignored
-        public var areaToExclude: Directions.TrafficRestriction = .none
+        @objc public var areaToExclude: Directions.TrafficRestriction = .none
 
         /// Search for alternative routes. Passing a number `n` searches for up to `n`
         /// alternative routes.
@@ -34,7 +34,7 @@ extension Directions {
         /// will be changed to 3 and 0 respectively.
         ///
         /// - note: even if alternative routes are requested, a result cannot be guaranteed
-        public var numberOfAlternatives: Int = 0 {
+        @objc public var numberOfAlternatives: Int = 0 {
             didSet {
                 if numberOfAlternatives < 0 {
                     numberOfAlternatives = 0
@@ -46,13 +46,39 @@ extension Directions {
 
         /// Specifies whether the directions result, needs to have `RouteStep` instructions
         /// or not. Steps are the detail of each leg in the route.
-        public var includeSteps: Bool = false
+        @objc public var includeSteps: Bool = false
 
         /// Indicates the style of the overview.
         ///
         /// Add overview geometry either `.full`, `.simplified` according to highest zoom
         /// level it could be display on, or `.none` to not have at all.
-        public var routeOverviewStyle: Directions.OverviewStyle = .none
+        @objc public var routeOverviewStyle: Directions.OverviewStyle = .none
+
+        /// Creates a new `Configuration` object for `Directions`.
+        init(
+            vehicleType: VehicleType = .privateCar,
+            areaToExclude: TrafficRestriction = .none,
+            numberOfAlternatives: Int = 0,
+            includeSteps: Bool = false,
+            routeOverviewStyle: OverviewStyle = .none
+        ) {
+            self.vehicleType = vehicleType
+            self.areaToExclude = areaToExclude
+            self.numberOfAlternatives = numberOfAlternatives
+            self.includeSteps = includeSteps
+            self.routeOverviewStyle = routeOverviewStyle
+        }
+
+        /// Creates a copy of current `Directions.Configuration` object.
+        @objc public func copy(with zone: NSZone? = nil) -> Any {
+            return Configuration(
+                vehicleType: vehicleType,
+                areaToExclude: areaToExclude,
+                numberOfAlternatives: numberOfAlternatives,
+                includeSteps: includeSteps,
+                routeOverviewStyle: routeOverviewStyle
+            )
+        }
     }
 }
 
@@ -118,23 +144,5 @@ extension Directions {
 
         /// Result object will complete overview geometry.
         case full
-    }
-}
-
-extension Directions.Configuration: NSCopying {
-
-    /// Creates a copy of current `Directions.Configuration` object.
-    ///
-    /// - Parameter zone: This parameter is ignored. Memory zones are no longer used by
-    /// Objective-C.
-    public func copy(with zone: NSZone? = nil) -> Any {
-        let new = Directions.Configuration()
-        new.vehicleType = self.vehicleType
-        new.areaToExclude = self.areaToExclude
-        new.numberOfAlternatives = self.numberOfAlternatives
-        new.includeSteps = self.includeSteps
-        new.routeOverviewStyle = self.routeOverviewStyle
-
-        return new
     }
 }

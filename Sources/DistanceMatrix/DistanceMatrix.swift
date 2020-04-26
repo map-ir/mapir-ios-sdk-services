@@ -86,8 +86,12 @@ extension DistanceMatrix {
             return
         }
 
-        guard validate(origins), validate(destinations) else {
-            completionHandler(nil, ServiceError.DistanceMatrixError.invalidArguments)
+        if let validationError = validate(origins) {
+            completionHandler(nil, validationError)
+            return
+        }
+        if let validationError = validate(destinations) {
+            completionHandler(nil, validationError)
             return
         }
 
@@ -103,18 +107,18 @@ extension DistanceMatrix {
         activeTask?.resume()
     }
 
-    func validate(_ input: [String: CLLocationCoordinate2D]) -> Bool {
+    func validate(_ input: [String: CLLocationCoordinate2D]) -> Error? {
         guard !input.isEmpty else {
-            return false
+            return ServiceError.DistanceMatrixError.emptyWaypointDictionary
         }
 
         for (key, _) in input {
             guard !key.isEmpty, CharacterSet(charactersIn: key).isSubset(of: DistanceMatrix.allowedCharacters) else {
-                return false
+                return ServiceError.DistanceMatrixError.invalidCharacterInNames
             }
         }
 
-        return true
+        return nil
     }
 }
 

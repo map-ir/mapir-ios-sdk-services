@@ -202,16 +202,6 @@ extension SearchTableViewController: MKMapViewDelegate {
     }
 }
 
-extension SearchTableViewController {
-    func showAlert(title: String, message: String, dismissCompletionHandler: ((UIAlertAction) -> Void)? = nil ) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Dismiss", style: .default, handler: dismissCompletionHandler)
-
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
-}
-
 extension SearchTableViewController: CoordinateSelectionDelegate {
     func viewController(_ vc: CoordinateSelectionViewController, willDismissWithSelectedCoordinate selectedCoordinate: CLLocationCoordinate2D?) {
         guard let coordinate = selectedCoordinate else { return }

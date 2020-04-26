@@ -22,6 +22,7 @@
 		C047489A23918A11007F74E1 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489923918A11007F74E1 /* NetworkingManager.swift */; };
 		C047489C23918CE7007F74E1 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */; };
 		C047489E23919054007F74E1 /* URLQueryItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */; };
+		C052ADE32454200A00E11A20 /* UIViewController+AlertAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052ADE22454200A00E11A20 /* UIViewController+AlertAdditions.swift */; };
 		C05792AD2445B02200C2C821 /* GeocoderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */; };
 		C059A12923855D63001646A6 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A12823855D63001646A6 /* Geocoder.swift */; };
 		C059A135238561C7001646A6 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
@@ -42,6 +43,7 @@
 		C09CA153243C61FB00E4AFBA /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CA152243C61FB00E4AFBA /* ServiceError.swift */; };
 		C09CA155243CBE2400E4AFBA /* GeoJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CA154243CBE2400E4AFBA /* GeoJSON.swift */; };
 		C0A2BDDC241CD44D005FD6FD /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2BDDB241CD44D005FD6FD /* Geofence.swift */; };
+		C0A3FEC22450788A00FFFC1A /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3FEC12450788A00FFFC1A /* DirectionsTableViewController.swift */; };
 		C0B2EA97244445310057B855 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA96244445310057B855 /* AppDelegate.swift */; };
 		C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA98244445310057B855 /* SceneDelegate.swift */; };
 		C0B2EA9E244445310057B855 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EA9C244445310057B855 /* Main.storyboard */; };
@@ -130,6 +132,7 @@
 		C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLQueryItem+Extension.swift"; sourceTree = "<group>"; };
 		C04F54DF233BFE0300512825 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
+		C052ADE22454200A00E11A20 /* UIViewController+AlertAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AlertAdditions.swift"; sourceTree = "<group>"; };
 		C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocoderViewController.swift; sourceTree = "<group>"; };
 		C059A12823855D63001646A6 /* Geocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
 		C059A134238561C7001646A6 /* Placemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placemark.swift; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 		C09CA152243C61FB00E4AFBA /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		C09CA154243CBE2400E4AFBA /* GeoJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSON.swift; sourceTree = "<group>"; };
 		C0A2BDDB241CD44D005FD6FD /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
+		C0A3FEC12450788A00FFFC1A /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
 		C0B2EA94244445310057B855 /* MapirServices Swift Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MapirServices Swift Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B2EA96244445310057B855 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0B2EA98244445310057B855 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -396,6 +400,8 @@
 				C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */,
 				C018BD502446FE3300EA51C4 /* SearchTableViewController.swift */,
 				C037DE3D244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift */,
+				C0A3FEC12450788A00FFFC1A /* DirectionsTableViewController.swift */,
+				C052ADE22454200A00E11A20 /* UIViewController+AlertAdditions.swift */,
 				C0607DEF2445B812006638AB /* Constants.swift */,
 				C0B2EAAA244498AC0057B855 /* ServiceCell.swift */,
 				C0CC145E2446F2D100074A52 /* InputCell.swift */,
@@ -626,9 +632,11 @@
 				C05792AD2445B02200C2C821 /* GeocoderViewController.swift in Sources */,
 				C0B2EAAB244498AC0057B855 /* ServiceCell.swift in Sources */,
 				C0CC145F2446F2D100074A52 /* InputCell.swift in Sources */,
+				C0A3FEC22450788A00FFFC1A /* DirectionsTableViewController.swift in Sources */,
 				C0607DF92445E454006638AB /* PropertyValueCell.swift in Sources */,
 				C0B2EAA9244448C00057B855 /* MainCollectionViewController.swift in Sources */,
 				C037DE3E244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift in Sources */,
+				C052ADE32454200A00E11A20 /* UIViewController+AlertAdditions.swift in Sources */,
 				C018BD512446FE3300EA51C4 /* SearchTableViewController.swift in Sources */,
 				C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */,
 				C0607DF12445B83D006638AB /* Constants.swift in Sources */,

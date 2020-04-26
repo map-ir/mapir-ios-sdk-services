@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3WO-ZK-ltN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -70,11 +70,12 @@
                     <connections>
                         <segue destination="zJX-Ph-vkz" kind="show" identifier="ShowGeocoderViewController" id="Cgk-Ta-7o6"/>
                         <segue destination="xOD-fR-cTC" kind="show" identifier="ShowSearchViewController" id="zUD-zr-99i"/>
+                        <segue destination="xky-XS-tgI" kind="show" identifier="ShowDirectionsTableViewController" id="1Pw-VU-9OZ"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wz0-FO-Xxt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1142" y="-80"/>
+            <point key="canvasLocation" x="1146" y="-80"/>
         </scene>
         <!--Geocoder View Controller-->
         <scene sceneID="GOk-sm-895">
@@ -158,6 +159,232 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oW7-8N-lnv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2017" y="-584"/>
+        </scene>
+        <!--Directions Table View Controller-->
+        <scene sceneID="pAj-ZQ-60l">
+            <objects>
+                <tableViewController id="xky-XS-tgI" customClass="DirectionsTableViewController" customModule="MapirServices_Swift_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="QmR-sd-tWH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Routing Mode" id="kRF-KJ-PUq">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="P9d-z5-Okb">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P9d-z5-Okb" id="8hR-ar-E5V">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="f2H-C8-Pvx">
+                                                    <rect key="frame" x="20" y="6" width="374" height="33"/>
+                                                    <segments>
+                                                        <segment title="Driving"/>
+                                                        <segment title="Walking"/>
+                                                        <segment title="Cycling"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="vehicleUpdated:" destination="xky-XS-tgI" eventType="valueChanged" id="Rl4-29-12K"/>
+                                                        <action selector="vehicleUpdated:" destination="Mq5-si-nrt" eventType="valueChanged" id="UeX-AA-ze6"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="f2H-C8-Pvx" secondAttribute="trailing" constant="20" id="Ii0-3F-QMu"/>
+                                                <constraint firstAttribute="bottom" secondItem="f2H-C8-Pvx" secondAttribute="bottom" constant="6" id="gjO-QO-HpV"/>
+                                                <constraint firstItem="f2H-C8-Pvx" firstAttribute="leading" secondItem="8hR-ar-E5V" secondAttribute="leading" constant="20" id="kOh-1G-7hs"/>
+                                                <constraint firstItem="f2H-C8-Pvx" firstAttribute="top" secondItem="8hR-ar-E5V" secondAttribute="top" constant="6" id="sg8-Iu-qch"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Rpm-yq-CrU">
+                                        <rect key="frame" x="0.0" y="99" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rpm-yq-CrU" id="ghK-Nz-Nvb">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WYr-LV-ghH">
+                                                    <rect key="frame" x="20" y="6" width="374" height="33"/>
+                                                    <segments>
+                                                        <segment title="No exclusion"/>
+                                                        <segment title="Exclude traffic control area"/>
+                                                        <segment title="Exclude air pollution control area"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="exclusionAreaUpdated:" destination="Mq5-si-nrt" eventType="valueChanged" id="3b9-AG-XWG"/>
+                                                        <action selector="exclusionAreaUpdated:" destination="xky-XS-tgI" eventType="valueChanged" id="6eY-yW-n2U"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WYr-LV-ghH" firstAttribute="leading" secondItem="ghK-Nz-Nvb" secondAttribute="leading" constant="20" id="6sI-yo-7hp"/>
+                                                <constraint firstAttribute="trailing" secondItem="WYr-LV-ghH" secondAttribute="trailing" constant="20" id="Opb-xC-MDU"/>
+                                                <constraint firstAttribute="bottom" secondItem="WYr-LV-ghH" secondAttribute="bottom" constant="6" id="XEQ-5f-fjK"/>
+                                                <constraint firstItem="WYr-LV-ghH" firstAttribute="top" secondItem="ghK-Nz-Nvb" secondAttribute="top" constant="6" id="b0b-nk-k21"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Number of routes" id="XCN-LC-HJC">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="oin-4B-99L">
+                                        <rect key="frame" x="0.0" y="198.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oin-4B-99L" id="Gsy-vm-WdG">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UcT-X2-D8e">
+                                                    <rect key="frame" x="20" y="6" width="374" height="33"/>
+                                                    <segments>
+                                                        <segment title="1"/>
+                                                        <segment title="2"/>
+                                                        <segment title="3"/>
+                                                        <segment title="4"/>
+                                                        <segment title="5"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="numberOfRoutesUpdated:" destination="xky-XS-tgI" eventType="valueChanged" id="fVa-Uf-3bb"/>
+                                                        <action selector="numberOfRoutesUpdated:" destination="Mq5-si-nrt" eventType="valueChanged" id="xKc-Cc-23y"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="UcT-X2-D8e" secondAttribute="bottom" constant="6" id="DHf-9A-Pah"/>
+                                                <constraint firstAttribute="trailing" secondItem="UcT-X2-D8e" secondAttribute="trailing" constant="20" id="DTX-wO-mEP"/>
+                                                <constraint firstItem="UcT-X2-D8e" firstAttribute="leading" secondItem="Gsy-vm-WdG" secondAttribute="leading" constant="20" id="I38-UP-van"/>
+                                                <constraint firstItem="UcT-X2-D8e" firstAttribute="top" secondItem="Gsy-vm-WdG" secondAttribute="top" constant="6" id="W1s-PU-Qcf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Include steps" id="7HZ-IU-TXq">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="XaE-p2-NOZ">
+                                        <rect key="frame" x="0.0" y="298" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XaE-p2-NOZ" id="D4I-IU-11t">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zf7-dM-bg9">
+                                                    <rect key="frame" x="20" y="6" width="374" height="33"/>
+                                                    <segments>
+                                                        <segment title="Yes"/>
+                                                        <segment title="No"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="inludeStepsUpdated:" destination="Mq5-si-nrt" eventType="valueChanged" id="CTz-p4-MaP"/>
+                                                        <action selector="inludeStepsUpdated:" destination="xky-XS-tgI" eventType="valueChanged" id="KT7-R1-XhD"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="zf7-dM-bg9" secondAttribute="trailing" constant="20" id="6dJ-89-WbE"/>
+                                                <constraint firstAttribute="bottom" secondItem="zf7-dM-bg9" secondAttribute="bottom" constant="6" id="GEf-6u-XuL"/>
+                                                <constraint firstItem="zf7-dM-bg9" firstAttribute="top" secondItem="D4I-IU-11t" secondAttribute="top" constant="6" id="l67-dI-Mw6"/>
+                                                <constraint firstItem="zf7-dM-bg9" firstAttribute="leading" secondItem="D4I-IU-11t" secondAttribute="leading" constant="20" id="uXb-zg-l8S"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Route overview style" id="dT7-0v-sKB">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QIk-mB-wSd">
+                                        <rect key="frame" x="0.0" y="397.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QIk-mB-wSd" id="qcR-w0-Hgc">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5uK-xU-tLD">
+                                                    <rect key="frame" x="20" y="6" width="374" height="33"/>
+                                                    <segments>
+                                                        <segment title="No overview"/>
+                                                        <segment title="Simplified"/>
+                                                        <segment title="Full"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="routeOverviewStyleUpated:" destination="xky-XS-tgI" eventType="valueChanged" id="3Gk-1f-N2k"/>
+                                                        <action selector="routeOverviewStyleUpated:" destination="Mq5-si-nrt" eventType="valueChanged" id="BfS-kx-Ryr"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="5uK-xU-tLD" secondAttribute="bottom" constant="6" id="RWf-ng-3hJ"/>
+                                                <constraint firstItem="5uK-xU-tLD" firstAttribute="top" secondItem="qcR-w0-Hgc" secondAttribute="top" constant="6" id="UeN-nC-HIi"/>
+                                                <constraint firstAttribute="trailing" secondItem="5uK-xU-tLD" secondAttribute="trailing" constant="20" id="YVr-li-RMe"/>
+                                                <constraint firstItem="5uK-xU-tLD" firstAttribute="leading" secondItem="qcR-w0-Hgc" secondAttribute="leading" constant="20" id="gHD-y9-qOz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Routing points and result" id="c48-SA-mfz">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="423" id="SxD-Qf-08S">
+                                        <rect key="frame" x="0.0" y="497" width="414" height="423"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SxD-Qf-08S" id="xuv-e3-Z9c">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="423"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="udM-Q9-uZL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="600" id="vhO-Tc-0Y2"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="xky-XS-tgI" id="R36-rN-v6t"/>
+                                                    </connections>
+                                                </mapView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="udM-Q9-uZL" secondAttribute="bottom" id="4Pd-Wf-hci"/>
+                                                <constraint firstAttribute="trailing" secondItem="udM-Q9-uZL" secondAttribute="trailing" id="88f-mJ-6qx"/>
+                                                <constraint firstItem="udM-Q9-uZL" firstAttribute="top" secondItem="xuv-e3-Z9c" secondAttribute="top" id="gNy-DH-0g5"/>
+                                                <constraint firstItem="udM-Q9-uZL" firstAttribute="leading" secondItem="xuv-e3-Z9c" secondAttribute="leading" id="wOr-P2-zeU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="xky-XS-tgI" id="lJV-A0-LWs"/>
+                            <outlet property="delegate" destination="xky-XS-tgI" id="MfT-Nt-5Cb"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="WKe-rN-HIg">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Route" style="done" id="Wgp-jq-hwE">
+                                <connections>
+                                    <action selector="routeButtonTapped:" destination="xky-XS-tgI" id="qUP-xh-q7w"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Clear" id="STJ-Vd-ycA">
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="clearRoutingPointsButtonTapped:" destination="xky-XS-tgI" id="1jO-px-1I7"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="exclusionsSegmentedControl" destination="WYr-LV-ghH" id="iQ2-CG-lYq"/>
+                        <outlet property="mapView" destination="udM-Q9-uZL" id="wY0-Se-iZJ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ak1-sC-Acy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Mq5-si-nrt" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3002.898550724638" y="-587.27678571428567"/>
         </scene>
         <!--Search Table View Controller-->
         <scene sceneID="72h-Lb-RCO">
@@ -625,7 +852,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Od-UE-HrL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128.98550724637681" y="-24.107142857142858"/>
+            <point key="canvasLocation" x="280" y="-80"/>
         </scene>
     </scenes>
 </document>

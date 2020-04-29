@@ -34,6 +34,8 @@ class GeofenceTableViewController: UITableViewController {
 
             mapView.removeOverlays(polygonsToDelete)
             mapView.addOverlays(polygonsNotOnMap)
+
+            fence = nil
         }
     }
 
@@ -155,8 +157,6 @@ class GeofenceTableViewController: UITableViewController {
                     self?.showAlert(title: title, message: message)
                 }
                 if let fence = fence {
-                    self?.fence = fence
-
                     self?.activePointsAnnotations = []
                     self?.polygons = []
 
@@ -168,6 +168,10 @@ class GeofenceTableViewController: UITableViewController {
 
                     self?.polygons.append(polygon)
                     self?.polygons.append(contentsOf: interiorPolygons)
+
+                    self?.fitMap(to: polygon)
+
+                    self?.fence = fence
                 }
             }
         }
@@ -292,12 +296,17 @@ extension GeofenceTableViewController: MKMapViewDelegate {
                     pointAnnotation.subtitle = pointAnnotation.title
                     pointAnnotation.title =
                         "Coordinate is " + (status ? "in" : "out of") + " the fence"
+
+                    view.leftCalloutAccessoryView = nil
+                    view.rightCalloutAccessoryView = nil
                 }
             } else if !activePointsAnnotations.contains(pointAnnotation) {
                 activePointsAnnotations.append(pointAnnotation)
 
                 pointAnnotation.subtitle = pointAnnotation.title
                 pointAnnotation.title = "Vertex \(activePointsAnnotations.count)"
+
+                view.rightCalloutAccessoryView = nil
 
                 if let leftCalloutButton = control as? UIButton {
                     leftCalloutButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
@@ -334,4 +343,10 @@ extension GeofenceTableViewController: MKMapViewDelegate {
 
         return MKOverlayRenderer()
     }
+
+    func fitMap(to shape: MKPolygon) {
+        let insets =  UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        mapView.setVisibleMapRect(shape.boundingMapRect, edgePadding: insets, animated: true)
+    }
 }
+

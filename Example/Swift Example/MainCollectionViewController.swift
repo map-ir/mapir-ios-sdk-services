@@ -68,9 +68,13 @@ class MainCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let selectedService = service(forRowAt: indexPath)
-        performSegue(
-            withIdentifier: selectedService.storyboardSegueID!,
-            sender: collectionView.cellForItem(at: indexPath))
+        if let segueID = selectedService.storyboardSegueID {
+            performSegue(
+                withIdentifier: segueID,
+                sender: collectionView.cellForItem(at: indexPath))
+        } else {
+            showAlert(title: "Error", message: "This service does not have example yet. Please try other exmples.")
+        }
     }
 }
 

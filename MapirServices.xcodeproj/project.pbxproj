@@ -34,6 +34,7 @@
 		C06EAA192438BA3300B45C51 /* Polyline in Frameworks */ = {isa = PBXBuildFile; productRef = C06EAA182438BA3300B45C51 /* Polyline */; };
 		C07AD2C4243B5D670043B3AA /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07AD2C3243B5D670043B3AA /* Polygon.swift */; };
 		C07AD2C6243B5D900043B3AA /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07AD2C5243B5D900043B3AA /* BoundingBox.swift */; };
+		C07E2E8F24571B1B00B0FF82 /* GeofenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07E2E8E24571B1B00B0FF82 /* GeofenceTableViewController.swift */; };
 		C084F7A6240BD6D800FD5BF3 /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084F7A5240BD6D800FD5BF3 /* Directions.swift */; };
 		C084F7A8240BD70E00FD5BF3 /* Directions+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */; };
 		C084F7AA240BD81700FD5BF3 /* Directions+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084F7A9240BD81700FD5BF3 /* Directions+Configuration.swift */; };
@@ -142,6 +143,7 @@
 		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		C07AD2C3243B5D670043B3AA /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		C07AD2C5243B5D900043B3AA /* BoundingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
+		C07E2E8E24571B1B00B0FF82 /* GeofenceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceTableViewController.swift; sourceTree = "<group>"; };
 		C082D8F523B21BA9001889F7 /* Polyline.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Polyline.framework; path = Carthage/Build/iOS/Polyline.framework; sourceTree = "<group>"; };
 		C084F7A5240BD6D800FD5BF3 /* Directions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
 		C084F7A7240BD70E00FD5BF3 /* Directions+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Directions+Result.swift"; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				C018BD502446FE3300EA51C4 /* SearchTableViewController.swift */,
 				C037DE3D244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift */,
 				C0A3FEC12450788A00FFFC1A /* DirectionsTableViewController.swift */,
+				C07E2E8E24571B1B00B0FF82 /* GeofenceTableViewController.swift */,
 				C052ADE22454200A00E11A20 /* UIViewController+AlertAdditions.swift */,
 				C0607DEF2445B812006638AB /* Constants.swift */,
 				C0B2EAAA244498AC0057B855 /* ServiceCell.swift */,
@@ -638,6 +641,7 @@
 				C037DE3E244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift in Sources */,
 				C052ADE32454200A00E11A20 /* UIViewController+AlertAdditions.swift in Sources */,
 				C018BD512446FE3300EA51C4 /* SearchTableViewController.swift in Sources */,
+				C07E2E8F24571B1B00B0FF82 /* GeofenceTableViewController.swift in Sources */,
 				C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */,
 				C0607DF12445B83D006638AB /* Constants.swift in Sources */,
 			);

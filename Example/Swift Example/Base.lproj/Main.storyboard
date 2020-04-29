@@ -71,11 +71,199 @@
                         <segue destination="zJX-Ph-vkz" kind="show" identifier="ShowGeocoderViewController" id="Cgk-Ta-7o6"/>
                         <segue destination="xOD-fR-cTC" kind="show" identifier="ShowSearchViewController" id="zUD-zr-99i"/>
                         <segue destination="xky-XS-tgI" kind="show" identifier="ShowDirectionsTableViewController" id="1Pw-VU-9OZ"/>
+                        <segue destination="pL0-JH-SZ7" kind="show" identifier="ShowGeofenceTableViewController" id="xOd-wV-ycl"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wz0-FO-Xxt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1146" y="-80"/>
+        </scene>
+        <!--Geofence Table View Controller-->
+        <scene sceneID="u13-On-o8t">
+            <objects>
+                <tableViewController id="pL0-JH-SZ7" customClass="GeofenceTableViewController" customModule="MapirServices_Swift_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="dGa-b5-bjv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Load" id="QyM-nd-Ymy">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InputCell" id="yUX-0i-75B" customClass="InputCell" customModule="MapirServices_Swift_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="44.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yUX-0i-75B" id="g3o-Dd-EeB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ID of the fence" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WYm-8H-hwG">
+                                                    <rect key="frame" x="116" y="4.5" width="282" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5XD-kD-Sn7">
+                                                    <rect key="frame" x="16" y="12" width="17.5" height="20"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5XD-kD-Sn7" firstAttribute="leading" secondItem="g3o-Dd-EeB" secondAttribute="leading" constant="16" id="9XA-bX-liG"/>
+                                                <constraint firstAttribute="bottom" secondItem="WYm-8H-hwG" secondAttribute="bottom" constant="5.5" id="F7w-6l-goP"/>
+                                                <constraint firstItem="WYm-8H-hwG" firstAttribute="top" secondItem="g3o-Dd-EeB" secondAttribute="top" constant="4.5" id="FG6-VF-hWP"/>
+                                                <constraint firstItem="5XD-kD-Sn7" firstAttribute="top" secondItem="g3o-Dd-EeB" secondAttribute="top" constant="12" id="QOn-Yg-M3f"/>
+                                                <constraint firstItem="WYm-8H-hwG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5XD-kD-Sn7" secondAttribute="trailing" constant="20" id="fdM-xG-eIL"/>
+                                                <constraint firstAttribute="trailing" secondItem="WYm-8H-hwG" secondAttribute="trailing" constant="16" id="jrB-2v-Ogm"/>
+                                                <constraint firstItem="WYm-8H-hwG" firstAttribute="leading" secondItem="g3o-Dd-EeB" secondAttribute="leading" constant="116" id="oLW-Yc-O9m"/>
+                                                <constraint firstAttribute="bottom" secondItem="5XD-kD-Sn7" secondAttribute="bottom" constant="12" id="sFY-dA-bZd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ButtonCell" rowHeight="44" id="9aW-Fy-FrE">
+                                        <rect key="frame" x="0.0" y="100" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9aW-Fy-FrE" id="lGd-SZ-wYQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7a-xl-eqs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <state key="normal" title="Load Fence"/>
+                                                    <connections>
+                                                        <action selector="loadFenceButtonTapped:" destination="pL0-JH-SZ7" eventType="touchUpInside" id="CdK-E3-EcB"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="H7a-xl-eqs" firstAttribute="leading" secondItem="lGd-SZ-wYQ" secondAttribute="leading" id="Qyd-VW-CSG"/>
+                                                <constraint firstItem="H7a-xl-eqs" firstAttribute="top" secondItem="lGd-SZ-wYQ" secondAttribute="top" id="ffi-2w-68e"/>
+                                                <constraint firstAttribute="bottom" secondItem="H7a-xl-eqs" secondAttribute="bottom" id="l2B-db-kQ6"/>
+                                                <constraint firstAttribute="trailing" secondItem="H7a-xl-eqs" secondAttribute="trailing" id="xws-Vd-evc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Map" id="P7U-vs-CIn">
+                                <string key="footerTitle">Once you finilize the first polygon that you are drawing, all new polygons are considered as interior polygons for the first polygon.</string>
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="400" id="qTp-0e-8Fe">
+                                        <rect key="frame" x="0.0" y="207.5" width="414" height="400"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qTp-0e-8Fe" id="fsJ-ZI-6Mn">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="17z-q1-eIX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="pL0-JH-SZ7" id="vd2-Ff-ikZ"/>
+                                                    </connections>
+                                                </mapView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="17z-q1-eIX" firstAttribute="top" secondItem="fsJ-ZI-6Mn" secondAttribute="top" id="30i-xW-9Rw"/>
+                                                <constraint firstAttribute="bottom" secondItem="17z-q1-eIX" secondAttribute="bottom" id="DTx-SM-9ZB"/>
+                                                <constraint firstAttribute="trailing" secondItem="17z-q1-eIX" secondAttribute="trailing" id="YGV-P5-2Vs"/>
+                                                <constraint firstItem="17z-q1-eIX" firstAttribute="leading" secondItem="fsJ-ZI-6Mn" secondAttribute="leading" id="jyx-Rt-q3R"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ButtonCell" rowHeight="44" id="S4r-rN-yD3">
+                                        <rect key="frame" x="0.0" y="607.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S4r-rN-yD3" id="ywv-jF-N9W">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xmo-ZM-gU8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <state key="normal" title="Finilize Polygon"/>
+                                                    <connections>
+                                                        <action selector="finalizeButtonTapped:" destination="pL0-JH-SZ7" eventType="touchUpInside" id="Clc-P1-TLj"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xmo-ZM-gU8" firstAttribute="top" secondItem="ywv-jF-N9W" secondAttribute="top" id="A4Q-7o-5Mz"/>
+                                                <constraint firstItem="xmo-ZM-gU8" firstAttribute="leading" secondItem="ywv-jF-N9W" secondAttribute="leading" id="KLM-az-rRi"/>
+                                                <constraint firstAttribute="bottom" secondItem="xmo-ZM-gU8" secondAttribute="bottom" id="iIy-DN-Dkq"/>
+                                                <constraint firstAttribute="trailing" secondItem="xmo-ZM-gU8" secondAttribute="trailing" id="uRp-tP-PoZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ButtonCell" rowHeight="44" id="dyn-9a-KoP">
+                                        <rect key="frame" x="0.0" y="651.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dyn-9a-KoP" id="UTt-Mb-ilg">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzg-9Q-VWW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Delete Last Polygon"/>
+                                                    <connections>
+                                                        <action selector="deleteButtonTapped:" destination="pL0-JH-SZ7" eventType="touchUpInside" id="Adi-qO-dgb"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Kzg-9Q-VWW" firstAttribute="leading" secondItem="UTt-Mb-ilg" secondAttribute="leading" id="9iB-7n-r6r"/>
+                                                <constraint firstAttribute="trailing" secondItem="Kzg-9Q-VWW" secondAttribute="trailing" id="UVC-TR-5vM"/>
+                                                <constraint firstItem="Kzg-9Q-VWW" firstAttribute="top" secondItem="UTt-Mb-ilg" secondAttribute="top" id="VbX-f7-g96"/>
+                                                <constraint firstAttribute="bottom" secondItem="Kzg-9Q-VWW" secondAttribute="bottom" id="Zdy-iL-hI6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Publish" id="E6X-DE-X5I">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ButtonCell" rowHeight="44" id="rAQ-31-NZz">
+                                        <rect key="frame" x="0.0" y="795.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rAQ-31-NZz" id="nSO-I6-5PF">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4xh-ri-v4J">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <state key="normal" title="Create and Upload"/>
+                                                    <connections>
+                                                        <action selector="uploadButtonTapped:" destination="pL0-JH-SZ7" eventType="touchUpInside" id="8yq-aQ-dPr"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4xh-ri-v4J" firstAttribute="leading" secondItem="nSO-I6-5PF" secondAttribute="leading" id="RxD-NR-02j"/>
+                                                <constraint firstItem="4xh-ri-v4J" firstAttribute="top" secondItem="nSO-I6-5PF" secondAttribute="top" id="SFB-ig-ilU"/>
+                                                <constraint firstAttribute="bottom" secondItem="4xh-ri-v4J" secondAttribute="bottom" id="VOc-Jz-AZc"/>
+                                                <constraint firstAttribute="trailing" secondItem="4xh-ri-v4J" secondAttribute="trailing" id="ySG-rA-T6r"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="pL0-JH-SZ7" id="LCW-vG-xCn"/>
+                            <outlet property="delegate" destination="pL0-JH-SZ7" id="QId-iP-duf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="anO-vL-B3W"/>
+                    <connections>
+                        <outlet property="deleteButton" destination="Kzg-9Q-VWW" id="Nzi-kd-Ygg"/>
+                        <outlet property="fenceIDTextField" destination="WYm-8H-hwG" id="few-qf-Jwe"/>
+                        <outlet property="finalizeButton" destination="xmo-ZM-gU8" id="hfI-NZ-Cqq"/>
+                        <outlet property="mapView" destination="17z-q1-eIX" id="0MX-RE-CHL"/>
+                        <outlet property="uploadButton" destination="4xh-ri-v4J" id="SPe-r2-DJ3"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IxI-WY-Fkb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1155.072463768116" y="-773.4375"/>
         </scene>
         <!--Geocoder View Controller-->
         <scene sceneID="GOk-sm-895">

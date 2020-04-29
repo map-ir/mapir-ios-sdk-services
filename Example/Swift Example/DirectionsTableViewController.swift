@@ -28,7 +28,7 @@ class DirectionsTableViewController: UITableViewController {
         mapView.setCamera(camera, animated: false)
 
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didRecognizeLongPressGesture(_:)))
-        longPressGesture.minimumPressDuration = 0.5
+        longPressGesture.minimumPressDuration = 0.4
         self.mapView.addGestureRecognizer(longPressGesture)
     }
 

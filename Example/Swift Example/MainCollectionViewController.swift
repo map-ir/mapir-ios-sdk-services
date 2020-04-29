@@ -15,6 +15,8 @@ var services: [Service] = [
     Service(title: "Distance Matrix", icon: UIImage(systemName: "table.fill")),
     Service(title: "Static Map", icon: UIImage(systemName: "crop")),
     Service(title: "Directions", icon: UIImage(systemName: "car.fill"), storyboardSegueID: "ShowDirectionsTableViewController"),
+    Service(title: "Geofence", icon: UIImage(systemName: "hexagon"), storyboardSegueID: "ShowGeofenceTableViewController"),
+
 ]
 
 class MainCollectionViewController: UICollectionViewController {

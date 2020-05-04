@@ -11,7 +11,7 @@ import UIKit
 /// `MapSnapshotter` or Static Map service, is a service that creates a png image from
 /// part of the map.
 @objc(SHMapSnapshotter)
-class MapSnapshotter: NSObject {
+public class MapSnapshotter: NSObject {
 
     /// Snapshoting completion handler type.
     public typealias SnapshotCompletionHandler = (_ snapshot: UIImage?, _ error: Swift.Error?) -> Void
@@ -113,7 +113,7 @@ extension MapSnapshotter {
         urlComponents.queryItems = queryItems
         urlComponents.path = "/static"
 
-        return URLRequest(url: urlComponents)
+        return NetworkingManager.request(url: urlComponents)
     }
 }
 

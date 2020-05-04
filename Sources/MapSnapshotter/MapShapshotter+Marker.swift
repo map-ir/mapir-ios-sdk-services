@@ -15,7 +15,7 @@ extension MapSnapshotter {
     /// A marker is placed on the snapshot of the map. It can be of different styles and
     /// show a string label under it.
     @objc(SHMapSnapshotterMarker)
-    final class Marker: NSObject {
+    public final class Marker: NSObject {
 
         /// The Label of the marker that will be shown under the marker.
         @objc public var label: String?
@@ -48,28 +48,28 @@ extension MapSnapshotter.Marker {
     ///
     /// - note: In the future, new cases may be added.
     @objc(MapSnapshotterMarkerStyle)
-    public enum Style: UInt {
-        case black
-        case blue
-        case destination
-        case green
-        case magenta
-        case navyblue
-        case orange
+    public enum Style: Int {
         case origin
-        case pink
-        case red
-        case skyblue
-        case teal
+        case destination
+        case black
         case white
+        case red
+        case blue
+        case navyblue
+        case skyblue
+        case green
+        case teal
         case yellow
+        case orange
+        case magenta
+        case pink
     }
 }
 
 // MARK: Marker Style Additions
 
 extension MapSnapshotter.Marker.Style {
-    var stringValue: String {
+    public var stringValue: String {
         var string = ""
         switch self {
         case .black:

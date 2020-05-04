@@ -62,6 +62,8 @@
 		C0C5028423B74AE300EF6E54 /* Search+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5028323B74AE300EF6E54 /* Search+Categories.swift */; };
 		C0CC145D2446EABE00074A52 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CC145B2446E9F700074A52 /* Service.swift */; };
 		C0CC145F2446F2D100074A52 /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CC145E2446F2D100074A52 /* InputCell.swift */; };
+		C0DBE407245D81BB00542D45 /* MapSnapshotterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DBE406245D81BB00542D45 /* MapSnapshotterTableViewController.swift */; };
+		C0DBE409245D86F100542D45 /* MarkerDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DBE408245D86F100542D45 /* MarkerDetailTableViewController.swift */; };
 		C0EA4F9922C89A8300BC04EF /* DistanceMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */; };
 		C0EA4FDF22C9EBC800BC04EF /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FDE22C9EBC800BC04EF /* Search.swift */; };
 		C0EA4FE122C9EE2600BC04EF /* Search+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */; };
@@ -175,6 +177,8 @@
 		C0CC145B2446E9F700074A52 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C0CC145E2446F2D100074A52 /* InputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCell.swift; sourceTree = "<group>"; };
 		C0D3D3BA22DF1007005419F3 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
+		C0DBE406245D81BB00542D45 /* MapSnapshotterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotterTableViewController.swift; sourceTree = "<group>"; };
+		C0DBE408245D86F100542D45 /* MarkerDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerDetailTableViewController.swift; sourceTree = "<group>"; };
 		C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceMatrix.swift; sourceTree = "<group>"; };
 		C0EA4FDE22C9EBC800BC04EF /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		C0EA4FE022C9EE2600BC04EF /* Search+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Result.swift"; sourceTree = "<group>"; };
@@ -404,6 +408,8 @@
 				C037DE3D244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift */,
 				C0A3FEC12450788A00FFFC1A /* DirectionsTableViewController.swift */,
 				C07E2E8E24571B1B00B0FF82 /* GeofenceTableViewController.swift */,
+				C0DBE406245D81BB00542D45 /* MapSnapshotterTableViewController.swift */,
+				C0DBE408245D86F100542D45 /* MarkerDetailTableViewController.swift */,
 				C052ADE22454200A00E11A20 /* UIViewController+AlertAdditions.swift */,
 				C0607DEF2445B812006638AB /* Constants.swift */,
 				C0B2EAAA244498AC0057B855 /* ServiceCell.swift */,
@@ -640,7 +646,9 @@
 				C0B2EAA9244448C00057B855 /* MainCollectionViewController.swift in Sources */,
 				C037DE3E244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift in Sources */,
 				C052ADE32454200A00E11A20 /* UIViewController+AlertAdditions.swift in Sources */,
+				C0DBE407245D81BB00542D45 /* MapSnapshotterTableViewController.swift in Sources */,
 				C018BD512446FE3300EA51C4 /* SearchTableViewController.swift in Sources */,
+				C0DBE409245D86F100542D45 /* MarkerDetailTableViewController.swift in Sources */,
 				C07E2E8F24571B1B00B0FF82 /* GeofenceTableViewController.swift in Sources */,
 				C0B2EA99244445310057B855 /* SceneDelegate.swift in Sources */,
 				C0607DF12445B83D006638AB /* Constants.swift in Sources */,

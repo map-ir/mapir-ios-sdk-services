@@ -17,13 +17,13 @@ extension MapSnapshotter {
     ///
     /// `MapSnapshotter` requires a configuration for a snapshotting task.
     @objc(SHMapSnapshotterConfiguration)
-    final class Configuration: NSObject, NSCopying {
+    public final class Configuration: NSObject, NSCopying {
 
         /// Indicates the size of the output image.
         @objc public var size: CGSize
 
         /// `zoomLevel` of the camera used for snapshotting.
-        @objc public var zoomLevel: UInt
+        @objc public var zoomLevel: Int
 
         /// List of `Marker`s that will be added on the result snapshot.
         ///
@@ -40,12 +40,12 @@ extension MapSnapshotter {
         ///   - markers: Markers that are needed to be added to the map.
         @objc public init(
             size: CGSize,
-            zoomLevel: UInt,
-            markers: [Marker] = []
+            zoomLevel: Int,
+            markers: [Marker]
         ) {
             self.size = size
             self.zoomLevel = zoomLevel
-            self.markers = []
+            self.markers = markers
         }
 
         @objc public func copy(with zone: NSZone? = nil) -> Any {

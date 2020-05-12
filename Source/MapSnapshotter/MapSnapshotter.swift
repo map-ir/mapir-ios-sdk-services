@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 /// `MapSnapshotter` or Static Map service, is a service that creates a png image from
 /// part of the map.

@@ -6,6 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import Foundation
+
 class NetworkingManager {
 
     var session: URLSession = .shared

@@ -6,6 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import Foundation
+
 /// The `AccountManager` globally holds information about your API key and account
 /// on [Map.ir](https://map.ir).
 @objc(SHAccountManager)

@@ -6,6 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import Foundation
+
 extension URLRequest {
 
     enum HTTPMethod: String {

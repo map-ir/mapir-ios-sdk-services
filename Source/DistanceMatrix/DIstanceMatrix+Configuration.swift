@@ -6,6 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import Foundation
+
 // MARK: Distance matrix configurations
 
 extension DistanceMatrix {

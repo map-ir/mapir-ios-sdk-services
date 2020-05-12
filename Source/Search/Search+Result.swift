@@ -6,6 +6,7 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import Foundation
 import CoreLocation
 
 // MARK: Search Result

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct BoundingBox {
     var southWest: CLLocationCoordinate2D

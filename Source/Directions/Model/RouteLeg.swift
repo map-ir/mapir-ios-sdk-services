@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 @objc(SHRouteLeg)
 public final class RouteLeg: NSObject {

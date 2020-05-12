@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 /// `Directions` is a service that is used to find route between places.
 ///

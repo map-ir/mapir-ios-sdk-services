@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 // MARK: Snapshotter Configuration
 

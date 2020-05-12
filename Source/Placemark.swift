@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 @objc(SHPlacemark)
 public final class Placemark: NSObject, Identifiable {

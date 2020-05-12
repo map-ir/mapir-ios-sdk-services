@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 /// A Polygon object represents a closed shape with 4 or more vertices specified as
 /// `CLLocationCoordinate2D` objects. Polygons are used to demonstrate a building,

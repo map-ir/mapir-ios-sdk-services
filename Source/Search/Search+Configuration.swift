@@ -6,6 +6,8 @@
 //  Copyright © 1398 AP Map. All rights reserved.
 //
 
+import CoreLocation
+
 extension Search {
 
     /// Holds configurations of a `Search` object.

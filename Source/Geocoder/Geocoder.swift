@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 @objc(SHGeocoder)
 public class Geocoder: NSObject {

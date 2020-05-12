@@ -8,7 +8,6 @@
 
 import CoreLocation
 import Foundation
-import Polyline
 
 @objc(SHRoute)
 public final class Route: NSObject {
@@ -117,7 +116,7 @@ extension Route {
             duration = try container.decode(Double.self, forKey: .duration)
 
             if let polylineHash = try container.decodeIfPresent(String.self, forKey: .geometry),
-                let decodedPolyline = Polyline(encodedPolyline: polylineHash).coordinates {
+                let decodedPolyline = GooglePolyline(encodedPolyline: polylineHash).coordinates {
                 geometry = decodedPolyline
             }
 

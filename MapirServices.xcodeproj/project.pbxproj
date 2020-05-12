@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,13 +22,13 @@
 		C0B2EAA3244445320057B855 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B2EAA1244445320057B855 /* LaunchScreen.storyboard */; };
 		C0B2EAA9244448C00057B855 /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EAA8244448BF0057B855 /* MainCollectionViewController.swift */; };
 		C0B2EAAB244498AC0057B855 /* ServiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EAAA244498AC0057B855 /* ServiceCell.swift */; };
+		C0BBF91E246ABCAA00D11682 /* GooglePolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF91D246ABCAA00D11682 /* GooglePolyline.swift */; };
 		C0CC145D2446EABE00074A52 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CC145B2446E9F700074A52 /* Service.swift */; };
 		C0CC145F2446F2D100074A52 /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CC145E2446F2D100074A52 /* InputCell.swift */; };
 		C0DBE407245D81BB00542D45 /* MapSnapshotterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DBE406245D81BB00542D45 /* MapSnapshotterTableViewController.swift */; };
 		C0DBE409245D86F100542D45 /* MarkerDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DBE408245D86F100542D45 /* MarkerDetailTableViewController.swift */; };
 		C0E79C70246A9625003942F8 /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0E79C69246A9625003942F8 /* MapirServices.framework */; };
 		C0E79C71246A9625003942F8 /* MapirServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0E79C69246A9625003942F8 /* MapirServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C0E79C76246A96EB003942F8 /* Polyline in Frameworks */ = {isa = PBXBuildFile; productRef = C0E79C75246A96EB003942F8 /* Polyline */; };
 		C0E79C7C246A9A3C003942F8 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C0E79C6B246A9625003942F8 /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0E79C7D246A9A3C003942F8 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
 		C0E79C7E246A9A3C003942F8 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0474890239187EE007F74E1 /* AccountManager.swift */; };
@@ -136,7 +136,6 @@
 		C0607DEF2445B812006638AB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C0607DF82445E454006638AB /* PropertyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyValueCell.swift; sourceTree = "<group>"; };
 		C062B86D2330E62B00B731CF /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
-		C0706DBB22DEEBCE0038630E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		C07AD2C3243B5D670043B3AA /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		C07AD2C5243B5D900043B3AA /* BoundingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		C07E2E8E24571B1B00B0FF82 /* GeofenceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceTableViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +160,7 @@
 		C0B2EAA8244448BF0057B855 /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
 		C0B2EAAA244498AC0057B855 /* ServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCell.swift; sourceTree = "<group>"; };
 		C0B9961C2430B2C600E69C88 /* Fence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fence.swift; sourceTree = "<group>"; };
+		C0BBF91D246ABCAA00D11682 /* GooglePolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePolyline.swift; sourceTree = "<group>"; };
 		C0BD54D923B9CA560095985B /* DistanceMatrix+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DistanceMatrix+Result.swift"; sourceTree = "<group>"; };
 		C0BD54DB23B9CD1F0095985B /* DIstanceMatrix+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DIstanceMatrix+Configuration.swift"; sourceTree = "<group>"; };
 		C0C5027B23B7424100EF6E54 /* MapSnapshotter+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapSnapshotter+Configuration.swift"; sourceTree = "<group>"; };
@@ -199,7 +199,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0E79C76246A96EB003942F8 /* Polyline in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +241,6 @@
 				3D9C42D822745DAF000A6585 /* .jazzy.yaml */,
 				3D9C42DA22745DB0000A6585 /* .swift-version */,
 				3D9C42D922745DAF000A6585 /* .swiftlint.yml */,
-				C0706DBB22DEEBCE0038630E /* Cartfile */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -257,6 +255,7 @@
 				C047489923918A11007F74E1 /* NetworkingManager.swift */,
 				C062B86D2330E62B00B731CF /* Table.swift */,
 				C09CA152243C61FB00E4AFBA /* ServiceError.swift */,
+				C0BBF91D246ABCAA00D11682 /* GooglePolyline.swift */,
 				C00576D1244338E500CF4D55 /* GeoJSON */,
 				C00576D2244338F500CF4D55 /* Geofence */,
 				C077EE4024162BE00006C262 /* Search */,
@@ -464,7 +463,6 @@
 			);
 			name = MapirServices;
 			packageProductDependencies = (
-				C0E79C75246A96EB003942F8 /* Polyline */,
 			);
 			productName = MapirServices;
 			productReference = C0E79C69246A9625003942F8 /* MapirServices.framework */;
@@ -499,7 +497,6 @@
 			);
 			mainGroup = 3D9C428622745894000A6585;
 			packageReferences = (
-				C06EAA172438BA3300B45C51 /* XCRemoteSwiftPackageReference "Polyline" */,
 			);
 			productRefGroup = 3D9C429122745894000A6585 /* Products */;
 			projectDirPath = "";
@@ -613,6 +610,7 @@
 				C0E79C90246A9A56003942F8 /* MapShapshotter+Marker.swift in Sources */,
 				C0E79CA8246A9A6C003942F8 /* ArrayOfPolygon+GeoJSONGeometryConvertible.swift in Sources */,
 				C0E79CA4246A9A67003942F8 /* Lane+Indication.swift in Sources */,
+				C0BBF91E246ABCAA00D11682 /* GooglePolyline.swift in Sources */,
 				C0E79C85246A9A44003942F8 /* Polygon.swift in Sources */,
 				C0E79C80246A9A3C003942F8 /* Table.swift in Sources */,
 				C0E79C7E246A9A3C003942F8 /* AccountManager.swift in Sources */,
@@ -902,25 +900,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C06EAA172438BA3300B45C51 /* XCRemoteSwiftPackageReference "Polyline" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:raphaelmor/Polyline.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 4.2.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C0E79C75246A96EB003942F8 /* Polyline */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C06EAA172438BA3300B45C51 /* XCRemoteSwiftPackageReference "Polyline" */;
-			productName = Polyline;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D9C428722745894000A6585 /* Project object */;
 }

@@ -30,20 +30,19 @@ Pod::Spec.new do |s|
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source                    = { :git => "https://github.com/map-ir/ios-sdk-v1-services", :tag => s.version.to_s }
+  s.source                    = { :git => "https://github.com/map-ir/ios-sdk-v1-services", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.module_name               = "MapirServiecs"
-  s.swift_version             = '5.1'
-  s.source_files              = "Source/**/*.{swift, h}"
+  s.module_name               = "MapirServices"
+  s.swift_version             = ['5.1', '5.2']
+  s.source_files              = "Source/**/*.swift"
   s.frameworks                = "Foundation", "CoreLocation"
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.requires_arc              = true
-  s.dependency "Polyline", "~> 4.2.1"
 
 end

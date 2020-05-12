@@ -8,7 +8,6 @@
 
 import CoreLocation
 import Foundation
-import Polyline
 
 @objc(SHRouteStep)
 public final class RouteStep: NSObject {
@@ -199,7 +198,7 @@ extension RouteStep {
             self.intersections = intersections.compactMap { Intersection(from: $0) }
 
             let polylineHash = try container.decode(String.self, forKey: .geometry)
-            let polyline = Polyline(encodedPolyline: polylineHash)
+            let polyline = GooglePolyline(encodedPolyline: polylineHash)
             let decodedPolyline = polyline.coordinates
             if let decodedPolyline = decodedPolyline {
                 self.coordinates = decodedPolyline

@@ -108,9 +108,9 @@ public class Geocoder: NSObject {
     ///   The geocoder will execute the result regardless of whether the request was
     ///   successful or not.
     @objc(geocodeAddress:city:completionHandler:)
-    public func geocode(_ address: String,
-                        city: String? = nil,
-                        completionHandler: @escaping GeocodeCompletionHandler) {
+    func geocode(_ address: String,
+                 city: String? = nil,
+                 completionHandler: @escaping GeocodeCompletionHandler) {
         cancel()
 
         perform(.forwardGeocode(address, city),

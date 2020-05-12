@@ -1,41 +1,49 @@
 Pod::Spec.new do |s|
 
-  s.name                      = "MapirServices"
-  s.version                   = "0.5.0"
-  s.summary                   = "a SDK to access services of map.ir."
+  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
+  s.name                      = "MapirServices"
+  s.version                   = "1.0.0"
+  s.summary                   = "a SDK to access services of Map.ir in a Swifty way."
   s.homepage                  = "https://support.map.ir/"
-  s.social_media_url          = 'https://twitter.com/map_ir_Official'
+
+
+  # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
   s.license                   = { :type => "MIT", :file => "LICENSE" }
 
-  s.author                    = { "Map.ir"        => "support@map.ir",
+
+  # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
+  s.author                    = { "Map.ir"        => "info@map.ir",
                                   "Alireza Asadi" => "a.asadi@map.ir" }
+  
+  s.social_media_url          = 'https://twitter.com/map_ir_Official'
+
   s.documentation_url         = 'https://support.map.ir/developers/iservice/'
-  s.source                    = { :git => "https://github.com/map-ir/ios-sdk-v1-services-beta", :tag => s.version.to_s }
 
-  # --- iOS ------------------------------------------------- #
-  s.ios.deployment_target     = '9.0'
-  s.ios.framework             = 'UIKit'
 
-  # --- macOS ----------------------------------------------- #
-  s.osx.deployment_target     = '10.10'
-  s.osx.framework             = 'AppKit'
+  # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  # --- watchOS --------------------------------------------- #
-  s.watchos.deployment_target = '3.0'
-  s.watchos.framework         = 'UIKit'
+  s.platform                  = :ios, "9.0"
 
-  # --- tvOS ------------------------------------------------ #
-  s.tvos.deployment_target    = '9.0'
-  s.tvos.framework            = 'UIKit'
 
-  s.requires_arc              = true
+  # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
+  s.source                    = { :git => "https://github.com/map-ir/ios-sdk-v1-services", :tag => s.version.to_s }
+
+
+  # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
   s.module_name               = "MapirServiecs"
-  s.swift_version             = '5.0'
-  s.source_files              = "Sources/**/*.{swift, h}"
-
+  s.swift_version             = '5.1'
+  s.source_files              = "Source/**/*.{swift, h}"
   s.frameworks                = "Foundation", "CoreLocation"
 
+
+  # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+
+  s.requires_arc              = true
   s.dependency "Polyline", "~> 4.2.1"
 
 end

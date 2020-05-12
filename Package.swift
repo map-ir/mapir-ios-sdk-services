@@ -17,12 +17,7 @@ let package = Package(
         .target(
             name: "MapirServices",
             dependencies: ["Polyline"],
-            path: "Sources"
-        ),
-        .testTarget(
-            name: "MapirServicesTests",
-            dependencies: ["MapirServices"],
-            path: "Tests"
+            path: "Source"
         ),
     ]
 )

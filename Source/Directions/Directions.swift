@@ -22,16 +22,15 @@ import CoreLocation
 ///
 /// It is also possible to exclude traffic restrictions of cities, such as air
 /// pollution control area and traffic control area in Tehran.
-@objc(SHDirections)
-public final class Directions: NSObject {
+public final class Directions {
 
     /// Completion handler type of Directions.
-    public typealias DirectionsCompletionHandler = (_ result: Directions.Result?, _ Error: Error?) -> Void
+    public typealias DirectionsCompletionHandler = (Swift.Result<Directions.Result, Error>) -> Void
 
-    @objc public var configuration: Directions.Configuration = Configuration()
+    public var configuration: Directions.Configuration = Configuration()
 
     /// Current status of `Directions` object.
-    @objc public var isRunning: Bool {
+    public var isRunning: Bool {
         if let task = activeTask {
             switch task.state {
             case .running:
@@ -55,22 +54,21 @@ public final class Directions: NSObject {
     ///   - configuration: Configuration object to use to find the route.
     ///   - completionHandler: Completion handler block to use when the results are
     ///     available or an error occurs.
-    @objc(calculateDirectionAmongCoordinates:withConfiguration:completionHandler:)
     public func calculateDirections(
         among waypoints: [CLLocationCoordinate2D],
         configuration: Directions.Configuration,
         completionHandler: @escaping DirectionsCompletionHandler
     ) {
         cancel()
-        self.configuration = configuration.copy() as! Directions.Configuration
+        self.configuration = configuration
 
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 
         if let validationError = validate(waypoints) {
-            completionHandler(nil, validationError)
+            completionHandler(.failure(validationError))
             return
         }
 
@@ -80,22 +78,23 @@ public final class Directions: NSObject {
 
         activeTask = NetworkingManager.dataTask(
             with: urlRequest,
-            decoderBlock: decodeDirectionsResult(from:)) { (directions, error) in
-                guard let directions = directions, error == nil else {
-                    completionHandler(nil, error)
-                    return
-                }
-
-                directions.configuration = configuration.copy() as? Directions.Configuration
-                completionHandler(directions, nil)
+            decoderBlock: decodeDirectionsResult(from:)
+        ) { (result) in
+            switch result {
+            case .failure(let error):
+                completionHandler(.failure(error))
+            case .success(var result):
+                result.configuration = configuration
+                completionHandler(.success(result))
             }
+        }
 
         activeTask?.resume()
 
     }
 
     /// Cancels the current running task.
-    @objc public func cancel() {
+    public func cancel() {
         activeTask?.cancel()
         activeTask = nil
     }

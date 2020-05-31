@@ -53,34 +53,6 @@ extension Search {
 }
 
 extension Search.Categories {
-    init?(description: String) {
-        switch description {
-        case "nearby":
-            self.rawValue = Search.Categories.nearby.rawValue
-        case "city":
-            self.rawValue = Search.Categories.city.rawValue
-        case "county":
-            self.rawValue = Search.Categories.county.rawValue
-        case "region":
-            self.rawValue = Search.Categories.region.rawValue
-        case "landUse", "landuse":
-            self.rawValue = Search.Categories.landUse.rawValue
-        case "neighborhood", "neighbourhood":
-            self.rawValue = Search.Categories.neighborhood.rawValue
-        case "poi":
-            self.rawValue = Search.Categories.poi.rawValue
-        case "province":
-            self.rawValue = Search.Categories.province.rawValue
-        case "road", "roads":
-            self.rawValue = Search.Categories.road.rawValue
-        case "bodyOfWaterOrJungle", "woodwater":
-            self.rawValue = Search.Categories.bodyOfWaterOrJungle.rawValue
-        default: return nil
-        }
-    }
-}
-
-extension Search.Categories {
 
     var stringValues: [String] {
         enum CategoryKeys: String {
@@ -89,7 +61,7 @@ extension Search.Categories {
             case county
             case region
             case landUse = "landuse"
-            case neighborhood //= "neighborhood"
+            case neighborhood
             case poi
             case province
             case road = "roads"

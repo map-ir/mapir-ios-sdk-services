@@ -15,24 +15,23 @@ import Foundation
 /// For every step, the very first intersection (intersections[0]) corresponds
 /// to the location of the StepManeuver. Further intersections are listed for every
 /// cross-way until the next turn instruction.
-@objc(SHIntersection)
-public final class Intersection: NSObject {
+public struct Intersection {
 
     /// A `CLLocationCoordinate2D` describing the location of the turn.
-    @objc public var coordinate: CLLocationCoordinate2D
+    public let coordinate: CLLocationCoordinate2D?
 
     /// A list of `bearing` values (e.g. [0,90,180,270]) that are available at the
     /// intersection.
     ///
     /// The `bearings` describe all available roads at the intersection.
-    @objc public var headings: [CLLocationDirection]
+    public let headings: [CLLocationDirection]
 
     /// An array of strings signifying the classes of the road exiting the intersection.
-    @objc public var roadClasses: RoadClass?
+    public let roadClasses: RoadClass?
 
     /// The indices of the items in the `bearings` array that correspond to the roads
     /// that may be used to leave the intersection.
-    @objc public var usableOutletIndexes: IndexSet
+    public let usableOutletIndexes: IndexSet
 
     /// index into the bearings/entry array.
     ///
@@ -40,7 +39,7 @@ public final class Intersection: NSObject {
     /// The clockwise angle from true north to the direction of travel immediately
     /// after the maneuver/passing the intersection.
     /// The value is not supplied for arrive maneuvers.
-    @objc public var outletIndex: Int
+    public let outletIndex: Int
 
     /// index into bearings/entry array.
     ///
@@ -49,38 +48,20 @@ public final class Intersection: NSObject {
     /// maneuver/passing the intersection. Bearings are given relative to the
     /// intersection. To get the bearing in the direction of driving, the bearing has to
     /// be rotated by a value of 180. The value is not supplied for depart maneuvers.
-    @objc public var inletIndex: Int
+    public let inletIndex: Int
 
     /// Array of Lane objects that denote the available turn lanes at the intersection.
     ///
     /// If no lane information is available for an intersection, the lanes property will
     /// not be present.
-    @objc public var availableOutlets: [Lane]?
-
-    init(
-        coordinate: CLLocationCoordinate2D,
-        headings: [CLLocationDirection],
-        roadClasses: RoadClass?,
-        usableOutletIndexes: IndexSet,
-        outletIndex: Int,
-        inletIndex: Int,
-        availableOutlets: [Lane]?
-    ) {
-        self.coordinate = coordinate
-        self.headings = headings
-        self.roadClasses = roadClasses
-        self.usableOutletIndexes = usableOutletIndexes
-        self.outletIndex = outletIndex
-        self.inletIndex = inletIndex
-        self.availableOutlets = availableOutlets
-    }
+    public let availableOutlets: [Lane]?
 }
 
 // MARK: Decoding Intersection
 
 extension Intersection {
 
-    convenience init(from response: ResponseScheme) {
+    init(from response: ResponseScheme) {
         self.init(
             coordinate: response.coordinate,
             headings: response.bearings,
@@ -93,7 +74,7 @@ extension Intersection {
     }
 
     struct ResponseScheme: Decodable {
-        var coordinate: CLLocationCoordinate2D
+        var coordinate: CLLocationCoordinate2D?
         var bearings: [CLLocationDirection]
         var roadClasses: RoadClass?
         var usableOutletIndexes: IndexSet
@@ -115,7 +96,7 @@ extension Intersection {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             let coords = try container.decode(CLLocationCoordinate2D.GeoJSONType.self, forKey: .location)
-            coordinate = (try? CLLocationCoordinate2D(fromGeoJSONGeometry: coords)) ?? kCLLocationCoordinate2DInvalid
+            coordinate = try? CLLocationCoordinate2D(fromGeoJSONGeometry: coords)
 
             bearings = try container.decode([CLLocationDirection].self, forKey: .bearings)
 

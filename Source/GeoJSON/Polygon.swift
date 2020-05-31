@@ -16,8 +16,7 @@ import CoreLocation
 /// The vertices are connected in the order that you provide. You should close the
 /// polygon by specifying same `CLLocationCoordinate2D`s as the first and the last
 /// vertex.
-@objc(SHPolygon)
-public final class Polygon: NSObject {
+public struct Polygon {
 
     /// Coordinates of vertices in the polygon.
     public var coordinates: [CLLocationCoordinate2D]
@@ -36,7 +35,7 @@ public final class Polygon: NSObject {
     ///
     /// - Throws: Throws `GeoJSON.insufficientCoordinates` if coordinate count is less
     ///   than 4 (Which is required by polygon definition in GeoJSON).
-    @objc public init(
+    public init(
         coordinates: [CLLocationCoordinate2D],
         interiorPolygons: [Polygon] = []
     ) throws {
@@ -65,7 +64,7 @@ extension Polygon {
     ///
     /// - Returns: A `Bool` value. `true` means that the coordinate is inside the
     ///   polygon.
-    @objc public func contains(_ coordinate: CLLocationCoordinate2D, includeBoundary: Bool = true) -> Bool {
+    public func contains(_ coordinate: CLLocationCoordinate2D, includeBoundary: Bool = true) -> Bool {
         let bbox = BoundingBox(polygon: self)
         guard bbox.contains(coordinate) else {
             return false
@@ -181,7 +180,7 @@ extension Polygon: GeoJSONGeometryConvertible {
     ///
     /// Fails if input array of polygons is empty or any of polygons have less than 4
     /// coordinates.
-    convenience init(fromGeoJSONGeometry geometry: [[[Double]]]) throws {
+    init(fromGeoJSONGeometry geometry: [[[Double]]]) throws {
         guard let outerRing = geometry.first else {
             throw GeoJSONError.insufficientPolygons
         }

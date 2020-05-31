@@ -12,18 +12,17 @@ import Foundation
 
 extension DistanceMatrix {
 
-    @objc(DistanceMatrixConfiguration)
-    public final class Configuration: NSObject, NSCopying {
+    /// <#DOC for configuration#>
+    public struct Configuration {
 
         /// Default configuration.
-        @objc(defaultConfiguration)
         public static var `default`: Configuration { Configuration() }
 
         /// Specifies that the result will include distances.
         ///
         /// - note: `includeDistances` and `includeDurations` can not be `false` at the same
         /// time.
-        @objc public var includeDistances: Bool = true {
+        public var includeDistances: Bool = true {
             didSet {
                 updateProperties(lastUpdated: \.includeDistances)
             }
@@ -33,39 +32,21 @@ extension DistanceMatrix {
         ///
         /// - note: `includeDistances` and `includeDurations` can not be `false` at the same
         /// time.
-        @objc public var includeDurations: Bool = true {
+        public var includeDurations: Bool = true {
             didSet {
                 updateProperties(lastUpdated: \.includeDurations)
             }
         }
 
         /// Specifies that the result needs to be sorted or not.
-        @objc public var sortResults: Bool = false
-
-        init(
-            includeDistances: Bool = true,
-            includeDurations: Bool = true,
-            sortResults: Bool = false
-        ) {
-            self.includeDistances = includeDistances
-            self.includeDurations = includeDistances
-            self.sortResults = sortResults
-        }
-
-        @objc public func copy(with zone: NSZone? = nil) -> Any {
-            return Configuration(
-                includeDistances: includeDistances,
-                includeDurations: includeDurations,
-                sortResults: sortResults
-            )
-        }
+        public var sortResults: Bool = false
     }
 }
 
 // MARK: Validating properties
 
 extension DistanceMatrix.Configuration {
-    private func updateProperties(lastUpdated: ReferenceWritableKeyPath<DistanceMatrix.Configuration, Bool>) {
+    private mutating func updateProperties(lastUpdated: WritableKeyPath<DistanceMatrix.Configuration, Bool>) {
         if !includeDistances && !includeDurations {
             self[keyPath: lastUpdated] = true
         }

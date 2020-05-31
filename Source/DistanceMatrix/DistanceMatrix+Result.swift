@@ -11,8 +11,7 @@ import Foundation
 extension DistanceMatrix {
 
     /// Indicates result of a distance matrix request.
-    @objc(SHDistanceMatrixResult)
-    public class Result: NSObject {
+    public struct Result {
 
         /// A 2D table containing distance values from every origin to every destination
         public let distances: Table<String, Double>
@@ -65,7 +64,6 @@ extension DistanceMatrix.Result {
     /// Finds distance between an origin placemark to all of destination placemarks, using its label.
     ///
     /// If specified label isn't available in origins, result will be `nil`.
-    @objc(distancesFromOrigin:)
     public func distances(from origin: String) -> [String: Double]? {
         return distances.valuesOf(row: origin)
     }
@@ -73,7 +71,6 @@ extension DistanceMatrix.Result {
     /// Finds distance between all origin placemarks to a destination placemark, using its label.
     ///
     /// If specified label isn't available in destinations, result will be `nil`.
-    @objc(distancesToDestination:)
     public func distances(to destination: String) -> [String: Double]? {
         return distances.valuesOf(column: destination)
     }
@@ -81,7 +78,6 @@ extension DistanceMatrix.Result {
     /// Finds distance between some origin placemarks to a destination placemark, using their label.
     ///
     /// If specified labels aren't available in origins or destinations, result will be `nil`.
-    @objc(distancesFromOrigins:ToDestination:)
     public func distances(from origins: Set<String>, to destination: String) -> [String: Double]? {
         return distances.valuesOf(column: destination)?.filter { origins.contains($0.key) }
     }
@@ -89,7 +85,6 @@ extension DistanceMatrix.Result {
     /// Finds distance between an origin placemark to some destination placemarks, using their label.
     ///
     /// If specified labels aren't available in origins or destinations, result will be `nil`.
-    @objc(distancesFromOrigin:ToDestinations:)
     public func distances(from origin: String, to destinations: Set<String>) -> [String: Double]? {
         return distances.valuesOf(row: origin)?.filter { destinations.contains($0.key) }
     }
@@ -131,7 +126,6 @@ extension DistanceMatrix.Result {
     /// Finds duration between an origin placemark to all of destination placemarks, using its label.
     ///
     /// If specified label isn't available in origins, result will be `nil`.
-    @objc(durationsFromOrigin:)
     public func durations(from origin: String) -> [String: Double]? {
         return durations.valuesOf(row: origin)
     }
@@ -139,7 +133,6 @@ extension DistanceMatrix.Result {
     /// Finds duration between all origin placemarks to a destination placemark, using its label.
     ///
     /// If specified label isn't available in destinations, result will be `nil`.
-    @objc(durationsToDestination:)
     public func durations(to destination: String) -> [String: Double]? {
         return durations.valuesOf(column: destination)
     }
@@ -147,7 +140,6 @@ extension DistanceMatrix.Result {
     /// Finds duration between some origin placemarks to a destination placemark, using their label.
     ///
     /// If specified labels aren't available in origins or destinations, result will be `nil`.
-    @objc(durationsFromOrigins:ToDestination:)
     public func durations(from origins: Set<String>, to destination: String) -> [String: Double]? {
         return durations.valuesOf(column: destination)?.filter { origins.contains($0.key) }
     }
@@ -155,7 +147,6 @@ extension DistanceMatrix.Result {
     /// Finds duration between an origin placemark to some destination placemarks, using their label.
     ///
     /// If specified labels aren't available in origins or destinations, result will be `nil`.
-    @objc(durationsFromOrigin:ToDestinations:)
     public func durations(from origin: String, to destinations: Set<String>) -> [String: Double]? {
         return durations.valuesOf(row: origin)?.filter { destinations.contains($0.key) }
     }
@@ -179,7 +170,7 @@ extension DistanceMatrix.Result {
 extension DistanceMatrix.Result {
 
     /// Create a `DistanceMatrix.Result` from its network response.
-    convenience init(from responseScheme: ResponseScheme) {
+    init(from responseScheme: ResponseScheme) {
         var resultOrigins: [String: Placemark] = [:]
         if let origins = responseScheme.origins {
             for o in origins {

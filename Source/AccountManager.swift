@@ -10,8 +10,7 @@ import Foundation
 
 /// The `AccountManager` globally holds information about your API key and account
 /// on [Map.ir](https://map.ir).
-@objc(SHAccountManager)
-class AccountManager: NSObject {
+class AccountManager {
 
     /// Shared object
     private static let shared = AccountManager()
@@ -32,7 +31,7 @@ class AccountManager: NSObject {
     ///
     /// If you don't set your API key in `Info.plist` file, be sure to set this property
     /// before using services.
-    @objc public static var apiKey: String? {
+    public static var apiKey: String? {
         get { shared.apiKey }
         set {
             shared.apiKey = newValue
@@ -40,7 +39,7 @@ class AccountManager: NSObject {
         }
     }
 
-    private override init() {
+    private init() {
         if let apiKey = (Bundle.main.object(forInfoDictionaryKey: "MapirAPIKey") ??
             Bundle.main.object(forInfoDictionaryKey: "MAPIRAccessToken")) as? String {
             self.apiKey = apiKey
@@ -49,7 +48,6 @@ class AccountManager: NSObject {
             self.isAuthorized = false
         }
 
-        super.init()
         setupObservers()
     }
 

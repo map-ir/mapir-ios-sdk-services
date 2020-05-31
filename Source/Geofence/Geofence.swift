@@ -10,13 +10,12 @@ import Foundation
 
 /// `Geofence` is a service to define geographical polygons as special areas. Then
 /// you can determine the status of a geographical point relative to the `Fence`.
-@objc(SHGeofence)
-public final class Geofence: NSObject {
+public class Geofence {
 
-    public typealias CreationCompletionHandler = (_ fence: Fence?, _ error: Error?) -> Void
-    public typealias DeletionCompletionHandler = (_ fence: Fence?, _ error: Error?) -> Void
-    public typealias FenceBatchLoadingCompletionHandler = (_ fences: [Fence]?, _ error: Error?) -> Void
-    public typealias FenceLoadingCompletionHandler = (_ fences: Fence?, _ error: Error?) -> Void
+    public typealias CreationCompletionHandler = (Result<Fence, Error>) -> Void
+    public typealias DeletionCompletionHandler = (Result<Fence, Error>) -> Void
+    public typealias FenceBatchLoadingCompletionHandler = (Result<[Fence], Error>) -> Void
+    public typealias FenceLoadingCompletionHandler = (Result<Fence, Error>) -> Void
 
     /// All the fences that are loaded using any instance of `Geofence` class.
     ///
@@ -31,7 +30,6 @@ public final class Geofence: NSObject {
     ///   - count: Number of fences to load.
     ///   - skipCount: Number of fences to skip. latest uploaded fences come first.
     ///   - completionHandler: A block to run once the result is available.
-    @objc(loadFencesCount:skippingCount:completionHandler:)
     public func loadFences(
         count: UInt,
         skipping skipCount: UInt,
@@ -54,7 +52,7 @@ public final class Geofence: NSObject {
         completionHandler: @escaping FenceBatchLoadingCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 
@@ -63,14 +61,14 @@ public final class Geofence: NSObject {
         let loadingTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeBatchLoadingResult(from:)
-        ) { (fences, error) in
-            guard let fences = fences, error == nil else {
-                completionHandler(nil, error)
-                return
+        ) { (result) in
+            switch result {
+            case .failure(let error):
+                completionHandler(.failure(error))
+            case .success(let fences):
+                fences.forEach { Geofence.fences.update(with: $0) }
+                completionHandler(.success(fences))
             }
-
-            fences.forEach { Geofence.fences.update(with: $0) }
-            completionHandler(fences, error)
         }
 
         loadingTask?.resume()
@@ -82,13 +80,12 @@ public final class Geofence: NSObject {
     ///   - id: ID of the `Fence` that is needed.
     ///   - completionHandler: a completion handler block to run when the specified fence
     ///     becomes available.
-    @objc(loadFenceWithID:completionHandler:)
     public func loadFence(
         withID id: Int,
         completionHandler: @escaping FenceLoadingCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 
@@ -97,13 +94,14 @@ public final class Geofence: NSObject {
         let loadingTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeLoadingResult(from:)
-        ) { (fence, error) in
-            guard let fence = fence, error == nil else {
-                completionHandler(nil, error)
-                return
+        ) { (result) in
+            switch result {
+            case .failure(let error):
+                completionHandler(.failure(error))
+            case .success(let fence):
+                Geofence.fences.update(with: fence)
+                completionHandler(.success(fence))
             }
-            Geofence.fences.update(with: fence)
-            completionHandler(fence, error)
         }
 
         loadingTask?.resume()
@@ -121,18 +119,17 @@ public final class Geofence: NSObject {
     ///     going to show.
     ///   - completionHandler: A completion handler block to run when the `Fence` is
     ///     genereted properly.
-    @objc(createFenceWithBoundaries:completionHandler:)
     public func createFence(
         withBoundaries boundaries: [Polygon],
         completionHandler: @escaping CreationCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 
         if let validationError = validateCreateArguments(boundaries) {
-            completionHandler(nil, validationError)
+            completionHandler(.failure(validationError))
             return
         }
 
@@ -141,13 +138,14 @@ public final class Geofence: NSObject {
         let createTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeCreatingResult(from:)
-        ) { (id, error) in
-            guard let id = id, error == nil else {
-                completionHandler(nil, error)
-                return
+        ) { (result) in
+            switch result {
+            case .failure(let error):
+                completionHandler(.failure(error))
+            case .success(let id):
+                let fence = Fence(id: id, boundaries: boundaries)
+                completionHandler(.success(fence))
             }
-            let fence = Fence(id: id, boundaries: boundaries)
-            completionHandler(fence, nil)
         }
 
         createTask?.resume()
@@ -160,7 +158,6 @@ public final class Geofence: NSObject {
     ///   - fence: The fence to delete
     ///   - completionHandler: A completion handler block to run once the task is
     ///     completed.
-    @objc(deleteFence:completionHandler:)
     public func deleteFence(
         _ fence: Fence,
         completionHandler: @escaping DeletionCompletionHandler
@@ -175,13 +172,12 @@ public final class Geofence: NSObject {
     ///   - id: ID of the fence that is wanted to be deleted.
     ///   - completionHandler: the completion handler block to run after the results are
     ///     available or process encounters an error.
-    @objc(deleteFenceWithID:completionHandler:)
     public func deleteFence(
         withID id: Int,
         completionHandler: @escaping DeletionCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
         
@@ -190,13 +186,14 @@ public final class Geofence: NSObject {
         let deletingTask = NetworkingManager.dataTask(
             with: request,
             decoderBlock: decodeDeletingResult(from:)
-        ) { (fence, error) in
-            guard let fence = fence else {
-                completionHandler(nil, error)
-                return
+        ) { (result) in
+            switch result {
+            case .failure(let error):
+                completionHandler(.failure(error))
+            case .success(let fence):
+                Geofence.fences.remove(fence)
+                completionHandler(.success(fence))
             }
-            Geofence.fences.remove(fence)
-            completionHandler(fence, error)
         }
 
         deletingTask?.resume()

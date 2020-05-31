@@ -9,137 +9,72 @@
 import CoreLocation
 import Foundation
 
-@objc(SHRouteStep)
-public final class RouteStep: NSObject {
+public struct RouteStep {
 
     /// The distance of travel from the maneuver to the subsequent step, in `Double`
     /// meters.
-    @objc public let distance: CLLocationDistance
+    public let distance: CLLocationDistance
 
     /// The estimated travel time, in `Double` number of seconds.
-    @objc public let expectedTravelTime: TimeInterval
+    public let expectedTravelTime: TimeInterval
 
     /// A list of Intersection objects that are passed along the segment, the very first
     /// belonging to the `StepManeuver`
-    @objc public let intersections: [Intersection]
+    public let intersections: [Intersection]
 
     /// The unsimplified geometry of the route segment, depending on the geometries
     /// parameter.
-    @objc public let coordinates: [CLLocationCoordinate2D]?
+    public let coordinates: [CLLocationCoordinate2D]?
 
     /// A reference number or code for the way. Optionally included, if ref data is
     /// available for the given way.
-    @objc public let referenceCode: String?
+    public let referenceCode: String?
 
     /// The name of the way along which travel proceeds.
-    @objc public let name: String
+    public let name: String
 
     /// A string containing an IPA phonetic transcription indicating how to pronounce
     /// the name in the name property.
-    @objc public let namePronunciation: String?
+    public let namePronunciation: String?
 
     /// The destinations of the way. Will be undefined if there are no destinations.
-    @objc public let destinations: [String]?
+    public let destinations: [String]?
 
     /// The name for the rotary. Optionally included, if the step is a rotary and a
     /// rotary name is available.
-    @objc public let rotaryName: String?
+    public let rotaryName: String?
 
     /// The pronunciation hint of the rotary name. Optionally included, if the step is a
     /// rotary and a rotary pronunciation is available.
-    @objc public let rotaryPronunciation: String?
+    public let rotaryPronunciation: String?
 
     /// A string signifying the mode of transportation.
-    @objc public let transportType: TransportType
+    public let transportType: TransportType?
 
     /// The exit numbers or names of the way. Will be undefined if there are no exit
     /// numbers or names.
-    @objc public let exits: [String]?
+    public let exits: [String]?
 
     /// A `MPSManeuver` object representing the maneuver.
-    @objc public let maneuver: StepManeuver
+    public let maneuver: StepManeuver
 
     /// The calculated weight of the step.
-    @objc public let weight: Double
+    public let weight: Double
 
     /// The legal driving side at the location for this step. Either `left` or `right`.
-    @objc public let drivingSide: DrivingSide
-
-    init(
-        distance: CLLocationDistance,
-        expectedTravelTime: TimeInterval,
-        intersections: [Intersection],
-        coordinates: [CLLocationCoordinate2D]?,
-        ref: String?,
-        name: String,
-        namePronunciation: String?,
-        destinations: [String]?,
-        rotaryName: String?,
-        rotaryPronunciation: String?,
-        transportType: TransportType,
-        exits: [String]?,
-        maneuver: StepManeuver,
-        weight: Double,
-        drivingSide: DrivingSide
-    ) {
-        self.distance = distance
-        self.expectedTravelTime = expectedTravelTime
-        self.intersections = intersections
-        self.coordinates = coordinates
-        self.referenceCode = ref
-        self.name = name
-        self.namePronunciation = namePronunciation
-        self.destinations = destinations
-        self.rotaryName = rotaryName
-        self.rotaryPronunciation = rotaryPronunciation
-        self.transportType = transportType
-        self.exits = exits
-        self.maneuver = maneuver
-        self.weight = weight
-        self.drivingSide = drivingSide
-    }
-
-}
-
-// MARK: Objective-C Compatibility
-
-extension RouteStep {
-
-    @objc public var coordinatesCount: UInt {
-        return UInt(coordinates?.count ?? 0)
-    }
-
-    /// Retrieve coordinates.
-    ///
-    /// - Parameter pointer: A pointer to a C array of `CLLocationCoordinate2D`
-    /// instances.
-    ///
-    /// - precondition: Pointer must be large enough to hold `coordinatesCount`
-    /// instances of `CLLocationCoordinate2D`.
-    ///
-    /// - note: this method is intended to be used in Objective-C. In Swift use
-    /// `coordinates` property.
-    @objc public func getCoordinates(_ pointer: UnsafeMutablePointer<CLLocationCoordinate2D>) {
-        guard let coordinates = coordinates else {
-            return
-        }
-
-        for (offset, coordinate) in coordinates.enumerated() {
-            pointer.advanced(by: offset).pointee = coordinate
-        }
-    }
+    public let drivingSide: DrivingSide
 }
 
 // MARK: Decoding RouteStep
 
 extension RouteStep {
-    convenience init(from response: ResponseScheme) {
+    init(from response: ResponseScheme) {
         self.init(
             distance: response.distance,
             expectedTravelTime: response.duration,
             intersections: response.intersections,
             coordinates: response.coordinates,
-            ref: response.ref,
+            referenceCode: response.ref,
             name: response.name,
             namePronunciation: response.pronunciation,
             destinations: response.destinations,
@@ -164,7 +99,7 @@ extension RouteStep {
         var destinations: [String]?
         var rotaryName: String?
         var rotaryPronunciation: String?
-        var transportType: TransportType
+        var transportType: TransportType?
         var exits: [String]?
         var maneuver: StepManeuver
         var weight: Double
@@ -213,16 +148,20 @@ extension RouteStep {
             rotaryName = try container.decodeIfPresent(String.self, forKey: .rotaryName)
             rotaryPronunciation = try container.decodeIfPresent(String.self, forKey: .rotaryPronunciation)
 
-            let transportTypeString = try container.decodeIfPresent(String.self, forKey: .mode) ?? ""
-            transportType = TransportType(description: transportTypeString)
+            if let transportTypeString = try container.decodeIfPresent(String.self, forKey: .mode) {
+                transportType = TransportType(rawValue: transportTypeString)
+            }
 
             let maneuver = try container.decode(StepManeuver.ResponseScheme.self, forKey: .maneuver)
             self.maneuver = StepManeuver(from: maneuver)
 
             weight = try container.decode(Double.self, forKey: .weight)
 
-            let drivingSideString = try container.decodeIfPresent(String.self, forKey: .drivingSide) ?? "right"
-            drivingSide = DrivingSide(description: drivingSideString) ?? .right
+            if let drivingSideString = try container.decodeIfPresent(String.self, forKey: .drivingSide) {
+                drivingSide = DrivingSide(rawValue: drivingSideString) ?? .right
+            } else {
+                drivingSide = .right
+            }
         }
     }
 }

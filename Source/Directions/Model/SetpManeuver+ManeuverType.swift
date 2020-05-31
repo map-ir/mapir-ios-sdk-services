@@ -11,21 +11,14 @@ import Foundation
 extension StepManeuver {
 
     /// Specifies different types of a `StepManeuver`
-    @objc(StepManeuverType)
-    public enum ManeuverType: Int {
-
-        /// The step does not have a particular maneuver type associated with it.
-        ///
-        ///This maneuver type is used as a workaround for bridging to Objective-C which
-        ///does not support nullable enumeration-typed values.
-        case none = 0
+    public enum ManeuverType: String {
 
         /// a basic turn into direction of the `modifier`
         case turn
 
         /// no turn is taken/possible, but the road name changes. The road can take a turn itself,
         /// following `modifier`.
-        case newName
+        case newName = "new name"
 
         /// indicates the departure of the leg
         case depart
@@ -38,16 +31,16 @@ extension StepManeuver {
         case merge
 
         /// take a ramp to enter a highway (direction given by `modifier` )
-        case onRamp
+        case onRamp = "on ramp"
 
         /// take a ramp to exit a highway (direction given by `modifier`)
-        case offRamp
+        case offRamp = "off ramp"
 
         /// take the left/right side at a fork depending on `modifier`
         case fork
 
         /// road ends in a T intersection turn in direction of `modifier`
-        case endOfRoad
+        case endOfRoad = "end of road"
 
         /// Turn in direction of `modifier` to stay on the same road
         case `continue`
@@ -63,97 +56,20 @@ extension StepManeuver {
 
         /// Describes a turn at a small roundabout that should be treated as normal turn.
         /// The modifier indicates the turn direction.
-        case roundaboutTurn
+        case roundaboutTurn = "roundabout turn"
 
         /// not an actual turn but a change in the driving conditions. For example the travel mode.
         /// If the road takes a turn itself, the  modifier describes the direction
         case notification
 
         /// Describes a maneuver exiting a roundabout (usually preceded by a `roundabout` instruction)
-        case exitRoundabout
+        case exitRoundabout = "exit roundabout"
 
         /// Describes the maneuver exiting a rotary (large named `roundabout`)
-        case exitRotary
+        case exitRotary = "exit rotary"
     }
 }
 
 extension StepManeuver.ManeuverType: CustomStringConvertible {
-
-    public var description: String {
-        switch self {
-        case .none:
-            return "none"
-        case .turn:
-            return "turn"
-        case .newName:
-            return "new name"
-        case .depart:
-            return "depart"
-        case .arrive:
-            return "arrive"
-        case .merge:
-            return "merge"
-        case .onRamp:
-            return "on ramp"
-        case .offRamp:
-            return "off ramp"
-        case .fork:
-            return "fork"
-        case .endOfRoad:
-            return "end of road"
-        case .continue:
-            return "continue"
-        case .roundabout:
-            return "roundabout"
-        case .rotary:
-            return "rotary"
-        case .roundaboutTurn:
-            return "roundabout turn"
-        case .notification:
-            return "notification"
-        case .exitRoundabout:
-            return "exit roundabout"
-        case .exitRotary:
-            return "exit rotary"
-        }
-    }
-
-    public init(description: String) {
-        switch description {
-        case "turn":
-            self = .turn
-        case "new name":
-            self = .newName
-        case "depart":
-            self = .depart
-        case "arrive":
-            self = .arrive
-        case "merge":
-            self = .merge
-        case "or ramp":
-            self = .onRamp
-        case "off ramp":
-            self = .offRamp
-        case "fork":
-            self = .fork
-        case "end of road":
-            self = .endOfRoad
-        case "continue":
-            self = .continue
-        case "roundabout":
-            self = .roundabout
-        case "rotary":
-            self = .rotary
-        case "roundabout turn":
-            self = .roundaboutTurn
-        case "notification":
-            self = .notification
-        case "exit roundabout":
-            self = .exitRoundabout
-        case "exit rotary":
-            self = .exitRotary
-        default:
-            self = .none
-        }
-    }
+    public var description: String { rawValue }
 }

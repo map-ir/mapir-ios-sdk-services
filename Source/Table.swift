@@ -8,8 +8,6 @@
 
 /// Table is a 2-Dimensional dictionary. It consist of rows and columns. In a table,
 /// every value is stored using two keys, its row and column.
-///
-///
 public class Table<Key: Hashable, Element> {
 
     /// Contains the rows of the table.

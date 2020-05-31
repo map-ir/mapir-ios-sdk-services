@@ -11,11 +11,10 @@ import Foundation
 
 /// `MapSnapshotter` or Static Map service, is a service that creates a png image from
 /// part of the map.
-@objc(SHMapSnapshotter)
-public class MapSnapshotter: NSObject {
+public class MapSnapshotter {
 
     /// Snapshoting completion handler type.
-    public typealias SnapshotCompletionHandler = (_ snapshot: UIImage?, _ error: Swift.Error?) -> Void
+    public typealias SnapshotCompletionHandler = (Result<UIImage, Error>) -> Void
 
     /// Current status of `MapSnapshotter` object.
     public var isLoading: Bool {
@@ -40,7 +39,6 @@ public class MapSnapshotter: NSObject {
     /// - Parameters:
     ///   - configuration: The configuration of snapshotting task.
     ///   - completionHandler: Completion handler block to run after the snapshot is available.
-    @objc(createSnapshotWithConfiguration:completionHandler:)
     public func createSnapshot(
         with configuration: Configuration,
         completionHandler: @escaping SnapshotCompletionHandler
@@ -49,12 +47,12 @@ public class MapSnapshotter: NSObject {
         cancel()
         
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 
         if let validationError = validate(configuration) {
-            completionHandler(nil, validationError)
+            completionHandler(.failure(validationError))
             return
         }
 
@@ -69,7 +67,7 @@ public class MapSnapshotter: NSObject {
     }
 
     /// Cancels the current running geocoding or reverseGeocoding task.
-    @objc public func cancel() {
+    public func cancel() {
         activeTask?.cancel()
         activeTask = nil
     }
@@ -101,7 +99,7 @@ extension MapSnapshotter {
             var components: [String] = []
             let coords = marker.coordinate
 
-            components.append("color:\(marker.style.stringValue)")
+            components.append("color:\(marker.style.rawValue)")
             if let label = marker.label {
                 components.append("label:\(label)")
             }

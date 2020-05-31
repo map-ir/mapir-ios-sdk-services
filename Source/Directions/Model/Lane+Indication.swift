@@ -16,43 +16,41 @@ extension Lane {
     /// A Lane object has zero or more indications that usually correspond to arrows on
     /// signs or pavement markings. If no options are specified, it may be the case that
     /// no maneuvers are indicated on signage or pavement markings for the lane.
-    @objc(SHLaneIndication)
-    public final class Indication: NSObject, OptionSet {
+    public struct Indication: OptionSet {
 
-        @objc public var rawValue: Int
+        public var rawValue: Int
 
-        @objc public init(rawValue: Int) { self.rawValue = rawValue }
+        public init(rawValue: Int) { self.rawValue = rawValue }
 
         /// a normal turn to the right
-        @objc static let right = Indication(rawValue: 1 << 1)
+        public static let right = Indication(rawValue: 1 << 1)
 
         /// a normal turn to the left
-        @objc static let left = Indication(rawValue: 1 << 2)
+        public static let left = Indication(rawValue: 1 << 2)
 
         /// a slight turn to the right
-        @objc static let slightRight = Indication(rawValue: 1 << 3)
+        public static let slightRight = Indication(rawValue: 1 << 3)
 
         /// a slight turn to the left
-        @objc static let slightLeft = Indication(rawValue: 1 << 4)
+        public static let slightLeft = Indication(rawValue: 1 << 4)
 
         /// a sharp right turn
-        @objc static let sharpRight = Indication(rawValue: 1 << 5)
+        public static let sharpRight = Indication(rawValue: 1 << 5)
 
         /// a sharp turn to the left
-        @objc static let sharpLeft = Indication(rawValue: 1 << 6)
+        public static let sharpLeft = Indication(rawValue: 1 << 6)
 
         /// indicates reversal of direction
-        @objc static let uTurn = Indication(rawValue: 1 << 7)
+        public static let uTurn = Indication(rawValue: 1 << 7)
 
         /// no relevant change in direction
-        @objc static let straight = Indication(rawValue: 1 << 8)
+        public static let straight = Indication(rawValue: 1 << 8)
     }
-
 }
 
 extension Lane.Indication {
 
-    convenience init?(descriptions: [String]) {
+    init?(descriptions: [String]) {
         var indications: Lane.Indication = []
         for d in descriptions {
             switch d {
@@ -82,7 +80,7 @@ extension Lane.Indication {
         self.init(rawValue: indications.rawValue)
     }
 
-    @objc override public var description: String {
+    public var description: String {
         if isEmpty { return "none" }
 
         var descriptions: [String] = []

@@ -9,79 +9,33 @@
 import CoreLocation
 import Foundation
 
-@objc(SHRoute)
-public final class Route: NSObject {
+public struct Route {
 
     /// The distance traveled by the route, in `Double` meters.
-    @objc public let distance: Double
+    public let distance: Double
 
     /// The estimated travel time, in `Double` number of seconds.
-    @objc public let expectedTravelTime: TimeInterval
+    public let expectedTravelTime: TimeInterval
 
     /// The whole `geometry` of the route value depending on overview parameter,
     /// format depending on the geometries parameter.
-    @objc public let coordinates: [CLLocationCoordinate2D]?
+    public let coordinates: [CLLocationCoordinate2D]?
 
     /// The calculated weight of the route.
-    @objc public let weight: Double
+    public let weight: Double
 
     /// The name of the weight profile used during extraction phase.
-    @objc public let weightName: String?
+    public let weightName: String?
 
     /// The legs between the given waypoints, an array of RouteLeg objects.
-    @objc public let legs: [RouteLeg]
-
-    init(
-        distance: Double,
-        expectedTravelTime: Double,
-        coordinates: [CLLocationCoordinate2D]?,
-        weight: Double,
-        weightName: String?,
-        legs: [RouteLeg]
-    ) {
-        self.distance = distance
-        self.expectedTravelTime = expectedTravelTime
-        self.coordinates = coordinates
-        self.weight = weight
-        self.weightName = weightName
-        self.legs = legs
-    }
-}
-
-// MARK: Objective-C Compatibility
-
-extension Route {
-
-    @objc public var coordinatesCount: UInt {
-        return UInt(coordinates?.count ?? 0)
-    }
-
-    /// Retrieve coordinates.
-    ///
-    /// - Parameter pointer: A pointer to a C array of `CLLocationCoordinate2D`
-    /// instances.
-    ///
-    /// - precondition: Pointer must be large enough to hold `coordinatesCount`
-    /// instances of `CLLocationCoordinate2D`.
-    ///
-    /// - note: this method is intended to be used in Objective-C. In Swift use
-    /// `coordinates` property.
-    @objc public func getCoordinates(_ pointer: UnsafeMutablePointer<CLLocationCoordinate2D>) {
-        guard let coordinates = coordinates else {
-            return
-        }
-
-        for (offset, coordinate) in coordinates.enumerated() {
-            pointer.advanced(by: offset).pointee = coordinate
-        }
-    }
+    public let legs: [RouteLeg]
 }
 
 // MARK: Decoding Route
 
 extension Route {
 
-    convenience init(from response: ResponseScheme) {
+    init(from response: ResponseScheme) {
         self.init(
             distance: response.distance,
             expectedTravelTime: response.duration,

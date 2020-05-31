@@ -10,11 +10,10 @@ import CoreLocation
 import Foundation
 
 /// Customizable search using Map.ir searching services.
-@objc(SHSearch)
-public class Search: NSObject {
+public class Search {
 
     /// Completion handler type of searching.
-    public typealias SearchCompletionHandler = (_ results: [Search.Result]?, _ error: Error?) -> Void
+    public typealias SearchCompletionHandler = (Swift.Result<[Search.Result], Error>) -> Void
 
     /// Current configuration for search.
     ///
@@ -28,7 +27,6 @@ public class Search: NSObject {
     /// - Parameters:
     ///   - text: A `String` to search for it.
     ///   - completionHandler: A handler block to run once the search is finished.
-    @objc(searchForText:completionHanlder:)
     public func search(for text: String,
                        completionHandler: @escaping SearchCompletionHandler) {
 
@@ -41,13 +39,12 @@ public class Search: NSObject {
     ///   - text: A `String` to search for it.
     ///   - configuration: Configuration of the search. Contains categories, filter and center of the search.
     ///   - completionHandler: A handler block to run once the search is finished.
-    @objc(searchForText:withConfiguration:completionHandler:)
     public func search(for text: String,
                        configuration: Search.Configuration,
                        completionHandler: @escaping SearchCompletionHandler) {
 
         cancel()
-        self.configuration = configuration.copy() as! Search.Configuration
+        self.configuration = configuration
 
         perform(.search(text, configuration),
                 completionHandler: completionHandler,
@@ -59,7 +56,6 @@ public class Search: NSObject {
     /// - Parameters:
     ///   - text: A `String` to find completion suggestions for it.
     ///   - completionHandler: A handler block to run once the searching for suggenstions is finished.
-    @objc(suggestionForText:completionHandler:)
     public func suggestions(for text: String,
                             completionHandler: @escaping SearchCompletionHandler) {
 
@@ -72,13 +68,12 @@ public class Search: NSObject {
     ///   - text: A `String` to find completion suggestions for it.
     ///   - configuration: Configuration of the search. Contains categories, filter and center of the search.
     ///   - completionHandler: A handler block to run once the searching for suggenstions is finished.
-    @objc(suggestionForText:withConfiguration:completionHandler:)
     public func suggestions(for text: String,
                             configuration: Configuration,
                             completionHandler: @escaping SearchCompletionHandler) {
 
         cancel()
-        self.configuration = configuration.copy() as! Search.Configuration
+        self.configuration = configuration
 
         perform(.suggestion(text, configuration),
                 completionHandler: completionHandler,
@@ -105,7 +100,7 @@ extension Search {
                  decoder: @escaping (Data) -> [Search.Result]?) {
 
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 
@@ -168,19 +163,21 @@ extension Search {
 
         query["text"] = text
 
-        if let center = configuration.center {
-            configuration.categories.insert(.nearby)
+        var conf = configuration
+
+        if let center = conf.center {
+            conf.categories.insert(.nearby)
 
             query["lat"] = String(center.latitude)
             query["lon"] = String(center.longitude)
         }
 
-        if let filter = configuration.filter {
+        if let filter = conf.filter {
             query["$filter"] = filter.urlRepresentation
         }
 
-        if !configuration.categories.isEmpty {
-            query["$select"] = configuration.categories.urlRepresentation
+        if !conf.categories.isEmpty {
+            query["$select"] = conf.categories.urlRepresentation
         }
 
         return URLQueryItem.queryItems(from: query)

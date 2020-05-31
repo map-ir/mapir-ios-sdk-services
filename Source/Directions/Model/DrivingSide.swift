@@ -8,8 +8,7 @@
 
 import Foundation
 
-@objc(SHDrivingSide)
-public enum DrivingSide: Int {
+public enum DrivingSide: String {
 
     /// specifies that the legal driving side at the location is `right`.
     case right
@@ -19,23 +18,5 @@ public enum DrivingSide: Int {
 }
 
 extension DrivingSide: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .right:
-            return "right"
-        case .left:
-            return "left"
-        }
-    }
-
-    init?(description: String) {
-        switch description {
-        case "right":
-            self = .right
-        case "left":
-            self = .left
-        default:
-            return nil
-        }
-    }
+    public var description: String { self.rawValue }
 }

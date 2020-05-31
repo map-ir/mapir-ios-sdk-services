@@ -9,10 +9,9 @@
 import Foundation
 import CoreLocation
 
-@objc(SHDistanceMatrix)
-public class DistanceMatrix: NSObject {
+public class DistanceMatrix {
 
-    public typealias DistanceMatrixCompletionHandler = (_ result: DistanceMatrix.Result?, _ error: Swift.Error?) -> Void
+    public typealias DistanceMatrixCompletionHandler = (Swift.Result<DistanceMatrix.Result,Swift.Error>) -> Void
 
     /// Configuration for distance matrix calculation.
     public var configuration: DistanceMatrix.Configuration = .default
@@ -83,16 +82,16 @@ extension DistanceMatrix {
                                completionHandler: @escaping DistanceMatrixCompletionHandler,
                                decoder: @escaping DecodingHandler) {
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 
         if let validationError = validate(origins) {
-            completionHandler(nil, validationError)
+            completionHandler(.failure(validationError))
             return
         }
         if let validationError = validate(destinations) {
-            completionHandler(nil, validationError)
+            completionHandler(.failure(validationError))
             return
         }
 

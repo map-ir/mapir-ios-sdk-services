@@ -18,21 +18,20 @@ extension MapSnapshotter {
     /// snapshot of the map.
     ///
     /// `MapSnapshotter` requires a configuration for a snapshotting task.
-    @objc(SHMapSnapshotterConfiguration)
-    public final class Configuration: NSObject, NSCopying {
+    public struct Configuration {
 
         /// Indicates the size of the output image.
-        @objc public var size: CGSize
+        public var size: CGSize
 
         /// `zoomLevel` of the camera used for snapshotting.
-        @objc public var zoomLevel: Int
+        public var zoomLevel: Int
 
         /// List of `Marker`s that will be added on the result snapshot.
         ///
         /// - note: Since markers are used to specify the area that is shown by the map, at
         ///   least one marker is required in a configuration object to be used as the center
         ///   of the snap shotting area.
-        @objc public var markers: [Marker]
+        public var markers: [Marker]
 
         /// Creates a snapshot configuration.
         ///
@@ -40,22 +39,14 @@ extension MapSnapshotter {
         ///   - size: Size of the result image. Unit of measurement is in `pixel`.
         ///   - zoomLevel: Zoom level of the the snapshotting camera.
         ///   - markers: Markers that are needed to be added to the map.
-        @objc public init(
+        public init(
             size: CGSize,
             zoomLevel: Int,
-            markers: [Marker]
+            markers: [Marker] = []
         ) {
             self.size = size
             self.zoomLevel = zoomLevel
             self.markers = markers
-        }
-
-        @objc public func copy(with zone: NSZone? = nil) -> Any {
-            return Configuration(
-                size: size,
-                zoomLevel: zoomLevel,
-                markers: markers
-            )
         }
 
         /// Adds a marker to the configuration.
@@ -64,8 +55,7 @@ extension MapSnapshotter {
         ///   - coordinate: The coordinate of the marker.
         ///   - name: The name of the marker that will shown as a label under the marker icon.
         ///   - style: The style of the marker.
-        @objc(addMarkerAtCoordinate:name:style:)
-        public func addMarker(
+        mutating public func addMarker(
             at coordinate: CLLocationCoordinate2D,
             name: String,
             style: Marker.Style
@@ -80,8 +70,7 @@ extension MapSnapshotter {
         ///   - location: The location of the marker.
         ///   - name: The name of the marker that will shown as a label under the marker icon.
         ///   - style: The style of the marker.
-        @objc(addMarkerAtLocation:name:style:)
-        public func addMarker(
+        mutating public func addMarker(
             at location: CLLocation,
             name: String,
             style: Marker.Style

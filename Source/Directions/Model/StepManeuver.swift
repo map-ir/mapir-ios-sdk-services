@@ -9,54 +9,37 @@
 import CoreLocation
 import Foundation
 
-@objc(SHStepManeuver)
-public final class StepManeuver: NSObject {
+public struct StepManeuver {
 
     /// A `CLLocationCoordinate2D`  describing the location of the turn.
-    @objc public var coordinate: CLLocationCoordinate2D
+    public let coordinate: CLLocationCoordinate2D?
 
     /// The clockwise angle from true north to the direction of travel immediately after
     /// the maneuver. Range 0-359.
-    public var finalHeading: CLLocationDirection?
+    public let finalHeading: CLLocationDirection?
 
     /// The clockwise angle from true north to the direction of travel immediately
     /// before the maneuver. Range 0-359.
-    public var initialHeading: CLLocationDirection?
+    public let initialHeading: CLLocationDirection?
 
     /// An enum indicating the type of maneuver.
-    @objc public var maneuverType: StepManeuver.ManeuverType
+    public let maneuverType: StepManeuver.ManeuverType?
 
     /// An `Direction` indicating the direction change of the maneuver.
-    @objc public var directionInstruction: StepManeuver.Direction
+    public let directionInstruction: StepManeuver.Direction?
 
     /// An optional `Integer` indicating number of the exit to take.
     ///
     /// The field exists for the following `maneuverType`s: `roundabout`, `rotary` and
     /// `none`
-    public var exitIndex: Int?
-
-    init(
-        coordinate: CLLocationCoordinate2D,
-        finalHeading: CLLocationDirection?,
-        initialHeading: CLLocationDirection?,
-        maneuverType: ManeuverType,
-        directionInstruction: Direction,
-        exitIndex: Int?
-    ) {
-        self.coordinate = coordinate
-        self.finalHeading = finalHeading
-        self.initialHeading = initialHeading
-        self.maneuverType = maneuverType
-        self.directionInstruction = directionInstruction
-        self.exitIndex = exitIndex
-    }
+    public let exitIndex: Int?
 }
 
 // MARK: Decoding StepManeuver
 
 extension StepManeuver {
 
-    convenience init(from response: ResponseScheme) {
+    init(from response: ResponseScheme) {
         self.init(
             coordinate: response.coordinate,
             finalHeading: response.bearingAfter,
@@ -71,8 +54,8 @@ extension StepManeuver {
         var coordinate: CLLocationCoordinate2D
         var bearingAfter: CLLocationDirection?
         var bearingBefore: CLLocationDirection?
-        var maneuverType: ManeuverType
-        var direction: Direction
+        var maneuverType: ManeuverType?
+        var direction: Direction?
         var exit: Int?
 
         private enum CodingKeys: String, CodingKey {
@@ -96,11 +79,13 @@ extension StepManeuver {
             bearingAfter = try container.decodeIfPresent(CLLocationDirection.self, forKey: .bearingAfter)
             bearingBefore = try container.decodeIfPresent(CLLocationDirection.self, forKey: .bearingBefore)
 
-            let manTypeString = try container.decode(String.self, forKey: .type)
-            maneuverType = ManeuverType(description: manTypeString)
+            if let manTypeString = try container.decodeIfPresent(String.self, forKey: .type) {
+                maneuverType = ManeuverType(rawValue: manTypeString)
+            }
 
-            let modifier = try container.decode(String.self, forKey: .modifier)
-            direction = Direction(description: modifier)
+            if let modifier = try container.decodeIfPresent(String.self, forKey: .modifier) {
+                direction = Direction(rawValue: modifier)
+            }
 
             exit = try container.decodeIfPresent(Int.self, forKey: .exit)
         }

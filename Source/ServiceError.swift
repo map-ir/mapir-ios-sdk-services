@@ -8,8 +8,7 @@
 
 import Foundation
 
-@objc(SHServiceError)
-public enum ServiceError: UInt, Error {
+public enum ServiceError: Error {
 
     /// Indicates that you are not using a Map.ir API key or your key is invalid.
     case unauthorized
@@ -23,8 +22,7 @@ public enum ServiceError: UInt, Error {
     /// Indicates that geocode or reverse geocode had no result.
     case noResult
 
-    @objc(SHDistanceMatrixError)
-    enum DistanceMatrixError: UInt, Error {
+    enum DistanceMatrixError: Error {
 
         /// Shows that origins and/or destinations dictionary are empty.
         case emptyWaypointDictionary
@@ -34,23 +32,20 @@ public enum ServiceError: UInt, Error {
         case invalidCharacterInNames
     }
 
-    @objc(SHDirectionsError)
-    enum DirectionsError: UInt, Error {
+    enum DirectionsError: Error {
 
         /// Shows that number of specified waypoints are less than two.
         case invalidWaypoints
     }
 
-    @objc(SHDirectionsError)
-    enum GeofenceError: UInt, Error {
+    enum GeofenceError: Error {
 
         /// Shows that array of input polygons is empty while creating a new
         /// polygon.
         case emptyPolygonsArray
     }
 
-    @objc(SHDirectionsError)
-    enum MapSnapshotterError: UInt, Error {
+    enum MapSnapshotterError: Error {
 
         /// Shows that the array of input markers is empty. At least one is required.
         case emptyMarkersArray

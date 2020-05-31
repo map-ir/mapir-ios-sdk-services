@@ -14,18 +14,18 @@ extension Directions {
     ///
     /// `Directions` request is customizable. It uses a `Configuration` object for each
     /// directions request.
-    @objc public final class Configuration: NSObject, NSCopying {
+    public struct Configuration {
 
-        @objc public static var `default`: Configuration { Configuration() }
+        public static var `default`: Configuration { Configuration() }
 
         /// The type of the transportation used.
-        @objc public var vehicleType: Directions.VehicleType = .privateCar
+        public var vehicleType: Directions.VehicleType = .privateCar
 
         /// Traffic restricted areas that needed to be excluded from the result.
         ///
         /// - note: At this moment, this property will considered when the `vehicleType` is
         /// `.privateCar`. Otherwise, this will be ignored
-        @objc public var areaToExclude: Directions.TrafficRestriction = .none
+        public var areaToExclude: Directions.TrafficRestriction = .none
 
         /// Search for alternative routes. Passing a number `n` searches for up to `n`
         /// alternative routes.
@@ -34,7 +34,7 @@ extension Directions {
         /// will be changed to 3 and 0 respectively.
         ///
         /// - note: even if alternative routes are requested, a result cannot be guaranteed
-        @objc public var numberOfAlternatives: Int = 0 {
+        public var numberOfAlternatives: Int = 0 {
             didSet {
                 if numberOfAlternatives < 0 {
                     numberOfAlternatives = 0
@@ -46,13 +46,13 @@ extension Directions {
 
         /// Specifies whether the directions result, needs to have `RouteStep` instructions
         /// or not. Steps are the detail of each leg in the route.
-        @objc public var includeSteps: Bool = false
+        public var includeSteps: Bool = false
 
         /// Indicates the style of the overview.
         ///
         /// Add overview geometry either `.full`, `.simplified` according to highest zoom
         /// level it could be display on, or `.none` to not have at all.
-        @objc public var routeOverviewStyle: Directions.OverviewStyle = .none
+        public var routeOverviewStyle: Directions.OverviewStyle = .none
 
         /// Creates a new `Configuration` object for `Directions`.
         init(
@@ -68,25 +68,13 @@ extension Directions {
             self.includeSteps = includeSteps
             self.routeOverviewStyle = routeOverviewStyle
         }
-
-        /// Creates a copy of current `Directions.Configuration` object.
-        @objc public func copy(with zone: NSZone? = nil) -> Any {
-            return Configuration(
-                vehicleType: vehicleType,
-                areaToExclude: areaToExclude,
-                numberOfAlternatives: numberOfAlternatives,
-                includeSteps: includeSteps,
-                routeOverviewStyle: routeOverviewStyle
-            )
-        }
     }
 }
 
 extension Directions {
 
     /// Defines different types of transportation modes available in the directions service.
-    @objc(SHDirectionsVehicleType)
-    public enum VehicleType: Int {
+    public enum VehicleType {
 
         /// Indicates that the direction needs to be calculated for driving.
         ///
@@ -115,8 +103,7 @@ extension Directions {
     ///
     /// - note: At this moment, traffic restrictions only apply to the route when the
     /// `VehicleType` is `.privateCar`.
-    @objc(SHDirectionsTrafficRestriction)
-    public enum TrafficRestriction: Int {
+    public enum TrafficRestriction {
 
         /// No traffic restrictions.
         case none
@@ -127,13 +114,11 @@ extension Directions {
         /// Restricts routing to air pollution control area. This also includes the area
         /// that `.trafficControlArea` contains.
         case airPollutionControlArea
-
     }
 
     /// Use to add overview geometry either full, simplified according to highest zoom
     /// level it could be display on, or not at all.
-    @objc(SHDirectionsOverviewStyle)
-    public enum OverviewStyle: Int {
+    public enum OverviewStyle {
 
         /// Result object will not have any overview geometry.
         case none

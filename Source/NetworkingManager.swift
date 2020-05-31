@@ -118,12 +118,10 @@ class NetworkingManager {
         return components.joined(separator: "-")
     }()
 
-    private init() { }
-
     static func request(url urlComponents: URLComponents,
                         httpMethod: URLRequest.HTTPMethod = .get) -> URLRequest {
 
-        var request = URLRequest(url: urlComponents, httpMethod: httpMethod, timeoutInterval: shared.timeoutInterval)
+        var request = URLRequest(url: urlComponents, httpMethod: httpMethod, timeoutInterval: 20)
 
         if let accessToken = AccountManager.apiKey {
             request.addValue(accessToken, forHTTPHeaderField: "x-api-key")
@@ -141,18 +139,18 @@ class NetworkingManager {
     static let session: URLSession = URLSession(configuration: .default)
 
     @discardableResult
-    static func dataTask<Result>(
+    static func dataTask<Response>(
         with urlRequest: URLRequest,
-        decoderBlock: @escaping (Data) -> Result?,
-        completionHandler: @escaping (_ result: Result?, _ error: Error?) -> Void
+        decoderBlock: @escaping (Data) -> Response?,
+        completionHandler: @escaping (Result<Response, Error>) -> Void
     ) -> URLSessionDataTask? {
 
         let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
             if error != nil {
                 if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
-                    completionHandler(nil, ServiceError.canceled)
+                    completionHandler(.failure(ServiceError.canceled))
                 } else {
-                    completionHandler(nil, ServiceError.network)
+                    completionHandler(.failure(ServiceError.network))
                 }
                 return
             }
@@ -161,22 +159,22 @@ class NetworkingManager {
                 switch response.statusCode {
                 case 200, 201:
                     if let data = data, let decoded = decoderBlock(data) {
-                        completionHandler(decoded, nil)
+                        completionHandler(.success(decoded))
                     } else {
-                        completionHandler(nil, ServiceError.noResult)
+                        completionHandler(.failure(ServiceError.noResult))
                     }
                 case 401:
                     NotificationCenter.default.post(name: unauthorizedNotification, object: nil)
-                    completionHandler(nil, ServiceError.unauthorized)
+                    completionHandler(.failure(ServiceError.unauthorized))
                 case 400, 402..<500:
-                    completionHandler(nil, ServiceError.noResult)
+                    completionHandler(.failure(ServiceError.noResult))
                 case 300..<400, 500..<600:
-                    completionHandler(nil, ServiceError.network)
+                    completionHandler(.failure(ServiceError.network))
                 default:
                     fatalError("Unknown response status code.")
                 }
             } else {
-                completionHandler(nil, ServiceError.network)
+                completionHandler(.failure(ServiceError.network))
             }
         }
 

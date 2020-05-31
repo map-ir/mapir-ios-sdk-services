@@ -9,43 +9,28 @@
 import Foundation
 import CoreLocation
 
-@objc(SHRouteLeg)
-public final class RouteLeg: NSObject {
+public struct RouteLeg {
     /// Depends on the `steps` parameter.
-    @objc public let steps: [RouteStep]
+    public let steps: [RouteStep]
 
     /// The distance traveled by this route leg, in `Double` meters.
-    @objc public let distance: CLLocationDistance
+    public let distance: CLLocationDistance
 
     /// The estimated travel time, in `Double` number of seconds.
-    @objc public let expectedTravelTime: TimeInterval
+    public let expectedTravelTime: TimeInterval
 
     /// Summary of the route taken as string. Depends on the steps parameter
-    @objc public let summary: String
+    public let summary: String
 
     /// weight of the travel leg.
-    @objc public let weight: Double
-
-    init(
-        steps: [RouteStep],
-        distance: CLLocationDistance,
-        expectedTravelTime: TimeInterval,
-        summary: String,
-        weight: Double
-    ) {
-        self.steps = steps
-        self.distance = distance
-        self.expectedTravelTime = expectedTravelTime
-        self.summary = summary
-        self.weight = weight
-    }
+    public let weight: Double
 }
 
 // MARK: Decoding RouteLeg
 
 extension RouteLeg {
 
-    convenience init(from response: ResponseScheme) {
+    init(from response: ResponseScheme) {
         self.init(
             steps: response.steps,
             distance: response.distance,

@@ -9,8 +9,7 @@
 import CoreLocation
 import Foundation
 
-@objc(SHWaypoint)
-public final class Waypoint: NSObject {
+public struct Waypoint {
 
     /// Unique internal identifier of the segment (ephemeral, not constant over data
     /// updates).
@@ -18,37 +17,25 @@ public final class Waypoint: NSObject {
     /// This can be used on subsequent request to significantly speed up the
     /// query and to connect multiple services. E.g. you can use the hint value obtained
     /// by the nearest query as hint values for route inputs.
-    @objc public var reuseIdentifier: String
+    public let reuseIdentifier: String
 
     /// Name of the street the coordinate snapped to.
-    @objc public var name: String
+    public let name: String
 
     /// The distance, measured in meters, from the input coordinate to the snapped coordinate.
-    @objc public var coordinateAccuracy: CLLocationAccuracy
+    public let coordinateAccuracy: CLLocationAccuracy
 
     /// `CLLocationCoordinate2D` of the snapped coordinate.
-    @objc public var coordinate: CLLocationCoordinate2D
-
-    init(
-        hint: String,
-        name: String,
-        distance: CLLocationAccuracy,
-        coordinate: CLLocationCoordinate2D
-    ) {
-        self.reuseIdentifier = hint
-        self.name = name
-        self.coordinateAccuracy = distance
-        self.coordinate = coordinate
-    }
+    public let coordinate: CLLocationCoordinate2D
 }
 
 extension Waypoint {
 
-    convenience init(from response: ResponseScheme) {
+    init(from response: ResponseScheme) {
         self.init(
-            hint: response.hint,
+            reuseIdentifier: response.hint,
             name: response.name,
-            distance: response.distance,
+            coordinateAccuracy: response.distance,
             coordinate: response.coordinate
         )
     }

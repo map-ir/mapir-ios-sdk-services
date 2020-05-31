@@ -9,18 +9,17 @@
 import Foundation
 
 /// An `OptionSet` that contains attributes of a road segment.
-@objc(SHRoadClass)
-public final class RoadClass: NSObject, OptionSet {
+public struct RoadClass: OptionSet {
 
     /// `OptionSet`'s raw value.
-    @objc public var rawValue: Int
+    public var rawValue: Int
 
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }
 
     /// The road segment is [tolled](https://wiki.openstreetmap.org/wiki/Key:toll).
-    @objc public static let toll = RoadClass(rawValue: 1 << 0)
+    public static let toll = RoadClass(rawValue: 1 << 0)
 
     /// The road segment has access restrictions.
     ///
@@ -28,7 +27,7 @@ public final class RoadClass: NSObject, OptionSet {
     /// restrictions](https://wiki.openstreetmap.org/wiki/Key:access) or a
     /// [high-occupancy vehicle](https://wiki.openstreetmap.org/wiki/Key:hov)
     /// restriction.
-    @objc public static let restricted = RoadClass(rawValue: 1 << 1)
+    public static let restricted = RoadClass(rawValue: 1 << 1)
 
     /// The road segment is a
     /// [freeway](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway) or
@@ -37,7 +36,7 @@ public final class RoadClass: NSObject, OptionSet {
     /// It may be desirable to suppress the name of the freeway when giving instructions
     /// and give instructions at fixed distances before an exit (such as 1 mile or 1
     /// kilometer ahead).
-    @objc public static let motorway = RoadClass(rawValue: 1 << 2)
+    public static let motorway = RoadClass(rawValue: 1 << 2)
 
     /// The user must travel this segment of the route by ferry.
     ///
@@ -46,15 +45,16 @@ public final class RoadClass: NSObject, OptionSet {
     /// onboard the ferry.
     /// In general, the transport type of the step containing the road segment is also
     /// `TransportType.ferry`.
-    @objc public static let ferry = RoadClass(rawValue: 1 << 3)
+    public static let ferry = RoadClass(rawValue: 1 << 3)
 
     /// The user must travel this segment of the route through a
     /// [tunnel](https://wiki.openstreetmap.org/wiki/Key:tunnel).
-    @objc public static let tunnel = RoadClass(rawValue: 1 << 4)
+    public static let tunnel = RoadClass(rawValue: 1 << 4)
 }
 
-extension RoadClass {
-    convenience init?(descriptions: [String]) {
+extension RoadClass: CustomStringConvertible {
+
+    init?(descriptions: [String]) {
         var indications: RoadClass = []
         for d in descriptions {
             switch d {
@@ -78,7 +78,7 @@ extension RoadClass {
         self.init(rawValue: indications.rawValue)
     }
 
-    @objc override public var description: String {
+    public var description: String {
         if isEmpty { return "none" }
 
         var descriptions: [String] = []

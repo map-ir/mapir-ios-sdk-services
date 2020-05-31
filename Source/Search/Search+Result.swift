@@ -14,82 +14,40 @@ import CoreLocation
 extension Search {
 
     /// Description of a search result object
-    @objc(SHSearchResult)
-    public final class Result: NSObject {
+    public struct Result {
 
         /// Province of the result.
-        @objc public let province: String?
+        public let province: String?
 
         /// The name of county associated with the result.
-        @objc public let county: String?
+        public let county: String?
 
         /// The district associated with the result.
-        @objc public let district: String?
+        public let district: String?
 
         /// The city associated with the result.
-        @objc public let city: String?
+        public let city: String?
 
         /// The region associated with the result.
-        @objc public let region: String?
+        public let region: String?
 
         /// The neighborhood name associated with the result.
-        @objc public let neighborhood: String?
+        public let neighborhood: String?
 
         /// Title of the result.
-        @objc public let title: String?
+        public let title: String?
 
         /// Address of the result.
-        @objc public let address: String?
+        public let address: String?
 
         /// Type of the result.
-        @objc public let type: String?
+        public let type: String?
 
         /// FClass of the result.
-        @objc public let fclass: String?
+        public let fclass: String?
 
         /// Coordinate associated with the result.
         public let coordinate: CLLocationCoordinate2D?
-
-        init(
-            province: String?,
-            county: String?,
-            district: String?,
-            city: String?,
-            region: String?,
-            neighborhood: String?,
-            title: String?,
-            address: String?,
-            type: String?,
-            fclass: String?,
-            coordinate: CLLocationCoordinate2D?
-        ) {
-            self.province = province
-            self.county = county
-            self.district = district
-            self.city = city
-            self.region = region
-            self.neighborhood = neighborhood
-            self.title = title
-            self.address = address
-            self.type = type
-            self.fclass = fclass
-            self.coordinate = coordinate
-        }
-    }
-}
-
-extension Search.Result {
-
-    /// Returns the coordinate of the result.
-    ///
-    /// - returns: A `CLLocationCoordinate2D` object indicating the coordinate of the
-    /// result. If there is no coordinate associated with the result, return value will
-    /// be `kCLLocationCoordinate2DInvalid`.
-    ///
-    /// - note: This method is intended to be used in Objective-C only. In Swift use
-    /// `coordinate` property.
-    func getCoordinate() -> CLLocationCoordinate2D {
-        return coordinate ?? kCLLocationCoordinate2DInvalid
     }
 }
 
@@ -115,7 +73,7 @@ extension Search.Result {
 
 extension Search.Result {
 
-    convenience init(from resultResponse: Search.Result.ResultScheme) {
+    init(from resultResponse: Search.Result.ResultScheme) {
         self.init(
             province: resultResponse.province,
             county: resultResponse.county,

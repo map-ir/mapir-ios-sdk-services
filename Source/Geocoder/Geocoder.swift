@@ -9,14 +9,13 @@
 import Foundation
 import CoreLocation
 
-@objc(SHGeocoder)
-public class Geocoder: NSObject {
+public class Geocoder {
 
     /// Geocoder or ReverseGeocoder
-    public typealias GeocodeCompletionHandler = (_ results: [Placemark]?, _ error: Error?) -> Void
+    public typealias GeocodeCompletionHandler = (Result<[Placemark], Error>) -> Void
 
     /// Current status of `Geocoder` object.
-    @objc public var isGeocoding: Bool {
+    public var isGeocoding: Bool {
         if let task = activeTask {
             switch task.state {
             case .running:
@@ -42,7 +41,6 @@ public class Geocoder: NSObject {
     ///
     /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
     /// task.
-    @objc(reverseGeocodeLocation:completionHandler:)
     public func reverseGeocode(_ location: CLLocation,
                                completionHandler: @escaping GeocodeCompletionHandler) {
         reverseGeocode(location.coordinate, completionHandler: completionHandler)
@@ -57,7 +55,6 @@ public class Geocoder: NSObject {
     ///
     /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
     /// task.
-    @objc(reverseGeocodeCoordinate:completionHandler:)
     public func reverseGeocode(_ coordinate: CLLocationCoordinate2D,
                                completionHandler: @escaping GeocodeCompletionHandler) {
         cancel()
@@ -76,7 +73,6 @@ public class Geocoder: NSObject {
     ///
     /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
     /// task.
-    @objc(fastReverseGeocodeLocation:completionHandler:)
     public func fastReverseGeocode(_ location: CLLocation,
                                    completionHandler: @escaping GeocodeCompletionHandler) {
         fastReverseGeocode(location.coordinate, completionHandler: completionHandler)
@@ -90,7 +86,6 @@ public class Geocoder: NSObject {
     ///
     /// Array of `Placemark` objects has only one `Placemark` after a reverse geocoding
     /// task.
-    @objc(fastReverseGeocodeCoordainte:completionHandler:)
     public func fastReverseGeocode(_ coordinate: CLLocationCoordinate2D,
                                    completionHandler: @escaping GeocodeCompletionHandler) {
         cancel()
@@ -108,7 +103,6 @@ public class Geocoder: NSObject {
     ///   - completionHandler: Completion handler block to execute with the results.
     ///   The geocoder will execute the result regardless of whether the request was
     ///   successful or not.
-    @objc(geocodeAddress:city:completionHandler:)
     func geocode(_ address: String,
                  city: String? = nil,
                  completionHandler: @escaping GeocodeCompletionHandler) {
@@ -120,7 +114,7 @@ public class Geocoder: NSObject {
     }
 
     /// Cancels the current running geocoding or reverseGeocoding task.
-    @objc public func cancel() {
+    public func cancel() {
         activeTask?.cancel()
         activeTask = nil
     }
@@ -140,7 +134,7 @@ extension Geocoder {
                  decoder: @escaping (Data) -> ([Placemark]?)) {
         
         guard AccountManager.isAuthorized else {
-            completionHandler(nil, ServiceError.unauthorized)
+            completionHandler(.failure(ServiceError.unauthorized))
             return
         }
 

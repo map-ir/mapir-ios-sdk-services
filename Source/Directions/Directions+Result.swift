@@ -11,20 +11,19 @@ import Foundation
 extension Directions {
 
     /// The output object of a `Directions` request.
-    @objc(SHDirectionsResult)
-    public final class Result: NSObject {
+    public struct Result {
 
         /// Array of `Waypoint` objects representing all waypoints along the path in order.
-        @objc public let waypoints: [Waypoint]
+        public let waypoints: [Waypoint]
 
         /// An array of `Route` objects, ordered by descending recommendation rank.
         ///
         /// If you specify `n` as number of alternative routes in configuration,
         /// you may have less than `(n + 1)` `Route`s in this property.
-        @objc public let routes: [Route]
+        public let routes: [Route]
 
         /// The configuration of the `Directions` request which resulted in this `Route`s.
-        @objc public internal(set) var configuration: Directions.Configuration?
+        public internal(set) var configuration: Directions.Configuration?
 
         init(
             waypoints: [Waypoint],
@@ -40,8 +39,10 @@ extension Directions {
 
 extension Directions.Result {
 
-    convenience init(from response: ResponseScheme,
-                     configuration: Directions.Configuration? = nil) {
+    init(
+        from response: ResponseScheme,
+        configuration: Directions.Configuration? = nil
+    ) {
         
         self.init(waypoints: response.waypoints, routes: response.routes)
     }

@@ -9,14 +9,7 @@
 import Foundation
 
 ///  A `TransportType` specifies the mode of transportation used for part of a route.
-@objc(SHTransportType)
-public enum TransportType: Int {
-
-    /// The step does not have a particular transport type associated with it.
-    ///
-    /// This transport type is used as a workaround for bridging to Objective-C which
-    /// does not support nullable enumeration-typed values.
-    case none
+public enum TransportType: String {
 
     /// The route requires the user to drive or ride a car, truck, or motorcycle.
     ///
@@ -32,7 +25,7 @@ public enum TransportType: Int {
     /// The route requires the user to cross a movable bridge.
     ///
     /// Available for automobile and cycling directions.
-    case movableBridge
+    case movableBridge = "movable bridge"
 
     /// The route becomes impassable at this point.
     ///
@@ -59,46 +52,5 @@ public enum TransportType: Int {
 }
 
 extension TransportType: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .none:
-            return "none"
-        case .automobile:
-            return "automobile"
-        case .ferry:
-            return "ferry"
-        case .movableBridge:
-            return "movable bridge"
-        case .inaccessible:
-            return "inaccessible"
-        case .walking:
-            return "walking"
-        case .cycling:
-            return "cycling"
-        case .train:
-            return "train"
-        }
-    }
-
-    init(description: String) {
-        switch description {
-        case "automobile":
-            self = .automobile
-        case "ferry":
-            self = .ferry
-        case "movable bridge":
-            self = .movableBridge
-        case "inaccessible":
-            self = .inaccessible
-        case "walking":
-            self = .walking
-        case "cycling":
-            self = .cycling
-        case "train":
-            self = .train
-        default:
-            self = .none
-        }
-    }
-
+    public var description: String { self.rawValue }
 }

@@ -32,6 +32,9 @@ public class Geocoder {
 
     private var activeTask: URLSessionDataTask?
 
+    /// Creates a `Geocoder` wrapper.
+    public init() { }
+
     /// Creates a request to reverse geocode the given location.
     ///
     /// - Parameters:
@@ -134,7 +137,7 @@ extension Geocoder {
                  decoder: @escaping (Data) -> ([Placemark]?)) {
         
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: ServiceError.UnauthorizedReason())))
             return
         }
 
@@ -148,7 +151,7 @@ extension Geocoder {
             request = self.urlRequestForGeocodeTask(string: address, city: city)
         }
 
-        activeTask = NetworkingManager.dataTask(
+        activeTask = Utilities.session.dataTask(
             with: request,
             decoderBlock: decoder,
             completionHandler: completionHandler)
@@ -185,7 +188,7 @@ extension Geocoder {
 
 extension Geocoder {
     func urlRequestForReverseGeocodingTask(coordinate: CLLocationCoordinate2D) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
         let queryItemsDict = [
             "lat": String(coordinate.latitude),
             "lon": String(coordinate.longitude)
@@ -194,13 +197,13 @@ extension Geocoder {
         urlComponents.queryItems = URLQueryItem.queryItems(from: queryItemsDict)
         urlComponents.path = "/reverse"
 
-        let request = NetworkingManager.request(url: urlComponents)
+        let request = URLRequest(url: urlComponents)
 
         return request
     }
 
     func urlRequestForFastReverseGeocodingTask(coordinate: CLLocationCoordinate2D) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
         let queryItemsDict = [
             "lat": String(coordinate.latitude),
             "lon": String(coordinate.longitude)
@@ -209,13 +212,13 @@ extension Geocoder {
         urlComponents.queryItems = URLQueryItem.queryItems(from: queryItemsDict)
         urlComponents.path = "/fast-reverse"
 
-        let request = NetworkingManager.request(url: urlComponents)
+        let request = URLRequest(url: urlComponents)
 
         return request
     }
 
     func urlRequestForGeocodeTask(string: String, city: String?) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
         var queryItemsDict = ["text": string]
         if let city = city {
             queryItemsDict["$filter"] = "city eq \(city)"
@@ -224,7 +227,7 @@ extension Geocoder {
         urlComponents.queryItems = URLQueryItem.queryItems(from: queryItemsDict)
         urlComponents.path = "/search/v2"
 
-        let request = NetworkingManager.request(url: urlComponents)
+        let request = URLRequest(url: urlComponents)
 
         return request
     }

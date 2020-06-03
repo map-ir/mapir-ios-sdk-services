@@ -8,12 +8,7 @@
 
 import Foundation
 
-class NetworkingManager {
-
-    var session: URLSession = .shared
-    var timeoutInterval: TimeInterval = 10.0
-
-    static let shared = NetworkingManager()
+enum Utilities {
 
     static let baseURLComponents: URLComponents = {
         var urlComponents = URLComponents()
@@ -21,6 +16,59 @@ class NetworkingManager {
         urlComponents.host = "map.ir"
         return urlComponents
     }()
+
+    static var appName: String? {
+        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ??
+            Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
+            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            return "\(appName)/\(version)"
+        }
+        return nil
+    }
+
+    static var libraryName: String? {
+        let libraryBundle: Bundle? = Bundle(for: Geocoder.self)
+        if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String,
+            let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return "\(libraryName)/\(version)"
+        }
+        return nil
+    }
+
+    static var cpuInfo: String? {
+        var info = ""
+        let system: String
+        #if os(OSX)
+        system = "macOS"
+        #elseif os(iOS)
+        system = "iOS"
+        #elseif os(watchOS)
+        system = "watchOS"
+        #elseif os(tvOS)
+        system = "tvOS"
+        #endif
+        let systemVersion = ProcessInfo().operatingSystemVersion
+        let sysVersionString = [
+            "\(systemVersion.majorVersion)",
+            "\(systemVersion.minorVersion)",
+            "\(systemVersion.patchVersion)"
+            ].joined(separator: ".")
+        info = "\(system)/\(sysVersionString)"
+
+        let chip: String
+        #if arch(x86_64)
+        chip = "x86_64"
+        #elseif arch(arm)
+        chip = "arm"
+        #elseif arch(arm64)
+        chip = "arm64"
+        #elseif arch(i386)
+        chip = "i386"
+        #endif
+        info += "(\(chip))"
+
+        return info
+    }
 
     static let userAgent: String = {
         var components: [String] = []
@@ -31,7 +79,7 @@ class NetworkingManager {
             components.append("\(appName)/\(version)")
         }
 
-        let libraryBundle: Bundle? = Bundle(for: NetworkingManager.self)
+        let libraryBundle: Bundle? = Bundle(for: Geocoder.self)
 
         if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String,
             let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
@@ -103,7 +151,7 @@ class NetworkingManager {
         ].joined(separator: ".")
         components.append("\(system)/\(sysVersionString)")
 
-        let libraryBundle: Bundle? = Bundle(for: NetworkingManager.self)
+        let libraryBundle: Bundle? = Bundle(for: Geocoder.self)
         if let libraryName = libraryBundle?.infoDictionary?["CFBundleName"] as? String,
             let version = libraryBundle?.infoDictionary?["CFBundleShortVersionString"] as? String {
             components.append("\(libraryName)/\(version)")

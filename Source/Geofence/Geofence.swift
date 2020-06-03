@@ -24,6 +24,9 @@ public class Geofence {
     /// - note: When the API key changes, this property updates and becomes empty.
     public static var fences: Set<Fence> = []
 
+    /// Creates the `Geofence` wrapper.
+    public init() { }
+
     /// Loads geofences associated with the API key, from Map.ir.
     ///
     /// - Parameters:
@@ -52,13 +55,13 @@ public class Geofence {
         completionHandler: @escaping FenceBatchLoadingCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
 
         let request = urlRequestForBatchLoadingFences(range: range)
 
-        let loadingTask = NetworkingManager.dataTask(
+        let loadingTask = Utilities.session.dataTask(
             with: request,
             decoderBlock: decodeBatchLoadingResult(from:)
         ) { (result) in
@@ -85,13 +88,13 @@ public class Geofence {
         completionHandler: @escaping FenceLoadingCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
 
         let request = urlRequestForLoadingFence(id: id)
 
-        let loadingTask = NetworkingManager.dataTask(
+        let loadingTask = Utilities.session.dataTask(
             with: request,
             decoderBlock: decodeLoadingResult(from:)
         ) { (result) in
@@ -124,7 +127,7 @@ public class Geofence {
         completionHandler: @escaping CreationCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
 
@@ -135,7 +138,7 @@ public class Geofence {
 
         let request = urlRequestForCreatingFence(polygons: boundaries)
 
-        let createTask = NetworkingManager.dataTask(
+        let createTask = Utilities.session.dataTask(
             with: request,
             decoderBlock: decodeCreatingResult(from:)
         ) { (result) in
@@ -177,13 +180,13 @@ public class Geofence {
         completionHandler: @escaping DeletionCompletionHandler
     ) {
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
         
         let request = urlRequestForLoadingFence(id: id)
 
-        let deletingTask = NetworkingManager.dataTask(
+        let deletingTask = Utilities.session.dataTask(
             with: request,
             decoderBlock: decodeDeletingResult(from:)
         ) { (result) in
@@ -212,7 +215,7 @@ extension Geofence {
 
 extension Geofence {
     func urlRequestForBatchLoadingFences(range: ClosedRange<Int>) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         var query: [String: String] = [:]
         query["$skip"] = range.lowerBound > 0 ? String(range.lowerBound) : "0"
@@ -230,37 +233,34 @@ extension Geofence {
         urlComponents.queryItems = URLQueryItem.queryItems(from: query)
         urlComponents.path = "/geofence/stages"
 
-        let request = NetworkingManager.request(url: urlComponents)
+        let request = URLRequest(url: urlComponents)
         return request
     }
 
     func urlRequestForLoadingFence(id: Int) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         urlComponents.path = "/geofence/stages/\(id)"
 
-        let request = NetworkingManager.request(url: urlComponents)
+        let request = URLRequest(url: urlComponents)
         return request
     }
 
     func urlRequestForDeletingFence(id: Int) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         urlComponents.path = "/geofence/stages/\(id)"
 
-        let request = NetworkingManager.request(url: urlComponents, httpMethod: .delete)
+        let request = URLRequest(url: urlComponents, httpMethod: .delete)
         return request
     }
 
     func urlRequestForCreatingFence(polygons: [Polygon]) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         urlComponents.path = "/geofence/stages"
 
-        var request = NetworkingManager.request(url: urlComponents, httpMethod: .post)
-
         let boundary = UUID().uuidString
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
         let geometry: Geometry
         if polygons.count == 1 {
@@ -288,7 +288,9 @@ extension Geofence {
         }
         body.append(boundaryEnd.data(using: .utf8)!)
 
-        request.httpBody = body
+        var request = URLRequest(url: urlComponents, httpMethod: .post, body: body)
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
         return request
     }
 }

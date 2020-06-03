@@ -22,6 +22,9 @@ public class Search {
 
     private var activeTask: URLSessionDataTask?
 
+    /// Creates the `Search` wrapper.
+    public init() { }
+
     /// Searches for the specified text, using current configuration.
     ///
     /// - Parameters:
@@ -100,7 +103,7 @@ extension Search {
                  decoder: @escaping (Data) -> [Search.Result]?) {
 
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
 
@@ -112,7 +115,7 @@ extension Search {
             request = urlRequestForSuggestion(text: text, configuration: configuration)
         }
 
-        activeTask = NetworkingManager.dataTask(
+        activeTask = Utilities.session.dataTask(
             with: request,
             decoderBlock: decoder,
             completionHandler: completionHandler)
@@ -137,23 +140,23 @@ extension Search {
 
 extension Search {
     func urlRequestForSearch(text: String, configuration: Search.Configuration) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         urlComponents.queryItems = queryItems(text: text, configuration: configuration)
         urlComponents.path = "/search/v2"
 
-        let request = NetworkingManager.request(url: urlComponents)
+        let request = URLRequest(url: urlComponents)
 
         return request
     }
 
     func urlRequestForSuggestion(text: String, configuration: Search.Configuration) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         urlComponents.queryItems = queryItems(text: text, configuration: configuration)
         urlComponents.path = "/search/v2/autocomplete"
 
-        let request = NetworkingManager.request(url: urlComponents)
+        let request = URLRequest(url: urlComponents)
 
         return request
     }

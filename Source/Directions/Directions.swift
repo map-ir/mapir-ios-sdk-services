@@ -47,6 +47,9 @@ public final class Directions {
 
     private var activeTask: URLSessionDataTask?
 
+    /// Creates a `Directions` wrapper.
+    public init() { }
+
     /// Finds routes among at least two coordinates with the given configuration.
     ///
     /// - Parameters:
@@ -63,7 +66,7 @@ public final class Directions {
         self.configuration = configuration
 
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
 
@@ -76,7 +79,7 @@ public final class Directions {
             coordinates: waypoints,
             configuration: self.configuration)
 
-        activeTask = NetworkingManager.dataTask(
+        activeTask = Utilities.session.dataTask(
             with: urlRequest,
             decoderBlock: decodeDirectionsResult(from:)
         ) { (result) in
@@ -104,7 +107,7 @@ extension Directions {
     func validate(_ coordinates: [CLLocationCoordinate2D]) -> Error? {
         guard coordinates.count > 1 &&
             coordinates.allSatisfy({ CLLocationCoordinate2DIsValid($0) }) else {
-                return ServiceError.DirectionsError.invalidWaypoints
+                return ServiceError.DirectionsError.invalidWaypoints(count: coordinates.count)
         }
 
         return nil
@@ -115,7 +118,7 @@ extension Directions {
     func urlRequestForDirections(coordinates: [CLLocationCoordinate2D],
                                  configuration: Directions.Configuration) -> URLRequest {
         
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         var queryParams: [String: String] = [:]
 
@@ -152,7 +155,7 @@ extension Directions {
 
         urlComponents.path = "/routes" + path + "/v1/driving/" + coordinateValues
 
-        return NetworkingManager.request(url: urlComponents)
+        return URLRequest(url: urlComponents)
     }
 }
 

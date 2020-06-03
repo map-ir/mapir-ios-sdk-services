@@ -13,6 +13,7 @@
 		C05792AD2445B02200C2C821 /* GeocoderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05792AB2445B01F00C2C821 /* GeocoderViewController.swift */; };
 		C0607DF12445B83D006638AB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0607DEF2445B812006638AB /* Constants.swift */; };
 		C0607DF92445E454006638AB /* PropertyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0607DF82445E454006638AB /* PropertyValueCell.swift */; };
+		C06FED2E2483B711007D4291 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06FED2D2483B711007D4291 /* URLSession+Extension.swift */; };
 		C07E2E8F24571B1B00B0FF82 /* GeofenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07E2E8E24571B1B00B0FF82 /* GeofenceTableViewController.swift */; };
 		C0A3FEC22450788A00FFFC1A /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3FEC12450788A00FFFC1A /* DirectionsTableViewController.swift */; };
 		C0B2EA97244445310057B855 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2EA96244445310057B855 /* AppDelegate.swift */; };
@@ -32,7 +33,7 @@
 		C0E79C7C246A9A3C003942F8 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C0E79C6B246A9625003942F8 /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0E79C7D246A9A3C003942F8 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
 		C0E79C7E246A9A3C003942F8 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0474890239187EE007F74E1 /* AccountManager.swift */; };
-		C0E79C7F246A9A3C003942F8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489923918A11007F74E1 /* NetworkingManager.swift */; };
+		C0E79C7F246A9A3C003942F8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489923918A11007F74E1 /* Utilities.swift */; };
 		C0E79C80246A9A3C003942F8 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C062B86D2330E62B00B731CF /* Table.swift */; };
 		C0E79C81246A9A3C003942F8 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CA152243C61FB00E4AFBA /* ServiceError.swift */; };
 		C0E79C82246A9A44003942F8 /* GeoJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09CA154243CBE2400E4AFBA /* GeoJSON.swift */; };
@@ -126,7 +127,7 @@
 		C02DCF6C22CA213B00BA403F /* Intersection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intersection.swift; sourceTree = "<group>"; };
 		C037DE3D244F1EFA00DFC7A2 /* CoordinateSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateSelectionViewController.swift; sourceTree = "<group>"; };
 		C0474890239187EE007F74E1 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
-		C047489923918A11007F74E1 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
+		C047489923918A11007F74E1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLQueryItem+Extension.swift"; sourceTree = "<group>"; };
 		C052ADE22454200A00E11A20 /* UIViewController+AlertAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AlertAdditions.swift"; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 		C0607DEF2445B812006638AB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C0607DF82445E454006638AB /* PropertyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyValueCell.swift; sourceTree = "<group>"; };
 		C062B86D2330E62B00B731CF /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		C06FED2D2483B711007D4291 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
 		C07AD2C3243B5D670043B3AA /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		C07AD2C5243B5D900043B3AA /* BoundingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		C07E2E8E24571B1B00B0FF82 /* GeofenceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceTableViewController.swift; sourceTree = "<group>"; };
@@ -252,7 +254,7 @@
 				C0E79C6B246A9625003942F8 /* MapirServices.h */,
 				C059A134238561C7001646A6 /* Placemark.swift */,
 				C0474890239187EE007F74E1 /* AccountManager.swift */,
-				C047489923918A11007F74E1 /* NetworkingManager.swift */,
+				C047489923918A11007F74E1 /* Utilities.swift */,
 				C062B86D2330E62B00B731CF /* Table.swift */,
 				C09CA152243C61FB00E4AFBA /* ServiceError.swift */,
 				C0BBF91D246ABCAA00D11682 /* GooglePolyline.swift */,
@@ -381,6 +383,7 @@
 			children = (
 				C047489D23919054007F74E1 /* URLQueryItem+Extension.swift */,
 				C047489B23918CE7007F74E1 /* URLRequest+Extension.swift */,
+				C06FED2D2483B711007D4291 /* URLSession+Extension.swift */,
 				C08DB45922CC87E400FAE64A /* CLLocationCoordinate2D+GeoJSONGeometryConvertible.swift */,
 				C026605C243DA71700A96479 /* ArrayOfPolygon+GeoJSONGeometryConvertible.swift */,
 			);
@@ -591,7 +594,7 @@
 				C0E79C8B246A9A4E003942F8 /* Search+Filter.swift in Sources */,
 				C0E79C8D246A9A4E003942F8 /* Search+Result.swift in Sources */,
 				C0E79C81246A9A3C003942F8 /* ServiceError.swift in Sources */,
-				C0E79C7F246A9A3C003942F8 /* NetworkingManager.swift in Sources */,
+				C0E79C7F246A9A3C003942F8 /* Utilities.swift in Sources */,
 				C0E79C8E246A9A52003942F8 /* Geocoder.swift in Sources */,
 				C0E79C92246A9A5B003942F8 /* DistanceMatrix.swift in Sources */,
 				C0E79C91246A9A56003942F8 /* MapSnapshotter+Configuration.swift in Sources */,
@@ -605,6 +608,7 @@
 				C0E79C8C246A9A4E003942F8 /* Search+Categories.swift in Sources */,
 				C0E79C9A246A9A67003942F8 /* RouteLeg.swift in Sources */,
 				C0E79C87246A9A49003942F8 /* Geofence.swift in Sources */,
+				C06FED2E2483B711007D4291 /* URLSession+Extension.swift in Sources */,
 				C0E79CA1246A9A67003942F8 /* Intersection.swift in Sources */,
 				C0E79C9B246A9A67003942F8 /* RouteStep.swift in Sources */,
 				C0E79C90246A9A56003942F8 /* MapShapshotter+Marker.swift in Sources */,

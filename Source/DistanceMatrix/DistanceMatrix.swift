@@ -34,12 +34,14 @@ public class DistanceMatrix {
 
     var activeTask: URLSessionDataTask?
 
-    static var allowedCharacters: CharacterSet = {
+    lazy var allowedCharacters: CharacterSet = {
         var allowed = CharacterSet.alphanumerics
         allowed.insert(charactersIn: "_") // Underscore is allowed.
-        allowed.remove(charactersIn: "-") // Hyphen is not allowed.
         return allowed
     }()
+
+    /// Creates `DisanceMatrix` wrapper.
+    public init() { }
 
     public func distanceMatrix(from origins: [String: CLLocationCoordinate2D],
                                to destinations: [String: CLLocationCoordinate2D],
@@ -82,7 +84,7 @@ extension DistanceMatrix {
                                completionHandler: @escaping DistanceMatrixCompletionHandler,
                                decoder: @escaping DecodingHandler) {
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
 
@@ -99,7 +101,7 @@ extension DistanceMatrix {
                                                          destinations: destinations,
                                                          configurations: configuration)
 
-        activeTask = NetworkingManager.dataTask(
+        activeTask = Utilities.session.dataTask(
             with: urlRequest,
             decoderBlock: decoder,
             completionHandler: completionHandler)
@@ -113,8 +115,13 @@ extension DistanceMatrix {
         }
 
         for (key, _) in input {
-            guard !key.isEmpty, CharacterSet(charactersIn: key).isSubset(of: DistanceMatrix.allowedCharacters) else {
-                return ServiceError.DistanceMatrixError.invalidCharacterInNames
+            guard !key.isEmpty else {
+                return ServiceError.DistanceMatrixError.invalidCharacterInNames(name: key, characters: [Character("")])
+            }
+
+            let wrongCharacters = key.unicodeScalars.filter { !allowedCharacters.contains($0) }.map(Character.init)
+            if !wrongCharacters.isEmpty {
+                return ServiceError.DistanceMatrixError.invalidCharacterInNames(name: key, characters: wrongCharacters)
             }
         }
 
@@ -145,7 +152,7 @@ extension DistanceMatrix {
                                          destinations: [String: CLLocationCoordinate2D],
                                          configurations: Configuration) -> URLRequest {
 
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         var queryParams: [String: String] = [:]
 
@@ -173,6 +180,6 @@ extension DistanceMatrix {
         urlComponents.queryItems = URLQueryItem.queryItems(from: queryParams)
         urlComponents.path = "/distancematrix"
 
-        return NetworkingManager.request(url: urlComponents)
+        return URLRequest(url: urlComponents)
     }
 }

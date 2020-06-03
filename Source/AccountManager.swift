@@ -23,6 +23,10 @@ class AccountManager {
         set { shared.isAuthorized = newValue }
     }
 
+    static var isAPIKeySet: Bool {
+        !(shared.apiKey ?? "").isEmpty
+    }
+
     /// The [Map.ir](https://map.ir) API key, used by all of the services.
     ///
     /// Map.ir services require API key, which can be obtained at [Map.ir App
@@ -35,7 +39,7 @@ class AccountManager {
         get { shared.apiKey }
         set {
             shared.apiKey = newValue
-            shared.isAuthorized = (newValue ?? "").isEmpty ? false : true
+            shared.isAuthorized = isAPIKeySet ? true : false
         }
     }
 
@@ -61,7 +65,7 @@ class AccountManager {
 
     private func setupObservers() {
         unauthorizedObserver = NotificationCenter.default.addObserver(
-            forName: NetworkingManager.unauthorizedNotification,
+            forName: Utilities.unauthorizedNotification,
             object: nil,
             queue: nil
         ) { [weak self] (_) in

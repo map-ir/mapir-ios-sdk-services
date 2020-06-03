@@ -34,6 +34,9 @@ public class MapSnapshotter {
 
     private var activeTask: URLSessionDataTask?
 
+    /// Creates `MapSnapshotter` wrapper.
+    public init() { }
+
     /// Creates a snapshot of map according to the specified configuration.
     ///
     /// - Parameters:
@@ -47,7 +50,7 @@ public class MapSnapshotter {
         cancel()
         
         guard AccountManager.isAuthorized else {
-            completionHandler(.failure(ServiceError.unauthorized))
+            completionHandler(.failure(ServiceError.unauthorized(reason: .init())))
             return
         }
 
@@ -58,7 +61,7 @@ public class MapSnapshotter {
 
         let request = self.urlRequestForSnapshotterTask(with: configuration)
 
-        activeTask = NetworkingManager.dataTask(
+        activeTask = Utilities.session.dataTask(
             with: request,
             decoderBlock: decodeImage(from:),
             completionHandler: completionHandler)
@@ -87,7 +90,7 @@ extension MapSnapshotter {
 
 extension MapSnapshotter {
     func urlRequestForSnapshotterTask(with configuration: Configuration) -> URLRequest {
-        var urlComponents = NetworkingManager.baseURLComponents
+        var urlComponents = Utilities.baseURLComponents
 
         var queryItems = URLQueryItem.queryItems(from: [
             "width": String(Int(configuration.size.width)),
@@ -112,7 +115,7 @@ extension MapSnapshotter {
         urlComponents.queryItems = queryItems
         urlComponents.path = "/static"
 
-        return NetworkingManager.request(url: urlComponents)
+        return URLRequest(url: urlComponents)
     }
 }
 

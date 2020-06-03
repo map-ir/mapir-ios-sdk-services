@@ -16,16 +16,28 @@ extension URLRequest {
         case delete
     }
 
-    init(url urlComponents: URLComponents,
-         httpMethod: URLRequest.HTTPMethod = .get,
-         cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
-         timeoutInterval: TimeInterval = 60.0) {
+    init(
+        url urlComponents: URLComponents,
+        httpMethod: URLRequest.HTTPMethod = .get,
+        body: Data? = nil
+    ) {
 
         guard let url = urlComponents.url else {
-            fatalError("Something went wrong in converting URLComponent to URL.")
+            fatalError("Couldn't create url from URLComponents due to invalid components.")
         }
 
-        self.init(url: url, cachePolicy: cachePolicy, timeoutInterval: timeoutInterval)
+        self.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
         self.httpMethod = httpMethod.rawValue
+
+        if httpMethod == .post {
+            httpBody = body
+        }
+
+        if let accessToken = AccountManager.apiKey {
+            addValue(accessToken, forHTTPHeaderField: "x-api-key")
+        }
+
+        addValue(Utilities.userAgent, forHTTPHeaderField: "User-Agent")
+        addValue(Utilities.sdkIDForHeader, forHTTPHeaderField: "MapIr-SDK")
     }
 }

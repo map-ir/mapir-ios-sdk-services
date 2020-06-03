@@ -67,7 +67,7 @@ class SearchTableViewController: UITableViewController {
 
     @IBAction func searchButtonTapped(_ sender: Any) {
         if let searchTerm = searchTextField.text, !searchTerm.isEmpty {
-            let config = Search.Configuration()
+            var config = Search.Configuration()
             if let centerCoordinates = readCenterCoordinatesFromLabels() {
                 config.center = centerCoordinates
             }
@@ -108,8 +108,9 @@ class SearchTableViewController: UITableViewController {
             }
             config.categories = searchCategories
 
-            search.search(for: searchTerm, configuration: config) { [weak self] (results, error) in
-                if let error = error {
+            search.search(for: searchTerm, configuration: config) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
                     DispatchQueue.main.async {
                         self?.cleanMap()
                         let errorDesc = (error as? ServiceError)?.localizedDescription ?? "Unknown Error"
@@ -120,8 +121,7 @@ class SearchTableViewController: UITableViewController {
                             self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                         }
                     }
-                }
-                if let results = results {
+                case .success(let results):
                     DispatchQueue.main.async {
                         self?.showSearchResultsOnMap(results)
                     }

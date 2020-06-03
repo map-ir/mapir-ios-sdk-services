@@ -104,9 +104,10 @@ class MapSnapshotterTableViewController: UITableViewController {
         let imageSize = CGSize(width: width, height: height)
         let configuration = MapSnapshotter.Configuration(size: imageSize, zoomLevel: zoomLevel, markers: markers)
 
-        snapshotter.createSnapshot(with: configuration) { [weak self] (image, error) in
+        snapshotter.createSnapshot(with: configuration) { [weak self] (result) in
             DispatchQueue.main.async {
-                if let error = error {
+                switch result {
+                case .failure(let error):
                     let title = "Snapshot loading failed."
                     let message: String
                     if let error = error as? ServiceError {
@@ -115,8 +116,7 @@ class MapSnapshotterTableViewController: UITableViewController {
                         message = "Loading snapshot failed."
                     }
                     self?.showAlert(title: title, message: message)
-                }
-                if let image = image {
+                case .success(let image):
                     self?.resultImageView.image = image
                     
                     let indexPath = IndexPath(row: 0, section: 3)
@@ -145,7 +145,7 @@ class MapSnapshotterTableViewController: UITableViewController {
 
                     let coordinates = pointAnnotation.coordinate
                     pointAnnotation.subtitle =
-                        "\(String(coordinates.latitude).prefix(7)), \(String(coordinates.longitude).prefix(7)) - \(style.stringValue)"
+                        "\(String(coordinates.latitude).prefix(7)), \(String(coordinates.longitude).prefix(7)) - \(style.rawValue)"
                     pointAnnotation.title = text.isEmpty ? "(No label)" : text
 
                     if let leftCalloutButton = annotationView.leftCalloutAccessoryView as? UIButton {

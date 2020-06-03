@@ -49,7 +49,9 @@ class MarkerDetailTableViewController: UITableViewController {
         styleCells.forEach { $0.accessoryType = .none }
         selectedCell.accessoryType = .checkmark
 
-        selectedMarkerStyle = MapSnapshotter.Marker.Style(rawValue: indexPath.row)
+        if let styleName = selectedCell.textLabel?.text?.lowercased() {
+            selectedMarkerStyle = MapSnapshotter.Marker.Style(rawValue: styleName)
+        }
     }
 
     @IBAction func addButtonTapped(_ sender: UIButton) {

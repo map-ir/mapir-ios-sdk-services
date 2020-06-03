@@ -114,8 +114,9 @@ class DirectionsTableViewController: UITableViewController {
         mapView.removeOverlays(routeOverlays)
 
         let coordinates = waypointAnnotations.map { $0.coordinate }
-        directions.calculateDirections(among: coordinates, configuration: directionsConfiguration) { [weak self] (result, error) in
-            if let error = error {
+        directions.calculateDirections(among: coordinates, configuration: directionsConfiguration) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
                 let errorDesc = (error as? ServiceError)?.localizedDescription ?? "Unknown Error"
                 DispatchQueue.main.async {
                     self?.showAlert(
@@ -123,8 +124,7 @@ class DirectionsTableViewController: UITableViewController {
                         message: "Something went wrong in routing process.\nError: \(errorDesc)")
                 }
                 return
-            }
-            if let result = result {
+            case .success(let result):
                 for route in result.routes {
                     if let coordinates = route.coordinates {
                         DispatchQueue.main.async {

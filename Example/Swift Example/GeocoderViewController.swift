@@ -85,9 +85,14 @@ extension GeocoderViewController: MKMapViewDelegate {
         calloutAccessoryControlTapped control: UIControl
     ) {
         let annotation = view.annotation
-        geocoder.reverseGeocode(annotation!.coordinate) { [weak self] (placemarks, error) in
-            guard let placemark = placemarks?.first else { return }
-            self?.latestGeocodeResult = placemark
+        geocoder.reverseGeocode(annotation!.coordinate) { [weak self] (result) in
+            switch result {
+            case .success(let placemarks):
+                guard let placemark = placemarks.first else { return }
+                self?.latestGeocodeResult = placemark
+            case .failure:
+                break
+            }
         }
     }
 }

@@ -144,9 +144,10 @@ class GeofenceTableViewController: UITableViewController {
             return
         }
 
-        geofence.loadFence(withID: fenceID) { [weak self] (fence, error) in
+        geofence.loadFence(withID: fenceID) { [weak self] (result) in
             DispatchQueue.main.async {
-                if let error = error {
+                switch result {
+                case .failure(let error):
                     let title = "Fence loading failed"
                     let message: String
                     if let error = error as? ServiceError {
@@ -155,8 +156,7 @@ class GeofenceTableViewController: UITableViewController {
                         message = "Loading fence (ID: \(fenceID)) failed."
                     }
                     self?.showAlert(title: title, message: message)
-                }
-                if let fence = fence {
+                case .success(let fence):
                     self?.activePointsAnnotations = []
                     self?.polygons = []
 
@@ -215,9 +215,10 @@ class GeofenceTableViewController: UITableViewController {
 
             let polygon = try Polygon(coordinates: coordinates, interiorPolygons: interiorPolygons)
 
-            geofence.createFence(withBoundaries: [polygon]) { [weak self] (fence, error) in
+            geofence.createFence(withBoundaries: [polygon]) { [weak self] (result) in
                 DispatchQueue.main.async {
-                    if let error = error {
+                    switch result {
+                    case .failure(let error):
                         let title = "Error"
                         let message: String
                         if let error = error as? ServiceError {
@@ -227,8 +228,7 @@ class GeofenceTableViewController: UITableViewController {
                         }
 
                         self?.showAlert(title: title, message: message)
-                    }
-                    if let fence = fence {
+                    case .success(let fence):
                         let title = "Success"
                         let message = "Fence uploaded successfully. ID: \(fence.id)"
                         self?.showAlert(title: title, message: message)

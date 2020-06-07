@@ -11,11 +11,11 @@ import UIKit
 var services: [Service] = [
     Service(title: "Reverse Geocode", icon: UIImage(systemName: "mappin"), storyboardSegueID: "ShowGeocoderViewController"),
     Service(title: "Search", icon: UIImage(systemName: "magnifyingglass"), storyboardSegueID: "ShowSearchViewController"),
-    Service(title: "Geocode", icon: UIImage(systemName: "map.fill")),
-    Service(title: "Distance Matrix", icon: UIImage(systemName: "table.fill")),
     Service(title: "Static Map", icon: UIImage(systemName: "crop"), storyboardSegueID: "ShowMapSnapshotterViewController"),
     Service(title: "Directions", icon: UIImage(systemName: "car.fill"), storyboardSegueID: "ShowDirectionsTableViewController"),
     Service(title: "Geofence", icon: UIImage(systemName: "hexagon"), storyboardSegueID: "ShowGeofenceTableViewController"),
+    Service(title: "Geocode", icon: UIImage(systemName: "map.fill")),
+    Service(title: "Distance Matrix", icon: UIImage(systemName: "table.fill")),
 
 ]
 
@@ -23,6 +23,8 @@ class MainCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationController?.navigationBar.topItem?.title = "Services"
 
         configureCollectionView()
     }
@@ -61,6 +63,10 @@ class MainCollectionViewController: UICollectionViewController {
 
         cell.iconView.image = icon(forRowAt: indexPath)
         cell.titleLabel.text = title(forRowAt: indexPath)
+        if let tintColor = tintColorForTitleLabelAndIcon(forRowAt: indexPath) {
+            cell.iconView.tintColor = tintColor
+            cell.titleLabel.textColor = tintColor
+        }
 
         return cell
     }
@@ -85,6 +91,10 @@ extension MainCollectionViewController {
 
     func title(forRowAt indexPath: IndexPath) -> String? {
         service(forRowAt: indexPath).title
+    }
+
+    func tintColorForTitleLabelAndIcon(forRowAt indexPath: IndexPath) -> UIColor? {
+        service(forRowAt: indexPath).storyboardSegueID == nil ? .lightGray : nil
     }
 
     private func service(forRowAt indexPath: IndexPath) -> Service {

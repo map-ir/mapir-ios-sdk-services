@@ -16,7 +16,11 @@ class DirectionsTableViewController: UITableViewController {
     @IBOutlet weak var exclusionsSegmentedControl: UISegmentedControl!
 
     let directions = Directions()
-    var directionsConfiguration: Directions.Configuration = .default
+    var directionsConfiguration: Directions.Configuration = {
+        var conf = Directions.Configuration.default
+        conf.routeOverviewStyle = .full
+        return conf
+    }()
 
     var waypointAnnotations: [MKPointAnnotation] = []
     var routeOverlays: [MKPolyline] = []

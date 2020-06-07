@@ -22,7 +22,6 @@ class GeofenceTableViewController: UITableViewController {
 
     @IBOutlet weak var fenceIDTextField: UITextField!
 
-
     var polygons: [MKPolygon] = [] {
         didSet {
             uploadButton.isEnabled = polygons.isEmpty ? false : true
@@ -177,6 +176,12 @@ class GeofenceTableViewController: UITableViewController {
         }
     }
 
+    @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
+        activePointsPolygon = nil
+        polygons = []
+        fence = nil
+        activePointsAnnotations = []
+    }
 
     @IBAction func finalizeButtonTapped(_ sender: UIButton) {
         if let polygon = activePointsPolygon {

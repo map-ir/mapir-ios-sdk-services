@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3WO-ZK-ltN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3WO-ZK-ltN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -253,7 +253,14 @@
                             <outlet property="delegate" destination="pL0-JH-SZ7" id="QId-iP-duf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="anO-vL-B3W"/>
+                    <navigationItem key="navigationItem" id="anO-vL-B3W">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" style="plain" id="Yex-pH-cuU">
+                            <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="clearButtonTapped:" destination="pL0-JH-SZ7" id="Ud9-LI-Pqk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="deleteButton" destination="Kzg-9Q-VWW" id="Nzi-kd-Ygg"/>
                         <outlet property="fenceIDTextField" destination="WYm-8H-hwG" id="few-qf-Jwe"/>

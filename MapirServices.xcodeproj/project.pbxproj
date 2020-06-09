@@ -30,7 +30,6 @@
 		C0DBE409245D86F100542D45 /* MarkerDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DBE408245D86F100542D45 /* MarkerDetailTableViewController.swift */; };
 		C0E79C70246A9625003942F8 /* MapirServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0E79C69246A9625003942F8 /* MapirServices.framework */; };
 		C0E79C71246A9625003942F8 /* MapirServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0E79C69246A9625003942F8 /* MapirServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C0E79C7C246A9A3C003942F8 /* MapirServices.h in Headers */ = {isa = PBXBuildFile; fileRef = C0E79C6B246A9625003942F8 /* MapirServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0E79C7D246A9A3C003942F8 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C059A134238561C7001646A6 /* Placemark.swift */; };
 		C0E79C7E246A9A3C003942F8 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0474890239187EE007F74E1 /* AccountManager.swift */; };
 		C0E79C7F246A9A3C003942F8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C047489923918A11007F74E1 /* Utilities.swift */; };
@@ -176,7 +175,6 @@
 		C0DBE406245D81BB00542D45 /* MapSnapshotterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotterTableViewController.swift; sourceTree = "<group>"; };
 		C0DBE408245D86F100542D45 /* MarkerDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerDetailTableViewController.swift; sourceTree = "<group>"; };
 		C0E79C69246A9625003942F8 /* MapirServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapirServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0E79C6B246A9625003942F8 /* MapirServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapirServices.h; sourceTree = "<group>"; };
 		C0E79C6C246A9625003942F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0EA4F9522C89A8200BC04EF /* DistanceMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceMatrix.swift; sourceTree = "<group>"; };
 		C0EA4FDE22C9EBC800BC04EF /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 			isa = PBXGroup;
 			children = (
 				C0E79C6C246A9625003942F8 /* Info.plist */,
-				C0E79C6B246A9625003942F8 /* MapirServices.h */,
 				C059A134238561C7001646A6 /* Placemark.swift */,
 				C0474890239187EE007F74E1 /* AccountManager.swift */,
 				C047489923918A11007F74E1 /* Utilities.swift */,
@@ -426,7 +423,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0E79C7C246A9A3C003942F8 /* MapirServices.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

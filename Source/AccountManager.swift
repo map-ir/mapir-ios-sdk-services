@@ -10,7 +10,7 @@ import Foundation
 
 /// The `AccountManager` globally holds information about your API key and account
 /// on [Map.ir](https://map.ir).
-class AccountManager {
+public class AccountManager {
 
     /// Shared object
     private static let shared = AccountManager()

@@ -9,117 +9,77 @@
 import Foundation
 import CoreLocation
 
-@objc(SHPlacemark)
-public final class Placemark: NSObject, Identifiable {
+public struct Placemark: Identifiable {
 
     /// Unique identifier of the placemark.
-    @objc public let id: UUID
+    public let id: UUID
 
     /// Full address
-    @objc public let address: String?
+    public let address: String?
 
     /// Postal Address: City / Main Street / Last Street
-    @objc public let postalAddress: String?
+    public let postalAddress: String?
 
     /// Compact Address: City / District / Main Street / Last Street
-    @objc public let compactAddress: String?
+    public let compactAddress: String?
 
     /// Name of the Last street or place.
-    @objc public let last: String?
+    public let last: String?
 
     /// Name of the Last street or place.
-    @objc public let name: String?
+    public let name: String?
 
     /// Name of the place.
-    @objc public let poi: String?
+    public let poi: String?
 
     /// Country of the place.
-    @objc public let country: String?
+    public let country: String?
 
     /// Province of the place.
-    @objc public let province: String?
+    public let province: String?
 
     /// County of the place.
-    @objc public let county: String?
+    public let county: String?
 
     /// District of the place.
-    @objc public let district: String?
+    public let district: String?
 
     /// Rural district of the place if it is located in a rural area.
-    @objc public let ruralDistrict: String?
+    public let ruralDistrict: String?
 
     /// City of the place.
-    @objc public let city: String?
+    public let city: String?
 
     /// Village of the place.
-    @objc public let village: String?
+    public let village: String?
 
     /// Region of the place based on municipal information.
-    @objc public let region: String?
+    public let region: String?
 
     /// Neighborhood name of the place based on municipal information.
-    @objc public let neighborhood: String?
+    public let neighborhood: String?
 
     /// Name of the last primary street leading to the place.
-    @objc public let primary: String?
+    public let primary: String?
 
     /// Building number (Plaque) of the place.
-    @objc public let plaque: String?
+    public let plaque: String?
 
     /// Postal code of the place.
-    @objc public let postalCode: String?
+    public let postalCode: String?
 
     /// Location of the place.
-    @objc public let location: CLLocation?
+    public let location: CLLocation?
+}
 
-    init(
-        id: UUID,
-        address: String?,
-        postalAddress: String?,
-        compactAddress: String?,
-        last: String?,
-        name: String?,
-        poi: String?,
-        country: String?,
-        province: String?,
-        county: String?,
-        district: String?,
-        ruralDistrict: String?,
-        city: String?,
-        village: String?,
-        region: String?,
-        neighborhood: String?,
-        primary: String?,
-        plaque: String?,
-        postalCode: String?,
-        location: CLLocation?
-    ) {
-        self.id = id
-        self.address = address
-        self.postalAddress = postalAddress
-        self.compactAddress = compactAddress
-        self.last = last
-        self.name = name
-        self.poi = poi
-        self.country = country
-        self.province = province
-        self.county = county
-        self.district = district
-        self.ruralDistrict = ruralDistrict
-        self.city = city
-        self.village = village
-        self.region = region
-        self.neighborhood = neighborhood
-        self.primary = primary
-        self.plaque = plaque
-        self.postalCode = postalCode
-        self.location = location
+// MARK: Equatable conformance
+extension Placemark: Hashable, Equatable {
+    public static func == (_ rhs: Placemark, _ lhs: Placemark) -> Bool {
+        rhs.id == lhs.id
     }
 
-    // MARK: Equatable conformance
-
-    static func == (_ rhs: Placemark, _ lhs: Placemark) -> Bool {
-        rhs.id == lhs.id
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
@@ -202,7 +162,7 @@ extension Placemark {
 
 extension Placemark {
 
-    convenience init(from r: ReverseGeocodeResponseScheme) {
+    init(from r: ReverseGeocodeResponseScheme) {
         var location: CLLocation?
         if let coordinate = r.coordinates {
             location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -231,7 +191,7 @@ extension Placemark {
         )
     }
 
-    convenience init(from d: DistanceMatrix.Result.ResponseScheme.PlaceScheme) {
+    init(from d: DistanceMatrix.Result.ResponseScheme.PlaceScheme) {
         self.init(
             id: UUID(),
             address: nil,

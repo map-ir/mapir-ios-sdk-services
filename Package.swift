@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "MapirServices",
+    platform: [
+        .iOS(.v9)
+    ],
     products: [
         .library(
             name: "MapirServices",

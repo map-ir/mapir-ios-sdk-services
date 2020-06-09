@@ -1,0 +1,397 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Directions+Configuration.swift",
+      "line": 19,
+      "symbol": "Directions.Configuration.default",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Directions.swift",
+      "line": 30,
+      "symbol": "Directions.configuration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/DrivingSide.swift",
+      "line": 11,
+      "symbol": "DrivingSide",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/DrivingSide.swift",
+      "line": 20,
+      "symbol": "DrivingSide",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/Lane+Indication.swift",
+      "line": 83,
+      "symbol": "Lane.Indication.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/Route.swift",
+      "line": 12,
+      "symbol": "Route",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/RouteLeg.swift",
+      "line": 12,
+      "symbol": "RouteLeg",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/RouteStep.swift",
+      "line": 12,
+      "symbol": "RouteStep",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/StepManeuver.swift",
+      "line": 11,
+      "symbol": "StepManeuver",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/StepManeuver.swift",
+      "line": 11,
+      "symbol": "StepManeuver",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/StepManeuver.swift",
+      "line": 12,
+      "symbol": "StepManeuver",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Directions/Model/Waypoint.swift",
+      "line": 12,
+      "symbol": "Waypoint",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix+Result.swift",
+      "line": 28,
+      "symbol": "DistanceMatrix.Result.configuration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix.swift",
+      "line": 11,
+      "symbol": "DistanceMatrix",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix.swift",
+      "line": 12,
+      "symbol": "DistanceMatrix",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix.swift",
+      "line": 13,
+      "symbol": "DistanceMatrix",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix.swift",
+      "line": 14,
+      "symbol": "DistanceMatrix.DistanceMatrixCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix.swift",
+      "line": 46,
+      "symbol": "DistanceMatrix.distanceMatrix(from:to:configuration:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix.swift",
+      "line": 61,
+      "symbol": "DistanceMatrix.distanceMatrix(from:to:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/DistanceMatrix/DistanceMatrix.swift",
+      "line": 71,
+      "symbol": "DistanceMatrix.cancel()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Geocoder/Geocoder.swift",
+      "line": 12,
+      "symbol": "Geocoder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Geofence/Fence.swift",
+      "line": 90,
+      "symbol": "Array.fencesThatContain(_:includeBoundaries:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Geofence/Geofence.swift",
+      "line": 15,
+      "symbol": "Geofence.CreationCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Geofence/Geofence.swift",
+      "line": 16,
+      "symbol": "Geofence.DeletionCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Geofence/Geofence.swift",
+      "line": 17,
+      "symbol": "Geofence.FenceBatchLoadingCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Geofence/Geofence.swift",
+      "line": 18,
+      "symbol": "Geofence.FenceLoadingCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 51,
+      "symbol": "MapSnapshotter.Marker.Style.origin",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 52,
+      "symbol": "MapSnapshotter.Marker.Style.destination",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 53,
+      "symbol": "MapSnapshotter.Marker.Style.black",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 54,
+      "symbol": "MapSnapshotter.Marker.Style.white",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 55,
+      "symbol": "MapSnapshotter.Marker.Style.red",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 56,
+      "symbol": "MapSnapshotter.Marker.Style.blue",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 57,
+      "symbol": "MapSnapshotter.Marker.Style.navyBlue",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 58,
+      "symbol": "MapSnapshotter.Marker.Style.skyBlue",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 59,
+      "symbol": "MapSnapshotter.Marker.Style.green",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 60,
+      "symbol": "MapSnapshotter.Marker.Style.teal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 61,
+      "symbol": "MapSnapshotter.Marker.Style.yellow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 62,
+      "symbol": "MapSnapshotter.Marker.Style.orange",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 63,
+      "symbol": "MapSnapshotter.Marker.Style.magenta",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/MapSnapshotter/MapShapshotter+Marker.swift",
+      "line": 64,
+      "symbol": "MapSnapshotter.Marker.Style.pink",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Placemark.swift",
+      "line": 12,
+      "symbol": "Placemark",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Placemark.swift",
+      "line": 76,
+      "symbol": "Placemark",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/Search/Search+Filter.swift",
+      "line": 47,
+      "symbol": "Search.Filter.stringValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 11,
+      "symbol": "ServiceError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 31,
+      "symbol": "ServiceError.UnauthorizedReason",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 33,
+      "symbol": "ServiceError.UnauthorizedReason.notSet",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 35,
+      "symbol": "ServiceError.UnauthorizedReason.wrong",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 46,
+      "symbol": "ServiceError.DistanceMatrixError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 56,
+      "symbol": "ServiceError.DirectionsError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 62,
+      "symbol": "ServiceError.GeofenceError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 69,
+      "symbol": "ServiceError.MapSnapshotterError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 76,
+      "symbol": "ServiceError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 108,
+      "symbol": "ServiceError.DistanceMatrixError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 124,
+      "symbol": "ServiceError.DirectionsError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 135,
+      "symbol": "ServiceError.GeofenceError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mralirezaa/Developer/Mapir/MapirServices/Source/ServiceError.swift",
+      "line": 146,
+      "symbol": "ServiceError.MapSnapshotterError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/mralirezaa/Developer/Mapir/MapirServices"
+}

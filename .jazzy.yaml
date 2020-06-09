@@ -1,7 +1,55 @@
 # MapirServices document generator jazzy settings
 
-copyright: Copyright 1398 Map
+copyright: Copyright 1399 Map
 author: Map
-xcodebuild_arguments: [-target, MapirServices-iOS]
+xcodebuild_arguments: [-target, MapirServices]
 clean: true
-output: ./Documentation
+output: ./docs
+module: MapirServices
+module_version: 1.0.0
+
+custom_categories:
+- name: Geocoder
+  children:
+    - Geocoder
+- name: MapSnapshotter (Static Map)
+  children:
+    - MapSnapshotter
+- name: Search
+  children:
+    - Search
+- name: DistanceMatrix
+  children:
+    - DistanceMatrix
+    - Table
+- name: Directions
+  children:
+    - Directions
+    - Route
+    - Waypoint
+    - RouteLeg
+    - RouteStep
+    - StepManeuver
+    - Intersection
+    - RoadClass
+    - Lane
+    - DrivingSide
+    - TransportType
+- name: Geofence
+  children:
+    - Geofence
+    - Fence
+    - Array
+- name: GeoJSON
+  children:
+    - Polygon
+    - GeoJSONError
+- name: Account
+  children:
+    - AccountManager
+- name: Place Details
+  children:
+    - Placemark
+- name: Errors
+  children:
+    - ServiceError

@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://developer.apple.com/swift/">
-<img src="https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat" alt="Swift 5.0">
+<img src="https://img.shields.io/badge/Swift-5.2-orange.svg?style=flat" alt="Swift 5.2">
 </a>
 
 <a href="http://cocoapods.org/pods/MapirServices">
@@ -48,7 +48,7 @@ pod 'MapirServices'
 To integrate MapirServices into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "map-ir/ios-sdk-v1-services"
+github "map-ir/mapir-ios-sdk-services"
 ```
 
 Run `carthage update` to build the framework and drag the built `MapirServices.framework` into your Xcode project. 
@@ -61,7 +61,7 @@ To integrate using Apple's [Swift Package Manager](https://swift.org/package-man
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/map-ir/ios-sdk-v1-services", from: "1.0.0")
+    .package(url: "https://github.com/map-ir/mapir-ios-sdk-services", from: "1.0.0")
 ]
 ```
 

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Result Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+    <script src="../../js/lunr.min.js" defer></script>
+    <script src="../../js/typeahead.jquery.js" defer></script>
+    <script src="../../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/Result" class="dashAnchor"></a>
+
+    <a title="Result Structure Reference"></a>
+
+    <header class="header-container">
+      <div class="limiter">
+        <div class="header">
+          <p class="header-col header-col--primary">
+            <a class="header-link" href="../../index.html">
+                <img style="height: 40px;" class="header-icon" src="../../img/mapir.svg" alt="MapirServices Docs"/>
+                <span class="header-tag">MapirServices 1.0.0 Docs Reference (1.0.0)</span>
+            </a>
+             (86% documented)
+          </p>
+    
+          <p class="header-col header-col--secondary">
+            <a class="header-link" href="https://github.com/map-ir/mapir-ios-sdk-services">
+              <img class="header-icon" src="../../img/gh.png"/>
+              View on GitHub
+            </a>
+          </p>
+    
+          <p class="header-col header-col--secondary">
+            <a class="header-link" href="dash-feed://https%3A%2F%2Fmap%2Dir%2Egithub%2Eio%2Fmapir%2Dios%2Dsdk%2Dservices%2Fdocsets%2FMapirServices%2Exml">
+              <img class="header-icon" src="../../img/dash.png"/>
+              Install in Dash
+            </a>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="breadcrumbs">
+      <div class="limiter">
+        <a class="breadcrumb" href="../../index.html">MapirServices Reference</a>
+        <img class="carat" src="../../img/carat.png" />
+        Result Structure Reference
+      </div>
+    </div>
+
+    <div class="content-wrapper limiter">
+      <nav class="navigation">
+          <div class="header-col--secondary">
+            <form role="search" action="../../search.json">
+              <input type="text" placeholder="Search documentation" data-typeahead>
+            </form>
+          </div>
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../Geocoder.html">Geocoder<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Geocoder.html">Geocoder</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../MapSnapshotter (Static Map).html">MapSnapshotter (Static Map)<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/MapSnapshotter.html">MapSnapshotter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/MapSnapshotter/Marker.html">– Marker</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/MapSnapshotter/Configuration.html">– Configuration</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../Search.html">Search<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Search.html">Search</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Search/Categories.html">– Categories</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Search/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Search/Filter.html">– Filter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Search/Result.html">– Result</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../DistanceMatrix.html">DistanceMatrix<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/DistanceMatrix.html">DistanceMatrix</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/DistanceMatrix/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/DistanceMatrix/Result.html">– Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Table.html">Table</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../Directions.html">Directions<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Directions.html">Directions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Directions/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Directions/VehicleType.html">– VehicleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Directions/TrafficRestriction.html">– TrafficRestriction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Directions/OverviewStyle.html">– OverviewStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Directions/Result.html">– Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Route.html">Route</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Waypoint.html">Waypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/RouteLeg.html">RouteLeg</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/RouteStep.html">RouteStep</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/StepManeuver.html">StepManeuver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/StepManeuver/ManeuverType.html">– ManeuverType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/StepManeuver/Direction.html">– Direction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Intersection.html">Intersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/RoadClass.html">RoadClass</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Lane.html">Lane</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Lane/Indication.html">– Indication</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/DrivingSide.html">DrivingSide</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/TransportType.html">TransportType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../Geofence.html">Geofence<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/Geofence.html">Geofence</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Fence.html">Fence</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Array.html">Array</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../GeoJSON.html">GeoJSON<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Polygon.html">Polygon</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/GeoJSONError.html">GeoJSONError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../Account.html">Account<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/AccountManager.html">AccountManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../Place Details.html">Place Details<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Placemark.html">Placemark</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="small-heading" href="../../Errors.html">Errors<span class="anchor-icon" /></a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/ServiceError/UnauthorizedReason.html">– UnauthorizedReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/ServiceError/DistanceMatrixError.html">– DistanceMatrixError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/ServiceError/DirectionsError.html">– DirectionsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/ServiceError/GeofenceError.html">– GeofenceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/ServiceError/MapSnapshotterError.html">– MapSnapshotterError</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <a href="#/Result"><h1 id="Result">Result<span class="anchor-icon" /></h1></a>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Result</span></code></pre>
+
+                </div>
+              </div>
+            <p>Indicates result of a distance matrix request.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9distancesAA5TableCySSSdGvp"></a>
+                    <a name="//apple_ref/swift/Property/distances" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9distancesAA5TableCySSSdGvp">distances</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A 2D table containing distance values from every origin to every destination</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">distances</span><span class="p">:</span> <span class="kt"><a href="../../Classes/Table.html">Table</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Double</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L17">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9durationsAA5TableCySSSdGvp"></a>
+                    <a name="//apple_ref/swift/Property/durations" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9durationsAA5TableCySSSdGvp">durations</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A 2D table containing duration values from every origin to every destination</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">durations</span><span class="p">:</span> <span class="kt"><a href="../../Classes/Table.html">Table</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Double</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L20">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV7originsSDySSAA9PlacemarkVGvp"></a>
+                    <a name="//apple_ref/swift/Property/origins" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV7originsSDySSAA9PlacemarkVGvp">origins</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Connects name of input coordinate to its <code><a href="../../Structs/Placemark.html">Placemark</a></code> object. contains origins placemarks.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">origins</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt"><a href="../../Structs/Placemark.html">Placemark</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L23">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV12destinationsSDySSAA9PlacemarkVGvp"></a>
+                    <a name="//apple_ref/swift/Property/destinations" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV12destinationsSDySSAA9PlacemarkVGvp">destinations</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Connects name of input coordinate to its <code><a href="../../Structs/Placemark.html">Placemark</a></code> object. contains destination placemarks.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">destinations</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt"><a href="../../Structs/Placemark.html">Placemark</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L26">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV13configurationAC13ConfigurationVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/configuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV13configurationAC13ConfigurationVSgvp">configuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../../Classes/DistanceMatrix/Configuration.html">Configuration</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Distance%20convenience%20methods"></a>
+                <a name="//apple_ref/swift/Section/Distance convenience methods" class="dashAnchor"></a>
+                <a href="#/Distance%20convenience%20methods">
+                  <h3 class="section-name">Distance convenience methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV8distance4from2toSdSgAA9PlacemarkV_AKtF"></a>
+                    <a name="//apple_ref/swift/Method/distance(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV8distance4from2toSdSgAA9PlacemarkV_AKtF">distance(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds distance between an origin placemark to a destination placemark, using placemark objects.</p>
+
+<p>If specified placemarks aren&rsquo;t available in origins or destniations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distance</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Placemark.html">Placemark</a></span><span class="p">,</span> <span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Placemark.html">Placemark</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L51-L55">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV8distance4from2toSdSgSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/distance(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV8distance4from2toSdSgSS_SStF">distance(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds distance between an origin placemark to a destination placemark, using their labels.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destniations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distance</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L60-L62">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9distances4fromSDySSSdGSgSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/distances(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9distances4fromSDySSSdGSgSS_tF">distances(from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds distance between an origin placemark to all of destination placemarks, using its label.</p>
+
+<p>If specified label isn&rsquo;t available in origins, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distances</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L67-L69">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9distances2toSDySSSdGSgSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/distances(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9distances2toSDySSSdGSgSS_tF">distances(to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds distance between all origin placemarks to a destination placemark, using its label.</p>
+
+<p>If specified label isn&rsquo;t available in destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distances</span><span class="p">(</span><span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L74-L76">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9distances4from2toSDySSSdGSgShySSG_SStF"></a>
+                    <a name="//apple_ref/swift/Method/distances(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9distances4from2toSDySSSdGSgShySSG_SStF">distances(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds distance between some origin placemarks to a destination placemark, using their label.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distances</span><span class="p">(</span><span class="n">from</span> <span class="nv">origins</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L81-L83">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9distances4from2toSDySSSdGSgSS_ShySSGtF"></a>
+                    <a name="//apple_ref/swift/Method/distances(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9distances4from2toSDySSSdGSgSS_ShySSGtF">distances(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds distance between an origin placemark to some destination placemarks, using their label.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distances</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destinations</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L88-L90">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9distances4from2toAA5TableCySSSdGShySSG_ALtF"></a>
+                    <a name="//apple_ref/swift/Method/distances(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9distances4from2toAA5TableCySSSdGShySSG_ALtF">distances(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds distance between some origin placemarks to some destination placemarks, using their label.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distances</span><span class="p">(</span><span class="n">from</span> <span class="nv">origins</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destinations</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Classes/Table.html">Table</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Double</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L95-L103">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Duration%20convenience%20methods"></a>
+                <a name="//apple_ref/swift/Section/Duration convenience methods" class="dashAnchor"></a>
+                <a href="#/Duration%20convenience%20methods">
+                  <h3 class="section-name">Duration convenience methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV8duration4from2toSdSgAA9PlacemarkV_AKtF"></a>
+                    <a name="//apple_ref/swift/Method/duration(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV8duration4from2toSdSgAA9PlacemarkV_AKtF">duration(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds duration between an origin placemark to a destination placemark, using placemark objects.</p>
+
+<p>If specified placemarks aren&rsquo;t available in origins or destniations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">duration</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Placemark.html">Placemark</a></span><span class="p">,</span> <span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Placemark.html">Placemark</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L113-L117">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV8duration4from2toSdSgSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/duration(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV8duration4from2toSdSgSS_SStF">duration(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds duration between an origin placemark to a destination placemark, using their labels.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destniations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">duration</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L122-L124">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9durations4fromSDySSSdGSgSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/durations(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9durations4fromSDySSSdGSgSS_tF">durations(from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds duration between an origin placemark to all of destination placemarks, using its label.</p>
+
+<p>If specified label isn&rsquo;t available in origins, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">durations</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L129-L131">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9durations2toSDySSSdGSgSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/durations(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9durations2toSDySSSdGSgSS_tF">durations(to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds duration between all origin placemarks to a destination placemark, using its label.</p>
+
+<p>If specified label isn&rsquo;t available in destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">durations</span><span class="p">(</span><span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L136-L138">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9durations4from2toSDySSSdGSgShySSG_SStF"></a>
+                    <a name="//apple_ref/swift/Method/durations(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9durations4from2toSDySSSdGSgShySSG_SStF">durations(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds duration between some origin placemarks to a destination placemark, using their label.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">durations</span><span class="p">(</span><span class="n">from</span> <span class="nv">origins</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L143-L145">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9durations4from2toSDySSSdGSgSS_ShySSGtF"></a>
+                    <a name="//apple_ref/swift/Method/durations(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9durations4from2toSDySSSdGSgSS_ShySSGtF">durations(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds duration between an origin placemark to some destination placemarks, using their label.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">durations</span><span class="p">(</span><span class="n">from</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destinations</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L150-L152">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13MapirServices14DistanceMatrixC6ResultV9durations4from2toAA5TableCySSSdGShySSG_ALtF"></a>
+                    <a name="//apple_ref/swift/Method/durations(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13MapirServices14DistanceMatrixC6ResultV9durations4from2toAA5TableCySSSdGShySSG_ALtF">durations(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finds duration between some origin placemarks to some destination placemarks, using their label.</p>
+
+<p>If specified labels aren&rsquo;t available in origins or destinations, result will be <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">durations</span><span class="p">(</span><span class="n">from</span> <span class="nv">origins</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destinations</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Classes/Table.html">Table</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Double</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/map-ir/mapir-ios-sdk-services/tag/1.0.0/Source/DistanceMatrix/DistanceMatrix+Result.swift#L157-L165">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>Copyright 1399 Map</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

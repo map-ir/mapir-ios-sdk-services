@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 
   s.name                      = "MapirServices"
   s.version                   = "1.0.0"
-  s.summary                   = "a SDK to access services of Map.ir in a Swifty way."
+  s.summary                   = "A wrapper to access services of Map.ir in a Swifty way."
   s.homepage                  = "https://support.map.ir/"
 
 
@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  s.source                    = { :git => "https://github.com/map-ir/ios-sdk-v1-services", :tag => s.version }
+  s.source                    = { :git => "https://github.com/map-ir/mapir-ios-sdk-services", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
